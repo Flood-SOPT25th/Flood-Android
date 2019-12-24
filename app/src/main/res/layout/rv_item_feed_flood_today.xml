@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/iv_rv_item_feed_flood_today_user_img"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/tv_rv_item_feed_flood_today_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="정뫄뫄"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_rv_item_feed_flood_today_user_img"
+        app:layout_constraintStart_toEndOf="@+id/iv_rv_item_feed_flood_today_user_img"
+        app:layout_constraintTop_toTopOf="@+id/iv_rv_item_feed_flood_today_user_img" />
+
+    <TextView
+        android:id="@+id/tv_rv_item_feed_flood_today_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="뫄뫄 전"
+        android:textColor="@color/colorGrayD1"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_rv_item_feed_flood_today_user_name"
+        app:layout_constraintStart_toEndOf="@+id/tv_rv_item_feed_flood_today_user_name"
+        app:layout_constraintTop_toTopOf="@+id/tv_rv_item_feed_flood_today_user_name" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/btn_rv_item_feed_flood_today_more"
+        android:layout_width="0dp"
+        android:layout_height="42dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="14dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_more_gray" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tv_rv_item_feed_flood_today_user_contents"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="26dp"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:scrollHorizontally="false"
+        android:text="미래 혁신산업 발전을 위해서는 아이디어가 기술이 되고  기술이 산업에 적용될 수 있는 생태계 조성이 반드시 필 요하다 미래 혁신산업 발전을 위해서는 아이디어가 기술이 되고  기술이 산업에 적용될 수 있는 생태계 조성이 반드시 필 요하다"
+        android:textColor="@color/colorBlack28"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/iv_rv_item_feed_flood_today_user_img"
+        app:layout_constraintTop_toBottomOf="@+id/iv_rv_item_feed_flood_today_user_img" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_rv_item_feed_flood_today_pic"
+        android:layout_width="0dp"
+        android:layout_height="207dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginRight="24dp"
+        android:background="@drawable/rect_white_grayd1_12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_rv_item_feed_flood_today_user_contents">
+
+        <ImageView
+            android:id="@+id/iv_rv_item_feed_flood_today_pic_1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/ll_rv_item_feed_flood_today_pic_2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <LinearLayout
+            android:id="@+id/ll_rv_item_feed_flood_today_pic_2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:visibility="invisible"
+            android:weightSum="2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_rv_item_feed_flood_today_pic_2_1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/colorGrayD1" />
+
+            <ImageView
+                android:id="@+id/iv_rv_item_feed_flood_today_pic_2_2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="2dp"
+                android:layout_weight="1"
+                android:background="@color/colorMainBlue" />
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_rv_item_feed_flood_today_pic_3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_rv_item_feed_flood_today_pic_3_1"
+                android:layout_width="207dp"
+                android:layout_height="0dp"
+                android:background="@android:color/holo_red_light"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <ImageView
+                android:id="@+id/iv_rv_item_feed_flood_today_pic_3_2"
+                android:layout_width="0dp"
+                android:layout_height="102dp"
+                android:layout_marginStart="2dp"
+                android:background="@color/colorMainBlue"
+                app:layout_constraintEnd_toEndOf="@+id/iv_rv_item_feed_flood_today_pic_3_3"
+                app:layout_constraintStart_toEndOf="@+id/iv_rv_item_feed_flood_today_pic_3_1"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <ImageView
+                android:id="@+id/iv_rv_item_feed_flood_today_pic_3_3"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:background="@android:color/holo_blue_light"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/iv_rv_item_feed_flood_today_pic_3_1"
+                app:layout_constraintTop_toBottomOf="@+id/iv_rv_item_feed_flood_today_pic_3_2"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_rv_item_feed_flood_today_news"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/rect_white_grayd1_12dp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cl_rv_item_feed_flood_today_pic">
+
+        <TextView
+            android:id="@+id/tv_rv_item_feed_flood_today_news_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="19dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:scrollHorizontally="false"
+            android:text="대웅제약 덴티가드랩, 핀업디자인 어워드서 파이널 어쩌고 저쩌고 뫄뫄뫄뫔"
+            android:textColor="@color/colorBlack28"
+            android:textSize="22sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_rv_item_feed_flood_today_news_contents"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="22dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="대웅제약은 생애주기별로 맞춤 성분으로 만들어진 치약  ‘덴티가드랩’이 ‘2019 핀업디자이어워드’에서 패키지…"
+            android:textColor="@color/colorBlack28"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_rv_item_feed_flood_today_news_title" />
+
+        <ImageView
+            android:id="@+id/iv_tv_rv_item_feed_flood_today_news_img"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="22dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="18dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_rv_item_feed_flood_today_news_contents"
+            tools:srcCompat="@tools:sample/avatars" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="19dp"
+        android:text="Flips "
+        android:textColor="@color/colorGrayD1"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cl_rv_item_feed_flood_today_news" />
+
+    <TextView
+        android:id="@+id/tv_rv_item_feed_flood_today_flips_cnt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="000"
+        android:textColor="@color/colorGrayD1"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView13"
+        app:layout_constraintStart_toEndOf="@+id/textView13" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/btn_rv_item_feed_flood_today_comments_cnt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_rv_item_feed_flood_today_flips_cnt"
+        app:layout_constraintStart_toEndOf="@+id/tv_rv_item_feed_flood_today_flips_cnt"
+        app:layout_constraintTop_toTopOf="@+id/tv_rv_item_feed_flood_today_flips_cnt">
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="Comments "
+            android:textColor="@color/colorGrayD1"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_rv_item_feed_flood_today_comments_cnt"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_rv_item_feed_flood_today_comments_cnt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:text="00"
+            android:textColor="@color/colorGrayD1"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView15"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView15" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/btn_rv_item_feed_flood_today_flips_flag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/selector_flips_flag_black"
+        android:elevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cl_rv_item_feed_flood_today_news" />
+
+    <View
+        android:id="@+id/view3"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_marginTop="23dp"
+        android:background="@color/colorGrayD1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_rv_item_feed_flood_today_flips_flag" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="31dp"
+        android:background="@drawable/rect_white_blue_11dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_rv_item_feed_flood_today_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="2dp"
+            android:text="카테고리 먕먕"
+            android:textColor="@color/colorMainBlue"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lineHeight="18sp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,16 +9,15 @@ import android.view.ViewGroup
 
 import com.flood_android.R
 
-class FeedFragment : Fragment() {
+class FeedCategoryFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_feed, container, false)
+        return inflater.inflate(R.layout.fragment_feed_category, container, false)
     }
-
 
 
 }
