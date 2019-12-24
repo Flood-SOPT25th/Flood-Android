@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white">
+
+    <ImageView
+        android:id="@+id/iv_rv_item_feed_flood_top3"
+        android:layout_width="0dp"
+        android:layout_height="270dp"
+        android:layout_marginTop="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:background="@drawable/gradient_72_00"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_rv_item_feed_flood_top3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/iv_rv_item_feed_flood_top3"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/tv_rv_item_feed_flood_top3_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="23dp"
+        android:layout_marginEnd="30dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:scrollHorizontally="false"
+        android:text="이제 아이폰으로 대중교통 이용할 수 있다고? 블라블라블라블라"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/btn_rv_item_feed_flood_top3_more"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/iv_rv_item_feed_flood_top3" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/btn_rv_item_feed_flood_top3_more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/iv_rv_item_feed_flood_top3"
+        app:layout_constraintTop_toTopOf="@+id/iv_rv_item_feed_flood_top3">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="11dp"
+            android:layout_marginBottom="11dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_more_white" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="23dp"
+        android:layout_marginBottom="26dp"
+        android:shadowColor="#29000000"
+        android:shadowDx="5.0"
+        android:shadowDy="50"
+        android:shadowRadius="100"
+        android:text="Flips "
+        android:textColor="@android:color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_rv_item_feed_flood_top3"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_rv_item_feed_flood_top3_flips_cnt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="26dp"
+        android:shadowColor="#29000000"
+        android:shadowDx="5.0"
+        android:shadowDy="50"
+        android:shadowRadius="100"
+        android:text="32"
+        android:textColor="@android:color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_rv_item_feed_flood_top3"
+        app:layout_constraintStart_toEndOf="@+id/textView5" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/btn_rv_item_feed_flood_top3_comments"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_rv_item_feed_flood_top3"
+        app:layout_constraintStart_toEndOf="@+id/tv_rv_item_feed_flood_top3_flips_cnt">
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="26dp"
+            android:shadowColor="#29000000"
+            android:shadowDx="5.0"
+            android:shadowDy="50"
+            android:shadowRadius="100"
+            android:text="Comments "
+            android:textColor="@android:color/white"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_rv_item_feed_flood_top3_comments_cnt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:text="00"
+            android:textColor="@android:color/white"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView9"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView9"
+            app:layout_constraintTop_toTopOf="@+id/textView9" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/btn_rv_item_feed_flood_top3_flips_flag"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="9dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_rv_item_feed_flood_top3"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_rv_item_feed_flood_top3_flips_flag"
+            android:layout_width="27dp"
+            android:layout_height="27dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/selector_flips_flag_white"
+            android:elevation="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </ImageView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_rv_item_feed_flood_top3_user_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="26dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_rv_item_feed_flood_top3">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_rv_item_feed_flood_top3_user"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginStart="24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/tv_rv_item_feed_flood_top3_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="김뫄뫄"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_rv_item_feed_flood_top3_user"
+            app:layout_constraintStart_toEndOf="@+id/iv_rv_item_feed_flood_top3_user"
+            app:layout_constraintTop_toTopOf="@+id/iv_rv_item_feed_flood_top3_user" />
+
+        <TextView
+            android:id="@+id/tv_rv_item_feed_flood_top3_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="뫄뫄 전"
+            android:textColor="@color/colorGrayD1"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_rv_item_feed_flood_top3_user_name"
+            app:layout_constraintStart_toEndOf="@+id/tv_rv_item_feed_flood_top3_user_name"
+            app:layout_constraintTop_toTopOf="@+id/tv_rv_item_feed_flood_top3_user_name" />
+
+        <TextView
+            android:id="@+id/tv_rv_item_feed_flood_top3_contents"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="24dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:scrollHorizontally="false"
+            android:text="어쩌고 저쩌고 렛잇고 플러드 짱짱짱 바라바바라바바바바바바바바바밥 보보보보보보보보보보보보 뷰뷰뷰뷰뷰뷰뷰뷰뷰븁ㅂ부부부부버바바바바바바"
+            android:textColor="@color/colorBlack28"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_rv_item_feed_flood_top3_user" />
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_marginTop="26dp"
+            android:background="@color/colorGrayD0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_rv_item_feed_flood_top3_contents" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

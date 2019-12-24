@@ -3,7 +3,8 @@ package com.flood_android.util
 import android.os.SystemClock
 import android.view.View
 
-abstract class onSingleClickListener : View.OnClickListener {
+abstract class OnSingleClickListener : View.OnClickListener {
+
     private var mLastClickTime: Long = 0
 
     abstract fun onSingleClick(v: View)
