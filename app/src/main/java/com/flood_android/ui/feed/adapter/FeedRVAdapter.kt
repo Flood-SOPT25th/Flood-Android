@@ -1,6 +1,7 @@
 package com.flood_android.ui.feed.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +12,9 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.flood_android.R
+import com.flood_android.ui.feed.WebViewActivity
 import com.flood_android.ui.feed.data.FeedData
+import com.flood_android.util.OnSingleClickListener
 
 class FeedRVAdapter (private val ctx : Context, var dataList: ArrayList<FeedData>): RecyclerView.Adapter<FeedRVAdapter.Holder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedRVAdapter.Holder {
@@ -87,6 +90,13 @@ class FeedRVAdapter (private val ctx : Context, var dataList: ArrayList<FeedData
                 }
             }
 
+            holder.container_news.setOnClickListener { (object : OnSingleClickListener(){
+                override fun onSingleClick(v: View) {
+                    val intent = Intent(ctx, WebViewActivity::class.java)
+                    intent.putExtra("url", item.news_url)
+                }
+            }) }
+
             holder.news_title.text = item.news_title
             holder.news_contents.text = item.news_contents
 
@@ -115,6 +125,8 @@ class FeedRVAdapter (private val ctx : Context, var dataList: ArrayList<FeedData
         var pic3_1 = itemView.findViewById(R.id.iv_rv_item_feed_flood_today_pic_3_1) as ImageView
         var pic3_2 = itemView.findViewById(R.id.iv_rv_item_feed_flood_today_pic_3_2) as ImageView
         var pic3_3 = itemView.findViewById(R.id.iv_rv_item_feed_flood_today_pic_3_3) as ImageView
+        
+        var container_news = itemView.findViewById(R.id.cl_rv_item_feed_flood_today_news) as ConstraintLayout
 
         var news_title = itemView.findViewById(R.id.tv_rv_item_feed_flood_today_news_title) as TextView
         var news_contents = itemView.findViewById(R.id.tv_rv_item_feed_flood_today_news_contents) as TextView

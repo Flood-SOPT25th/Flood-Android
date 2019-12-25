@@ -7,6 +7,7 @@ data class FeedData (
     var time : String,
     var contents : String,
     var pic_list : ArrayList<String>,
+    var news_url : String,
     var news_title : String,
     var news_contents : String,
     var flips_num : Int,

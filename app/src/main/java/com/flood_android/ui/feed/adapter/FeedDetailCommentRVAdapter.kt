@@ -11,7 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.flood_android.R
+import com.flood_android.ui.feed.FeedDetailActivity
 import com.flood_android.ui.feed.data.FeedDetailCommentData
+import com.flood_android.util.OnSingleClickListener
 
 class FeedDetailCommentRVAdapter(
     private val ctx: Context,
@@ -41,12 +43,17 @@ class FeedDetailCommentRVAdapter(
             holder.time.text = item.time
             holder.commentContents.text = item.contents
 
-            holder.btnRecomment.setOnClickListener{
-                //댓글에서 답글달기 클릭했을 때 처리하기
+            // 댓글에서 답글달기 클릭했을 때 처리하기
+            holder.btnRecomment.setOnClickListener {
+                (object : OnSingleClickListener() {
+                    override fun onSingleClick(v: View) {
+                        (ctx as FeedDetailActivity).recomment(item.user_name)
+                    }
+                })
             }
 
-            holder.recomments?.apply {
-                adapter = FeedDetailRecommentRVAdapter(context!!, item.recomment_list)
+            holder.recomments.apply {
+                adapter = FeedDetailRecommentRVAdapter(context!!, item.recomment_list!!)
                 layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL, false)
             }
 
@@ -54,11 +61,16 @@ class FeedDetailCommentRVAdapter(
     }
 
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var userImg = itemView.findViewById(R.id.iv_rv_item_feed_detail_comment_user_img) as ImageView
-        var userName = itemView.findViewById(R.id.tv_rv_item_feed_detail_comment_user_name) as TextView
+        var userImg =
+            itemView.findViewById(R.id.iv_rv_item_feed_detail_comment_user_img) as ImageView
+        var userName =
+            itemView.findViewById(R.id.tv_rv_item_feed_detail_comment_user_name) as TextView
         var time = itemView.findViewById(R.id.tv_rv_item_feed_detail_comment_time) as TextView
-        var commentContents = itemView.findViewById(R.id.tv_rv_item_feed_detail_comment_contents) as TextView
-        var btnRecomment = itemView.findViewById(R.id.btn_rv_item_feed_detail_comment_recomment) as ConstraintLayout
-        var recomments = itemView.findViewById(R.id.rv_rv_item_feed_detail_comment_recomment) as RecyclerView
+        var commentContents =
+            itemView.findViewById(R.id.tv_rv_item_feed_detail_comment_contents) as TextView
+        var btnRecomment =
+            itemView.findViewById(R.id.btn_rv_item_feed_detail_comment_recomment) as ConstraintLayout
+        var recomments =
+            itemView.findViewById(R.id.rv_rv_item_feed_detail_comment_recomment) as RecyclerView
     }
 }
