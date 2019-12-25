@@ -25,17 +25,7 @@ class FeedFloodFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_feed_flood, container, false)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        //Feed 탭 처음에 flood 카테고리 화면을 띄우도록
-        val transaction: FragmentTransaction = (context as MainActivity).supportFragmentManager.beginTransaction()
-        transaction.add(R.id.fl_feed_fragment_frag, FeedFloodFragment())
-        transaction.addToBackStack(null)
-        transaction.commit()
     }
 
     //Flood Top3 서버 통신
@@ -50,8 +40,9 @@ class FeedFloodFragment : Fragment() {
 
     // Top3 리사이클러뷰
     private fun setTop3RecyclerView(){
+        feedTop3RVAdapter = FeedTop3RVAdapter(context!!, top3DataList)
         rv_feed_flood_top3.apply{
-            adapter = FeedTop3RVAdapter(context!!, top3DataList)
+            adapter = feedTop3RVAdapter
             layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL, false)
         }
     }
@@ -61,8 +52,9 @@ class FeedFloodFragment : Fragment() {
      */
     // Today 리사이클러뷰
     private fun setTodayRecyclerView(){
+        feedRVAdapter =  FeedRVAdapter(context!!, todayDataList)
         rv_feed_flood_today.apply {
-            adapter = FeedRVAdapter(context!!, todayDataList)
+            adapter =feedRVAdapter
             layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL, false)
         }
     }
