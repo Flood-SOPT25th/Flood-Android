@@ -5,7 +5,7 @@ data class FeedDetailCommentData (
     var user_name : String,
     var contents : String,
     var time : String,
-    var recomment_list : ArrayList<FeedDetailRecommentData>
+    var recomment_list : ArrayList<FeedDetailRecommentData>?
 )
 
 data class FeedDetailRecommentData(
