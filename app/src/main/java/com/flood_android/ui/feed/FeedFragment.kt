@@ -1,17 +1,21 @@
 package com.flood_android.ui.feed
 
 
-import android.content.Intent
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.flood_android.R
 import com.flood_android.ui.main.MainActivity
 import com.flood_android.util.OnSingleClickListener
+import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.fragment_feed.*
+import kotlinx.android.synthetic.main.toast_feed_save_flips_category.*
+
 
 class FeedFragment : Fragment() {
 
@@ -41,6 +45,21 @@ class FeedFragment : Fragment() {
                 //context.startActivity(intent)
             }
         })
+    }
+
+    private fun makeToast(category : String){
+        var inflater : LayoutInflater = layoutInflater
+        val toastDesign = inflater.inflate(
+            R.layout.toast_feed_save_flips_category,
+            (R.id.cl_feed_save_flips_category) as ViewGroup
+        )
+        tv_feed_save_flips_category.text = category
+
+        var toast : Toast = Toast(context)
+        toast.setGravity(Gravity.CENTER, 0, 0)  //center를 기준으로 0 0 위치에 메시지 출력
+        toast.duration = Toast.LENGTH_SHORT
+        toast.view = toastDesign
+        toast.show()
     }
 
     private fun setVisible(view: View) {

@@ -48,8 +48,9 @@ class FeedFloodFragment : Fragment() {
     }
 
     /**
-     *  페이징 처리하기!!!!!!!!!!!!!!!!!!!1
+     *  페이징 처리하기!!!!!!!!!!!!!!!!!!!
      */
+
     // Today 리사이클러뷰
     private fun setTodayRecyclerView(){
         feedRVAdapter =  FeedRVAdapter(context!!, todayDataList)
