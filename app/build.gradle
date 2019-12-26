@@ -51,4 +51,6 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     // 카드뷰
     implementation "androidx.cardview:cardview:1.0.0"
+    // 권한 허용
+    implementation "gun0912.ted:tedpermission:2.1.0"
 }
