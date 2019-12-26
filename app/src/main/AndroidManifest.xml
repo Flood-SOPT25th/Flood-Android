@@ -2,8 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.flood_android">
     <!-- 네트워크 허용 -->
-    <uses-permission android:name="android.permission.INTERNET" /> <!-- 이건 아직 뭔지 모름 -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -13,6 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.bookmarkedit.BookmarkEditActivity"></activity>
+        <activity android:name=".ui.feed.WebViewActivity"></activity>
+        <activity android:name=".ui.feed.FeedDetailActivity" />
         <activity android:name=".ui.signup.SignupActivity" />
         <activity android:name=".ui.login.LoginActivity" />
         <activity android:name=".ui.splash.SplashActivity" />
