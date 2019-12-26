@@ -10,6 +10,7 @@ import com.flood_android.R
 import com.flood_android.ui.alarm.AlarmFragment
 import com.flood_android.ui.company.CompanyFragment
 import com.flood_android.ui.feed.FeedFragment
+import com.flood_android.ui.post.PostActivity
 import com.flood_android.ui.write.WriteActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -28,7 +29,7 @@ class MainActivity : AppCompatActivity() {
             replaceFragment(CompanyFragment())
         }
         iv_main_tab_write.setOnClickListener{
-            val intent = Intent(this@MainActivity, WriteActivity::class.java)
+            val intent = Intent(this@MainActivity, PostActivity::class.java)
             startActivity(intent)
         }
         iv_main_tab_alarm.setOnClickListener{
