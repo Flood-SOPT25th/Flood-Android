@@ -5,11 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import com.flood_android.MypageFragment
 import com.flood_android.R
 import com.flood_android.ui.alarm.AlarmFragment
 import com.flood_android.ui.company.CompanyFragment
 import com.flood_android.ui.feed.FeedFragment
-import com.flood_android.ui.mypage.MypageFragment
 import com.flood_android.ui.write.WriteActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
