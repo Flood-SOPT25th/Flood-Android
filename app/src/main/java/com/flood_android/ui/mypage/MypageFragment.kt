@@ -13,7 +13,7 @@ import com.flood_android.network.ApplicationController
 import com.flood_android.network.Jihee.MypageMyflipRvItem
 import com.flood_android.ui.bookmarkedit.BookmarkEditActivity
 import com.flood_android.ui.mypage.adapter.MyPageRVViewHolder
-import com.flood_android.util.onSingleClickListener
+import com.flood_android.util.OnSingleClickListener
 import kotlinx.android.synthetic.main.fragment_mypage.*
 
 
@@ -41,7 +41,7 @@ class MypageFragment : Fragment() {
         //서버에서 데이터 객체 받아와서 성공 시 extension 함수 이용해 호출하고 받은 데이터 객체를
         //ApplicationController.instance.networkServiceUser.enqueue(mypageMyflipdata)
 
-        imgbtn_mypage_myflip_plus.setOnClickListener(object : onSingleClickListener() {
+        imgbtn_mypage_myflip_plus.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(v: View) {
                 var intent = Intent(context, BookmarkEditActivity::class.java)
                 startActivity(intent)
