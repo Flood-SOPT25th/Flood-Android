@@ -53,4 +53,6 @@ dependencies {
     implementation "androidx.cardview:cardview:1.0.0"
     // 권한 허용
     implementation "gun0912.ted:tedpermission:2.1.0"
+    // 다이얼로그 커스텀
+    implementation 'com.orhanobut:dialogplus:1.11@aar'
 }

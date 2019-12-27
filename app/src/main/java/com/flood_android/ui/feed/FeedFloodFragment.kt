@@ -1,9 +1,11 @@
 package com.flood_android.ui.feed
 
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,6 +16,7 @@ import com.flood_android.ui.feed.data.FeedData
 import com.flood_android.ui.feed.data.FeedTop3Data
 import com.flood_android.ui.main.MainActivity
 import kotlinx.android.synthetic.main.fragment_feed_flood.*
+import kotlinx.android.synthetic.main.toast_feed_save_flips_category.*
 
 class FeedFloodFragment : Fragment() {
     var top3DataList : ArrayList<FeedTop3Data> = ArrayList()
@@ -59,5 +62,4 @@ class FeedFloodFragment : Fragment() {
             layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL, false)
         }
     }
-
 }
