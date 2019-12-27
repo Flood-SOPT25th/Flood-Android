@@ -7,14 +7,23 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.flood_android.MypageFragment
 import com.flood_android.R
+import com.flood_android.network.ApplicationController
+import com.flood_android.network.NetworkServiceFeed
 import com.flood_android.ui.alarm.AlarmFragment
 import com.flood_android.ui.company.CompanyFragment
 import com.flood_android.ui.feed.FeedFragment
+import com.flood_android.ui.feed.data.PostBookmarkCancelResponse
 import com.flood_android.ui.post.PostActivity
 import com.flood_android.ui.write.WriteActivity
+import com.flood_android.util.safeEnqueue
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
+    val networkService: NetworkServiceFeed by lazy {
+        ApplicationController.networkServiceFeed
+    }
+    var token : String = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVoZGduczE3NjZAZ21haWwuY29tIiwibmFtZSI6IuydtOuPme2biCIsImlhdCI6MTU3NzQwNzg1NiwiZXhwIjoxNTc5OTk5ODU2LCJpc3MiOiJGbG9vZFNlcnZlciJ9.Zf_LNfQIEdFl84r-tPQpT1nLaxdotkFutOxwNQy-w58"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -113,4 +122,14 @@ class MainActivity : AppCompatActivity() {
 //        }
         }
 
+//    /**
+//     *  북마크 취소 서버 통신
+//     */
+//    private var successPostBookmarkCancelSuccess : (PostBookmarkCancelResponse)  -> Unit  = {
+//
+//    }
+//
+//    fun postBookmarkCancelResponse(token : String){
+//
+//    }
 }

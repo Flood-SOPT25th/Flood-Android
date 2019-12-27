@@ -83,8 +83,10 @@ class FeedTop3RVAdapter(val ctx: Context, var dataList: ArrayList<FeedTop3Data>)
 
             holder.btnFlips.setOnClickListener  (object : OnSingleClickListener(){
                 override fun onSingleClick(v: View) {
-                    if (holder.ivFlips.isSelected)      //북마크 취소
+                    if (holder.ivFlips.isSelected) {     //북마크 취소
                         holder.ivFlips.isSelected = false
+
+                }
                     else{   // 북마크하기
                         (FeedFragment()).makeFlipDialog(holder.ivFlips)
                     }
