@@ -17,10 +17,8 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.flood_android.R
 import com.flood_android.network.ApplicationController
-import com.flood_android.util.OnSingleClickListener
-import com.flood_android.util.myNameIS09
-import com.flood_android.util.safeEnqueue
-import com.flood_android.util.toast
+import com.flood_android.ui.post.get.PostCategoryData
+import com.flood_android.util.*
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import kotlinx.android.synthetic.main.activity_post.*
@@ -36,13 +34,9 @@ import java.io.InputStream
 
 class PostActivity : AppCompatActivity() {
 
-    /* val networkService: NetworkService by lazy {
-         ApplicationController.instance.networkService
-     }*/
-
     private var PICTURE_REQUEST_CODE: Int = 100
     val uploadImageList = ArrayList<PostPostImageData>()
-    var images : ArrayList<MultipartBody.Part>? = ArrayList()
+    var images: ArrayList<MultipartBody.Part>? = ArrayList()
     var photobody: MultipartBody.Part? = null
 
     private val categoryDialog by lazy {
@@ -52,6 +46,7 @@ class PostActivity : AppCompatActivity() {
     private val postSetCategoryDialog by lazy {
         PostSetCategoryDialog()
     }
+    lateinit var categoryList: List<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,8 +58,20 @@ class PostActivity : AppCompatActivity() {
         // 사진 리싸이클러뷰
         configureRecyclerView()
         setPostBtn()
+        getPostCategory()
     }
 
+
+    private fun getPostCategory() {
+        val getPostResponse = ApplicationController.networkServiceFeed
+            .getPostResponse("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVoZGduczE3NjZAZ21haWwuY29tIiwibmFtZSI6IuydtOuPme2biCIsImlhdCI6MTU3NzQwNzg1NiwiZXhwIjoxNTc5OTk5ODU2LCJpc3MiOiJGbG9vZFNlcnZlciJ9.Zf_LNfQIEdFl84r-tPQpT1nLaxdotkFutOxwNQy-w58")
+
+        getPostResponse.safeEnqueue {
+            if (it.message == "그룹 카테고리 조회 성공") {
+                GlobalData.categoryList = it.data.category
+            }
+        }
+    }
 
     override fun onResume() {
         super.onResume()
@@ -100,7 +107,8 @@ class PostActivity : AppCompatActivity() {
                                     MediaType.parse("image/jpg"),
                                     byteArrayOutputStream.toByteArray()
                                 )
-                            photobody = MultipartBody.Part.createFormData("images", "abcd", photobodyPre)
+                            photobody =
+                                MultipartBody.Part.createFormData("images", "abcd", photobodyPre)
 
                             // 클립데이터의 uri을 리사이클러뷰 데이터 클래스에 추가하기.
                             uploadImageList.add(PostPostImageData(item.uri.toString()))
@@ -147,11 +155,8 @@ class PostActivity : AppCompatActivity() {
         }
         // 카테고리 변경 버튼
         iv_post_add_category.setOnClickListener {
-            var orgCategory = arrayListOf("IT", "디자인", "컴퓨터")
-
-            val bundle = Bundle()
-            bundle.putSerializable("categoryList", orgCategory)
-            categoryDialog.arguments = bundle
+            //var orgCategory = arrayListOf("IT", "디자인", "컴퓨터")
+            // 다이얼로그 호출하기 전에 글로벌 데이터 불러오기!
 
             categoryDialog.show(supportFragmentManager, "category dialog")
         }
@@ -176,12 +181,11 @@ class PostActivity : AppCompatActivity() {
     }
 
     // 게시물 올리기 통신
-    var temp: (PostPostResponse) -> Unit = {
-       Log.v("Postygyg", it.message)
-    }
-
     var fail: (Throwable) -> Unit = {
         Log.v("Postygyg", it.toString())
+    }
+    var temp: (PostPostResponse) -> Unit = {
+        Log.v("Postygyg", it.message)
     }
 
     private fun postPost(
@@ -191,37 +195,10 @@ class PostActivity : AppCompatActivity() {
         category: RequestBody,
         content: RequestBody
     ) {
-        val postPostResponse = ApplicationController.instance.networkServiceFeed
-            .postPostResponse(token,images, url, category, content)
-        val message: String = "12121212"
+        val postPostResponse = ApplicationController.networkServiceFeed
+            .postPostResponse(token, images, url, category, content)
 
-        postPostResponse.safeEnqueue (fail, temp)
-
-
-        Log.v("aaaa", message)
-
-
-        // 게시물 올리기 통신
-        /*postPostResponse.enqueue(object : Callback<PostPostResponse> {
-            override fun onFailure(call: Call<PostPostResponse>, t: Throwable) {
-                Log.e("PostPost fail", t.toString())
-            }
-
-            override fun onResponse(
-                call: Call<PostPostResponse>,
-                response: Response<PostPostResponse>
-            ) {
-                // 작품 등록 성공
-                response?.takeIf { it.isSuccessful }
-                    ?.body()?.takeIf { it.message == "성공" }
-                    ?.let {
-                        Log.e("통신", "성공")
-                    }
-            }
-        })*/
-//
-//        val postPostResponse = PostPostResponse("aaa")
-//        val post =
+        postPostResponse.safeEnqueue(fail, temp)
     }
 
     private fun getPermission() {
@@ -293,6 +270,7 @@ class PostActivity : AppCompatActivity() {
         Log.e("청하", tv_post_selected_category.text.toString())
     }
 
+    // 게시물 '게시' 글자 활성화
     private fun setPostBtn() {
         var url = edt_post_url.text
         var content = edt_post_content.text
@@ -328,6 +306,7 @@ class PostActivity : AppCompatActivity() {
             }
         })
 
+        // 게시물 등록 버튼
         tv_post_post.setOnClickListener {
             Log.e("청하", "1")
             var category = tv_post_selected_category.text.toString()
@@ -339,12 +318,15 @@ class PostActivity : AppCompatActivity() {
                     postSetCategoryDialog.show(supportFragmentManager, "postSetCategoryDialog")
                 } else {
                     // 여기서 서버 통신
-                    val url2 = RequestBody.create(MediaType.parse("text/plain"), "https://www.naver.com/")
+                    val url2 =
+                        RequestBody.create(MediaType.parse("text/plain"), "https://www.naver.com/")
                     val content2 = RequestBody.create(MediaType.parse("text/plain"), "content")
                     val category2 = RequestBody.create(MediaType.parse("text/plain"), "category")
                     //photobody = MultipartBody.Part.createFormData("images", "", "32323")
-                    postPost("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVoZGduczE3NjZAZ21haWwuY29tIiwibmFtZSI6IuydtOuPme2biCIsImlhdCI6MTU3NzQwNzg1NiwiZXhwIjoxNTc5OTk5ODU2LCJpc3MiOiJGbG9vZFNlcnZlciJ9.Zf_LNfQIEdFl84r-tPQpT1nLaxdotkFutOxwNQy-w58",
-                        images, url2, category2, content2)
+                    postPost(
+                        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVoZGduczE3NjZAZ21haWwuY29tIiwibmFtZSI6IuydtOuPme2biCIsImlhdCI6MTU3NzQwNzg1NiwiZXhwIjoxNTc5OTk5ODU2LCJpc3MiOiJGbG9vZFNlcnZlciJ9.Zf_LNfQIEdFl84r-tPQpT1nLaxdotkFutOxwNQy-w58",
+                        images, url2, category2, content2
+                    )
                 }
             }
         }

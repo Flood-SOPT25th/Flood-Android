@@ -10,13 +10,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 
 import com.flood_android.R
+import com.flood_android.util.GlobalData
 import kotlinx.android.synthetic.main.fragment_post_category_dialog.*
 import java.io.Serializable
 
 class PostCategoryDialog : DialogFragment() {
-
-    lateinit var orgCategory: Serializable
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,15 +23,13 @@ class PostCategoryDialog : DialogFragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_post_category_dialog, container, false)
 
-        Log.e("청하", orgCategory.toString())
-        var orgCategory = arguments!!.getSerializable("categoryList")
-
     }
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        var orgCategory = arguments!!.getSerializable("categoryList")
+        var orgCategory = GlobalData.categoryList
         setView(orgCategory)
+        Log.v("CategoryDialog", orgCategory.toString())
 
         btn_category_done.setOnClickListener {
             (context as PostActivity).setCategory(tv_category_dialog.text)
@@ -41,7 +37,8 @@ class PostCategoryDialog : DialogFragment() {
         }
     }
 
-    private fun setView(orgCategory: Serializable?) {
+    private fun setView(orgCategory: List<String>?) {
+        // 리싸이클러뷰
         tv_category_dialog.text = orgCategory.toString()
     }
 

@@ -8,6 +8,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -80,6 +81,12 @@ class FeedDetailActivity : AppCompatActivity() {
                 }
             })
         }
+
+        btn_feed_detail_flips.setOnClickListener (object : OnSingleClickListener(){
+            override fun onSingleClick(v: View) {
+                postComment()
+            }
+        })
     }
 
     private fun focusKeyboard() {
@@ -132,6 +139,16 @@ class FeedDetailActivity : AppCompatActivity() {
 
     // 댓글 게시 서버 통신
     private fun postComment() {
+        val ivFlips  = findViewById(R.id.iv_feed_detail_flips) as ImageView
+        if (ivFlips.isSelected)      //북마크 취소
+            ivFlips.isSelected = false
+        else{   // 북마크하기
+            (applicationContext as FeedFragment).makeFlipDialog(ivFlips)
+        }
+    }
+
+    //
+    private fun setFlips(){
 
     }
 }
