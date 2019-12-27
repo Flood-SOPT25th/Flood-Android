@@ -8,7 +8,7 @@ class ApplicationController: Application() {
     lateinit var networkServiceFeed: NetworkServiceFeed
     lateinit var networkServiceUser: NetworkServiceUser
 
-    private val baseUrl = ""
+    private val baseUrl = "http://flooddocker-env.3gfczrrijh.ap-northeast-2.elasticbeanstalk.com/"
 
     companion object {
         lateinit var instance : ApplicationController

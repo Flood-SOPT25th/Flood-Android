@@ -8,17 +8,17 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface NetworkServiceFeed {
-    @GET("/group/category")
+    @GET("group/category")
     fun getFeedCategoryResponse(
     ): Call<GetFeedCategoryResponse>
 
     @Multipart
-    @POST("/post")
+    @POST("post")
     fun postPostResponse(
-        @Header("token") token: String,
-        @Part images: MultipartBody.Part?,
+        @Header("Authorization") token: String,
+        @Part images: ArrayList<MultipartBody.Part>?,
         @Part("url") url: RequestBody,
         @Part("category") category: RequestBody,
-        @Part("content") content: RequestBody
+        @Part("postContent") content: RequestBody
     ): Call<PostPostResponse>
 }
