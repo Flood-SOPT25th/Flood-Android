@@ -34,10 +34,10 @@ class PostPostAdapter (private val ctx: Context, var data: ArrayList<PostPostIma
 
             holder.closeIv.setOnClickListener{
                 try{
-                    imgsDataList.removeAt(position);
+                    imgsDataList.removeAt(position)
                     //(ctx as ReviewWriteActivity).deleteClipDataItem(item.idx)
                     data.removeAt(position);
-                    this.notifyDataSetChanged();
+                    this.notifyDataSetChanged()
                 }
                 catch(e: SQLException){
                     e.printStackTrace()

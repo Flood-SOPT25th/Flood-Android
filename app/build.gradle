@@ -57,4 +57,5 @@ dependencies {
     implementation "gun0912.ted:tedpermission:2.1.0"
     // 다이얼로그 커스텀
     implementation 'com.orhanobut:dialogplus:1.11@aar'
+
 }

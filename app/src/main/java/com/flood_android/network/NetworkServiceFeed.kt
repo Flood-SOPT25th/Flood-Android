@@ -26,10 +26,10 @@ interface NetworkServiceFeed {
     @Multipart
     @POST("/post")
     fun postPostResponse(
-        @Header("token") token: String,
-        @Part images: MultipartBody.Part?,
+        @Header("Authorization") token: String,
+        @Part images: ArrayList<MultipartBody.Part>?,
         @Part("url") url: RequestBody,
         @Part("category") category: RequestBody,
-        @Part("content") content: RequestBody
+        @Part("postContent") content: RequestBody
     ): Call<PostPostResponse>
 }
