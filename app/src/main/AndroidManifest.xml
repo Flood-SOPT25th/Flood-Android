@@ -15,6 +15,7 @@
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ui.bookmarkedit.BookmarkEditActivity"></activity>
         <activity android:name=".ui.feed.WebViewActivity"></activity>
         <activity android:name=".ui.feed.FeedDetailActivity" />
         <activity android:name=".ui.signup.SignupActivity" />
@@ -28,6 +29,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.post.PostActivity"/>
     </application>
 
 </manifest>

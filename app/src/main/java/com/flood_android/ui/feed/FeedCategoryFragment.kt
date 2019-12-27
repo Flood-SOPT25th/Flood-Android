@@ -15,6 +15,10 @@ import kotlinx.android.synthetic.main.fragment_feed.*
 
 class FeedCategoryFragment : Fragment() {
 
+    companion object{
+        var instance : FeedCategoryFragment = FeedCategoryFragment()
+    }
+
     var feedDataList: ArrayList<FeedData> = ArrayList()
     lateinit var feedRVAdapter: FeedRVAdapter
 

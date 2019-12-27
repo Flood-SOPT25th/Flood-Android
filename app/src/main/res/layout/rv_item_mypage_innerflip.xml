@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/iv_mypage_myflip_1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintWidth_percent="0.5"
+        tools:src="@mipmap/mypage_myflip_image1"
+        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_mypage_myflip_2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintWidth_percent="0.5"
+        app:layout_constraintDimensionRatio="1"
+        android:paddingLeft="1dp"
+        tools:src="@mipmap/mypage_myflip_image2"
+        app:layout_constraintStart_toEndOf="@id/iv_mypage_myflip_1"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/iv_mypage_myflip_2_empty"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#f8f9fa"
+        android:paddingLeft="1dp"
+        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintStart_toEndOf="@id/iv_mypage_myflip_1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.5" />
+
+    <ImageView
+        android:id="@+id/iv_mypage_myflip_3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintWidth_percent="0.5"
+        app:layout_constraintDimensionRatio="1"
+        android:paddingTop="1dp"
+        tools:src="@mipmap/mypage_myflip_image3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_mypage_myflip_1"
+        />
+
+    <ImageView
+        android:id="@+id/iv_mypage_myflip_3_empty"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintWidth_percent="0.5"
+        app:layout_constraintDimensionRatio="1"
+        android:paddingTop="1dp"
+        android:background="#f8f9fa"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_mypage_myflip_1"
+        />
+
+    <ImageView
+        android:id="@+id/iv_mypage_myflip_4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintWidth_percent="0.5"
+        app:layout_constraintDimensionRatio="1"
+        android:paddingLeft="1dp"
+        android:paddingTop="1dp"
+        tools:src="@mipmap/mypage_myflip_image4"
+        app:layout_constraintStart_toEndOf="@id/iv_mypage_myflip_3"
+        app:layout_constraintTop_toBottomOf="@id/iv_mypage_myflip_2"
+        />
+
+    <ImageView
+        android:id="@+id/iv_mypage_myflip_4_empty"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintWidth_percent="0.5"
+        app:layout_constraintDimensionRatio="1"
+        android:paddingLeft="1dp"
+        android:paddingTop="1dp"
+        android:background="#f8f9fa"
+        app:layout_constraintStart_toEndOf="@id/iv_mypage_myflip_3"
+        app:layout_constraintTop_toBottomOf="@id/iv_mypage_myflip_2"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>

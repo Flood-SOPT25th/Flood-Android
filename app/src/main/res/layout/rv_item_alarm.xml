@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:id="@+id/rv_item_alarm_constraintlayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ivcircular_rv_item_alarm_user"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars[15]" />
+
+    <TextView
+        android:id="@+id/tv_rv_item_alarm_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:fontFamily="@font/notosanscjkkrbold"
+        android:lineSpacingExtra="6sp"
+        android:text="선지희"
+        android:textColor="#282828"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivcircular_rv_item_alarm_user"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/tv_rv_item_alarm_action"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/notosanscjkkrregular"
+        android:lineSpacingExtra="6sp"
+        android:text="님이 게시물에 댓글을 남겼습니다."
+        android:textColor="#282828"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_rv_item_alarm_username"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/iv_rv_item_alarm_recent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/circle_blue_4dp"
+        android:layout_marginEnd="24dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="@id/tv_rv_item_alarm_action"
+        app:layout_constraintBottom_toBottomOf="@id/tv_rv_item_alarm_action"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/tv_rv_item_alarm_comment"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:fontFamily="@font/notosanscjkkrregular"
+        android:lineSpacingExtra="6sp"
+        android:maxLines="2"
+        android:text=": 울라불라우두후두어떠더떠피곤곤피룰루퍄퍄우룰라랄~
+우쟈챠야러안ㅇ러ㅏㅓ아ㅓ라어라너ㅏㅇ러ㅏㅇㄴ러ㅏㅇ러ㅏㅇ러아렁나ㅓdfsdfㄹ"
+        android:textColor="#282828"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tv_rv_item_alarm_username"
+        app:layout_constraintTop_toBottomOf="@+id/tv_rv_item_alarm_username" />
+
+    <TextView
+        android:id="@+id/tv_rv_item_alarm_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/notosanscjkkrregular"
+        android:lineSpacingExtra="6sp"
+        android:text="3시간 전"
+        android:textColor="#282828"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tv_rv_item_alarm_username"
+        app:layout_constraintTop_toBottomOf="@+id/tv_rv_item_alarm_comment"
+
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

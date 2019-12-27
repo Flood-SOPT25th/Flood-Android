@@ -1,6 +1,7 @@
 package com.flood_android.ui.feed
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
@@ -20,27 +21,20 @@ import com.flood_android.network.ApplicationController
 import com.flood_android.network.NetworkServiceFeed
 import com.flood_android.ui.feed.adapter.FeedCategoryRVAdapter
 import com.flood_android.ui.feed.adapter.FeedSaveFlipsCategoryRVAdapter
-import com.flood_android.ui.feed.data.FeedCategoryData
 import com.flood_android.ui.feed.data.FeedSaveFlipsCategoryData
 import com.flood_android.ui.feed.data.GetFeedCategoryResponse
 import com.flood_android.ui.main.MainActivity
+import com.flood_android.ui.post.PostActivity
 import com.flood_android.util.OnSingleClickListener
+import com.flood_android.util.safeEnqueue
 import com.orhanobut.dialogplus.DialogPlus
 import com.orhanobut.dialogplus.Holder
 import com.orhanobut.dialogplus.ViewHolder
 import kotlinx.android.synthetic.main.dialog_feed_save_flips.*
 import kotlinx.android.synthetic.main.fragment_feed.*
 import kotlinx.android.synthetic.main.toast_feed_save_flips_category.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import java.sql.Date
-import java.sql.Timestamp
 import java.text.ParseException
 import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.LocalTime
 
 
 class FeedFragment : Fragment() {
@@ -69,8 +63,16 @@ class FeedFragment : Fragment() {
         // 화면 초기화
         initView()
 
+//        Log.d("현주", calculateTime("2019-12-23T10:22:52.915Z"))
+
         //Feed 탭 처음에 flood 카테고리 화면을 띄우도록
+
+        /**
+         *  게시물이 있을 때 없을 때 구분하기~~~~~~~~~~~~~~~~~
+         */
         setInvisible(cl_feed_no_news) // 게시물이 없는 화면 안보이게
+
+
         val transaction: FragmentTransaction =
             (context as MainActivity).supportFragmentManager.beginTransaction()
         transaction.add(R.id.fl_feed_fragment_frag, FeedFloodFragment())
@@ -80,13 +82,14 @@ class FeedFragment : Fragment() {
 
     private fun initView() {
         getCategoryResponse()
+        setOnClickListener()
     }
 
     private fun setOnClickListener() {
         btn_feed_go_post.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(v: View) {
-                //val intent = Intent(context!!, PostActivity:;class.java)
-                //context.startActivity(intent)
+                val intent = Intent(context!!, PostActivity::class.java)
+                this@FeedFragment.startActivity(intent)
             }
         })
     }
@@ -94,27 +97,12 @@ class FeedFragment : Fragment() {
     /**
      *  피드 카테고리 서버 통신
      */
-    private fun getCategoryResponse() {
-        networkService.getFeedCategoryResponse(token)
-            .enqueue(object : Callback<GetFeedCategoryResponse> {
-                override fun onFailure(call: Call<GetFeedCategoryResponse>, t: Throwable) {
-                    Log.d("현주", t.message)
-                }
+    private var successGetCategory : (GetFeedCategoryResponse)  -> Unit  = {
+        setCategoryRecyclerView(it.data.category)
+    }
 
-                override fun onResponse(
-                    call: Call<GetFeedCategoryResponse>,
-                    response: Response<GetFeedCategoryResponse>
-                ) {
-                    if (response.isSuccessful) {
-                        getCategoryDataList = response.body()!!.data.category
-                        Log.d("현주", getCategoryDataList.toString())
-                        setCategoryRecyclerView(getCategoryDataList)
-                    }
-                    else{
-                        Log.e("현주", "실패")
-                    }
-                }
-            })
+    private fun getCategoryResponse() {
+        networkService.getFeedCategoryResponse(token).safeEnqueue({}, successGetCategory)
     }
 
 
@@ -210,16 +198,18 @@ class FeedFragment : Fragment() {
     /**
      *  댓글, 포스트 날짜 계산
      */
-    fun calaculateTime(postTimeDate: String): String {
+    fun calculateTime(postTimeDate: String): String {
 
         var dateList: List<String> = postTimeDate.split("T")
         var date: String = dateList[0]
         var timeList: List<String> = dateList[1].split(".")
         var time: String = timeList[0]
 
-        var formattedServerTime: String = date.plus(time)
+        var formattedServerTime: String = date.plus(" ").plus(time)
+
         var dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
         var formattedPostTime = dateFormat.format(formattedServerTime)
+
         postTime?: try {
             postTime = dateFormat.parse(formattedPostTime).time
         } catch (e: ParseException) {
@@ -238,6 +228,8 @@ class FeedFragment : Fragment() {
         var gapWeek: Long = gapDay / 7
         var gapMonth: Long = gapDay / 30
         var gapYear: Long = gapDay / 365
+
+        Log.d("현주", gapYear.toString())
 
         if (gapYear >= 1) {
             return gapYear.toInt().toString() + "년 전"
