@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/tv_signup1_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="60dp"
+        android:textSize="30sp"
+        android:fontFamily="@font/notosanscjkkrbold"
+        android:textColor="#000000"
+        android:lineSpacingExtra="15sp"
+        tools:text="회원가입"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/tv_signup1_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="121dp"
+        android:fontFamily="@font/notosanscjkkrregular"
+        android:lineSpacingExtra="6sp"
+        android:textColor="#707070"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@id/tv_signup1_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_signup1_title"
+        tools:text="아이디" />
+
+    <EditText
+        android:id="@+id/edtxt_signup1_id"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        app:layout_constraintWidth_percent="0.766"
+        android:inputType="textPersonName"
+        android:textSize="18sp"
+        android:fontFamily="@font/gilroyextrabold"
+        android:textColor="#ededed"
+        android:lineSpacingExtra="4sp"
+        tools:text="flood"
+        app:layout_constraintStart_toStartOf="@+id/tv_signup1_id"
+        app:layout_constraintTop_toBottomOf="@+id/tv_signup1_id"
+        tools:layout_editor_absoluteX="49dp" />
+
+
+    <TextView
+        android:id="@+id/tv_signup1_pw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="42.3dp"
+        android:fontFamily="@font/notosanscjkkrregular"
+        android:lineSpacingExtra="6sp"
+        android:textColor="#707070"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@id/tv_signup1_title"
+        app:layout_constraintTop_toBottomOf="@id/edtxt_signup1_id"
+        tools:text="비밀번호" />
+
+    <EditText
+        android:id="@+id/edtxt_signup1_pw"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintWidth_percent="0.766"
+        android:inputType="textPassword"
+        android:textSize="18sp"
+        android:fontFamily="@font/gilroyextrabold"
+        android:textColor="#ededed"
+        android:lineSpacingExtra="4sp"
+        tools:text="*******"
+        app:layout_constraintStart_toStartOf="@+id/tv_signup1_id"
+        app:layout_constraintTop_toBottomOf="@+id/tv_signup1_pw"
+        tools:layout_editor_absoluteX="49dp" />
+
+    <TextView
+        android:id="@+id/tv_signup1_pwconfirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="16.3dp"
+        android:fontFamily="@font/notosanscjkkrregular"
+        android:lineSpacingExtra="6sp"
+        android:textColor="#707070"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@id/tv_signup1_title"
+        app:layout_constraintTop_toBottomOf="@id/edtxt_signup1_pw"
+        tools:text="비밀번호 확인" />
+
+    <EditText
+        android:id="@+id/edtxt_signup1_pwconfirm"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintWidth_percent="0.766"
+        android:inputType="textPassword"
+        android:textSize="18sp"
+        android:fontFamily="@font/gilroyextrabold"
+        android:textColor="#ededed"
+        android:lineSpacingExtra="4sp"
+        tools:text="*******"
+        app:layout_constraintStart_toStartOf="@+id/tv_signup1_id"
+        app:layout_constraintTop_toBottomOf="@+id/tv_signup1_pwconfirm"
+        tools:layout_editor_absoluteX="49dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="비밀번호를 확인해주세요!"
+        android:textColor="#ff4a4a"
+        android:textSize="12sp"
+        android:lineSpacingExtra="6sp"
+        android:visibility="gone"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="6dp"
+        app:layout_constraintStart_toStartOf="@id/tv_signup1_title"
+        app:layout_constraintTop_toBottomOf="@id/edtxt_signup1_pwconfirm"
+
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>
