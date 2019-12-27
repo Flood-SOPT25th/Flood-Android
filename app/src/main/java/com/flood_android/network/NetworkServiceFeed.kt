@@ -2,6 +2,7 @@ package com.flood_android.network
 
 import com.flood_android.ui.feed.data.GetFeedCategoryResponse
 import com.flood_android.ui.feed.data.GetFeedTop3Response
+import com.flood_android.ui.feed.data.PostBookmarkCancelResponse
 import com.flood_android.ui.post.PostPostResponse
 import com.flood_android.ui.post.get.GetPostResponse
 import okhttp3.MultipartBody
