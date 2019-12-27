@@ -3,6 +3,7 @@ package com.flood_android.network
 import com.flood_android.ui.feed.data.GetFeedCategoryResponse
 import com.flood_android.ui.feed.data.GetFeedTop3Response
 import com.flood_android.ui.post.PostPostResponse
+import com.flood_android.ui.post.get.GetPostResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -23,6 +24,9 @@ interface NetworkServiceFeed {
         @Header("Authorization") authorization: String
     ): Call<GetFeedTop3Response>
 
+    /**
+     * 게시물 등록 POST
+     */
     @Multipart
     @POST("/post")
     fun postPostResponse(
@@ -32,4 +36,12 @@ interface NetworkServiceFeed {
         @Part("category") category: RequestBody,
         @Part("postContent") content: RequestBody
     ): Call<PostPostResponse>
+
+    /**
+     * 게시물 등록 GET
+     */
+    @GET("group/category")
+    fun getPostResponse(
+        @Header("Authorization") token: String
+    ): Call<GetPostResponse>
 }
