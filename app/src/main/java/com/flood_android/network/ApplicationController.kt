@@ -5,7 +5,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object ApplicationController {
-    private val baseURL = "http://flooddocker-env.3gfczrrijh.ap-northeast-2.elasticbeanstalk.com/"
+    private val baseURL = "http://flooddocker-env.3gfczrrijh.ap-northeast-2.elasticbeanstalk.com"
 
     lateinit var networkServiceFeed: NetworkServiceFeed
     lateinit var networkServiceUser: NetworkServiceUser

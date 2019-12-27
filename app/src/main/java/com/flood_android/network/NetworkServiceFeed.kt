@@ -41,7 +41,7 @@ interface NetworkServiceFeed {
     /**
      * 게시물 등록 GET
      */
-    @GET("group/category")
+    @GET("/group/category")
     fun getPostResponse(
         @Header("Authorization") token: String
     ): Call<GetPostResponse>
