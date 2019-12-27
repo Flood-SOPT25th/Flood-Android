@@ -191,7 +191,7 @@ class PostActivity : AppCompatActivity() {
         category: RequestBody,
         content: RequestBody
     ) {
-        val postPostResponse = ApplicationController.instance.networkServiceFeed
+        val postPostResponse = ApplicationController.networkServiceFeed
             .postPostResponse(token,images, url, category, content)
         val message: String = "12121212"
 

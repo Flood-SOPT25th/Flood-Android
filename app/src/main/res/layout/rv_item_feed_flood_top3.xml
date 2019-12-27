@@ -17,10 +17,11 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <View
-        android:id="@+id/view"
+        android:id="@+id/view_rv_item_feed_flood_top3_gradation"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:background="@drawable/gradient_72_00"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/iv_rv_item_feed_flood_top3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

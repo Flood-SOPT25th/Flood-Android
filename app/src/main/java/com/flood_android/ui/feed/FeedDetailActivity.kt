@@ -87,6 +87,12 @@ class FeedDetailActivity : AppCompatActivity() {
                 postComment()
             }
         })
+
+        btn_feed_detail_back.setOnClickListener (object : OnSingleClickListener(){
+            override fun onSingleClick(v: View) {
+                finish()
+            }
+        })
     }
 
     private fun focusKeyboard() {
@@ -117,11 +123,10 @@ class FeedDetailActivity : AppCompatActivity() {
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 // 글자가 있을 때
-                (p0.toString().trim().isNotEmpty()).apply {
+                if (p0.toString().trim().isNotEmpty()){
                     btn_feed_detail_upload_comment.isSelected = true
                 }
-                // 글자가 없을 때
-                (p0.toString().trim().isEmpty()).apply {
+                else {
                     btn_feed_detail_upload_comment.isSelected = false
                 }
             }
@@ -150,5 +155,10 @@ class FeedDetailActivity : AppCompatActivity() {
     //
     private fun setFlips(){
 
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
     }
 }

@@ -55,4 +55,62 @@ class MainActivity : AppCompatActivity() {
         transaction.replace(R.id.fl_main, fragment)
         transaction.commit()
     }
+
+    /**
+     *  댓글, 포스트 날짜 계산
+     */
+    fun calculateTime(postTimeDate: String): String {
+
+        var dateList: List<String> = postTimeDate.split("T")
+        var date: String = dateList[0]
+        var timeList: List<String> = dateList[1].split(".")
+        var time: String = timeList[0]
+
+        var formattedServerTime: String = date.plus(" ").plus(time)
+
+        return formattedServerTime
+//        var dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+//        var formattedPostTime = dateFormat.format(formattedServerTime)
+//        postTime?: try {
+//            postTime = dateFormat.parse(formattedPostTime).time
+//        } catch (e: ParseException) {
+//            e.printStackTrace()
+//        }
+//
+//        Log.d("현주 시간 계산", postTime.toString())
+//
+//        var curTime: Long = System.currentTimeMillis()
+//
+//        var diff: Long = curTime - postTime!!
+//
+//        var gapMin: Long = diff / 60000
+//        var gapHour: Long = gapMin / 60
+//        var gapDay: Long = gapHour / 24
+//        var gapWeek: Long = gapDay / 7
+//        var gapMonth: Long = gapDay / 30
+//        var gapYear: Long = gapDay / 365
+//
+//        if (gapYear >= 1) {
+//            return gapYear.toInt().toString() + "년 전"
+//        } else {
+//            if (gapMonth >= 1) {
+//                return gapMonth.toInt().toString() + "달 전"
+//            } else {
+//                if (gapWeek >= 1) {
+//                    return gapWeek.toInt().toString() + "주 전"
+//                } else {
+//                    if (gapDay >= 1) {
+//                        return gapDay.toInt().toString() + "일 전"
+//                    } else {
+//                        if (gapHour >= 1) {
+//                            return gapHour.toInt().toString() + "시간 전"
+//                        } else {
+//                            return gapMin.toInt().toString() + "분 전"
+//                        }
+//                    }
+//                }
+//            }
+//        }
+        }
+
 }
