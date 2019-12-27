@@ -8,6 +8,7 @@ import android.graphics.Color
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -15,12 +16,20 @@ import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.flood_android.R
+import com.flood_android.network.ApplicationController
+import com.flood_android.util.OnSingleClickListener
+import com.flood_android.util.myNameIS09
+import com.flood_android.util.safeEnqueue
+import com.flood_android.util.toast
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import kotlinx.android.synthetic.main.activity_post.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.InputStream
@@ -33,7 +42,8 @@ class PostActivity : AppCompatActivity() {
 
     private var PICTURE_REQUEST_CODE: Int = 100
     val uploadImageList = ArrayList<PostPostImageData>()
-    var images = ArrayList<MultipartBody.Part>()
+    var images : ArrayList<MultipartBody.Part>? = ArrayList()
+    var photobody: MultipartBody.Part? = null
 
     private val categoryDialog by lazy {
         PostCategoryDialog()
@@ -70,9 +80,8 @@ class PostActivity : AppCompatActivity() {
                 if (uri == null) {
                     var clipData: ClipData?
                     clipData = data?.clipData
-                    /*if (data.clipData.itemCount > 9)
-                        Toast.makeText(this, "사진은 9장까지 선택 가능합니다.", Toast.LENGTH_LONG).show()
-*/
+                    if (data.clipData!!.itemCount > 10)
+                        Toast.makeText(this, "사진은 10장까지 선택 가능합니다.", Toast.LENGTH_LONG).show()
                     if (clipData != null) {
                         for (i in 0 until data.clipData!!.itemCount) {
                             var item: ClipData.Item = data.clipData!!.getItemAt(i)
@@ -84,21 +93,19 @@ class PostActivity : AppCompatActivity() {
                             val bitmap = BitmapFactory.decodeStream(inputStream, null, options)
                             val byteArrayOutputStream = ByteArrayOutputStream()
                             bitmap?.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream)
-                            val photoBody =
+
+                            Log.v("Postygyg", "들어오더랗")
+                            val photobodyPre =
                                 RequestBody.create(
                                     MediaType.parse("image/jpg"),
                                     byteArrayOutputStream.toByteArray()
                                 )
-
+                            photobody = MultipartBody.Part.createFormData("images", "abcd", photobodyPre)
 
                             // 클립데이터의 uri을 리사이클러뷰 데이터 클래스에 추가하기.
                             uploadImageList.add(PostPostImageData(item.uri.toString()))
-                            images.add(
-                                MultipartBody.Part.createFormData(
-                                    "img",
-                                    File(selectedPictureUri.toString()).name, photoBody
-                                )
-                            )//여기의 image는 키값의 이름하고 같아야함
+                            images?.add(photobody!!)
+                            //여기의 image는 키값의 이름하고 같아야함
                         }
                     }
                 } else {
@@ -114,19 +121,21 @@ class PostActivity : AppCompatActivity() {
                             MediaType.parse("image/jpg"),
                             byteArrayOutputStream.toByteArray()
                         )
+                    Log.v("Postygyg", "들어오더랗X")
 
                     // 클립데이터의 uri을 리사이클러뷰 데이터 클래스에 추가하기.
                     uploadImageList.add(PostPostImageData(uri.toString()))
-                    images.add(
+                    images?.add(
                         MultipartBody.Part.createFormData(
-                            "img",
-                            File(selectedPictureUri.toString()).name,
+                            "images",
+                            "Abcd",
                             photoBody
                         )
                     )//여기의 image는 키값의 이름하고 같아야함
                 }
             }
         } catch (e: Exception) {
+            Log.v("Postygyg", e.toString())
         }
     }
 
@@ -138,7 +147,6 @@ class PostActivity : AppCompatActivity() {
         }
         // 카테고리 변경 버튼
         iv_post_add_category.setOnClickListener {
-            // 카테고리 변경 다이얼로그 띄우기
             var orgCategory = arrayListOf("IT", "디자인", "컴퓨터")
 
             val bundle = Bundle()
@@ -146,20 +154,13 @@ class PostActivity : AppCompatActivity() {
             categoryDialog.arguments = bundle
 
             categoryDialog.show(supportFragmentManager, "category dialog")
-            // 띄울 때 GET으로 받은 카테고리 보내기
-
-            // 다이얼로그 변경된 값 보내기
-            // 다이얼로그에서 선택된 값 받아오기
         }
         // 변경된 카테고리 버튼
         tv_post_selected_category.setOnClickListener {
-            // 카테고리 변경 다이얼로그 띄우기
             var orgCategory = arrayListOf("IT", "컴퓨터")
-
             val bundle = Bundle()
             bundle.putSerializable("categoryList", orgCategory)
             categoryDialog.arguments = bundle
-
             categoryDialog.show(supportFragmentManager, "category dialog")
         }
         // 사진 앨범 버튼
@@ -172,13 +173,36 @@ class PostActivity : AppCompatActivity() {
                 Log.e("사진앨범", "문제가 있습니다")
             }
         }
-
     }
 
     // 게시물 올리기 통신
-    /*private fun postPost(token: String, images: MultipartBody.Part, url: RequestBody, category: RequestBody, content: RequestBody) {
-        val postPostResponse = networkService.postPostResponse(token, images, url, category, content)
-        postPostResponse.enqueue(object : Callback<PostPostResponse> {
+    var temp: (PostPostResponse) -> Unit = {
+       Log.v("Postygyg", it.message)
+    }
+
+    var fail: (Throwable) -> Unit = {
+        Log.v("Postygyg", it.toString())
+    }
+
+    private fun postPost(
+        token: String,
+        images: ArrayList<MultipartBody.Part>?,
+        url: RequestBody,
+        category: RequestBody,
+        content: RequestBody
+    ) {
+        val postPostResponse = ApplicationController.instance.networkServiceFeed
+            .postPostResponse(token,images, url, category, content)
+        val message: String = "12121212"
+
+        postPostResponse.safeEnqueue (fail, temp)
+
+
+        Log.v("aaaa", message)
+
+
+        // 게시물 올리기 통신
+        /*postPostResponse.enqueue(object : Callback<PostPostResponse> {
             override fun onFailure(call: Call<PostPostResponse>, t: Throwable) {
                 Log.e("PostPost fail", t.toString())
             }
@@ -191,13 +215,17 @@ class PostActivity : AppCompatActivity() {
                 response?.takeIf { it.isSuccessful }
                     ?.body()?.takeIf { it.message == "성공" }
                     ?.let {
-                    Log.e("통신", "성공")
+                        Log.e("통신", "성공")
                     }
             }
-        })
+        })*/
+//
+//        val postPostResponse = PostPostResponse("aaa")
+//        val post =
     }
-*/
+
     private fun getPermission() {
+//        val textRequest = RequestBody.create(MediaType.parse("text/plain"), "dssdsds")
         val permissionListener = object : PermissionListener {
             override fun onPermissionGranted() {
                 // 권한 요청 성공
@@ -227,10 +255,20 @@ class PostActivity : AppCompatActivity() {
 
     // 갤러리 열기
     fun openGallery() {
-        var intent = Intent(Intent.ACTION_PICK)
+
+//        var intent = Intent(Intent.ACTION_PICK)
+//        intent.type = MediaStore.Images.Media.CONTENT_TYPE
+//        intent.data = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+//        startActivityForResult(intent, REQ_CODE_SELECT_IMAGE)
+
+        //var intent = Intent(Intent.ACTION_PICK)
+        var intent = Intent()
         intent.setType("image/*")
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
         intent.setAction(Intent.ACTION_GET_CONTENT)
+        //TODO : 기기 스펙에 따라 나오는 것이 다른 문제가 생김. 해서 기기 스펙과 intent 간의 상관관계 확인 필요
+
+
         startActivityForResult(
             Intent.createChooser(intent, "얌얌굿즈 : 리뷰에 업로드할 사진을 선택해주세요.!"),
             PICTURE_REQUEST_CODE
@@ -241,7 +279,7 @@ class PostActivity : AppCompatActivity() {
     // 하단 사진 리싸이클러뷰
     private fun configureRecyclerView() {
         rv_post_image_list.apply {
-            adapter = PostPostAdapter(this@PostActivity, uploadImageList, images)
+            adapter = PostPostAdapter(this@PostActivity, uploadImageList, images!!)
             layoutManager =
                 LinearLayoutManager(this@PostActivity, LinearLayoutManager.HORIZONTAL, false)
         }
@@ -258,7 +296,6 @@ class PostActivity : AppCompatActivity() {
     private fun setPostBtn() {
         var url = edt_post_url.text
         var content = edt_post_content.text
-        var category = tv_post_selected_category.text
 
         edt_post_url.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
@@ -290,26 +327,26 @@ class PostActivity : AppCompatActivity() {
                 }
             }
         })
+
         tv_post_post.setOnClickListener {
-            Log.e("청하", "게시버튼")
+            Log.e("청하", "1")
+            var category = tv_post_selected_category.text.toString()
             if (url.length == 0 && content.length == 0) {
-                Log.e("청하", "url과 content 없음")
             } else {
-                Log.e("청하", "게시버튼 활성화")
-                Log.e("청하", tv_post_selected_category.text.toString())
-                if (url.length > 0) {
-                    if (category.length == 0) {
-                        Log.e("청하", tv_post_selected_category.text.toString())
-                        Log.e("청하", category.length.toString())
-                        postSetCategoryDialog.show(supportFragmentManager, "postSetCategoryDialog")
-                    } else {
-                        Log.e("청하", "서버통신")
-                        // 여기서 서버 통신
-                        // postPost()
-                    }
+                Log.e("청하", "3")
+                if (url.length > 0 && category.length == 0) {
+                    Log.e("청하", "4")
+                    postSetCategoryDialog.show(supportFragmentManager, "postSetCategoryDialog")
+                } else {
+                    // 여기서 서버 통신
+                    val url2 = RequestBody.create(MediaType.parse("text/plain"), "https://www.naver.com/")
+                    val content2 = RequestBody.create(MediaType.parse("text/plain"), "content")
+                    val category2 = RequestBody.create(MediaType.parse("text/plain"), "category")
+                    //photobody = MultipartBody.Part.createFormData("images", "", "32323")
+                    postPost("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVoZGduczE3NjZAZ21haWwuY29tIiwibmFtZSI6IuydtOuPme2biCIsImlhdCI6MTU3NzQwNzg1NiwiZXhwIjoxNTc5OTk5ODU2LCJpc3MiOiJGbG9vZFNlcnZlciJ9.Zf_LNfQIEdFl84r-tPQpT1nLaxdotkFutOxwNQy-w58",
+                        images, url2, category2, content2)
                 }
             }
-
         }
     }
 }

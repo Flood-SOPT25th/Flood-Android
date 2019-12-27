@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="24dp">
+
+    <ImageView
+        android:id="@+id/iv_rv_item_bookmark_edit_folder_image"
+        android:layout_width="146dp"
+        android:layout_height="146dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@color/colorMainBlue" />
+
+    <EditText
+        android:id="@+id/edt_rv_item_bookmark_edit_folder_name"
+        android:layout_width="146dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:background="@null"
+        android:ellipsize="end"
+        android:maxLength="10"
+        android:hint="FLOOD"
+        android:inputType="text"
+        android:maxLines="1"
+        android:text=""
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textColorHint="#d1d1d1"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_rv_item_bookmark_edit_folder_image" />
+
+    <ImageView
+        android:id="@+id/iv_rv_item_bookmark_edit_folder_image_cover"
+        android:layout_width="146dp"
+        android:layout_height="146dp"
+        app:layout_constraintStart_toStartOf="@id/iv_rv_item_bookmark_edit_folder_image"
+        app:layout_constraintTop_toTopOf="@id/iv_rv_item_bookmark_edit_folder_image"
+        app:srcCompat="@color/colorBlackOpacity" />
+
+    <ImageView
+        android:id="@+id/iv_rv_item_bookmark_edit_folder_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_rv_item_bookmark_edit_folder_image"
+        app:layout_constraintEnd_toEndOf="@+id/iv_rv_item_bookmark_edit_folder_image"
+        app:layout_constraintStart_toStartOf="@+id/iv_rv_item_bookmark_edit_folder_image"
+        app:layout_constraintTop_toTopOf="@+id/iv_rv_item_bookmark_edit_folder_image"
+        app:srcCompat="@drawable/ic_plus_edit" />
+    <ImageView
+        android:id="@+id/iv_rv_item_bookmark_edit_folder_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintEnd_toEndOf="@id/iv_rv_item_bookmark_edit_folder_image"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_x" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
