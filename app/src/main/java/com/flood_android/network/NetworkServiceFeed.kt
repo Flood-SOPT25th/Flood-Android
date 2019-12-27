@@ -5,11 +5,14 @@ import com.flood_android.ui.post.PostPostResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
+import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.*
 
 interface NetworkServiceFeed {
     @GET("/group/category")
     fun getFeedCategoryResponse(
+        @Header("Authorization") autrhorization : String
     ): Call<GetFeedCategoryResponse>
 
     @Multipart
