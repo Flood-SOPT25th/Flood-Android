@@ -12,6 +12,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.flood_android.R
+import com.flood_android.ui.feed.FeedFragment
 import com.flood_android.ui.feed.WebViewActivity
 import com.flood_android.ui.feed.data.FeedData
 import com.flood_android.util.OnSingleClickListener
@@ -90,18 +91,28 @@ class FeedRVAdapter (private val ctx : Context, var dataList: ArrayList<FeedData
                 }
             }
 
-            holder.container_news.setOnClickListener { (object : OnSingleClickListener(){
+            holder.container_news.setOnClickListener  (object : OnSingleClickListener(){
                 override fun onSingleClick(v: View) {
                     val intent = Intent(ctx, WebViewActivity::class.java)
                     intent.putExtra("url", item.news_url)
                 }
-            }) }
+            })
 
             holder.news_title.text = item.news_title
             holder.news_contents.text = item.news_contents
 
             holder.flips_num.text = item.flips_num.toString()
             holder.comments_num.text = item.comments_num.toString()
+
+            holder.btnFlips.setOnClickListener (object : OnSingleClickListener(){
+                override fun onSingleClick(v: View) {
+                    if (holder.ivFlips.isSelected)  //북마크 취소
+                        holder.ivFlips.isSelected = false
+                    else{   // 북마크하기
+                        (ctx as FeedFragment).makeFlipDialog(holder.ivFlips)
+                    }
+                }
+            })
         }
     }
 
@@ -135,7 +146,8 @@ class FeedRVAdapter (private val ctx : Context, var dataList: ArrayList<FeedData
         var comments_num = itemView.findViewById(R.id.tv_rv_item_feed_flood_today_comments_cnt) as TextView
 
         // flips flag 있으면 넣기
-
+        var btnFlips = itemView.findViewById(R.id.btn_rv_item_feed_flood_today_flips_flag) as ConstraintLayout
+        var ivFlips = itemView.findViewById(R.id.iv_rv_item_feed_flood_today_flips_flag) as ImageView
     }
 
     private fun setVisible(view: View) {
