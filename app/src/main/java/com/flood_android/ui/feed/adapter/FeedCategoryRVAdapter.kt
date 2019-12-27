@@ -1,17 +1,27 @@
 package com.flood_android.ui.feed.adapter
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
 import com.flood_android.R
+import com.flood_android.ui.feed.FeedCategoryFragment
 import com.flood_android.ui.feed.data.FeedCategoryData
+import com.flood_android.ui.main.MainActivity
+import com.flood_android.util.OnSingleClickListener
+import java.lang.Exception
 
 class FeedCategoryRVAdapter(
     private val ctx: Context, var dataList: ArrayList<String>
 ) : RecyclerView.Adapter<FeedCategoryRVAdapter.Holder>() {
+    var selected_position: Int = -1
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -24,6 +34,17 @@ class FeedCategoryRVAdapter(
     override fun getItemCount(): Int = dataList.size
 
     override fun onBindViewHolder(holder: FeedCategoryRVAdapter.Holder, position: Int) {
+        if (position == selected_position){
+            holder.categoryName.setTextColor(Color.WHITE)
+            holder.categoryContainer.background = ctx.resources.getDrawable(R.drawable.rect_blue_21dp)
+            //holder.category_name.typeface = ctx.resources.getFont(R.font.notosansbold)
+        }
+        else{
+            holder.categoryName.setTextColor(ctx.resources.getColor(R.color.colorMainBlue))
+            holder.categoryContainer.background = ctx.resources.getDrawable(R.drawable.rect_white_21dp)
+            //holder.category_name.typeface = ctx.resources.getFont(R.font.notosansbold)
+        }
+
         if (position == 0) {
             holder.categoryName.text = "Flood"
         } else {
@@ -32,9 +53,26 @@ class FeedCategoryRVAdapter(
 
             }
         }
+
+        holder.categoryContainer.setOnClickListener(object : OnSingleClickListener(){
+            override fun onSingleClick(v: View) {
+                try{
+                    selected_position = position
+                    notifyItemChanged(0, itemCount)
+
+                    val transaction : FragmentTransaction = (ctx as MainActivity).supportFragmentManager.beginTransaction()
+                    transaction.replace(R.id.fl_feed_fragment_frag, FeedCategoryFragment())
+                    transaction.commit()
+
+                    //FeedCategoryFragment.instance.
+                }catch(e : Exception){
+                }
+            }
+        })
     }
 
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var categoryContainer = itemView.findViewById(R.id.cv_rv_item_feed_category) as ConstraintLayout
         var categoryName = itemView.findViewById(R.id.tv_feed_category) as TextView
     }
 }

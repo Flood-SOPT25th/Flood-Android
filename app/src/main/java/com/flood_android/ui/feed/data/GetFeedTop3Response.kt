@@ -16,7 +16,7 @@ data class FeedTop3Data(
     @SerializedName("title")
     var news_title: String,
 
-
+    @SerializedName("comments_count")
     var comments_num: Int,
 
     @SerializedName("bookmark")
@@ -31,6 +31,7 @@ data class FeedTop3Data(
     @SerializedName("postImages")
     var post_img: ArrayList<String>,
 
+    @SerializedName("profileImage")
     var user_img: String,
 
     @SerializedName("writer")
@@ -42,14 +43,16 @@ data class FeedTop3Data(
     @SerializedName("postContent")
     var contents: String,
 
+    @SerializedName("bookmarked")
+    var flip_flag : Boolean,
 
-    var see: Int,
+    //var see: Int,
 
     @SerializedName("score")
     var score: Double,
 
-    @SerializedName("")
-    var comments: ArrayList<String>,
+//    @SerializedName("comments")
+//    var comments: ArrayList<String>,
 
     var _id: String
 )

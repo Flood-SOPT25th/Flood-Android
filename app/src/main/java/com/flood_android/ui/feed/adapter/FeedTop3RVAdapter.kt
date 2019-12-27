@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.media.Image
 import android.net.Uri
+import android.opengl.Visibility
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,8 +16,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.flood_android.R
 import com.flood_android.ui.feed.FeedDetailActivity
+import com.flood_android.ui.feed.FeedFloodFragment
 import com.flood_android.ui.feed.FeedFragment
 import com.flood_android.ui.feed.data.FeedTop3Data
+import com.flood_android.ui.main.MainActivity
 import com.flood_android.util.OnSingleClickListener
 
 class FeedTop3RVAdapter(val ctx: Context, var dataList: ArrayList<FeedTop3Data>) :
@@ -34,6 +38,8 @@ class FeedTop3RVAdapter(val ctx: Context, var dataList: ArrayList<FeedTop3Data>)
                 .load(item.news_img)
                 .centerCrop()
                 .into(holder.newsImg)
+
+            holder.newsGradation.visibility = View.VISIBLE
 
             // 해당 뉴스 웹페이지로 이동
             holder.newsImg.setOnClickListener (object : OnSingleClickListener(){
@@ -62,7 +68,7 @@ class FeedTop3RVAdapter(val ctx: Context, var dataList: ArrayList<FeedTop3Data>)
                 .into(holder.userImg)
 
             holder.userName.text = item.user_name
-            holder.time.text = item.time
+            holder.time.text = (ctx as MainActivity).calculateTime(item.time)
             holder.contents.text = item.contents
 
             // 피드 상세 페이지로 이동
@@ -73,12 +79,14 @@ class FeedTop3RVAdapter(val ctx: Context, var dataList: ArrayList<FeedTop3Data>)
                 }
             })
 
+            holder.ivFlips.isSelected = item.flip_flag
+
             holder.btnFlips.setOnClickListener  (object : OnSingleClickListener(){
                 override fun onSingleClick(v: View) {
                     if (holder.ivFlips.isSelected)      //북마크 취소
                         holder.ivFlips.isSelected = false
                     else{   // 북마크하기
-                        (ctx as FeedFragment).makeFlipDialog(holder.ivFlips)
+                        (FeedFragment()).makeFlipDialog(holder.ivFlips)
                     }
                 }
             })
@@ -87,16 +95,17 @@ class FeedTop3RVAdapter(val ctx: Context, var dataList: ArrayList<FeedTop3Data>)
 
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var newsTitle = itemView.findViewById(R.id.tv_rv_item_feed_flood_top3_title) as TextView
+        var newsGradation = itemView.findViewById(R.id.view_rv_item_feed_flood_top3_gradation) as View
         var newsImg = itemView.findViewById(R.id.iv_rv_item_feed_flood_top3) as ImageView
+        var contents = itemView.findViewById(R.id.tv_rv_item_feed_flood_top3_contents) as TextView
         var flipsNum = itemView.findViewById(R.id.tv_rv_item_feed_flood_top3_flips_cnt) as TextView
         var btnComments = itemView.findViewById(R.id.btn_rv_item_feed_flood_top3_comments) as ConstraintLayout
-        var commentsNum = itemView.findViewById(R.id.tv_rv_item_feed_flood_top3_flips_cnt) as TextView
+        var commentsNum = itemView.findViewById(R.id.tv_rv_item_feed_flood_top3_comments_cnt) as TextView
         var btnFlips = itemView.findViewById(R.id.btn_rv_item_feed_flood_top3_flips_flag) as ConstraintLayout
         var ivFlips = itemView.findViewById(R.id.iv_rv_item_feed_flood_top3_flips_flag) as ImageView
         var userImg = itemView.findViewById(R.id.iv_rv_item_feed_flood_top3_user) as ImageView
         var userName = itemView.findViewById(R.id.tv_rv_item_feed_flood_top3_user_name) as TextView
         var time = itemView.findViewById(R.id.tv_rv_item_feed_flood_top3_time) as TextView
-        var contents = itemView.findViewById(R.id.tv_rv_item_feed_flood_top3_contents) as TextView
         var userInfo = itemView.findViewById(R.id.cl_rv_item_feed_flood_top3_user_info) as ConstraintLayout
     }
 }
