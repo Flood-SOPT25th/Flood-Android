@@ -16,4 +16,5 @@ class SignupFragment_2 : Fragment() {
         val view = inflater.inflate(R.layout.fragment_signup2,container,false)
         return view
     }
+
 }
