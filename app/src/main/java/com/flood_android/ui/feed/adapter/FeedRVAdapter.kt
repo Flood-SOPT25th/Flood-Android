@@ -2,6 +2,8 @@ package com.flood_android.ui.feed.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,12 +14,17 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.flood_android.R
+import com.flood_android.ui.feed.FeedDetailActivity
 import com.flood_android.ui.feed.FeedFragment
 import com.flood_android.ui.feed.WebViewActivity
 import com.flood_android.ui.feed.data.FeedData
+import com.flood_android.ui.main.MainActivity
 import com.flood_android.util.OnSingleClickListener
 
 class FeedRVAdapter (private val ctx : Context, var dataList: ArrayList<FeedData>): RecyclerView.Adapter<FeedRVAdapter.Holder>(){
+
+    var token : String = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVoZGduczE3NjZAZ21haWwuY29tIiwibmFtZSI6IuydtOuPme2biCIsImlhdCI6MTU3NzQwNzg1NiwiZXhwIjoxNTc5OTk5ODU2LCJpc3MiOiJGbG9vZFNlcnZlciJ9.Zf_LNfQIEdFl84r-tPQpT1nLaxdotkFutOxwNQy-w58"
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedRVAdapter.Holder {
         val view: View =
             LayoutInflater.from(ctx).inflate(R.layout.rv_item_feed_flood_today, parent, false)
@@ -34,9 +41,9 @@ class FeedRVAdapter (private val ctx : Context, var dataList: ArrayList<FeedData
                 .centerCrop()
                 .into(holder.userImg)
 
-            holder.userName
+            holder.userName.text = item.user_name
             holder.category.text = item.category
-            holder.time.text = item.time
+            holder.time.text = (ctx as MainActivity).calculateTime(item.time)
             holder.contents.text = item.contents
 
             // 사진이 있을 때 사진 나타내기
@@ -86,6 +93,7 @@ class FeedRVAdapter (private val ctx : Context, var dataList: ArrayList<FeedData
                 }
                 //4개 이상
                 else ->{
+                    var etc_num = pic_num - 3
                     //더하기 버튼이랑 까맣게 만들기
                     return
                 }
@@ -93,8 +101,16 @@ class FeedRVAdapter (private val ctx : Context, var dataList: ArrayList<FeedData
 
             holder.container_news.setOnClickListener  (object : OnSingleClickListener(){
                 override fun onSingleClick(v: View) {
-                    val intent = Intent(ctx, WebViewActivity::class.java)
-                    intent.putExtra("url", item.news_url)
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(item.news_url))
+                    ctx.startActivity(intent)
+                }
+            })
+
+            holder.clFeed.setOnClickListener (object  : OnSingleClickListener(){
+                override fun onSingleClick(v: View) {
+                    val intent = Intent(ctx, FeedDetailActivity::class.java)
+                    intent.putExtra("feed_id", item._id)
+                    ctx.startActivity(intent)
                 }
             })
 
@@ -104,12 +120,17 @@ class FeedRVAdapter (private val ctx : Context, var dataList: ArrayList<FeedData
             holder.flips_num.text = item.flips_num.toString()
             holder.comments_num.text = item.comments_num.toString()
 
+            holder.ivFlips.isSelected = item.bookmark_flag
+
             holder.btnFlips.setOnClickListener (object : OnSingleClickListener(){
                 override fun onSingleClick(v: View) {
                     if (holder.ivFlips.isSelected)  //북마크 취소
+                    {
                         holder.ivFlips.isSelected = false
+                        //(ctx as MainActivity).postBookmarkCancelRequest(token, item._id)
+                    }
                     else{   // 북마크하기
-                        (ctx as FeedFragment).makeFlipDialog(holder.ivFlips)
+                        (ctx as MainActivity).makeFlipDialog(holder.ivFlips)
                     }
                 }
             })
@@ -117,6 +138,9 @@ class FeedRVAdapter (private val ctx : Context, var dataList: ArrayList<FeedData
     }
 
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView){
+
+        var clFeed = itemView.findViewById(R.id.cl_rv_item_feed) as ConstraintLayout
+
         var category = itemView.findViewById(R.id.tv_rv_item_feed_flood_today_category) as TextView
         var userName = itemView.findViewById(R.id.tv_rv_item_feed_flood_today_user_name) as TextView
         var userImg = itemView.findViewById(R.id.iv_rv_item_feed_flood_today_user_img) as ImageView

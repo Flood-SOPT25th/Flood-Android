@@ -24,6 +24,9 @@ import com.flood_android.util.OnSingleClickListener
 
 class FeedTop3RVAdapter(val ctx: Context, var dataList: ArrayList<FeedTop3Data>) :
     RecyclerView.Adapter<FeedTop3RVAdapter.Holder>() {
+
+    var token : String = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVoZGduczE3NjZAZ21haWwuY29tIiwibmFtZSI6IuydtOuPme2biCIsImlhdCI6MTU3NzQwNzg1NiwiZXhwIjoxNTc5OTk5ODU2LCJpc3MiOiJGbG9vZFNlcnZlciJ9.Zf_LNfQIEdFl84r-tPQpT1nLaxdotkFutOxwNQy-w58"
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedTop3RVAdapter.Holder {
         val view: View =
             LayoutInflater.from(ctx).inflate(R.layout.rv_item_feed_flood_top3, parent, false)
@@ -85,10 +88,10 @@ class FeedTop3RVAdapter(val ctx: Context, var dataList: ArrayList<FeedTop3Data>)
                 override fun onSingleClick(v: View) {
                     if (holder.ivFlips.isSelected) {     //북마크 취소
                         holder.ivFlips.isSelected = false
-
+                        ctx.postBookmarkCancelRequest(token, item._id)
                 }
                     else{   // 북마크하기
-                        (FeedFragment()).makeFlipDialog(holder.ivFlips)
+                        ctx.makeFlipDialog(holder.ivFlips)
                     }
                 }
             })
