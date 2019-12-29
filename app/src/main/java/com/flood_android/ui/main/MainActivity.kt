@@ -12,10 +12,7 @@ import com.flood_android.network.NetworkServiceFeed
 import com.flood_android.ui.alarm.AlarmFragment
 import com.flood_android.ui.company.CompanyFragment
 import com.flood_android.ui.feed.FeedFragment
-import com.flood_android.ui.feed.data.PostBookmarkCancelResponse
-import com.flood_android.ui.post.PostActivity
-import com.flood_android.ui.write.WriteActivity
-import com.flood_android.util.safeEnqueue
+import com.flood_android.ui.postnourl.PostNoUrlActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -38,7 +35,7 @@ class MainActivity : AppCompatActivity() {
             replaceFragment(CompanyFragment())
         }
         iv_main_tab_write.setOnClickListener{
-            val intent = Intent(this@MainActivity, PostActivity::class.java)
+            val intent = Intent(this@MainActivity, PostNoUrlActivity::class.java)
             startActivity(intent)
         }
         iv_main_tab_alarm.setOnClickListener{
