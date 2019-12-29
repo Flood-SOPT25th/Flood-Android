@@ -21,7 +21,6 @@ class SignupFragment_1 : Fragment(){
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_signup1,container,false)
-
         return view
     }
 
@@ -49,7 +48,6 @@ class SignupFragment_1 : Fragment(){
         }
 
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            // id가 비어있지 않고,
             if((s?:"").isNotEmpty()){
                 idFlag = true
 
@@ -59,7 +57,6 @@ class SignupFragment_1 : Fragment(){
                     toSignal(false)
                 }
             }else{
-
                 toSignal(false)
                 idFlag = false
             }
@@ -74,7 +71,6 @@ class SignupFragment_1 : Fragment(){
         }
 
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            // id가 비어있지 않고,
             if((s?:"").isNotEmpty()){
                 pwdFlag = true
                 if(idFlag && pwdCheckFlag){
@@ -97,7 +93,7 @@ class SignupFragment_1 : Fragment(){
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             if((s?:"").isNotEmpty() && ((s?:"").toString() == (edtxt_signup1_pw.text.toString()))){
                 pwdCheckFlag = true
-                Log.v("SignF", "체크1")
+
                 if(pwdFlag && idFlag){
                     lv_signup_frag_1_3_red.visibility=View.GONE
                     tv_signup_frag_nonmatch.visibility=View.GONE
@@ -112,20 +108,5 @@ class SignupFragment_1 : Fragment(){
         }
     }
 
-
-    /*
-    companion object{
-        private var instance : SignupFragment_1? = null
-
-        @Synchronized
-        fun getInstance() : SignupFragment_1{
-            if(instance == null){
-                instance = SignupFragment_1()
-            }
-            return instance!!
-        }
-    }
-    /
-     */
 
 }

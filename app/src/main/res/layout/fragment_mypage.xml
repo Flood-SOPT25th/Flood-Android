@@ -16,6 +16,7 @@
             android:layout_height="wrap_content">
 
             <de.hdodenhof.circleimageview.CircleImageView
+                android:src="@drawable/circle_grey_7dp"
                 android:id="@+id/iv_circular_mypage_profile"
                 android:layout_width="56dp"
                 android:layout_height="56dp"
@@ -35,7 +36,7 @@
                 android:textColor="#282828"
                 app:layout_constraintStart_toEndOf="@id/iv_circular_mypage_profile"
                 app:layout_constraintTop_toTopOf="@id/iv_circular_mypage_profile"
-                tools:text="선지희" />
+                android:text="선지희" />
 
             <TextView
                 android:id="@+id/tv_mypage_userinfo"
@@ -48,7 +49,7 @@
                 android:textColor="#a3a3a3"
                 app:layout_constraintStart_toStartOf="@id/tv_mypage_username"
                 app:layout_constraintTop_toBottomOf="@id/tv_mypage_username"
-                tools:text="tv_mypage_userinfo" />
+                android:text="tv_mypage_userinfo" />
 
             <ImageButton
                 android:id="@+id/imgbtn_mypage_user_setting"
@@ -95,20 +96,23 @@
                 android:background="#ffffff"
                 android:src="@drawable/rect_black_11dp"
                 app:layout_constraintStart_toEndOf="@id/tv_mypage_mypost"
-                app:layout_constraintTop_toTopOf="@id/tv_mypage_mypost" />
+                app:layout_constraintBottom_toBottomOf="@id/tv_mypage_mypost"
+                app:layout_constraintTop_toTopOf="@id/tv_mypage_mypost"
+                />
 
             <TextView
                 android:id="@+id/tv_mypage_mypost_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="9dp"
                 android:fontFamily="@font/notosanscjkkrbold"
                 android:lineSpacingExtra="6sp"
                 android:textColor="#ffffff"
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="@id/imgbtn_mypage_mypost"
+                app:layout_constraintEnd_toEndOf="@id/imgbtn_mypage_mypost"
                 app:layout_constraintTop_toTopOf="@id/imgbtn_mypage_mypost"
-                tools:text="15" />
+                app:layout_constraintBottom_toBottomOf="@id/imgbtn_mypage_mypost"
+                android:text="15" />
 
             <ImageButton
                 android:id="@+id/imgbtn_mypage_mypost_arrow"

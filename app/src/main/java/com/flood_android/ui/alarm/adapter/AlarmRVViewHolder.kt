@@ -7,7 +7,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.flood_android.R
-import com.flood_android.network.Jihee.AlarmRvItem
+import com.flood_android.ui.alarm.data.AlarmRvItem
 
 class AlarmRVViewHolder(view : View) : RecyclerView.ViewHolder(view){
     private val ivAlarmUser: ImageView = view.findViewById(R.id.ivcircular_rv_item_alarm_user)
