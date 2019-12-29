@@ -1,4 +1,4 @@
-package com.flood_android.network.Jihee
+package com.flood_android.ui.alarm.data
 
 data class AlarmRvItem(
     val profile_id : String,

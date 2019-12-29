@@ -8,16 +8,15 @@ import android.graphics.Color
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.widget.EditText
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.flood_android.R
 import com.flood_android.network.ApplicationController
-import com.flood_android.ui.post.get.PostCategoryData
 import com.flood_android.util.*
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
@@ -25,11 +24,7 @@ import kotlinx.android.synthetic.main.activity_post.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.io.ByteArrayOutputStream
-import java.io.File
 import java.io.InputStream
 
 class PostActivity : AppCompatActivity() {
@@ -46,26 +41,54 @@ class PostActivity : AppCompatActivity() {
     private val postSetCategoryDialog by lazy {
         PostSetCategoryDialog()
     }
-    lateinit var categoryList: List<String>
+    lateinit var websiteUrl: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_post)
 
-        // 초기 서버 통신 GET - 카테고리, 명단
+        // 웹과 Flood 앱 연동
+        connectWeb()
+        // 서버에서 조직 카테고리 GET
+        getPostCategory()
         // 버튼 클릭 함수
         setBtnClickListner()
-        // 사진 리싸이클러뷰
-        configureRecyclerView()
-        setPostBtn()
-        getPostCategory()
+        // 하단 선택한 사진 리싸이클러뷰
+        setImageRecyclerView()
     }
 
+    override fun onUserLeaveHint() {
+        super.onUserLeaveHint()
+        connectWeb()
 
+    }
+
+    override fun onPause() {
+        super.onPause()
+        edt_post_url.setText("")
+    }
+    /**
+     * 웹과 Flood 앱 연동
+     */
+    private fun connectWeb() {
+        var intent = getIntent()
+        var action: String? = intent.getAction()
+        var type: String? = intent.getType()
+        // 인텐트 정보가 있는 경우 실행
+        if (Intent.ACTION_SEND.equals(action) && type != null) {
+            if ("text/plain".equals(type)) {
+                websiteUrl = intent.getStringExtra(Intent.EXTRA_TEXT)
+                edt_post_url.setText(websiteUrl)
+            }
+        }
+    }
+
+    /**
+     * 서버에서 조직 카테고리 GET
+     */
     private fun getPostCategory() {
         val getPostResponse = ApplicationController.networkServiceFeed
             .getPostResponse("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVoZGduczE3NjZAZ21haWwuY29tIiwibmFtZSI6IuydtOuPme2biCIsImlhdCI6MTU3NzQwNzg1NiwiZXhwIjoxNTc5OTk5ODU2LCJpc3MiOiJGbG9vZFNlcnZlciJ9.Zf_LNfQIEdFl84r-tPQpT1nLaxdotkFutOxwNQy-w58")
-
         getPostResponse.safeEnqueue {
             if (it.message == "그룹 카테고리 조회 성공") {
                 GlobalData.categoryList = it.data.category
@@ -73,16 +96,49 @@ class PostActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * 버튼 클릭 함수
+     */
+    private fun setBtnClickListner() {
+        // 닫기 버튼
+        iv_post_close.setOnClickListener {
+            finish()
+        }
+        // 카테고리 변경 버튼
+        iv_post_add_category.setOnClickListener {
+            categoryDialog.show(supportFragmentManager, "category dialog")
+        }
+        // 변경된 카테고리 버튼
+        tv_post_selected_category.setOnClickListener {
+            categoryDialog.show(supportFragmentManager, "category dialog")
+        }
+        // 사진 앨범 버튼
+        iv_post_image_add.setOnClickListener {
+            try {
+                // 접근 권한 허용 여부
+                getPermission()
+                setImageRecyclerView()
+            } catch (e: Exception) {
+                Log.e("사진앨범", "문제가 있습니다")
+            }
+        }
+        // 게시물 올리기 버튼
+        tv_post_post.setOnClickListener {
+            setPostBtn()
+        }
+    }
+
+
     override fun onResume() {
         super.onResume()
-        configureRecyclerView()
+        connectWeb()
+        setImageRecyclerView()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         try {
             if (requestCode == PICTURE_REQUEST_CODE && resultCode == RESULT_OK && null != data) {
-
                 val uri = data?.data
                 if (uri == null) {
                     var clipData: ClipData?
@@ -101,14 +157,14 @@ class PostActivity : AppCompatActivity() {
                             val byteArrayOutputStream = ByteArrayOutputStream()
                             bitmap?.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream)
 
-                            Log.v("Postygyg", "들어오더랗")
                             val photobodyPre =
                                 RequestBody.create(
                                     MediaType.parse("image/jpg"),
                                     byteArrayOutputStream.toByteArray()
                                 )
+                            // name에는 서버가 주는 키값 그대로 넣어줘야 한다.
                             photobody =
-                                MultipartBody.Part.createFormData("images", "abcd", photobodyPre)
+                                MultipartBody.Part.createFormData("images", "fileName", photobodyPre)
 
                             // 클립데이터의 uri을 리사이클러뷰 데이터 클래스에 추가하기.
                             uploadImageList.add(PostPostImageData(item.uri.toString()))
@@ -124,98 +180,43 @@ class PostActivity : AppCompatActivity() {
                     val bitmap = BitmapFactory.decodeStream(inputStream, null, options)
                     val byteArrayOutputStream = ByteArrayOutputStream()
                     bitmap?.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream)
-                    val photoBody =
+                    val photoBodyPre =
                         RequestBody.create(
                             MediaType.parse("image/jpg"),
                             byteArrayOutputStream.toByteArray()
                         )
-                    Log.v("Postygyg", "들어오더랗X")
-
                     // 클립데이터의 uri을 리사이클러뷰 데이터 클래스에 추가하기.
                     uploadImageList.add(PostPostImageData(uri.toString()))
                     images?.add(
                         MultipartBody.Part.createFormData(
                             "images",
-                            "Abcd",
-                            photoBody
+                            "fileName",
+                            photoBodyPre
                         )
-                    )//여기의 image는 키값의 이름하고 같아야함
+                    )
                 }
             }
         } catch (e: Exception) {
-            Log.v("Postygyg", e.toString())
+            Log.e("PostActivity", e.toString())
         }
     }
-
-    // 버튼 클릭 함수
-    private fun setBtnClickListner() {
-        // 닫기 버튼
-        iv_post_close.setOnClickListener {
-            finish()
-        }
-        // 카테고리 변경 버튼
-        iv_post_add_category.setOnClickListener {
-            //var orgCategory = arrayListOf("IT", "디자인", "컴퓨터")
-            // 다이얼로그 호출하기 전에 글로벌 데이터 불러오기!
-
-            categoryDialog.show(supportFragmentManager, "category dialog")
-        }
-        // 변경된 카테고리 버튼
-        tv_post_selected_category.setOnClickListener {
-            var orgCategory = arrayListOf("IT", "컴퓨터")
-            val bundle = Bundle()
-            bundle.putSerializable("categoryList", orgCategory)
-            categoryDialog.arguments = bundle
-            categoryDialog.show(supportFragmentManager, "category dialog")
-        }
-        // 사진 앨범 버튼
-        iv_post_image_add.setOnClickListener {
-            try {
-                getPermission()
-                //openGallery()
-                configureRecyclerView()
-            } catch (e: Exception) {
-                Log.e("사진앨범", "문제가 있습니다")
-            }
-        }
-    }
-
-    // 게시물 올리기 통신
-    var fail: (Throwable) -> Unit = {
-        Log.v("Postygyg", it.toString())
-    }
-    var temp: (PostPostResponse) -> Unit = {
-        Log.v("Postygyg", it.message)
-    }
-
-    private fun postPost(
-        token: String,
-        images: ArrayList<MultipartBody.Part>?,
-        url: RequestBody,
-        category: RequestBody,
-        content: RequestBody
-    ) {
-        val postPostResponse = ApplicationController.networkServiceFeed
-            .postPostResponse(token, images, url, category, content)
-
-        postPostResponse.safeEnqueue(fail, temp)
-    }
-
+    /**
+     * 접근 권한 허용 여부
+     */
     private fun getPermission() {
-//        val textRequest = RequestBody.create(MediaType.parse("text/plain"), "dssdsds")
         val permissionListener = object : PermissionListener {
+            // 권한 요청 성공
             override fun onPermissionGranted() {
-                // 권한 요청 성공
+                // 갤러기 열기
                 openGallery()
             }
 
+            // 권한 요청 실패
             override fun onPermissionDenied(deniedPermissions: ArrayList<String>) {
-                // 권한 요청 실패
                 Toast.makeText(this@PostActivity, "갤러리 접근 권한이 필요합니다.", Toast.LENGTH_LONG).show()
             }
         }
         try {
-            Log.v("청하", "들어옴")
             TedPermission.with(this@PostActivity)
                 .setPermissionListener(permissionListener)
                 .setRationaleMessage("사진 및 파일을 저장하기 위하여 접근 권한이 필요합니다")
@@ -226,109 +227,121 @@ class PostActivity : AppCompatActivity() {
                 )
                 .check()
         } catch (e: java.lang.Exception) {
-            Log.v("청하", "권한 설정 실패")
         }
     }
 
-    // 갤러리 열기
+    /**
+     * 갤러기 열기
+     */
     fun openGallery() {
-
-//        var intent = Intent(Intent.ACTION_PICK)
-//        intent.type = MediaStore.Images.Media.CONTENT_TYPE
-//        intent.data = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-//        startActivityForResult(intent, REQ_CODE_SELECT_IMAGE)
-
-        //var intent = Intent(Intent.ACTION_PICK)
         var intent = Intent()
         intent.setType("image/*")
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
         intent.setAction(Intent.ACTION_GET_CONTENT)
         //TODO : 기기 스펙에 따라 나오는 것이 다른 문제가 생김. 해서 기기 스펙과 intent 간의 상관관계 확인 필요
 
-
         startActivityForResult(
-            Intent.createChooser(intent, "얌얌굿즈 : 리뷰에 업로드할 사진을 선택해주세요.!"),
+            Intent.createChooser(intent, "리뷰에 업로드할 사진을 선택해주세요.!"),
             PICTURE_REQUEST_CODE
         )
-        Toast.makeText(this@PostActivity, "사진을 꾹 눌러서 여러장을 선택해보세요~", Toast.LENGTH_LONG).show()
+        // Toast.makeText(this@PostActivity, "사진을 꾹 눌러서 여러장을 선택해보세요~", Toast.LENGTH_LONG).show()
     }
 
-    // 하단 사진 리싸이클러뷰
-    private fun configureRecyclerView() {
+    /**
+     * 하단 선택한 사진 리싸이클러뷰
+     */
+    private fun setImageRecyclerView() {
         rv_post_image_list.apply {
             adapter = PostPostAdapter(this@PostActivity, uploadImageList, images!!)
-            layoutManager =
-                LinearLayoutManager(this@PostActivity, LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = LinearLayoutManager(this@PostActivity, LinearLayoutManager.HORIZONTAL, false)
         }
     }
 
-    // 카테고리 변경 설정
-    fun setCategory(category: CharSequence?) {
-        tv_post_selected_category.text = category.toString()
-        tv_post_selected_category.visibility = View.VISIBLE
-        iv_post_add_category.visibility = View.INVISIBLE
-        Log.e("청하", tv_post_selected_category.text.toString())
-    }
-
-    // 게시물 '게시' 글자 활성화
+    /**
+     * 게시 버튼 활성화
+     */
     private fun setPostBtn() {
         var url = edt_post_url.text
         var content = edt_post_content.text
 
-        edt_post_url.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {
-            }
-
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (s!!.length != 0) {
-                    tv_post_post.setTextColor(Color.parseColor("#0057ff"))
-                } else {
-                    tv_post_post.setTextColor(Color.parseColor("#d1d1d1"))
-                }
-            }
-        })
-        edt_post_content.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {
-            }
-
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (s!!.length != 0) {
-                    tv_post_post.setTextColor(Color.parseColor("#0057ff"))
-                } else {
-                    tv_post_post.setTextColor(Color.parseColor("#d1d1d1"))
-                }
-            }
-        })
+        // 게시 버튼 파랑색으로
+        edtPostToBlue(edt_post_url)
+        edtPostToBlue(edt_post_content)
 
         // 게시물 등록 버튼
         tv_post_post.setOnClickListener {
-            Log.e("청하", "1")
-            var category = tv_post_selected_category.text.toString()
+            var category = tv_post_selected_category.text
+
             if (url.length == 0 && content.length == 0) {
             } else {
-                Log.e("청하", "3")
                 if (url.length > 0 && category.length == 0) {
-                    Log.e("청하", "4")
                     postSetCategoryDialog.show(supportFragmentManager, "postSetCategoryDialog")
                 } else {
-                    // 여기서 서버 통신
-                    val url2 =
-                        RequestBody.create(MediaType.parse("text/plain"), "https://www.naver.com/")
-                    val content2 = RequestBody.create(MediaType.parse("text/plain"), "content")
-                    val category2 = RequestBody.create(MediaType.parse("text/plain"), "category")
-                    //photobody = MultipartBody.Part.createFormData("images", "", "32323")
+                    Log.v("PostActivity", "통신성공")
+                    val post_url =
+                        RequestBody.create(MediaType.parse("text/plain"), url.toString())
+                    val post_content =
+                        RequestBody.create(MediaType.parse("text/plain"), content.toString())
+                    val post_category =
+                        RequestBody.create(MediaType.parse("text/plain"), category.toString())
                     postPost(
                         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVoZGduczE3NjZAZ21haWwuY29tIiwibmFtZSI6IuydtOuPme2biCIsImlhdCI6MTU3NzQwNzg1NiwiZXhwIjoxNTc5OTk5ODU2LCJpc3MiOiJGbG9vZFNlcnZlciJ9.Zf_LNfQIEdFl84r-tPQpT1nLaxdotkFutOxwNQy-w58",
-                        images, url2, category2, content2
+                        images, post_url, post_content, post_category
                     )
                 }
             }
         }
+
+    }
+
+    /**
+     * 게시 버튼 파란색으로 활성화
+     */
+    private fun edtPostToBlue(edt: EditText){
+        edt.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if (s!!.length != 0) {
+                    tv_post_post.setTextColor(Color.parseColor("#0057ff"))
+                } else {
+                    tv_post_post.setTextColor(Color.parseColor("#d1d1d1"))
+                }
+            }
+        })
+    }
+
+    /**
+     * 게시물 올리기 POST 통신
+     */
+    var fail: (Throwable) -> Unit = {
+        Log.v("PostActivity", it.toString())
+    }
+    var temp: (PostPostResponse) -> Unit = {
+        Log.v("PostActivity", it.message)
+    }
+    private fun postPost(
+        token: String,
+        images: ArrayList<MultipartBody.Part>?,
+        url: RequestBody,
+        category: RequestBody,
+        content: RequestBody
+    ) {
+        val postPostResponse = ApplicationController.networkServiceFeed
+            .postPostResponse(token, images, url, category, content)
+        postPostResponse.safeEnqueue(fail, temp)
+    }
+
+    /**
+     * 카테고리 선택 시 변경된 카테고리 적용
+     */
+    fun setCategory(category: CharSequence?) {
+        tv_post_selected_category.text = category.toString()
+        tv_post_selected_category.visibility = View.VISIBLE
+        iv_post_add_category.visibility = View.INVISIBLE
     }
 }

@@ -27,6 +27,7 @@ import com.flood_android.util.safeEnqueue
 import com.orhanobut.dialogplus.DialogPlus
 import com.orhanobut.dialogplus.Holder
 import com.orhanobut.dialogplus.ViewHolder
+import com.flood_android.ui.postnourl.PostNoUrlActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.dialog_feed_save_flips.*
 
@@ -56,7 +57,7 @@ class MainActivity : AppCompatActivity() {
             replaceFragment(CompanyFragment())
         }
         iv_main_tab_write.setOnClickListener{
-            val intent = Intent(this@MainActivity, PostActivity::class.java)
+            val intent = Intent(this@MainActivity, PostNoUrlActivity::class.java)
             startActivity(intent)
         }
         iv_main_tab_alarm.setOnClickListener{
