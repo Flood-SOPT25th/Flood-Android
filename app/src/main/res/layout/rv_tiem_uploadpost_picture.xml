@@ -21,7 +21,9 @@
         android:id="@+id/iv_rv_item_post_del"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="2dp"
+        app:layout_constraintEnd_toEndOf="@id/iv_rv_item_uploadpost_picture"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_x_black" />
+        app:srcCompat="@drawable/ic_x_small" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,83 @@
+package com.flood_android.ui.post
+
+import android.content.Context
+import android.graphics.Color
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import com.flood_android.R
+import com.flood_android.ui.post.get.PostSelectCategoryRVData
+import com.flood_android.util.GlobalData.selectedCategory
+import kotlinx.android.synthetic.main.fragment_post_category_dialog.*
+
+
+
+class PostSelectCategoryDialogRVAdapter(var ctx: Context, var data: List<String>, var flag: List<Boolean>) :
+    RecyclerView.Adapter<PostSelectCategoryDialogRVAdapter.Holder>() {
+
+    // 세은세은
+    interface ItemClick
+    {
+        fun onClick(view: View, position: Int)
+    }
+    var itemClick: ItemClick? = null
+
+    var name: String? = null
+    //
+
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): Holder {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.rv_item_post_select_category_dialog_category, parent, false)
+
+        return Holder(view)
+    }
+
+    override fun getItemCount(): Int = data.size
+    //세은세은
+    fun changeflagData(newFlag: List<Boolean>) {
+        flag = newFlag
+    }
+    override fun onBindViewHolder(holder: Holder, position: Int) {
+
+        // 세은세은
+        if(itemClick != null)
+        {
+            holder.itemView?.setOnClickListener { v ->
+                itemClick?.onClick(v, position)
+                selectedCategory = holder.categoryName.text.toString()
+            }
+        }
+        //
+        holder.categoryName.text = data[position]
+
+        //세으으은
+        if(flag[position]) {
+            holder.categoryName.setTextColor(Color.parseColor("#282828"))
+        }
+        else {
+            holder.categoryName.setTextColor(Color.parseColor("#d1d1d1"))
+        }
+
+       /* holder.categoryName.setOnClickListener {
+            selectedCategory = holder.categoryName.text.toString()
+            Log.e("청하", position.toString())
+            Log.e("청하", selectedCategory)
+
+            holder.categoryName.setTextColor(Color.parseColor("#282828"))
+
+        }*/
+    }
+
+    inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val categoryName: TextView = itemView.findViewById(R.id.tv_rv_item_post_select_category)
+
+    }
+
+
+}
