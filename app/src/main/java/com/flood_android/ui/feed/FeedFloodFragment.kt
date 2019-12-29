@@ -17,6 +17,7 @@ import com.flood_android.ui.feed.adapter.FeedRVAdapter
 import com.flood_android.ui.feed.adapter.FeedTop3RVAdapter
 import com.flood_android.ui.feed.data.FeedData
 import com.flood_android.ui.feed.data.FeedTop3Data
+import com.flood_android.ui.feed.data.GetAllFeedResponse
 import com.flood_android.ui.feed.data.GetFeedTop3Response
 import com.flood_android.ui.main.MainActivity
 import com.flood_android.util.safeEnqueue
@@ -32,8 +33,6 @@ class FeedFloodFragment : Fragment() {
     }
     var token : String = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVoZGduczE3NjZAZ21haWwuY29tIiwibmFtZSI6IuydtOuPme2biCIsImlhdCI6MTU3NzQwNzg1NiwiZXhwIjoxNTc5OTk5ODU2LCJpc3MiOiJGbG9vZFNlcnZlciJ9.Zf_LNfQIEdFl84r-tPQpT1nLaxdotkFutOxwNQy-w58"
 
-    //var top3DataList : ArrayList<FeedTop3Data> = ArrayList()
-    var todayDataList : ArrayList<FeedData> = ArrayList()
     lateinit var feedRVAdapter : FeedRVAdapter
     lateinit var feedTop3RVAdapter: FeedTop3RVAdapter
 
@@ -53,6 +52,7 @@ class FeedFloodFragment : Fragment() {
     private fun initView(){
         setWeek()
         getTop3Response()
+        getTodayResponse()
     }
 
     private fun setWeek(){
@@ -106,21 +106,14 @@ class FeedFloodFragment : Fragment() {
     }
     private val onTop3Failure : (Throwable) -> Unit = {
         Log.v("Postygyg", it.toString())
-
     }
     private fun getTop3Response(){
         networkService.getFeedTop3Response(token).safeEnqueue(onTop3Failure, onTop3Success)
     }
 
-    //Flood Today 서버 통신
-    private fun getTodayResponse(){
-
-    }
-
-    // Top3 리사이클러뷰
-    private fun setTop3RecyclerView(top3DataList : ArrayList<FeedTop3Data>){
+    private fun setTop3RecyclerView(top3DataList : ArrayList<FeedTop3Data>) {
         feedTop3RVAdapter = FeedTop3RVAdapter(context!!, top3DataList)
-        rv_feed_flood_top3.apply{
+        rv_feed_flood_top3.apply {
             adapter = feedTop3RVAdapter
             layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL, false)
         }
@@ -128,15 +121,29 @@ class FeedFloodFragment : Fragment() {
     }
 
     /**
-     *  페이징 처리하기!!!!!!!!!!!!!!!!!!!
+     *  모든 게시물 조회
      */
+    private val onAllFeedSuccess : (GetAllFeedResponse) -> Unit = {
+        setTodayRecyclerView(it.data.pidArr)
+    }
+
+    private fun getTodayResponse(){
+        networkService.getAllFeedResponse(token).safeEnqueue({}, onAllFeedSuccess)
+    }
 
     // Today 리사이클러뷰
-    private fun setTodayRecyclerView(){
-        feedRVAdapter =  FeedRVAdapter(context!!, todayDataList)
+    private fun setTodayRecyclerView(dataList : ArrayList<FeedData>){
+        feedRVAdapter =  FeedRVAdapter(context!!, dataList)
         rv_feed_flood_today.apply {
             adapter =feedRVAdapter
             layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL, false)
         }
     }
+
+
+    /**
+     *  페이징 처리하기!!!!!!!!!!!!!!!!!!!
+     */
+
+
 }

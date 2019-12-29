@@ -8,7 +8,6 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -20,17 +19,11 @@ import com.flood_android.R
 import com.flood_android.network.ApplicationController
 import com.flood_android.network.NetworkServiceFeed
 import com.flood_android.ui.feed.adapter.FeedCategoryRVAdapter
-import com.flood_android.ui.feed.adapter.FeedSaveFlipsCategoryRVAdapter
-import com.flood_android.ui.feed.data.FeedSaveFlipsCategoryData
 import com.flood_android.ui.feed.data.GetFeedCategoryResponse
 import com.flood_android.ui.main.MainActivity
 import com.flood_android.ui.post.PostActivity
 import com.flood_android.util.OnSingleClickListener
 import com.flood_android.util.safeEnqueue
-import com.orhanobut.dialogplus.DialogPlus
-import com.orhanobut.dialogplus.Holder
-import com.orhanobut.dialogplus.ViewHolder
-import kotlinx.android.synthetic.main.dialog_feed_save_flips.*
 import kotlinx.android.synthetic.main.fragment_feed.*
 import kotlinx.android.synthetic.main.toast_feed_save_flips_category.*
 import java.text.ParseException
@@ -39,8 +32,6 @@ import java.text.SimpleDateFormat
 
 class FeedFragment : Fragment() {
 
-    lateinit var flipsCategoryDataList: ArrayList<FeedSaveFlipsCategoryData>
-    lateinit var dialog: DialogPlus
 
     lateinit var getCategoryDataList: ArrayList<String>
     val networkService: NetworkServiceFeed by lazy {
@@ -129,39 +120,6 @@ class FeedFragment : Fragment() {
         toast.show()
     }
 
-
-    /**
-     *  플립에 저장하기 다이얼로그 띄우기
-     */
-    fun makeFlipDialog(ivSelector: ImageView) {
-        ivSelector.isSelected = true
-
-        val holder: Holder = ViewHolder(R.layout.dialog_feed_save_flips)
-
-        setFlipCategoryRecyclerView(flipsCategoryDataList)
-
-        dialog = DialogPlus.newDialog(context)
-            .apply {
-                setContentHolder(holder)
-                setGravity(Gravity.BOTTOM)
-                setCancelable(true)
-                setExpanded(true)
-            }
-            .setOnCancelListener {
-                ivSelector.isSelected = false
-            }
-            .setOnBackPressListener {
-                ivSelector.isSelected = false
-            }
-            .create()
-
-        dialog.show()
-    }
-
-    fun dismissFlipDialog() {
-        dialog.dismiss()
-    }
-
     /**
      *  피드 카테고리 리사이클러뷰 설정
      */
@@ -173,18 +131,6 @@ class FeedFragment : Fragment() {
         }
     }
 
-    /**
-     *  플립 카테고리 리사이클러뷰 설정
-     */
-    private fun setFlipCategoryRecyclerView(dataList: ArrayList<FeedSaveFlipsCategoryData>) {
-        var feedSaveFlipsCategoryRVAdapter = FeedSaveFlipsCategoryRVAdapter(context!!, dataList)
-        rv_dialog_feed_save_flips_category.apply {
-            adapter = feedSaveFlipsCategoryRVAdapter
-            layoutManager =
-                LinearLayoutManager(context!!, LinearLayoutManager.HORIZONTAL, false)
-        }
-        feedSaveFlipsCategoryRVAdapter.notifyDataSetChanged()
-    }
 
     private fun setVisible(view: View) {
         view.visibility = View.VISIBLE

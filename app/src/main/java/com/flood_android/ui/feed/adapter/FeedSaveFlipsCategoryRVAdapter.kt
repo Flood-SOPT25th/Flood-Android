@@ -11,15 +11,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.request.RequestOptions
 import com.flood_android.R
 import com.flood_android.ui.feed.FeedFragment
-import com.flood_android.ui.feed.data.FeedSaveFlipsCategoryData
+import com.flood_android.ui.feed.data.BookmarkData
+import com.flood_android.ui.main.MainActivity
 import com.flood_android.util.OnSingleClickListener
-import kotlinx.android.synthetic.main.rv_item_feed_save_flips_category.view.*
 
 class FeedSaveFlipsCategoryRVAdapter(
-    private val ctx: Context, var dataList: ArrayList<FeedSaveFlipsCategoryData>
+    private val ctx: Context, var dataList: ArrayList<BookmarkData>
 ) : RecyclerView.Adapter<FeedSaveFlipsCategoryRVAdapter.Holder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -36,15 +35,16 @@ class FeedSaveFlipsCategoryRVAdapter(
 
         dataList[position].let { item ->
             Glide.with(ctx)
-                .load(item.img)
+                .load(item.thumb)
                 .transform(CenterCrop(), RoundedCorners(10))
                 .into(holder.categoryImg)
-            holder.categoryName.text = item.category_name
+            holder.categoryName.text = item.categoryName
+
             holder.categoryBtn.setOnClickListener {
                 (object : OnSingleClickListener() {
                     override fun onSingleClick(v: View) {
-                        (ctx as FeedFragment).dismissFlipDialog()   // dialog 끄기
-                        (ctx as FeedFragment).makeToast(item.img, item.category_name)
+                        (ctx as MainActivity).dismissFlipDialog()   // dialog 끄기
+                        (ctx as FeedFragment).makeToast(item.thumb, item.categoryName)
                         /**
                          *  여기다가 북마크 추가했다는 서버 통신도 하긔
                          */

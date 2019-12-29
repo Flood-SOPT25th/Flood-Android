@@ -1,8 +1,6 @@
 package com.flood_android.network
 
-import com.flood_android.ui.feed.data.GetFeedCategoryResponse
-import com.flood_android.ui.feed.data.GetFeedTop3Response
-import com.flood_android.ui.feed.data.PostBookmarkCancelResponse
+import com.flood_android.ui.feed.data.*
 import com.flood_android.ui.post.PostPostResponse
 import com.flood_android.ui.post.get.GetPostResponse
 import okhttp3.MultipartBody
@@ -24,6 +22,25 @@ interface NetworkServiceFeed {
     fun getFeedTop3Response(
         @Header("Authorization") authorization: String
     ): Call<GetFeedTop3Response>
+
+    // 모든 게시물 조회
+    @GET("/post")
+    fun getAllFeedResponse(
+        @Header("Authorization") authorization: String
+    ):Call<GetAllFeedResponse>
+
+    @GET("/post/{idx}")
+    fun getFeedDetailResponse(
+        @Header("Autrhorization") authorization: String,
+        @Path("idx") feedIdx : String
+    ) : Call<GetFeedDetailResponse>
+
+    // 북마크 취소
+    @POST("/post/bookmark/cancel")
+    fun postBookmarkCancelRequest(
+        @Header("Authorization") authorization: String,
+        @Body body: PostBookmarkCancelData
+    ) : Call<PostBookmarkCancelData>
 
     /**
      * 게시물 등록 POST

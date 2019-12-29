@@ -3,26 +3,44 @@ package com.flood_android.ui.main
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.Gravity
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.flood_android.MypageFragment
 import com.flood_android.R
 import com.flood_android.network.ApplicationController
 import com.flood_android.network.NetworkServiceFeed
+import com.flood_android.network.NetworkServiceUser
 import com.flood_android.ui.alarm.AlarmFragment
 import com.flood_android.ui.company.CompanyFragment
 import com.flood_android.ui.feed.FeedFragment
-import com.flood_android.ui.feed.data.PostBookmarkCancelResponse
+import com.flood_android.ui.feed.adapter.FeedSaveFlipsCategoryRVAdapter
+import com.flood_android.ui.feed.data.BookmarkData
+import com.flood_android.ui.feed.data.FeedSaveFlipsCategoryData
+import com.flood_android.ui.feed.data.GetPostBookmarkResponse
+import com.flood_android.ui.feed.data.PostBookmarkCancelData
 import com.flood_android.ui.post.PostActivity
-import com.flood_android.ui.write.WriteActivity
 import com.flood_android.util.safeEnqueue
+import com.orhanobut.dialogplus.DialogPlus
+import com.orhanobut.dialogplus.Holder
+import com.orhanobut.dialogplus.ViewHolder
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.dialog_feed_save_flips.*
 
 class MainActivity : AppCompatActivity() {
+    lateinit var flipsCategoryDataList: ArrayList<BookmarkData>
+    lateinit var dialog: DialogPlus
 
-    val networkService: NetworkServiceFeed by lazy {
+    val networkServiceFeed: NetworkServiceFeed by lazy {
         ApplicationController.networkServiceFeed
     }
+    val networkServiceUser: NetworkServiceUser by lazy {
+        ApplicationController.networkServiceUser
+    }
+
     var token : String = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVoZGduczE3NjZAZ21haWwuY29tIiwibmFtZSI6IuydtOuPme2biCIsImlhdCI6MTU3NzQwNzg1NiwiZXhwIjoxNTc5OTk5ODU2LCJpc3MiOiJGbG9vZFNlcnZlciJ9.Zf_LNfQIEdFl84r-tPQpT1nLaxdotkFutOxwNQy-w58"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -122,14 +140,72 @@ class MainActivity : AppCompatActivity() {
 //        }
         }
 
-//    /**
-//     *  북마크 취소 서버 통신
-//     */
-//    private var successPostBookmarkCancelSuccess : (PostBookmarkCancelResponse)  -> Unit  = {
-//
-//    }
-//
-//    fun postBookmarkCancelResponse(token : String){
-//
-//    }
+    /**
+     *  북마크 취소 서버 통신
+     */
+    var onBookmarkCancelSuccess: (PostBookmarkCancelData) -> Unit = {
+        Log.v("현주", "통신 성공")
+    }
+
+    fun postBookmarkCancelRequest(token : String, post_id : String){
+        networkServiceFeed.postBookmarkCancelRequest(token, PostBookmarkCancelData(post_id)).safeEnqueue({}, onBookmarkCancelSuccess)
+    }
+
+    /**
+     *  북마크 리스트 받아오기
+     */
+    val onGetBookmarkListSuccess : (GetPostBookmarkResponse) -> Unit = { response ->
+        setFlipCategoryRecyclerView(response.data.categorys)
+    }
+
+    fun getBookmarkListResponse(token : String){
+        networkServiceUser.getPostBookmarkResponse(token).safeEnqueue ({}, onGetBookmarkListSuccess)
+    }
+
+    /**
+     *  플립에 저장하기 다이얼로그 띄우기
+     */
+    fun makeFlipDialog(ivSelector: ImageView) {
+        ivSelector.isSelected = true
+
+        val holder: Holder = ViewHolder(R.layout.dialog_feed_save_flips)
+
+        getBookmarkListResponse("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVoZGduczE3NjZAZ21haWwuY29tIiwibmFtZSI6IuydtOuPme2biCIsImlhdCI6MTU3NzQwNzg1NiwiZXhwIjoxNTc5OTk5ODU2LCJpc3MiOiJGbG9vZFNlcnZlciJ9.Zf_LNfQIEdFl84r-tPQpT1nLaxdotkFutOxwNQy-w58")
+        //setFlipCategoryRecyclerView(flipsCategoryDataList)
+
+        dialog = DialogPlus.newDialog(this@MainActivity)
+            .apply {
+                setContentHolder(holder)
+                setGravity(Gravity.BOTTOM)
+                setCancelable(true)
+                setExpanded(true)
+            }
+            .setOnCancelListener {
+                ivSelector.isSelected = false
+            }
+            .setOnBackPressListener {
+                ivSelector.isSelected = false
+            }
+            .create()
+
+        dialog.show()
+    }
+
+    fun dismissFlipDialog() {
+        dialog.dismiss()
+    }
+
+    /**
+     *  플립 카테고리 리사이클러뷰 설정
+     */
+    private fun setFlipCategoryRecyclerView(dataList: ArrayList<BookmarkData>) {
+        Log.v("현주", dataList.toString())
+        var feedSaveFlipsCategoryRVAdapter = FeedSaveFlipsCategoryRVAdapter(this@MainActivity, dataList)
+        rv_dialog_feed_save_flips_category.apply {
+            adapter = feedSaveFlipsCategoryRVAdapter
+            layoutManager =
+                LinearLayoutManager(context!!, LinearLayoutManager.HORIZONTAL, false)
+        }
+        feedSaveFlipsCategoryRVAdapter.notifyDataSetChanged()
+    }
 }

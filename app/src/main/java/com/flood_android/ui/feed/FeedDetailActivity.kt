@@ -1,5 +1,6 @@
 package com.flood_android.ui.feed
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.flood_android.R
 import com.flood_android.ui.feed.adapter.FeedDetailCommentRVAdapter
 import com.flood_android.ui.feed.data.FeedDetailCommentData
+import com.flood_android.ui.main.MainActivity
 import com.flood_android.util.OnSingleClickListener
 import kotlinx.android.synthetic.main.activity_feed_detail.*
 
@@ -22,6 +24,7 @@ import kotlinx.android.synthetic.main.activity_feed_detail.*
 class FeedDetailActivity : AppCompatActivity() {
     var commentDataList: ArrayList<FeedDetailCommentData> = ArrayList()
     lateinit var feedDetailCommentRVAdapter: FeedDetailCommentRVAdapter
+    lateinit var feedIdx : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,9 +34,23 @@ class FeedDetailActivity : AppCompatActivity() {
     }
 
     private fun initView() {
+        getVariables()
         setOnClickListener()
         setCommentRecyclerView()
         activateComment()
+    }
+
+    private fun getVariables() : String {
+        setResult(Activity.RESULT_OK, intent)
+        feedIdx = intent.getStringExtra("feed_id")
+        return feedIdx
+    }
+
+    /**
+     * 게시물 조회 서버 통신
+     */
+    private fun getFeedDetailResponse(){
+
     }
 
     private fun setOnClickListener() {
@@ -148,7 +165,7 @@ class FeedDetailActivity : AppCompatActivity() {
         if (ivFlips.isSelected)      //북마크 취소
             ivFlips.isSelected = false
         else{   // 북마크하기
-            (applicationContext as FeedFragment).makeFlipDialog(ivFlips)
+            (applicationContext as MainActivity).makeFlipDialog(ivFlips)
         }
     }
 
