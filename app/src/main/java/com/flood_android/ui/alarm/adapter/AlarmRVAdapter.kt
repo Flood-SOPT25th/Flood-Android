@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.flood_android.R
-import com.flood_android.network.Jihee.AlarmRvItem
+import com.flood_android.ui.alarm.data.AlarmRvItem
 
 class AlarmRVAdapter(private val context: Context) : RecyclerView.Adapter<AlarmRVViewHolder>(){
     var data = listOf<AlarmRvItem>()

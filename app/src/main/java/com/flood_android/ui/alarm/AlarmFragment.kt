@@ -6,11 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import com.flood_android.R
-import com.flood_android.network.Jihee.AlarmRvItem
+import com.flood_android.ui.alarm.data.AlarmRvItem
 import com.flood_android.ui.alarm.adapter.AlarmRVAdapter
 import kotlinx.android.synthetic.main.fragment_alarm.*
 

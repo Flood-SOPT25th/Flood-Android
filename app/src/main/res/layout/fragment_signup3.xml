@@ -1,135 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cstlay_signup_frag2_1"
+        android:id="@+id/cstlay_signup_frag3_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="42dp"
-        android:layout_marginEnd="42dp"
         android:layout_marginTop="55dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginEnd="42dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/tv_signup2_title"
+            android:id="@+id/tv_signup3_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/notosanscjkkrbold"
             android:lineSpacingExtra="15sp"
+            android:text="질문을\n선택해주세요:)"
             android:textColor="#000000"
             android:textSize="30sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:text="정보를\n입력해주세요!" />
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/iv_signup2_pencil"
-            android:layout_width="29dp"
-            android:layout_height="29dp"
-            android:layout_marginStart="6dp"
-            android:layout_marginBottom="7dp"
-            android:src="@mipmap/signup_pencil"
-            app:layout_constraintBottom_toBottomOf="@id/cstlay_signup_frag2_1"
-            app:layout_constraintStart_toEndOf="@id/tv_signup2_title" />
-
+        <TextView
+            android:id="@+id/tv_signup3_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/notosanscjkkrmedium"
+            android:lineSpacingExtra="8sp"
+            android:text="보안을 위해 자신만 알 수 있도록\n답변해주세요."
+            android:textColor="#a3a3a3"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@id/tv_signup3_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_signup3_title" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cstlay_signup_frag2_2"
+        android:id="@+id/cstlay_signup_frag3_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="43dp"
-        android:layout_marginTop="76dp"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="78dp"
         android:layout_marginEnd="42dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cstlay_signup_frag2_1">
+        app:layout_constraintTop_toBottomOf="@id/cstlay_signup_frag3_1">
 
         <TextView
-            android:id="@+id/tv_signup2_name"
+            android:id="@+id/tv_signup3_question"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/notosanscjkkrregular"
             android:lineSpacingExtra="6sp"
-            android:hint="이름"
+            android:text="질문"
             android:textColor="#707070"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/cstlay_signup_frag2_2" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/edtxt_signup2_name"
-            android:layout_width="0dp"
+            android:id="@+id/edtxt_signup3_question"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="9dp"
             android:background="@null"
             android:fontFamily="@font/gilroyextrabold"
-            android:inputType="text"
+            android:hint="질문 선택하기"
             android:lineSpacingExtra="4sp"
             android:textColor="#ededed"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_signup2_name"
-            app:layout_constraintWidth_percent="0.766"
-            tools:text="선지희" />
+            app:layout_constraintTop_toBottomOf="@id/tv_signup3_question" />
 
         <View
-            android:id="@+id/lv_signup_frag_2_1"
+            android:id="@+id/lv_signup_frag_3_1"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="9.7dp"
-            android:background="#707070"
-            app:layout_constraintStart_toStartOf="@id/edtxt_signup2_name"
-            app:layout_constraintTop_toBottomOf="@id/edtxt_signup2_name"
-
-            />
+            android:background="#ededed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edtxt_signup3_question" />
 
         <TextView
-            android:id="@+id/tv_signup2_contact"
+            android:id="@+id/tv_signup3_answer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="1dp"
             android:layout_marginTop="21.3dp"
-            android:fontFamily="@font/notosanscjkkrregular"
             android:lineSpacingExtra="6sp"
-            android:text="전화번호"
+            android:text="답변"
             android:textColor="#707070"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/lv_signup_frag_2_1" />
+            app:layout_constraintTop_toBottomOf="@id/lv_signup_frag_3_1" />
 
         <EditText
-            android:id="@+id/edtxt_signup2_contact"
+            android:id="@+id/edtxt_signup3_answer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="1dp"
             android:layout_marginTop="9dp"
-            android:hint="010-0000-0000"
             android:background="@null"
             android:fontFamily="@font/gilroyextrabold"
-            android:inputType="phone"
+            android:hint="답변을 입력해주세요"
             android:lineSpacingExtra="4sp"
             android:textColor="#ededed"
             android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_signup2_contact"
-            />
+            app:layout_constraintTop_toBottomOf="@id/tv_signup3_answer" />
 
         <View
-            android:id="@+id/lv_signup_frag_2_2"
+            android:id="@+id/lv_signup_frag_3_2"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="9.7dp"
-            android:background="#707070"
-            app:layout_constraintStart_toStartOf="@id/edtxt_signup2_contact"
-            app:layout_constraintTop_toBottomOf="@id/edtxt_signup2_contact"
-            />
+            android:background="#ededed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edtxt_signup3_answer" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cstlay_signup_frag3_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
+
