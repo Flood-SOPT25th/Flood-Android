@@ -92,7 +92,7 @@ __SOPT 25기 겨울 앱잼 : 안드로이드__
 <br/><br/>
 ## :question: 문제점
 
-### :point_right: 홈 키 관련 문제점
+#### :point_right: 홈 키 관련 문제점
 
 * 현 상황 
 > Web에서 공유하기 버튼을 눌러 url을 가져와 Activity 내의 TextView에 띄워줘야 한다.
@@ -107,7 +107,7 @@ void Activity.onUserLeaveHint ()
 `
 이 메서드는 사용자에 의해 액티비티가 백그라운드로 전환되기 직전에 onPause 바로 앞에 호출된다. Home 키를 누르기 직전에 호출되며 Back키를 누르거나 전화 통화 앱이 올라올 때, 타이머에 의해 종료될 때는 호출되지 않는다. Home키는 키입력 이벤트로 전달되지 않아 검출이 어려운데 이 메서드가 호출될 때 Home키에 의해 백그라운드가 됨을 알 수 있다. 이 두 메서드는 상태란의 통지를 관리할 때 사용될 수 있으며 액티비티가 통지를 취소할 시점을 결정하는데 도움을 준다. 다음 예제는 사용자가 5초 이상 관심을 보이지 않으면 즉시 종료한다.
 
-### :point_right: RecyclerView Item 선택에 관한 문제점
+#### :point_right: RecyclerView Item 선택에 관한 문제점
 
 * 현 상황
 >  recyclerview에서 한 item을 선택했을 때 나머지 itemView들은 textColor가 회색으로 바뀌어야하고, 선택한 itemView만 검은색으로 되어야 한다.
