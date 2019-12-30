@@ -32,13 +32,13 @@
         android:id="@+id/tv_rv_item_feed_detail_comment_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="27dp"
+        android:layout_marginTop="1dp"
         android:layout_marginEnd="24dp"
         android:text="뫄뫄 전"
         android:textColor="@color/colorGrayD1"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/tv_rv_item_feed_detail_comment_user_name" />
 
     <TextView
         android:id="@+id/tv_rv_item_feed_detail_comment_contents"
