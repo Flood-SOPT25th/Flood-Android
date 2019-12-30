@@ -29,10 +29,11 @@ interface NetworkServiceFeed {
         @Header("Authorization") authorization: String
     ):Call<GetAllFeedResponse>
 
-    @GET("/post/{idx}")
+    // 게시물 상세 조회
+    @GET("/post/detail/{idx}")
     fun getFeedDetailResponse(
-        @Header("Autrhorization") authorization: String,
-        @Path("idx") feedIdx : String
+        @Header("Authorization") authorization: String,
+        @Path("idx") idx : String
     ) : Call<GetFeedDetailResponse>
 
     // 북마크 취소

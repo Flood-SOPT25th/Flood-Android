@@ -92,7 +92,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:descendantFocusability="blocksDescendants">
 
             <ImageView
                 android:id="@+id/iv_feed_detail_user_img"
@@ -122,20 +123,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="뫄뫄"
+                android:text="뫄뫄 전"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_feed_detail_user_name"
                 app:layout_constraintStart_toEndOf="@+id/tv_feed_detail_user_name"
                 app:layout_constraintTop_toTopOf="@+id/tv_feed_detail_user_name" />
-
-            <TextView
-                android:id="@+id/textView11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=" 전"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_feed_detail_time"
-                app:layout_constraintStart_toEndOf="@+id/tv_feed_detail_time"
-                app:layout_constraintTop_toTopOf="@+id/tv_feed_detail_time"
-                app:layout_constraintVertical_bias="0.0" />
 
             <TextView
                 android:id="@+id/tv_feed_detail_user_contents"
@@ -195,18 +186,14 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_feed_detail_news_title" />
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/tv_feed_detail_news_img"
+                <ImageView
+                    android:id="@+id/iv_feed_detail_news_img"
                     android:layout_width="0dp"
                     android:layout_height="132dp"
                     android:layout_marginStart="18dp"
                     android:layout_marginTop="22dp"
                     android:layout_marginEnd="18dp"
                     android:layout_marginBottom="18dp"
-                    app:cardBackgroundColor="@color/colorGrayD0"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="0dp"
-                    app:cardMaxElevation="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -302,8 +289,9 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_feed_detail_comments"
-                android:layout_width="409dp"
-                android:layout_height="274dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"

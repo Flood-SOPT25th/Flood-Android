@@ -101,7 +101,6 @@ class FeedFloodFragment : Fragment() {
      *  Top3 서버 통신
      */
     private val onTop3Success : (GetFeedTop3Response) -> Unit = {
-        Log.v("Feed", it.data.topArr[0].user_name)
         setTop3RecyclerView(it.data.topArr)
     }
     private val onTop3Failure : (Throwable) -> Unit = {

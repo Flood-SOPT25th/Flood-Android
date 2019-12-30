@@ -28,6 +28,7 @@ import com.orhanobut.dialogplus.DialogPlus
 import com.orhanobut.dialogplus.Holder
 import com.orhanobut.dialogplus.ViewHolder
 import com.flood_android.ui.postnourl.PostNoUrlActivity
+import com.flood_android.util.SharedPreferenceController
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.dialog_feed_save_flips.*
 
@@ -41,8 +42,6 @@ class MainActivity : AppCompatActivity() {
     val networkServiceUser: NetworkServiceUser by lazy {
         ApplicationController.networkServiceUser
     }
-
-    var token : String = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVoZGduczE3NjZAZ21haWwuY29tIiwibmFtZSI6IuydtOuPme2biCIsImlhdCI6MTU3NzQwNzg1NiwiZXhwIjoxNTc5OTk5ODU2LCJpc3MiOiJGbG9vZFNlcnZlciJ9.Zf_LNfQIEdFl84r-tPQpT1nLaxdotkFutOxwNQy-w58"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -171,7 +170,7 @@ class MainActivity : AppCompatActivity() {
 
         val holder: Holder = ViewHolder(R.layout.dialog_feed_save_flips)
 
-        getBookmarkListResponse("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVoZGduczE3NjZAZ21haWwuY29tIiwibmFtZSI6IuydtOuPme2biCIsImlhdCI6MTU3NzQwNzg1NiwiZXhwIjoxNTc5OTk5ODU2LCJpc3MiOiJGbG9vZFNlcnZlciJ9.Zf_LNfQIEdFl84r-tPQpT1nLaxdotkFutOxwNQy-w58")
+        getBookmarkListResponse(SharedPreferenceController.getAuthorization(this@MainActivity).toString())
         //setFlipCategoryRecyclerView(flipsCategoryDataList)
 
         dialog = DialogPlus.newDialog(this@MainActivity)

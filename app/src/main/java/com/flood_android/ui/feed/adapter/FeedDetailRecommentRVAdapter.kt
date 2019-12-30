@@ -12,11 +12,12 @@ import com.bumptech.glide.Glide
 import com.flood_android.R
 import com.flood_android.ui.feed.FeedDetailActivity
 import com.flood_android.ui.feed.data.FeedDetailRecommentData
+import com.flood_android.ui.feed.data.SubCommentData
 import com.flood_android.util.OnSingleClickListener
 
 class FeedDetailRecommentRVAdapter(
     private val ctx: Context,
-    var dataList: ArrayList<FeedDetailRecommentData>
+    var dataList: ArrayList<SubCommentData>
 ) :
     RecyclerView.Adapter<FeedDetailRecommentRVAdapter.Holder>() {
     override fun onCreateViewHolder(
@@ -33,20 +34,20 @@ class FeedDetailRecommentRVAdapter(
     override fun onBindViewHolder(holder: FeedDetailRecommentRVAdapter.Holder, position: Int) {
         dataList[position].let{ item->
             Glide.with(ctx)
-                .load(item.user_img)
+                .load(item.subcomment_user_img)
                 .circleCrop()
                 .centerCrop()
                 .into(holder.userImg)
 
-            holder.userName.text = item.user_name
+            holder.userName.text = item.subcomment_user_name
             holder.time.text = item.time
-            holder.contents.text = item.contents
+            holder.contents.text = item.subcomment_content
 
             // 답글에서 답글달기 클릭했을 때 처리하기
             holder.btnRecomment.setOnClickListener {
                 (object : OnSingleClickListener(){
                     override fun onSingleClick(v: View) {
-                        (ctx as FeedDetailActivity).recomment(item.user_name)
+                        (ctx as FeedDetailActivity).recomment(item.subcomment_user_name)
                     }
                 })
             }
