@@ -19,6 +19,7 @@ import com.flood_android.R
 import com.flood_android.network.ApplicationController
 import com.flood_android.ui.post.*
 import com.flood_android.util.GlobalData
+import com.flood_android.util.SharedPreferenceController
 import com.flood_android.util.safeEnqueue
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
@@ -62,7 +63,7 @@ class PostNoUrlActivity : AppCompatActivity() {
      */
     private fun getPostCategory() {
         val getPostResponse = ApplicationController.networkServiceFeed
-            .getPostResponse("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVoZGduczE3NjZAZ21haWwuY29tIiwibmFtZSI6IuydtOuPme2biCIsImlhdCI6MTU3NzQwNzg1NiwiZXhwIjoxNTc5OTk5ODU2LCJpc3MiOiJGbG9vZFNlcnZlciJ9.Zf_LNfQIEdFl84r-tPQpT1nLaxdotkFutOxwNQy-w58")
+            .getPostResponse(SharedPreferenceController.getAuthorization(this@PostNoUrlActivity).toString())
         getPostResponse.safeEnqueue {
             if (it.message == "그룹 카테고리 조회 성공") {
                 GlobalData.categoryList = it.data.category
@@ -79,12 +80,7 @@ class PostNoUrlActivity : AppCompatActivity() {
             finish()
         }
         // 카테고리 변경 버튼
-        iv_post_no_url_add_category.setOnClickListener {
-            categoryDialog.show(supportFragmentManager, "category dialog")
-            GlobalData.categoryDialogFalg = "1"
-        }
-        // 변경된 카테고리 버튼
-        tv_post_no_url_selected_category.setOnClickListener {
+        cl_post_no_url_select_category.setOnClickListener {
             categoryDialog.show(supportFragmentManager, "category dialog")
             GlobalData.categoryDialogFalg = "1"
         }
@@ -248,7 +244,7 @@ class PostNoUrlActivity : AppCompatActivity() {
 
         // 게시물 등록 버튼
         tv_post_no_url_post.setOnClickListener {
-            var category = tv_post_no_url_selected_category.text
+            var category = tv_post_no_url_select_category.text
             Log.e("PostNoUrlActivity", "게시 버튼 클릭됨")
             if (content.length == 0) {
                 Log.e("PostNoUrlActivity", "content가 없음")
@@ -303,6 +299,7 @@ class PostNoUrlActivity : AppCompatActivity() {
     }
     var temp: (PostPostResponse) -> Unit = {
         Log.v("PostNoUrlActivity", it.message)
+        finish()
     }
 
     private fun postPost(
@@ -321,8 +318,6 @@ class PostNoUrlActivity : AppCompatActivity() {
      * 카테고리 선택 시 변경된 카테고리 적용
      */
     fun setNoUrlCategory(category: CharSequence?) {
-        tv_post_no_url_selected_category.text = category.toString()
-        tv_post_no_url_selected_category.visibility = View.VISIBLE
-        iv_post_no_url_add_category.visibility = View.INVISIBLE
+        tv_post_no_url_select_category.text = "#" + category.toString()
     }
 }

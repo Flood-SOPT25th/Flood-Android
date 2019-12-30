@@ -36,6 +36,18 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_post_no_url_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="글작성"
+            android:textSize="18sp"
+            android:textColor="@color/colorBlack28"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ScrollView
@@ -54,49 +66,26 @@
             android:layout_marginHorizontal="24dp"
             android:orientation="vertical">
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_post_no_url_select_category"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                android:layout_marginTop="11dp">
+                android:layout_height="56dp">
                 <TextView
-                    android:id="@+id/tv_post_no_url_category_title"
+                    android:id="@+id/tv_post_no_url_select_category"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="카테고리"
+                    android:hint="#카테고리를 선택해 주세요."
+                    android:textSize="16sp"
                     android:textColor="#282828"
-                    android:textSize="18sp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
-                <ImageView
-                    android:id="@+id/iv_post_no_url_add_category"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_plus_circle" />
-                <TextView
-                    android:id="@+id/tv_post_no_url_selected_category"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:visibility="invisible"
-                    android:text=""
-                    android:textSize="12sp"
-                    android:textColor="#d1d1d1"
-                    android:background="@drawable/rect_white_gray_11dp"
-                    android:paddingHorizontal="10dp"
-                    android:paddingVertical="2dp"
+                    android:textColorHint="@color/colorGrayD1"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+                    app:layout_constraintStart_toStartOf="parent"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginBottom="28dp"
+                android:layout_marginBottom="21dp"
                 android:background="#d1d1d1" />
 
             <EditText

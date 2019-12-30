@@ -17,12 +17,19 @@ import com.flood_android.network.ApplicationController
 import com.flood_android.ui.main.MainActivity
 import com.flood_android.ui.post.PostActivity
 import com.flood_android.ui.postnourl.PostNoUrlActivity
+import com.flood_android.util.GlobalData
 import com.flood_android.util.SharedPreferenceController
 import com.flood_android.util.safeEnqueue
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_post.*
+import kotlinx.android.synthetic.main.fragment_login_alert_dialog.*
 
 class LoginActivity : AppCompatActivity() {
+
+    private val loginAlertDialog by lazy {
+        LoginAlertDialog()
+    }
+
     var idFlag = false
     var pwFlag = false
 
@@ -84,12 +91,24 @@ class LoginActivity : AppCompatActivity() {
     var temp: (PostLoginResponse) -> Unit = {
         Log.v("LoginActivity", "temp")
         Log.v("LoginActivity", it.message)
-        SharedPreferenceController.clearSPC(this@LoginActivity)
-        SharedPreferenceController.setAuthorization(this@LoginActivity, it.data?.token)
-        Log.v("청하", it.data?.token.toString())
-        val intent = Intent(this@LoginActivity, MainActivity::class.java)
-        startActivity(intent)
-        finish()
+        if (it.message == "로그인 완료"){
+            SharedPreferenceController.clearSPC(this@LoginActivity)
+            SharedPreferenceController.setAuthorization(this@LoginActivity, it.data?.token)
+            Log.v("청하", it.data?.token.toString())
+            val intent = Intent(this@LoginActivity, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+        if (it.message == "비밀번호가 다릅니다."){
+            loginAlertDialog.show(supportFragmentManager, "login Alert Dialog")
+            GlobalData.loginDialogMessage = "비밀번호가 일치하지 않습니다"
+        }
+        if (it.message == "존재하지 않는 계정 입니다."){
+            loginAlertDialog.show(supportFragmentManager, "login Alert Dialog")
+            GlobalData.loginDialogMessage = "존재하지 않는 계정 입니다"
+        }
+
+
     }
     private fun postLogin(user_email: String, user_pw: String
     ) {
