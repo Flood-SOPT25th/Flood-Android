@@ -20,6 +20,7 @@ class SignupActivity : AppCompatActivity() {
     lateinit var signUpPageAdapter: SignUpPageAdapter
 
     private var position = 0
+    //private var checkFlag = false
     private var btnFlag = false
 
     private val okDialog: SignupAlertDialog by lazy {
@@ -44,6 +45,7 @@ class SignupActivity : AppCompatActivity() {
         //signUpPageAdapter.addFragment(SignupFragment_2())
         //signUpPageAdapter.addFragment(SignupFragment_3())
         signUpPageAdapter.addFragment(SignupFragment_4())
+        signUpPageAdapter.addFragment(SignupFragment_1())
        //signUpPageAdapter.addFragment(SignUpFragment_5())
 
         vpager_signup.adapter = signUpPageAdapter
@@ -51,9 +53,10 @@ class SignupActivity : AppCompatActivity() {
             if (btnFlag) {
                 vpager_signup.currentItem = (position++)
             } else {
-                //if(position!=3) gokDialog.show()
-                //else
-                okDialog.show()
+                if(position == 0){
+                    gokDialog.show()}
+                else
+                    okDialog.show()
 
             }
         }
