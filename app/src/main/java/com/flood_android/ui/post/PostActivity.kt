@@ -13,10 +13,13 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.EditText
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.flood_android.R
 import com.flood_android.network.ApplicationController
+import com.flood_android.ui.main.MainActivity
 import com.flood_android.util.*
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
@@ -47,14 +50,19 @@ class PostActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_post)
 
+
+
         // 웹과 Flood 앱 연동
-        connectWeb()
+        //connectWeb()
+        websiteUrl = intent.getStringExtra("websiteUrl")
+        Log.v ("url", websiteUrl.toString())
         // 서버에서 조직 카테고리 GET
         getPostCategory()
         // 버튼 클릭 함수
         setBtnClickListner()
         // 하단 선택한 사진 리싸이클러뷰
         setImageRecyclerView()
+        edt_post_url.setText(websiteUrl)
     }
 
     override fun onUserLeaveHint() {
@@ -63,9 +71,9 @@ class PostActivity : AppCompatActivity() {
 
     }
 
-    override fun onPause() {
-        super.onPause()
-        edt_post_url.setText("")
+    override fun onBackPressed() {
+        super.onBackPressed()
+        startActivity(Intent(this, MainActivity::class.java))
     }
     /**
      * 웹과 Flood 앱 연동
@@ -102,15 +110,17 @@ class PostActivity : AppCompatActivity() {
     private fun setBtnClickListner() {
         // 닫기 버튼
         iv_post_close.setOnClickListener {
-            finish()
+            startActivity(Intent(this, MainActivity::class.java))
         }
         // 카테고리 변경 버튼
         iv_post_add_category.setOnClickListener {
             categoryDialog.show(supportFragmentManager, "category dialog")
+            GlobalData.categoryDialogFalg = "0"
         }
         // 변경된 카테고리 버튼
         tv_post_selected_category.setOnClickListener {
             categoryDialog.show(supportFragmentManager, "category dialog")
+            GlobalData.categoryDialogFalg = "0"
         }
         // 사진 앨범 버튼
         iv_post_image_add.setOnClickListener {
@@ -123,9 +133,7 @@ class PostActivity : AppCompatActivity() {
             }
         }
         // 게시물 올리기 버튼
-        tv_post_post.setOnClickListener {
             setPostBtn()
-        }
     }
 
 
@@ -271,19 +279,25 @@ class PostActivity : AppCompatActivity() {
         // 게시물 등록 버튼
         tv_post_post.setOnClickListener {
             var category = tv_post_selected_category.text
-
-            if (url.length == 0 && content.length == 0) {
+            Log.e("PostActivity", "게시 버튼 클릭됨")
+            if (websiteUrl.length == 0 && content.length == 0) {
+                Log.e("PostActivity", "url과 content가 없음")
             } else {
-                if (url.length > 0 && category.length == 0) {
+                Log.e("PostActivity", "url이나 content 둘 중의 하나 있음")
+                if (websiteUrl.length > 0 && category.length == 0) {
+                    Log.e("PostActivity", "url은 있지만, category가 없음")
                     postSetCategoryDialog.show(supportFragmentManager, "postSetCategoryDialog")
                 } else {
                     Log.v("PostActivity", "통신성공")
                     val post_url =
-                        RequestBody.create(MediaType.parse("text/plain"), url.toString())
+                        RequestBody.create(MediaType.parse("text/plain"), websiteUrl.toString())
                     val post_content =
                         RequestBody.create(MediaType.parse("text/plain"), content.toString())
                     val post_category =
                         RequestBody.create(MediaType.parse("text/plain"), category.toString())
+                    Log.e("url", url.toString())
+                    Log.e("cat", category.toString())
+                    Log.e("con", content.toString())
                     postPost(
                         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVoZGduczE3NjZAZ21haWwuY29tIiwibmFtZSI6IuydtOuPme2biCIsImlhdCI6MTU3NzQwNzg1NiwiZXhwIjoxNTc5OTk5ODU2LCJpc3MiOiJGbG9vZFNlcnZlciJ9.Zf_LNfQIEdFl84r-tPQpT1nLaxdotkFutOxwNQy-w58",
                         images, post_url, post_content, post_category
@@ -307,8 +321,10 @@ class PostActivity : AppCompatActivity() {
 
             override fun onTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 if (s!!.length != 0) {
+                    Log.e("청하", s.toString())
                     tv_post_post.setTextColor(Color.parseColor("#0057ff"))
                 } else {
+                    Log.e("청하", s.toString())
                     tv_post_post.setTextColor(Color.parseColor("#d1d1d1"))
                 }
             }
@@ -323,6 +339,7 @@ class PostActivity : AppCompatActivity() {
     }
     var temp: (PostPostResponse) -> Unit = {
         Log.v("PostActivity", it.message)
+        startActivity(Intent(this, MainActivity::class.java))
     }
     private fun postPost(
         token: String,
@@ -331,6 +348,7 @@ class PostActivity : AppCompatActivity() {
         category: RequestBody,
         content: RequestBody
     ) {
+
         val postPostResponse = ApplicationController.networkServiceFeed
             .postPostResponse(token, images, url, category, content)
         postPostResponse.safeEnqueue(fail, temp)

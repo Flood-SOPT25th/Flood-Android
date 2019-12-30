@@ -15,14 +15,18 @@ import com.c.loginflood.PostLoginResponse
 import com.flood_android.R
 import com.flood_android.network.ApplicationController
 import com.flood_android.ui.main.MainActivity
+import com.flood_android.ui.post.PostActivity
+import com.flood_android.ui.postnourl.PostNoUrlActivity
 import com.flood_android.util.SharedPreferenceController
 import com.flood_android.util.safeEnqueue
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.activity_post.*
 
 class LoginActivity : AppCompatActivity() {
     var idFlag = false
     var pwFlag = false
 
+    lateinit var websiteUrl: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +53,26 @@ class LoginActivity : AppCompatActivity() {
             }
             /*val intent = Intent(this@MainActivity, MainActivity::class.java)
             startActivity(intent)*/
+        }
+
+        connectWeb()
+
+    }
+
+    private fun connectWeb() {
+        var intent = getIntent()
+        var action: String? = intent.getAction()
+        var type: String? = intent.getType()
+        // 인텐트 정보가 있는 경우 실행
+        if (Intent.ACTION_SEND.equals(action) && type != null) {
+            if ("text/plain".equals(type)) {
+                websiteUrl = intent.getStringExtra(Intent.EXTRA_TEXT)
+                //edt_post_url.setText(websiteUrl)
+                val intent = Intent(this@LoginActivity, PostActivity::class.java)
+                intent.putExtra("websiteUrl", websiteUrl)
+                startActivity(intent)
+                finish()
+            }
         }
     }
 

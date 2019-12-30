@@ -14,11 +14,16 @@ import androidx.core.view.size
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.deishelon.roundedbottomsheet.RoundedBottomSheetDialogFragment
 import com.flood_android.R
+import com.flood_android.ui.postnourl.PostNoUrlActivity
 import com.flood_android.util.GlobalData
 import kotlinx.android.synthetic.main.activity_bookmark_edit.*
 import kotlinx.android.synthetic.main.fragment_post_category_dialog.*
 
-class PostCategoryDialog : RoundedBottomSheetDialogFragment() {
+class PostCategoryDialog : RoundedBottomSheetDialogFragment(), View.OnClickListener {
+    override fun onClick(v: View?) {
+
+
+    }
 
     lateinit var adapter: PostSelectCategoryDialogRVAdapter
     var selectedIdx = -1
@@ -51,8 +56,6 @@ class PostCategoryDialog : RoundedBottomSheetDialogFragment() {
         adapter.itemClick = object: PostSelectCategoryDialogRVAdapter.ItemClick {
             override fun onClick(view: View, position: Int) {
                 tv_post_select_category_dialog_done.setTextColor(Color.parseColor("#0057ff"))
-
-//
                 if(selectedIdx > -1) {
                     check[selectedIdx] = false
                     adapter.changeflagData(check)
@@ -97,9 +100,16 @@ class PostCategoryDialog : RoundedBottomSheetDialogFragment() {
      */
     private fun setBtnClickListner() {
         tv_post_select_category_dialog_done.setOnClickListener {
-            var category : String? = GlobalData.selectedCategory
-            (context as PostActivity).setCategory(category)
-            dismiss()
+            if(check.contains(true)){
+                var category : String? = GlobalData.selectedCategory
+                if ( GlobalData.categoryDialogFalg == "0"){
+                    (context as PostActivity).setCategory(category)
+                }else {
+                    (context as PostNoUrlActivity).setNoUrlCategory(category)
+                }
+
+                dismiss()
+            }
         }
     }
 }
