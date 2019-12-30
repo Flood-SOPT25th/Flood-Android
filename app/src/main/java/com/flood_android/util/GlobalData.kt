@@ -5,4 +5,5 @@ object GlobalData {
     lateinit var categoryList:List<String>
     lateinit var selectedCategory: String
     lateinit var categoryDialogFalg: String
+    lateinit var loginDialogMessage: String
 }
