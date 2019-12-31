@@ -46,6 +46,7 @@ class SignupFragment_3 : Fragment() {
         super.onStart()
         // dialog에 listener 달아서 결과만 반환, post activity 참고할 것
         edtxt_signup3_question.setOnClickListener(View.OnClickListener {
+            Log.e("Jihee","edittextclicked?")
             SignupQuestionDialog(requireContext(),View.OnClickListener {  }).btn_signup_dialog_question.setTextColor(Color.parseColor("#d1d1d1"))
             SignupQuestionDialog(requireContext(),View.OnClickListener {  }).show(getFragmentManager()!!, "fragment_dialog_test")
         })

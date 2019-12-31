@@ -19,7 +19,7 @@ class GroupFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        cstlay_signup_group.setOnClickListener{
+        cstlay_signup_frag_group_3.setOnClickListener{
 
         }
         return inflater.inflate(R.layout.fragment_group, container, false)
