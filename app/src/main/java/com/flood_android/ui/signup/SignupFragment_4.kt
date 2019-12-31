@@ -23,10 +23,6 @@ class SignupFragment_4 : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        /*if (checkbox_signup4.isChecked) {
-            toSignal(true)
-        } else
-            toSignal(false)*/
         checkbox_signup4.setOnClickListener(View.OnClickListener {
             if (checkbox_signup4.isChecked) {
                 toSignal(true)

@@ -1,4 +1,4 @@
-package com.flood_android.ui.alarm.data
+package com.flood_android.ui.mypage.data
 
 data class MypageMyflipRvItem(
     val thumnail : String,

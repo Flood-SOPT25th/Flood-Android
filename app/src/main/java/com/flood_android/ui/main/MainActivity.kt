@@ -177,8 +177,6 @@ class MainActivity : AppCompatActivity() {
             .apply {
                 setContentHolder(holder)
                 setGravity(Gravity.BOTTOM)
-                setCancelable(true)
-                setExpanded(true)
             }
             .setOnCancelListener {
                 ivSelector.isSelected = false
