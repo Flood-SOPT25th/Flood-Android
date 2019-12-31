@@ -1,6 +1,8 @@
-package com.flood_android.ui.post
+package com.flood_android.ui.login
 
 
+import android.app.Dialog
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -11,28 +13,32 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 
 import com.flood_android.R
-import kotlinx.android.synthetic.main.fragment_post_set_category_dialog.*
+import com.flood_android.util.GlobalData
+import kotlinx.android.synthetic.main.fragment_login_alert_dialog.*
 
-
-class PostSetCategoryDialog : DialogFragment() {
+/**
+ * A simple [Fragment] subclass.
+ */
+class LoginAlertDialog : DialogFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
 
         dialog!!.getWindow()!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-        return inflater.inflate(R.layout.fragment_post_set_category_dialog, container, false)
+        return inflater.inflate(R.layout.fragment_login_alert_dialog, container, false)
     }
-
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        tv_post_set_category_dialog.setOnClickListener{
+        tv_login_alert_dialog_message.text = GlobalData.loginDialogMessage
+        tv_login_alert_dialog_ok.setOnClickListener {
             dismiss()
         }
     }
+
+
 }

@@ -109,8 +109,10 @@ class FeedRVAdapter (private val ctx : Context, var dataList: ArrayList<FeedData
             holder.clFeed.setOnClickListener (object  : OnSingleClickListener(){
                 override fun onSingleClick(v: View) {
                     val intent = Intent(ctx, FeedDetailActivity::class.java)
-                    intent.putExtra("feed_id", item._id)
-                    ctx.startActivity(intent)
+                    item._id.let {
+                        intent.putExtra("feed_id", item._id)
+                        ctx.startActivity(intent)
+                    }
                 }
             })
 

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.media.Image
 import android.net.Uri
 import android.opengl.Visibility
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -41,6 +42,7 @@ class FeedTop3RVAdapter(val ctx: Context, var dataList: ArrayList<FeedTop3Data>)
                 .load(item.news_img)
                 .centerCrop()
                 .into(holder.newsImg)
+            Log.v("현주", item._id)
 
             holder.newsGradation.visibility = View.VISIBLE
 
@@ -56,10 +58,15 @@ class FeedTop3RVAdapter(val ctx: Context, var dataList: ArrayList<FeedTop3Data>)
             holder.flipsNum.text = item.flips_num.toString()
             holder.commentsNum.text = item.comments_num.toString()
 
+            var idx : String = item._id
+            Log.v("현주", idx)
+
             // 피드 상세 페이지로 이동
             holder.btnComments.setOnClickListener(object: OnSingleClickListener(){
                 override fun onSingleClick(v: View) {
                     val intent = Intent(ctx, FeedDetailActivity::class.java)
+                    //var id : String = "" + item._id
+                    intent.putExtra("feed_id", item._id)
                     ctx.startActivity(intent)
                 }
             })
@@ -78,6 +85,7 @@ class FeedTop3RVAdapter(val ctx: Context, var dataList: ArrayList<FeedTop3Data>)
             holder.userInfo.setOnClickListener(object : OnSingleClickListener(){
                 override fun onSingleClick(v: View) {
                     val intent = Intent(ctx, FeedDetailActivity::class.java)
+                    intent.putExtra("feed_id", item._id)
                     ctx.startActivity(intent)
                 }
             })

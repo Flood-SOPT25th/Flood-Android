@@ -19,4 +19,11 @@ object SharedPreferenceController {
         val pref = context.getSharedPreferences(USER_NAME, Context.MODE_PRIVATE) //현재 내 기기에서만 볼수 있는 데이터
         return pref.getString(kakaoKey, "")
     }
+
+    fun clearSPC(context: Context){
+        val pref = context.getSharedPreferences(USER_NAME, Context.MODE_PRIVATE) //현재 내 기기에서만 볼수 있는 데이터
+        val editor = pref.edit()
+        editor.clear()
+        editor.commit()
+    }
 }
