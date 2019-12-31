@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
-import com.flood_android.ui.alarm.data.MypageMyflipRvItem
+import com.flood_android.ui.mypage.data.MypageMyflipRvItem
 import com.flood_android.ui.bookmarkedit.BookmarkEditActivity
 import com.flood_android.ui.mypage.adapter.MyPageRVViewHolder
 import com.flood_android.util.OnSingleClickListener
