@@ -8,7 +8,7 @@ import android.view.WindowManager
 import com.flood_android.R
 import kotlinx.android.synthetic.main.activity_signup.*
 
-class SignupGroupcodeMismatchDialog(context : Context, private val gokListener : View.OnClickListener?) : Dialog(context, android.R.style.Theme_Translucent_NoTitleBar) {
+class GroupcodeMismatchDialog(context : Context, private val gokListener : View.OnClickListener?) : Dialog(context, android.R.style.Theme_Translucent_NoTitleBar) {
 
     private val clickedState = false
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,6 +25,5 @@ class SignupGroupcodeMismatchDialog(context : Context, private val gokListener :
             btn_signup_next.setOnClickListener(gokListener)
         }
     }
-
 
 }

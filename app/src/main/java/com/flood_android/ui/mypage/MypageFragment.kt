@@ -32,9 +32,7 @@ class MypageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initmyflipList()
-        /**
-         *
-         */
+        /****/
         //get data from server here 통신이 들어올 때마다 notify 될 것
         //서버에서 데이터 객체 받아와서 성공 시 extension 함수 이용해 호출하고 받은 데이터 객체를
         //ApplicationController.instance.networkServiceUser.enqueue(mypageMyflipdata)
@@ -56,7 +54,7 @@ class MypageFragment : Fragment() {
 
 
     private inner class MyPageRVAdapter() : RecyclerView.Adapter<MyPageRVViewHolder>() {
-        private var data = listOf<MypageMyflipRvItem>()//parameter--var data : List<MypageMyflipRvItem>
+        private var data = listOf<MypageMyflipRvItem>() //parameter--var data : List<MypageMyflipRvItem>
 
         fun setDataWithNotify(data: List<MypageMyflipRvItem>) {
             rvplaceholder_mypage_myflip.isVisible = data.isEmpty()

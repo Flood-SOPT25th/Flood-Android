@@ -10,9 +10,7 @@ import androidx.fragment.app.DialogFragment
 
 import com.flood_android.R
 
-/**
- * A simple [Fragment] subclass.
- */
+
 class PostSetCategoryDialog : DialogFragment() {
 
     override fun onCreateView(
@@ -22,6 +20,5 @@ class PostSetCategoryDialog : DialogFragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_post_set_category_dialog, container, false)
     }
-
 
 }
