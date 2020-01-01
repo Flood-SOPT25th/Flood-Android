@@ -11,7 +11,6 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,7 +22,6 @@ import com.flood_android.util.SharedPreferenceController
 import com.flood_android.util.safeEnqueue
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
-import kotlinx.android.synthetic.main.activity_post.*
 import kotlinx.android.synthetic.main.activity_post_no_url.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody

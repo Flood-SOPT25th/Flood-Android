@@ -69,11 +69,10 @@ class FeedCategoryRVAdapter(
 
                     val transaction: FragmentTransaction = (ctx as MainActivity).supportFragmentManager.beginTransaction()
                     if (selectedPosition == 0){
-                        transaction.add(R.id.fl_feed_fragment_frag, FeedFloodFragment())
+                        transaction.replace(R.id.fl_feed_fragment_frag, FeedFloodFragment())
                         transaction.addToBackStack(null)
                     }else{
-                        transaction.replace(R.id.fl_feed_fragment_frag, FeedCategoryFragment())
-                        FeedCategoryFragment.instance.categoryName = dataList[position]
+                        transaction.replace(R.id.fl_feed_fragment_frag, FeedCategoryFragment(dataList[position]))
                     }
                     transaction.commit()
                 }catch(e : Exception){
