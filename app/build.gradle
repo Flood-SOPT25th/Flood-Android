@@ -57,6 +57,7 @@ dependencies {
     implementation "gun0912.ted:tedpermission:2.1.0"
     // 다이얼로그 커스텀 X
     implementation 'com.orhanobut:dialogplus:1.11@aar'
+
     // bottom dialog X
     implementation "com.google.android.material:material:1.1.0-alpha04"
     // Rounded bottom dialog O

@@ -4,15 +4,11 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toast
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.viewpager.widget.ViewPager
 import com.flood_android.R
+import com.flood_android.ui.main.MainActivity
 import com.flood_android.ui.signup.adapter.SignUpPageAdapter
-import com.flood_android.util.OnSingleClickListener
 import kotlinx.android.synthetic.main.activity_signup.*
 
 class SignupActivity : AppCompatActivity() {
@@ -20,20 +16,20 @@ class SignupActivity : AppCompatActivity() {
     lateinit var signUpPageAdapter: SignUpPageAdapter
 
     private var position = 0
-    //private var checkFlag = false
     private var btnFlag = false
 
     private val okDialog: SignupAlertDialog by lazy {
         SignupAlertDialog(this, okListener)
     }
 
-    private val gokDialog: SignupGroupcodeMismatchDialog by lazy{
-        SignupGroupcodeMismatchDialog(this,gokListener)
+    private val gokDialog: GroupcodeMismatchDialog by lazy {
+        GroupcodeMismatchDialog(this, gokListener)
     }
 
     private val okListener = View.OnClickListener { okDialog.dismiss() }
 
-    private val gokListener = View.OnClickListener { gokDialog.dismiss()}
+    private val gokListener = View.OnClickListener { gokDialog.dismiss() }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,23 +37,25 @@ class SignupActivity : AppCompatActivity() {
         setContentView(R.layout.activity_signup)
 
         signUpPageAdapter = SignUpPageAdapter(supportFragmentManager)
-        //signUpPageAdapter.addFragment(SignupFragment_1())
+        signUpPageAdapter.addFragment(SignupFragment_1())
         //signUpPageAdapter.addFragment(SignupFragment_2())
         //signUpPageAdapter.addFragment(SignupFragment_3())
         signUpPageAdapter.addFragment(SignupFragment_4())
-        signUpPageAdapter.addFragment(SignupFragment_1())
-       //signUpPageAdapter.addFragment(SignUpFragment_5())
+        signUpPageAdapter.addFragment(SignupFragment_5())
+
 
         vpager_signup.adapter = signUpPageAdapter
+        vpager_signup.offscreenPageLimit=1
         btn_signup_next.setOnClickListener {
             if (btnFlag) {
-                vpager_signup.currentItem = (position++)
+                if (position <= 4)
+                    vpager_signup.currentItem = (position++)
+                else {
+                    var intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                }
             } else {
-                if(position == 0){
-                    gokDialog.show()}
-                else
-                    okDialog.show()
-
+                okDialog.show()
             }
         }
 
@@ -69,6 +67,7 @@ class SignupActivity : AppCompatActivity() {
                 positionOffsetPixels: Int
             ) {
             }
+
             override fun onPageSelected(p0: Int) {
                 dindicator_signup.selectDot(p0)
             }

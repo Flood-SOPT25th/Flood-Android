@@ -6,7 +6,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.flood_android.R
-import com.flood_android.ui.alarm.data.MypageMyflipRvItem
+import com.flood_android.ui.mypage.data.MypageMyflipRvItem
 
 class MyPageRVViewHolder(view : View) : RecyclerView.ViewHolder(view) {
     private val iv_rv_item_mypage_myflip : ImageView = view.findViewById(R.id.iv_rv_item_mypage_myflip)

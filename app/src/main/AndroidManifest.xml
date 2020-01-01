@@ -15,6 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".ui.feed.PhotoZoomActivity"></activity>
         <activity android:name=".ui.postnourl.PostNoUrlActivity" />
         <activity android:name=".ui.bookmarkedit.BookmarkEditActivity" />
         <activity android:name=".ui.feed.WebViewActivity" />
