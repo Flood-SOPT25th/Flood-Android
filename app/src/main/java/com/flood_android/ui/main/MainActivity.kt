@@ -57,9 +57,12 @@ class MainActivity : AppCompatActivity() {
         addFragment(mypageFragment)
         showFragment(feedFragment)
 
+        iv_main_tab_feed.isSelected = true
+
         iv_main_tab_feed.setOnClickListener(object : OnSingleClickListener(){
             override fun onSingleClick(v: View) {
                 iv_main_tab_feed.isSelected = true
+                iv_main_tab_company.isSelected = false
                 iv_main_tab_mypage.isSelected = false
                 iv_main_tab_alarm.isSelected = false
                 showFragment(feedFragment)
@@ -68,6 +71,7 @@ class MainActivity : AppCompatActivity() {
         iv_main_tab_company.setOnClickListener(object  : OnSingleClickListener(){
             override fun onSingleClick(v: View) {
                 iv_main_tab_feed.isSelected = false
+                iv_main_tab_company.isSelected = true
                 iv_main_tab_mypage.isSelected = false
                 iv_main_tab_alarm.isSelected = false
                 showFragment(companyFragment)
@@ -75,9 +79,6 @@ class MainActivity : AppCompatActivity() {
         })
         iv_main_tab_write.setOnClickListener(object : OnSingleClickListener(){
             override fun onSingleClick(v: View) {
-                iv_main_tab_feed.isSelected = false
-                iv_main_tab_mypage.isSelected = false
-                iv_main_tab_alarm.isSelected = false
                 val intent = Intent(this@MainActivity, PostNoUrlActivity::class.java)
                 startActivity(intent)
             }
@@ -85,6 +86,7 @@ class MainActivity : AppCompatActivity() {
         iv_main_tab_alarm.setOnClickListener(object : OnSingleClickListener(){
             override fun onSingleClick(v: View) {
                 iv_main_tab_feed.isSelected = false
+                iv_main_tab_company.isSelected = false
                 iv_main_tab_mypage.isSelected = false
                 iv_main_tab_alarm.isSelected = true
                 showFragment(alarmFragment)
@@ -94,6 +96,7 @@ class MainActivity : AppCompatActivity() {
         iv_main_tab_mypage.setOnClickListener(object : OnSingleClickListener(){
             override fun onSingleClick(v: View) {
                 iv_main_tab_feed.isSelected = false
+                iv_main_tab_company.isSelected = false
                 iv_main_tab_mypage.isSelected = true
                 iv_main_tab_alarm.isSelected = false
                 showFragment(mypageFragment)
