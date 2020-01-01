@@ -2,6 +2,8 @@ package com.flood_android.network
 
 import com.c.loginflood.PostLoginRequest
 import com.c.loginflood.PostLoginResponse
+import com.flood_android.ui.bookmarkedit.post.PostFlipRequest
+import com.flood_android.ui.bookmarkedit.post.PostFlipResponse
 import com.flood_android.ui.feed.data.GetPostBookmarkResponse
 import retrofit2.Call
 import retrofit2.http.Body
@@ -24,4 +26,14 @@ interface NetworkServiceUser {
         @Header("Content-Type") content_type: String,
         @Body body: PostLoginRequest
     ): Call<PostLoginResponse>
+
+    /**
+     * 플립 편집
+     */
+    @POST("/post/bookmark")
+    fun postFlipResponse(
+        @Header("Content-Type") content_type: String,
+        @Header("Authorization") token: String,
+        @Body body: PostFlipRequest
+    ): Call<PostFlipResponse>
 }
