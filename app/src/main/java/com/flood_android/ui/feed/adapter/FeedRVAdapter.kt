@@ -128,16 +128,18 @@ class FeedRVAdapter(private val ctx: Context, var dataList: ArrayList<FeedData>)
                 }
             }
 
-            holder.container_news.setOnClickListener(object : OnSingleClickListener() {
-                override fun onSingleClick(v: View) {
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(item.news_url))
-                    ctx.startActivity(intent)
-                }
-            })
-
+            if (item.news_url == "")
+                setGone(holder.container_news)
+            else{
+                holder.container_news.setOnClickListener(object : OnSingleClickListener() {
+                    override fun onSingleClick(v: View) {
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(item.news_url))
+                        ctx.startActivity(intent)
+                    }
+                })
+            }
             holder.clFeed.setOnClickListener(object : OnSingleClickListener() {
                 override fun onSingleClick(v: View) {
-                    Log.v("현주", "클릭이 되었는데요?")
                     val intent = Intent(ctx, FeedDetailActivity::class.java)
                     item._id.let {
                         intent.putExtra("feed_id", item._id)
@@ -147,7 +149,12 @@ class FeedRVAdapter(private val ctx: Context, var dataList: ArrayList<FeedData>)
             })
 
             holder.news_title.text = item.news_title
-            holder.news_contents.text = item.news_contents
+
+            if (item.news_contents == ""){
+                holder.news_contents.text = item.news_contents
+            }else{
+                setGone(holder.news_contents)
+            }
 
             holder.flips_num.text = item.flips_num.toString()
             holder.comments_num.text = item.comments_num.toString()

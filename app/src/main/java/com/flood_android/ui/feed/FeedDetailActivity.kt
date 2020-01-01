@@ -144,15 +144,23 @@ class FeedDetailActivity : AppCompatActivity() {
                 }
             }
 
+            Log.v("현주 url", it.news_url.toString())
+            if (it.news_url == ""){
+                setGone(cl_feed_detail_news)
+            }else{
+                Glide.with(this@FeedDetailActivity)
+                    .load(it.news_img)
+                    .transform(CenterCrop(), RoundedCorners(10))
+                    .into(iv_feed_detail_news_img)
+                tv_feed_detail_news_title.text = it.news_title
 
-            Glide.with(this@FeedDetailActivity)
-                .load(it.news_img)
-                .transform(CenterCrop(), RoundedCorners(10))
-                .into(iv_feed_detail_news_img)
-            tv_feed_detail_news_title.text = it.news_title
-            tv_feed_detail_news_contents.text = it.news_content
-            tv_feed_detail_user_name.text = it.writer
-
+                if (it.news_content == ""){
+                    setGone(tv_feed_detail_news_contents)
+                }else{
+                    tv_feed_detail_news_contents.text = it.news_content
+                }
+                tv_feed_detail_user_name.text = it.writer
+            }
 
             Glide.with(this@FeedDetailActivity)
                 .load(it.post_user_img)
