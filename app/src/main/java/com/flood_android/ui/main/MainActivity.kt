@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
+import android.view.View
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -28,12 +29,12 @@ import com.orhanobut.dialogplus.DialogPlus
 import com.orhanobut.dialogplus.Holder
 import com.orhanobut.dialogplus.ViewHolder
 import com.flood_android.ui.postnourl.PostNoUrlActivity
+import com.flood_android.util.OnSingleClickListener
 import com.flood_android.util.SharedPreferenceController
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.dialog_feed_save_flips.*
 
 class MainActivity : AppCompatActivity() {
-    lateinit var flipsCategoryDataList: ArrayList<BookmarkData>
     lateinit var dialog: DialogPlus
 
     val networkServiceFeed: NetworkServiceFeed by lazy {
@@ -49,22 +50,48 @@ class MainActivity : AppCompatActivity() {
 
         addFragment(FeedFragment())
 
-        iv_main_tab_feed.setOnClickListener{
-            replaceFragment(FeedFragment())
-        }
-        iv_main_tab_company.setOnClickListener{
-            replaceFragment(CompanyFragment())
-        }
-        iv_main_tab_write.setOnClickListener{
-            val intent = Intent(this@MainActivity, PostNoUrlActivity::class.java)
-            startActivity(intent)
-        }
-        iv_main_tab_alarm.setOnClickListener{
-            replaceFragment(AlarmFragment())
-        }
-        iv_main_tab_mypage.setOnClickListener{
-            replaceFragment(MypageFragment())
-        }
+        iv_main_tab_feed.setOnClickListener(object : OnSingleClickListener(){
+            override fun onSingleClick(v: View) {
+                iv_main_tab_feed.isSelected = true
+                iv_main_tab_mypage.isSelected = false
+                iv_main_tab_alarm.isSelected = false
+                replaceFragment(FeedFragment())
+            }
+        })
+        iv_main_tab_company.setOnClickListener(object  : OnSingleClickListener(){
+            override fun onSingleClick(v: View) {
+                iv_main_tab_feed.isSelected = false
+                iv_main_tab_mypage.isSelected = false
+                iv_main_tab_alarm.isSelected = false
+                replaceFragment(CompanyFragment())
+            }
+        })
+        iv_main_tab_write.setOnClickListener(object : OnSingleClickListener(){
+            override fun onSingleClick(v: View) {
+                iv_main_tab_feed.isSelected = false
+                iv_main_tab_mypage.isSelected = false
+                iv_main_tab_alarm.isSelected = false
+                val intent = Intent(this@MainActivity, PostNoUrlActivity::class.java)
+                startActivity(intent)
+            }
+        })
+        iv_main_tab_alarm.setOnClickListener(object : OnSingleClickListener(){
+            override fun onSingleClick(v: View) {
+                iv_main_tab_feed.isSelected = false
+                iv_main_tab_mypage.isSelected = false
+                iv_main_tab_alarm.isSelected = true
+                replaceFragment(AlarmFragment())
+            }
+        })
+
+        iv_main_tab_mypage.setOnClickListener(object : OnSingleClickListener(){
+            override fun onSingleClick(v: View) {
+                iv_main_tab_feed.isSelected = false
+                iv_main_tab_mypage.isSelected = true
+                iv_main_tab_alarm.isSelected = false
+                replaceFragment(MypageFragment())
+            }
+        })
     }
 
     fun addFragment(fragment: Fragment){
@@ -170,15 +197,12 @@ class MainActivity : AppCompatActivity() {
 
         val holder: Holder = ViewHolder(R.layout.dialog_feed_save_flips)
 
-        getBookmarkListResponse(SharedPreferenceController.getAuthorization(this@MainActivity).toString())
-        //setFlipCategoryRecyclerView(flipsCategoryDataList)
+        getBookmarkListResponse("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVoZGduczE3NjZAZ21haWwuY29tIiwibmFtZSI6IuydtOuPme2biCIsImlhdCI6MTU3NzQwNzg1NiwiZXhwIjoxNTc5OTk5ODU2LCJpc3MiOiJGbG9vZFNlcnZlciJ9.Zf_LNfQIEdFl84r-tPQpT1nLaxdotkFutOxwNQy-w58")
 
         dialog = DialogPlus.newDialog(this@MainActivity)
             .apply {
                 setContentHolder(holder)
                 setGravity(Gravity.BOTTOM)
-                setCancelable(true)
-                setExpanded(true)
             }
             .setOnCancelListener {
                 ivSelector.isSelected = false
