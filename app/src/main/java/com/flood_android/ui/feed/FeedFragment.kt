@@ -32,7 +32,6 @@ import java.text.SimpleDateFormat
 
 class FeedFragment : Fragment() {
 
-
     lateinit var getCategoryDataList: ArrayList<String>
     val networkService: NetworkServiceFeed by lazy {
         ApplicationController.networkServiceFeed
@@ -54,16 +53,12 @@ class FeedFragment : Fragment() {
         // 화면 초기화
         initView()
 
-//        Log.d("현주", calculateTime("2019-12-23T10:22:52.915Z"))
-
-        //Feed 탭 처음에 flood 카테고리 화면을 띄우도록
-
         /**
          *  게시물이 있을 때 없을 때 구분하기~~~~~~~~~~~~~~~~~
          */
         setInvisible(cl_feed_no_news) // 게시물이 없는 화면 안보이게
 
-
+        //Feed 탭 처음에 flood 카테고리 화면을 띄우도록
         val transaction: FragmentTransaction =
             (context as MainActivity).supportFragmentManager.beginTransaction()
         transaction.add(R.id.fl_feed_fragment_frag, FeedFloodFragment())

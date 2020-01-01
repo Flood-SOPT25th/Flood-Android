@@ -94,7 +94,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="7dp"
-                    android:src="@drawable/ic_right_finger"
+                    android:layout_marginBottom="5dp"
+                    android:src="@drawable/ic_right_finger_feed"
                     app:layout_constraintBottom_toBottomOf="@+id/textView2"
                     app:layout_constraintStart_toEndOf="@+id/textView2" />
 

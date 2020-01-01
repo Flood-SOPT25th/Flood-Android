@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -21,9 +22,11 @@ import com.flood_android.ui.feed.data.FeedData
 import com.flood_android.ui.main.MainActivity
 import com.flood_android.util.OnSingleClickListener
 
-class FeedRVAdapter (private val ctx : Context, var dataList: ArrayList<FeedData>): RecyclerView.Adapter<FeedRVAdapter.Holder>(){
+class FeedRVAdapter(private val ctx: Context, var dataList: ArrayList<FeedData>) :
+    RecyclerView.Adapter<FeedRVAdapter.Holder>() {
 
-    var token : String = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVoZGduczE3NjZAZ21haWwuY29tIiwibmFtZSI6IuydtOuPme2biCIsImlhdCI6MTU3NzQwNzg1NiwiZXhwIjoxNTc5OTk5ODU2LCJpc3MiOiJGbG9vZFNlcnZlciJ9.Zf_LNfQIEdFl84r-tPQpT1nLaxdotkFutOxwNQy-w58"
+    var token: String =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVoZGduczE3NjZAZ21haWwuY29tIiwibmFtZSI6IuydtOuPme2biCIsImlhdCI6MTU3NzQwNzg1NiwiZXhwIjoxNTc5OTk5ODU2LCJpc3MiOiJGbG9vZFNlcnZlciJ9.Zf_LNfQIEdFl84r-tPQpT1nLaxdotkFutOxwNQy-w58"
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedRVAdapter.Holder {
         val view: View =
@@ -31,10 +34,10 @@ class FeedRVAdapter (private val ctx : Context, var dataList: ArrayList<FeedData
         return Holder(view)
     }
 
-    override fun getItemCount(): Int  = dataList.size
+    override fun getItemCount(): Int = dataList.size
 
     override fun onBindViewHolder(holder: FeedRVAdapter.Holder, position: Int) {
-        dataList[position].let{item->
+        dataList[position].let { item ->
             Glide.with(ctx)
                 .load(item.user_img)
                 .circleCrop()
@@ -44,12 +47,18 @@ class FeedRVAdapter (private val ctx : Context, var dataList: ArrayList<FeedData
             holder.userName.text = item.user_name
             holder.category.text = item.category
             holder.time.text = (ctx as MainActivity).calculateTime(item.time)
-            holder.contents.text = item.contents
+
+            if (item.contents == "") {
+                setGone(holder.contents)
+            } else {
+                holder.contents.text = item.contents
+            }
 
             // 사진이 있을 때 사진 나타내기
-            var pic_num : Int?= item.pic_list.size
-            when(pic_num!!){
-                1 ->{
+            var pic_num: Int? = item.pic_list.size
+            when (pic_num!!) {
+                0 -> setGone(holder.cvImage)
+                1 -> {
                     setVisible(holder.pic1)
                     setInvisible(holder.container_pic2)
                     setInvisible(holder.container_pic3)
@@ -92,21 +101,21 @@ class FeedRVAdapter (private val ctx : Context, var dataList: ArrayList<FeedData
                         .into(holder.pic3_3)
                 }
                 //4개 이상
-                else ->{
+                else -> {
                     var etc_num = pic_num - 3
                     //더하기 버튼이랑 까맣게 만들기
                     return
                 }
             }
 
-            holder.container_news.setOnClickListener  (object : OnSingleClickListener(){
+            holder.container_news.setOnClickListener(object : OnSingleClickListener() {
                 override fun onSingleClick(v: View) {
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(item.news_url))
                     ctx.startActivity(intent)
                 }
             })
 
-            holder.clFeed.setOnClickListener (object  : OnSingleClickListener(){
+            holder.clFeed.setOnClickListener(object : OnSingleClickListener() {
                 override fun onSingleClick(v: View) {
                     val intent = Intent(ctx, FeedDetailActivity::class.java)
                     item._id.let {
@@ -124,22 +133,21 @@ class FeedRVAdapter (private val ctx : Context, var dataList: ArrayList<FeedData
 
             holder.ivFlips.isSelected = item.bookmark_flag
 
-            holder.btnFlips.setOnClickListener (object : OnSingleClickListener(){
+            holder.btnFlips.setOnClickListener(object : OnSingleClickListener() {
                 override fun onSingleClick(v: View) {
                     if (holder.ivFlips.isSelected)  //북마크 취소
                     {
                         holder.ivFlips.isSelected = false
                         //(ctx as MainActivity).postBookmarkCancelRequest(token, item._id)
-                    }
-                    else{   // 북마크하기
-                        (ctx as MainActivity).makeFlipDialog(holder.ivFlips)
+                    } else {   // 북마크하기
+                        ctx.makeFlipDialog(holder.ivFlips)
                     }
                 }
             })
         }
     }
 
-    inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView){
+    inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         var clFeed = itemView.findViewById(R.id.cl_rv_item_feed) as ConstraintLayout
 
@@ -147,33 +155,48 @@ class FeedRVAdapter (private val ctx : Context, var dataList: ArrayList<FeedData
         var userName = itemView.findViewById(R.id.tv_rv_item_feed_flood_today_user_name) as TextView
         var userImg = itemView.findViewById(R.id.iv_rv_item_feed_flood_today_user_img) as ImageView
         var time = itemView.findViewById(R.id.tv_rv_item_feed_flood_today_time) as TextView
-        var contents = itemView.findViewById(R.id.tv_rv_item_feed_flood_today_user_contents) as TextView
+        var contents =
+            itemView.findViewById(R.id.tv_rv_item_feed_flood_today_user_contents) as TextView
 
-///////////////////////////////
+        ///////////////////////////////
         ///////////////////사진이 있을 때 없을 때, 뉴스가 있을 때 없을 때 구분하기
+        var cvImage = itemView.findViewById(R.id.cv_rv_item_feed_flood_today) as CardView
 
         var pic1 = itemView.findViewById(R.id.iv_rv_item_feed_flood_today_pic_1) as ImageView
 
-        var container_pic2 = itemView.findViewById(R.id.ll_rv_item_feed_flood_today_pic_2) as LinearLayout
+        var container_pic2 =
+            itemView.findViewById(R.id.ll_rv_item_feed_flood_today_pic_2) as LinearLayout
         var pic2_1 = itemView.findViewById(R.id.iv_rv_item_feed_flood_today_pic_2_1) as ImageView
         var pic2_2 = itemView.findViewById(R.id.iv_rv_item_feed_flood_today_pic_2_2) as ImageView
 
-        var container_pic3 = itemView.findViewById(R.id.cl_rv_item_feed_flood_today_pic_3) as ConstraintLayout
+        var container_pic3 =
+            itemView.findViewById(R.id.cl_rv_item_feed_flood_today_pic_3) as ConstraintLayout
         var pic3_1 = itemView.findViewById(R.id.iv_rv_item_feed_flood_today_pic_3_1) as ImageView
         var pic3_2 = itemView.findViewById(R.id.iv_rv_item_feed_flood_today_pic_3_2) as ImageView
         var pic3_3 = itemView.findViewById(R.id.iv_rv_item_feed_flood_today_pic_3_3) as ImageView
-        
-        var container_news = itemView.findViewById(R.id.cl_rv_item_feed_flood_today_news) as ConstraintLayout
 
-        var news_title = itemView.findViewById(R.id.tv_rv_item_feed_flood_today_news_title) as TextView
-        var news_contents = itemView.findViewById(R.id.tv_rv_item_feed_flood_today_news_contents) as TextView
+        var container_news =
+            itemView.findViewById(R.id.cl_rv_item_feed_flood_today_news) as ConstraintLayout
 
-        var flips_num = itemView.findViewById(R.id.tv_rv_item_feed_flood_today_flips_cnt) as TextView
-        var comments_num = itemView.findViewById(R.id.tv_rv_item_feed_flood_today_comments_cnt) as TextView
+        var news_title =
+            itemView.findViewById(R.id.tv_rv_item_feed_flood_today_news_title) as TextView
+        var news_contents =
+            itemView.findViewById(R.id.tv_rv_item_feed_flood_today_news_contents) as TextView
+
+        var flips_num =
+            itemView.findViewById(R.id.tv_rv_item_feed_flood_today_flips_cnt) as TextView
+        var comments_num =
+            itemView.findViewById(R.id.tv_rv_item_feed_flood_today_comments_cnt) as TextView
 
         // flips flag 있으면 넣기
-        var btnFlips = itemView.findViewById(R.id.btn_rv_item_feed_flood_today_flips_flag) as ConstraintLayout
-        var ivFlips = itemView.findViewById(R.id.iv_rv_item_feed_flood_today_flips_flag) as ImageView
+        var btnFlips =
+            itemView.findViewById(R.id.btn_rv_item_feed_flood_today_flips_flag) as ConstraintLayout
+        var ivFlips =
+            itemView.findViewById(R.id.iv_rv_item_feed_flood_today_flips_flag) as ImageView
+    }
+
+    private fun setGone(view: View) {
+        view.visibility = View.GONE
     }
 
     private fun setVisible(view: View) {
