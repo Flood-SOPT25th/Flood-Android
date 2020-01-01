@@ -32,6 +32,8 @@ import kotlinx.android.synthetic.main.activity_feed_detail.*
 
 
 class FeedDetailActivity : AppCompatActivity() {
+    var imgList = ArrayList<String>()
+
     lateinit var feedDetailCommentRVAdapter: FeedDetailCommentRVAdapter
     private val networkServiceFeed: NetworkServiceFeed by lazy {
         ApplicationController.networkServiceFeed
@@ -45,35 +47,103 @@ class FeedDetailActivity : AppCompatActivity() {
     }
 
     private fun initView() {
-        setRV()
-        var feedIdx: String = getVariables()
+        var feedIdx: String = intent.getStringExtra("feed_id")
         getFeedDetailResponse(feedIdx)
         setOnClickListener()
         activateComment()
-    }
-
-    private fun setRV(){
-        rv_feed_detail_comments.isNestedScrollingEnabled = false
-        rv_feed_detail_comments.setHasFixedSize(false)
-    }
-
-    private fun getVariables() : String{
-        var feedIdx: String = intent.getStringExtra("feed_id")
-        Log.v("현주", feedIdx)
-        return feedIdx
     }
 
     /**
      * 게시물 조회 서버 통신
      */
     private val onGetSuccess : (GetFeedDetailResponse) -> Unit = {response->
-        Log.v("현주", response.data.pidArr.toString())
+
         response.data.pidArr.let{
             tv_feed_detail_flips_cnt.text = it.bookmark_cnt.toString()
             tv_feed_detail_comments_cnt.text = it.comment_cnt.toString()
             tv_feed_detail_time.text = it.time
             tv_feed_detail_category.text = it.category
             tv_feed_detail_user_contents.text = it.post_content
+
+            imgList = it.postImages
+
+            // 사진이 있을 때 사진 나타내기
+            var pic_num: Int? = it.postImages.size
+
+            if (pic_num == 0){
+                imgList = it.postImages
+            }
+
+            when (pic_num!!) {
+                0 -> setGone(cv_feed_detail_img)
+                1 -> {
+                    setVisible(iv_feed_detail_pic_1)
+                    setInvisible(ll_feed_detail_pic_2)
+                    setInvisible(cl_feed_detail_pic_3)
+
+                    Glide.with(this@FeedDetailActivity)
+                        .load(it.postImages[0])
+                        .centerCrop()
+                        .into(iv_feed_detail_pic_1)
+                }
+                2 -> {
+                    setInvisible(iv_feed_detail_pic_1)
+                    setVisible(ll_feed_detail_pic_2)
+                    setInvisible(cl_feed_detail_pic_3)
+
+                    Glide.with(this@FeedDetailActivity)
+                        .load(it.postImages[0])
+                        .centerCrop()
+                        .into(iv_feed_detail_pic_2_1)
+                    Glide.with(this@FeedDetailActivity)
+                        .load(it.postImages[1])
+                        .centerCrop()
+                        .into(iv_feed_detail_pic_2_2)
+                }
+                3 -> {
+                    setInvisible(iv_feed_detail_pic_1)
+                    setInvisible(ll_feed_detail_pic_2)
+                    setVisible(cl_feed_detail_pic_3)
+
+                    Glide.with(this@FeedDetailActivity)
+                        .load(it.postImages[0])
+                        .centerCrop()
+                        .into(iv_feed_detail_pic_3_1)
+                    Glide.with(this@FeedDetailActivity)
+                        .load(it.postImages[1])
+                        .centerCrop()
+                        .into(iv_feed_detail_pic_3_2)
+                    Glide.with(this@FeedDetailActivity)
+                        .load(it.postImages[2])
+                        .centerCrop()
+                        .into(iv_feed_detail_pic_3_3)
+                }
+                //4개 이상
+                else -> {
+                    var etc_num = pic_num - 3
+                    tv_feed_detail_pic_3_3_etc.text = "+" + etc_num.toString()
+                    setVisible(cl_feed_detail_pic_3_3_black)
+                    setVisible(tv_feed_detail_pic_3_3_etc)
+
+                    setInvisible(iv_feed_detail_pic_1)
+                    setInvisible(ll_feed_detail_pic_2)
+                    setVisible(cl_feed_detail_pic_3)
+
+                    Glide.with(this@FeedDetailActivity)
+                        .load(it.postImages[0])
+                        .centerCrop()
+                        .into(iv_feed_detail_pic_3_1)
+                    Glide.with(this@FeedDetailActivity)
+                        .load(it.postImages[1])
+                        .centerCrop()
+                        .into(iv_feed_detail_pic_3_2)
+                    Glide.with(this@FeedDetailActivity)
+                        .load(it.postImages[2])
+                        .centerCrop()
+                        .into(iv_feed_detail_pic_3_3)
+                }
+            }
+
 
             Glide.with(this@FeedDetailActivity)
                 .load(it.news_img)
@@ -82,6 +152,7 @@ class FeedDetailActivity : AppCompatActivity() {
             tv_feed_detail_news_title.text = it.news_title
             tv_feed_detail_news_contents.text = it.news_content
             tv_feed_detail_user_name.text = it.writer
+
 
             Glide.with(this@FeedDetailActivity)
                 .load(it.post_user_img)
@@ -147,7 +218,6 @@ class FeedDetailActivity : AppCompatActivity() {
             (object : OnSingleClickListener() {
                 override fun onSingleClick(v: View) {
                     val intent = Intent(this@FeedDetailActivity, WebViewActivity::class.java)
-                    // intent.putExtra("url", )
                     this@FeedDetailActivity.startActivity(intent)
                 }
             })
@@ -159,9 +229,17 @@ class FeedDetailActivity : AppCompatActivity() {
             }
         })
 
+        // 뒤로 가기 눌렀을 때
         btn_feed_detail_back.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(v: View) {
                 finish()
+            }
+        })
+
+        // 이미지 눌렀을 때
+        cv_feed_detail_img.setOnClickListener (object : OnSingleClickListener(){
+            override fun onSingleClick(v: View) {
+                openPhotoZoomActivity()
             }
         })
     }
@@ -172,8 +250,24 @@ class FeedDetailActivity : AppCompatActivity() {
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
     }
 
-    // 댓글 리사이클러뷰 설정
+    /**
+     * 포토줌액티비티 열기
+     */
+    private fun openPhotoZoomActivity(){
+        val intent = Intent(this@FeedDetailActivity, PhotoZoomActivity::class.java)
+        intent.putStringArrayListExtra("imageList", imgList)
+        this.startActivity(intent)
+
+
+    }
+
+    /**
+     * 댓글 리사이클러뷰 설정
+     */
     private fun setCommentRecyclerView(dataList : ArrayList<CommentsData>) {
+        rv_feed_detail_comments.isNestedScrollingEnabled = false
+        rv_feed_detail_comments.setHasFixedSize(false)
+
         feedDetailCommentRVAdapter =
             FeedDetailCommentRVAdapter(this@FeedDetailActivity, dataList)
         rv_feed_detail_comments.apply {
@@ -230,5 +324,17 @@ class FeedDetailActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         finish()
+    }
+
+    private fun setGone(view: View) {
+        view.visibility = View.GONE
+    }
+
+    private fun setVisible(view: View) {
+        view.visibility = View.VISIBLE
+    }
+
+    private fun setInvisible(view: View) {
+        view.visibility = View.INVISIBLE
     }
 }

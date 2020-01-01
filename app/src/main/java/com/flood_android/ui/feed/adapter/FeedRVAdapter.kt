@@ -102,9 +102,29 @@ class FeedRVAdapter(private val ctx: Context, var dataList: ArrayList<FeedData>)
                 }
                 //4개 이상
                 else -> {
+                    setInvisible(holder.pic1)
+                    setInvisible(holder.container_pic2)
+                    setVisible(holder.container_pic3)
+
+                    Glide.with(ctx)
+                        .load(item.pic_list[0])
+                        .centerCrop()
+                        .into(holder.pic3_1)
+                    Glide.with(ctx)
+                        .load(item.pic_list[1])
+                        .centerCrop()
+                        .into(holder.pic3_2)
+                    Glide.with(ctx)
+                        .load(item.pic_list[2])
+                        .centerCrop()
+                        .into(holder.pic3_3)
+
+
                     var etc_num = pic_num - 3
-                    //더하기 버튼이랑 까맣게 만들기
-                    return
+                    holder.pic_etc_num.text = "+" + etc_num.toString()
+                    setVisible(holder.pic_etc)
+                    setVisible(holder.pic_etc_num)
+
                 }
             }
 
@@ -117,6 +137,7 @@ class FeedRVAdapter(private val ctx: Context, var dataList: ArrayList<FeedData>)
 
             holder.clFeed.setOnClickListener(object : OnSingleClickListener() {
                 override fun onSingleClick(v: View) {
+                    Log.v("현주", "클릭이 되었는데요?")
                     val intent = Intent(ctx, FeedDetailActivity::class.java)
                     item._id.let {
                         intent.putExtra("feed_id", item._id)
@@ -173,6 +194,9 @@ class FeedRVAdapter(private val ctx: Context, var dataList: ArrayList<FeedData>)
         var pic3_1 = itemView.findViewById(R.id.iv_rv_item_feed_flood_today_pic_3_1) as ImageView
         var pic3_2 = itemView.findViewById(R.id.iv_rv_item_feed_flood_today_pic_3_2) as ImageView
         var pic3_3 = itemView.findViewById(R.id.iv_rv_item_feed_flood_today_pic_3_3) as ImageView
+
+        var pic_etc = itemView.findViewById(R.id.cl_rv_item_feed_flood_today_pic_3_3_black) as ConstraintLayout
+        var pic_etc_num = itemView.findViewById(R.id.tv_rv_item_feed_flood_todat_pic_3_3) as TextView
 
         var container_news =
             itemView.findViewById(R.id.cl_rv_item_feed_flood_today_news) as ConstraintLayout

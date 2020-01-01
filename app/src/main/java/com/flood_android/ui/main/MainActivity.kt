@@ -107,7 +107,6 @@ class MainActivity : AppCompatActivity() {
     fun addFragment(fragment: Fragment){
         val fm : FragmentManager = supportFragmentManager
         val transaction = fm.beginTransaction()
-        // 이 아이디 자리에, 어떤 프래그먼트를 넣어주겠다.
         transaction.add(R.id.fl_main, fragment).hide(fragment)
         transaction.commit()
     }
@@ -117,7 +116,6 @@ class MainActivity : AppCompatActivity() {
 
         val fm : FragmentManager = supportFragmentManager
         val transaction = fm.beginTransaction()
-        // 이 아이디 자리에, 어떤 프래그먼트를 넣어주겠다.
         transaction.hide(active!!).show( fragment)
         transaction.commit()
         active = fragment
