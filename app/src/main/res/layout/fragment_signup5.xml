@@ -3,104 +3,81 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".ui.signup.SignupFragment_5">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cstlay_signup_frag5_1"
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/iv_signup5_flood"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="194.9dp"
+        android:src="@drawable/flood_text_logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_signup5_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:fontFamily="@font/notosanscjkkrbold"
+        android:lineSpacingExtra="15sp"
+        android:text="에"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        app:layout_constraintStart_toEndOf="@id/iv_signup5_flood"
+        app:layout_constraintTop_toTopOf="@id/iv_signup5_flood"
+        app:layout_constraintBottom_toBottomOf="@id/iv_signup5_flood"/>
+
+    <TextView
+        android:id="@+id/tv_signup5_2"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="42dp"
-        android:layout_marginTop="55dp"
-        android:layout_marginEnd="42dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:fontFamily="@font/notosanscjkkrbold"
+        android:lineSpacingExtra="15sp"
+        android:text="오신 것을"
+        android:textColor="#000000"
+        android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/tv_signup5_1" />
 
-        <TextView
-            android:id="@+id/tv_signup5_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/notosanscjkkrbold"
-            android:lineSpacingExtra="15sp"
-            android:text="조직코드를\n입력해주세요"
-            android:textColor="#000000"
-            android:textSize="30sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cstlay_signup_frag5_2"
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/tv_signup5_3"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="42dp"
-        android:layout_marginTop="105dp"
-        android:layout_marginEnd="42dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:fontFamily="@font/notosanscjkkrbold"
+        android:lineSpacingExtra="15sp"
+        android:text="환영합니다!"
+        android:textColor="#000000"
+        android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cstlay_signup_frag5_1">
+        app:layout_constraintTop_toBottomOf="@id/tv_signup5_2" />
 
-        <EditText
-            android:id="@+id/edtxt_signup5_groupcode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:fontFamily="@font/gilroyextrabold"
-            android:gravity="center"
-            android:hint="조직코드를 입력해주세요"
-            android:lineSpacingExtra="4sp"
-            android:textColorHint="#ededed"
-            android:textColor="#282828"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+    <ImageView
+        android:id="@+id/iv_signup5_clap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toEndOf="@id/tv_signup5_3"
+        app:layout_constraintTop_toTopOf="@id/tv_signup5_3"
+        app:layout_constraintBottom_toBottomOf="@id/tv_signup5_3"
+        android:src="@drawable/ic_clap"
+        />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="9.7dp"
-            android:background="#ededed"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edtxt_signup5_groupcode" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/tv_signup5_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:fontFamily="@font/notosanscjkkrmedium"
+        android:lineSpacingExtra="8sp"
+        android:text="회원가입을 완료하였습니다."
+        android:textColor="#a3a3a3"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@id/tv_signup5_3"
+        app:layout_constraintTop_toBottomOf="@id/tv_signup5_3" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cstlay_signup_group"
-        android:layout_width="312dp"
-        android:layout_height="62dp"
-        android:elevation="10dp"
-        android:layout_marginBottom="24dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="아직 조직을 생성하지 않았나요?"
-            android:fontFamily="@font/notosanscjkkrbold"
-            android:textSize="14sp"
-            android:textColor="#282828"
-            android:lineSpacingExtra="6sp"
-            android:layout_marginEnd="5dp"
-            app:layout_constraintEnd_toStartOf="@id/iv_toast_signup_group"
-            app:layout_constraintTop_toTopOf="@id/iv_toast_signup_group"
-            app:layout_constraintBottom_toBottomOf="@id/iv_toast_signup_group"
-            />
-
-        <ImageView
-            android:id="@+id/iv_toast_signup_group"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginEnd="52dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/ic_group"
-            />
-    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

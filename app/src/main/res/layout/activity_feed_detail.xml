@@ -92,7 +92,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:descendantFocusability="blocksDescendants">
 
             <ImageView
                 android:id="@+id/iv_feed_detail_user_img"
@@ -122,20 +123,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="뫄뫄"
+                android:text="뫄뫄 전"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_feed_detail_user_name"
                 app:layout_constraintStart_toEndOf="@+id/tv_feed_detail_user_name"
                 app:layout_constraintTop_toTopOf="@+id/tv_feed_detail_user_name" />
-
-            <TextView
-                android:id="@+id/textView11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=" 전"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_feed_detail_time"
-                app:layout_constraintStart_toEndOf="@+id/tv_feed_detail_time"
-                app:layout_constraintTop_toTopOf="@+id/tv_feed_detail_time"
-                app:layout_constraintVertical_bias="0.0" />
 
             <TextView
                 android:id="@+id/tv_feed_detail_user_contents"
@@ -150,6 +141,106 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/iv_feed_detail_user_img" />
+
+
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:id="@+id/cv_feed_detail_img"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="207dp"-->
+<!--                android:layout_marginLeft="24dp"-->
+<!--                android:layout_marginRight="24dp"-->
+<!--                app:cardCornerRadius="13dp"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/tv_rv_item_feed_flood_today_user_contents">-->
+
+<!--                <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                    android:id="@+id/cl_feed_detail_img"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent">-->
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/iv_feed_detail_pic_1"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="0dp"-->
+<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                        app:layout_constraintEnd_toEndOf="@+id/ll_rv_item_feed_flood_today_pic_2"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toTopOf="parent"-->
+<!--                        tools:srcCompat="@tools:sample/avatars" />-->
+
+<!--                    <LinearLayout-->
+<!--                        android:id="@+id/ll_feed_flood_today_pic_2"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:orientation="horizontal"-->
+<!--                        android:visibility="invisible"-->
+<!--                        android:weightSum="2"-->
+<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toTopOf="parent">-->
+
+<!--                        <ImageView-->
+<!--                            android:id="@+id/iv_rv_item_feed_flood_today_pic_2_1"-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:background="@color/colorGrayD1" />-->
+
+<!--                        <ImageView-->
+<!--                            android:id="@+id/iv_rv_item_feed_flood_today_pic_2_2"-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:layout_marginStart="2dp"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:background="@color/colorMainBlue" />-->
+<!--                    </LinearLayout>-->
+
+<!--                    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                        android:id="@+id/cl_rv_item_feed_flood_today_pic_3"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toTopOf="parent">-->
+
+<!--                        <ImageView-->
+<!--                            android:id="@+id/iv_rv_item_feed_flood_today_pic_3_1"-->
+<!--                            android:layout_width="207dp"-->
+<!--                            android:layout_height="0dp"-->
+<!--                            android:background="@android:color/holo_red_light"-->
+<!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--                        <ImageView-->
+<!--                            android:id="@+id/iv_rv_item_feed_flood_today_pic_3_2"-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="102dp"-->
+<!--                            android:layout_marginStart="2dp"-->
+<!--                            android:background="@color/colorMainBlue"-->
+<!--                            app:layout_constraintEnd_toEndOf="@+id/iv_rv_item_feed_flood_today_pic_3_3"-->
+<!--                            app:layout_constraintStart_toEndOf="@+id/iv_rv_item_feed_flood_today_pic_3_1"-->
+<!--                            app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--                        <ImageView-->
+<!--                            android:id="@+id/iv_rv_item_feed_flood_today_pic_3_3"-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="0dp"-->
+<!--                            android:layout_marginStart="2dp"-->
+<!--                            android:layout_marginTop="2dp"-->
+<!--                            android:background="@android:color/holo_blue_light"-->
+<!--                            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                            app:layout_constraintEnd_toEndOf="parent"-->
+<!--                            app:layout_constraintStart_toEndOf="@+id/iv_rv_item_feed_flood_today_pic_3_1"-->
+<!--                            app:layout_constraintTop_toBottomOf="@+id/iv_rv_item_feed_flood_today_pic_3_2" />-->
+
+<!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
+<!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
+<!--            </androidx.cardview.widget.CardView>-->
+
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_feed_detail_news"
@@ -195,18 +286,14 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_feed_detail_news_title" />
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/tv_feed_detail_news_img"
+                <ImageView
+                    android:id="@+id/iv_feed_detail_news_img"
                     android:layout_width="0dp"
                     android:layout_height="132dp"
                     android:layout_marginStart="18dp"
                     android:layout_marginTop="22dp"
                     android:layout_marginEnd="18dp"
                     android:layout_marginBottom="18dp"
-                    app:cardBackgroundColor="@color/colorGrayD0"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="0dp"
-                    app:cardMaxElevation="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -302,8 +389,9 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_feed_detail_comments"
-                android:layout_width="409dp"
-                android:layout_height="274dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"

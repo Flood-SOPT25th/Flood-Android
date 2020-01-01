@@ -16,13 +16,10 @@ import com.flood_android.R
 import com.flood_android.network.ApplicationController
 import com.flood_android.ui.main.MainActivity
 import com.flood_android.ui.post.PostActivity
-import com.flood_android.ui.postnourl.PostNoUrlActivity
 import com.flood_android.util.GlobalData
 import com.flood_android.util.SharedPreferenceController
 import com.flood_android.util.safeEnqueue
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_post.*
-import kotlinx.android.synthetic.main.fragment_login_alert_dialog.*
 
 class LoginActivity : AppCompatActivity() {
 

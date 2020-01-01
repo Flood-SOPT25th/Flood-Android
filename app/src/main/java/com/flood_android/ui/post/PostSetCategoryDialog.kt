@@ -13,9 +13,7 @@ import androidx.fragment.app.DialogFragment
 import com.flood_android.R
 import kotlinx.android.synthetic.main.fragment_post_set_category_dialog.*
 
-/**
- * A simple [Fragment] subclass.
- */
+
 class PostSetCategoryDialog : DialogFragment() {
 
     override fun onCreateView(
@@ -29,6 +27,7 @@ class PostSetCategoryDialog : DialogFragment() {
         return inflater.inflate(R.layout.fragment_post_set_category_dialog, container, false)
     }
 
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -36,6 +35,4 @@ class PostSetCategoryDialog : DialogFragment() {
             dismiss()
         }
     }
-
-
 }

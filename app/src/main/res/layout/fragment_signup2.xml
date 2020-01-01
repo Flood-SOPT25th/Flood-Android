@@ -72,12 +72,13 @@
             android:fontFamily="@font/gilroyextrabold"
             android:inputType="text"
             android:lineSpacingExtra="4sp"
-            android:textColor="#ededed"
+            android:textColor="#282828"
+            android:textColorHint="#ededed"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_signup2_name"
             app:layout_constraintWidth_percent="0.766"
-            tools:text="선지희" />
+            tools:text="정다비" />
 
         <View
             android:id="@+id/lv_signup_frag_2_1"
@@ -115,7 +116,8 @@
             android:fontFamily="@font/gilroyextrabold"
             android:inputType="phone"
             android:lineSpacingExtra="4sp"
-            android:textColor="#ededed"
+            android:textColor="#282828"
+            android:textColorHint="#ededed"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_signup2_contact"

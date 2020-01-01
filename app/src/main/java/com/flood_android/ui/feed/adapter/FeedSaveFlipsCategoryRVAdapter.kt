@@ -33,6 +33,7 @@ class FeedSaveFlipsCategoryRVAdapter(
 
     override fun onBindViewHolder(holder: FeedSaveFlipsCategoryRVAdapter.Holder, position: Int) {
 
+        
         dataList[position].let { item ->
             Glide.with(ctx)
                 .load(item.thumb)

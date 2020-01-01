@@ -2,13 +2,10 @@ package com.flood_android.ui.feed
 
 import android.os.Bundle
 import android.util.Log
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.flood_android.R
 import com.flood_android.network.ApplicationController
@@ -19,10 +16,8 @@ import com.flood_android.ui.feed.data.FeedData
 import com.flood_android.ui.feed.data.FeedTop3Data
 import com.flood_android.ui.feed.data.GetAllFeedResponse
 import com.flood_android.ui.feed.data.GetFeedTop3Response
-import com.flood_android.ui.main.MainActivity
 import com.flood_android.util.safeEnqueue
 import kotlinx.android.synthetic.main.fragment_feed_flood.*
-import kotlinx.android.synthetic.main.toast_feed_save_flips_category.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -101,7 +96,6 @@ class FeedFloodFragment : Fragment() {
      *  Top3 서버 통신
      */
     private val onTop3Success : (GetFeedTop3Response) -> Unit = {
-        Log.v("Feed", it.data.topArr[0].user_name)
         setTop3RecyclerView(it.data.topArr)
     }
     private val onTop3Failure : (Throwable) -> Unit = {

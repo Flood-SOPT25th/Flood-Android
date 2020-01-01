@@ -4,32 +4,25 @@ package com.flood_android.ui.signup
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.widget.addTextChangedListener
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 
 import com.flood_android.R
-import kotlinx.android.synthetic.main.fragment_signup5.*
-import kotlinx.android.synthetic.main.toast_feed_save_flips_category.*
+import kotlinx.android.synthetic.main.fragment_group.*
 
-class SignUpFragment_5 : Fragment() {
+class GroupFragment : Fragment() {
     lateinit var sendText : String
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        cstlay_signup_group.setOnClickListener{
+        cstlay_signup_frag_group_3.setOnClickListener{
 
         }
-        return inflater.inflate(R.layout.fragment_signup5, container, false)
+        return inflater.inflate(R.layout.fragment_group, container, false)
     }
 
     override fun onStart() {
@@ -47,6 +40,7 @@ class SignUpFragment_5 : Fragment() {
         var flagServer = false
 
         //서버통신 필요 - 받은 코드를 서버에게 보내고 서버에서 판단해서 boolean 형태의 flag 준다고 생각
+        // 여기서 btnFlag를 조정할 것 by toSignal
         toSignal(flagServer)
     }
 
