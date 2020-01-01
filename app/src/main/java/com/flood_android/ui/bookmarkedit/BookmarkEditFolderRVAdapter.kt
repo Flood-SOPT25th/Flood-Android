@@ -16,30 +16,35 @@ import java.lang.IndexOutOfBoundsException
 import android.widget.Toast
 import android.view.View.OnFocusChangeListener
 import com.flood_android.R
+import com.flood_android.ui.feed.data.BookmarkData
+import com.flood_android.util.GlobalData
 
 
 class BookmarkEditFolderRVAdapter(
     val ctx: Context,
-    val dataList: ArrayList<BookmarkEditFolderData>
-
+    val dataList: ArrayList<BookmarkData>
 ) : RecyclerView.Adapter<BookmarkEditFolderRVAdapter.Holder>() {
-    var clickedposition = -10
-    private var onItemClick : View.OnClickListener? = null
+    private var onItemClick: View.OnClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-        val view: View = LayoutInflater.from(ctx).inflate(R.layout.rv_item_bookmark_edit_folder, parent, false)
-        view.findViewById<EditText>(R.id.edt_rv_item_bookmark_edit_folder_name).setOnClickListener(onItemClick)
+        val view: View =
+            LayoutInflater.from(ctx).inflate(R.layout.rv_item_bookmark_edit_folder, parent, false)
+        view.findViewById<ImageView>(R.id.iv_rv_item_bookmark_edit_folder_image)
+            .setOnClickListener(onItemClick)
 
         return Holder(view)
     }
 
     override fun getItemCount(): Int = dataList.size
 
+
     override fun onBindViewHolder(holder: Holder, position: Int) {
         var options: RequestOptions = RequestOptions().transform(CenterCrop(), RoundedCorners(10))
+        Log.e("123", dataList[position].toString())
+        Log.e("123", dataList.toString())
 
         // 첫번째 버튼
-        if(position == 0){
+        if (position == 0) {
             dataList[position].let { item ->
                 holder.add.visibility = View.VISIBLE
                 holder.delete.visibility = View.INVISIBLE
@@ -47,20 +52,20 @@ class BookmarkEditFolderRVAdapter(
                 holder.folderName.visibility = View.INVISIBLE
 
                 holder.add.setOnClickListener {
-                    (ctx as BookmarkEditActivity).addItem()
+                    (ctx as BookmarkEditActivity).addDialog()
                 }
             }
             // 다른 리싸이클러뷰
-        }else{
+        } else {
             var folderNameList = arrayListOf("")
 
 
             dataList[position].let { item ->
                 Glide.with(ctx)
-                    .load(item.image)
+                    .load(item.thumb)
                     .apply(options)
                     .into(holder.image)
-                holder.folderName.setText(item.folderName)
+                holder.folderName.setText(item.categoryName)
                 //mStatusUpdateRunnable.run()
                 /*holder.folderName.addTextChangedListener(object: TextWatcher{
                     override fun afterTextChanged(p0: Editable?) {
@@ -75,12 +80,41 @@ class BookmarkEditFolderRVAdapter(
 
                     }
                 })*/
-                holder.delete.setOnClickListener{
+
+                holder.image.setOnClickListener{
+                    GlobalData.editFolderName = holder.folderName.text.toString()
+                    GlobalData.updateFlipId = dataList[position].category_id.toString()
+
+                    (ctx as BookmarkEditActivity).editDialog(position)
+
+                }
+
+                holder.delete.setOnClickListener {
                     try {
+                        Log.e("deleteFlip", dataList[position].category_id + "flip")
+
+
+                        if (dataList[position].category_id == "") {
+                            // addList에서 삭제
+                            Log.e("deleteFlip123", dataList[position].toString())
+
+                            GlobalData.addFlip.remove(holder.folderName.text.toString())
+
+                            Log.e("deleteFlip123456", GlobalData.addFlip.toString())
+                        } else {
+                            // deleteList에 추가
+                            GlobalData.deleteFlip.add(dataList[position].category_id.toString())
+                            Log.e("deleteFlipList", GlobalData.deleteFlip.toString())
+
+                        }
+
+
                         dataList.removeAt(position)
                         notifyItemRemoved(position)
                         notifyItemRangeChanged(position, dataList.size)
-                    } catch (e: IndexOutOfBoundsException){
+
+
+                    } catch (e: IndexOutOfBoundsException) {
                         Log.e("Index error", e.toString())
                     }
                 }
@@ -90,8 +124,17 @@ class BookmarkEditFolderRVAdapter(
         }
     }
 
-    fun setOnItemClickListener(l: View.OnClickListener){
+    fun changeFlipsName(changedName : String) {
+        dataList
+    }
+
+    fun setOnItemClickListener(l: View.OnClickListener) {
         onItemClick = l
+    }
+
+    fun changeItem(position: Int, flipsName: String) {
+        dataList[position].categoryName = flipsName
+        notifyItemChanged(position)
     }
 
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
