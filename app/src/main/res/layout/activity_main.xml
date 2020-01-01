@@ -54,7 +54,7 @@
                 android:id="@+id/iv_main_tab_company"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@drawable/ic_tab_bookmark"
+                android:src="@drawable/selector_main_nav_company_btn"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
