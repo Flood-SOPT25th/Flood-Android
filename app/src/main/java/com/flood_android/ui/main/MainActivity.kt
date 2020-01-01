@@ -20,17 +20,14 @@ import com.flood_android.ui.company.CompanyFragment
 import com.flood_android.ui.feed.FeedFragment
 import com.flood_android.ui.feed.adapter.FeedSaveFlipsCategoryRVAdapter
 import com.flood_android.ui.feed.data.BookmarkData
-import com.flood_android.ui.feed.data.FeedSaveFlipsCategoryData
 import com.flood_android.ui.feed.data.GetPostBookmarkResponse
 import com.flood_android.ui.feed.data.PostBookmarkCancelData
-import com.flood_android.ui.post.PostActivity
 import com.flood_android.util.safeEnqueue
 import com.orhanobut.dialogplus.DialogPlus
 import com.orhanobut.dialogplus.Holder
 import com.orhanobut.dialogplus.ViewHolder
 import com.flood_android.ui.postnourl.PostNoUrlActivity
 import com.flood_android.util.OnSingleClickListener
-import com.flood_android.util.SharedPreferenceController
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.dialog_feed_save_flips.*
 

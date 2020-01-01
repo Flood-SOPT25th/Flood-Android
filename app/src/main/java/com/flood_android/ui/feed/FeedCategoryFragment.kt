@@ -18,16 +18,10 @@ import com.flood_android.ui.feed.data.GetCategoryFeedResponse
 import com.flood_android.util.safeEnqueue
 import kotlinx.android.synthetic.main.fragment_feed.*
 
-class FeedCategoryFragment : Fragment() {
+class FeedCategoryFragment(val categoryName: String = "") : Fragment() {
 
     val networkService: NetworkServiceFeed by lazy {
         ApplicationController.networkServiceFeed
-    }
-
-    var categoryName: String = ""
-
-    companion object {
-        var instance: FeedCategoryFragment = FeedCategoryFragment()
     }
 
     lateinit var feedRVAdapter: FeedRVAdapter
@@ -36,7 +30,6 @@ class FeedCategoryFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        categoryName = instance.categoryName
         return inflater.inflate(R.layout.fragment_feed_category, container, false)
     }
 
