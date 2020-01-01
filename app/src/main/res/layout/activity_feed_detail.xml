@@ -135,111 +135,138 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="27dp"
-                android:text="이 글의 목적은 당신이 UX 디자이너이든 아니든 직접 UX 리뷰를 할 수 있도록 돕는 데 있습니다. 지금부터 알 려드릴 프레임 워크는 프로덕트나 서비스, 혹은 잠재 클 라이언트를 위한 어떤 업무에서도 분석 툴로도 활용할 수 있습니다."
+                android:text="블라블라"
                 android:textColor="@color/colorBlack28"
                 android:textSize="14sp"
+                android:paddingBottom="14dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/iv_feed_detail_user_img" />
 
 
-<!--            <androidx.cardview.widget.CardView-->
-<!--                android:id="@+id/cv_feed_detail_img"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="207dp"-->
-<!--                android:layout_marginLeft="24dp"-->
-<!--                android:layout_marginRight="24dp"-->
-<!--                app:cardCornerRadius="13dp"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/tv_rv_item_feed_flood_today_user_contents">-->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_feed_detail_img"
+                android:layout_width="0dp"
+                android:layout_height="207dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                app:cardCornerRadius="13dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_feed_detail_user_contents">
 
-<!--                <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--                    android:id="@+id/cl_feed_detail_img"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent">-->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_feed_detail_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-<!--                    <ImageView-->
-<!--                        android:id="@+id/iv_feed_detail_pic_1"-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="0dp"-->
-<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                        app:layout_constraintEnd_toEndOf="@+id/ll_rv_item_feed_flood_today_pic_2"-->
-<!--                        app:layout_constraintStart_toStartOf="parent"-->
-<!--                        app:layout_constraintTop_toTopOf="parent"-->
-<!--                        tools:srcCompat="@tools:sample/avatars" />-->
+                    <ImageView
+                        android:id="@+id/iv_feed_detail_pic_1"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/ll_feed_detail_pic_2"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:srcCompat="@tools:sample/avatars" />
 
-<!--                    <LinearLayout-->
-<!--                        android:id="@+id/ll_feed_flood_today_pic_2"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="match_parent"-->
-<!--                        android:orientation="horizontal"-->
-<!--                        android:visibility="invisible"-->
-<!--                        android:weightSum="2"-->
-<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                        app:layout_constraintEnd_toEndOf="parent"-->
-<!--                        app:layout_constraintStart_toStartOf="parent"-->
-<!--                        app:layout_constraintTop_toTopOf="parent">-->
+                    <LinearLayout
+                        android:id="@+id/ll_feed_detail_pic_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:visibility="invisible"
+                        android:weightSum="2"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
 
-<!--                        <ImageView-->
-<!--                            android:id="@+id/iv_rv_item_feed_flood_today_pic_2_1"-->
-<!--                            android:layout_width="0dp"-->
-<!--                            android:layout_height="match_parent"-->
-<!--                            android:layout_weight="1"-->
-<!--                            android:background="@color/colorGrayD1" />-->
+                        <ImageView
+                            android:id="@+id/iv_feed_detail_pic_2_1"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@color/colorGrayD1" />
 
-<!--                        <ImageView-->
-<!--                            android:id="@+id/iv_rv_item_feed_flood_today_pic_2_2"-->
-<!--                            android:layout_width="0dp"-->
-<!--                            android:layout_height="match_parent"-->
-<!--                            android:layout_marginStart="2dp"-->
-<!--                            android:layout_weight="1"-->
-<!--                            android:background="@color/colorMainBlue" />-->
-<!--                    </LinearLayout>-->
+                        <ImageView
+                            android:id="@+id/iv_feed_detail_pic_2_2"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="2dp"
+                            android:layout_weight="1"
+                            android:background="@color/colorMainBlue" />
+                    </LinearLayout>
 
-<!--                    <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--                        android:id="@+id/cl_rv_item_feed_flood_today_pic_3"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="match_parent"-->
-<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                        app:layout_constraintEnd_toEndOf="parent"-->
-<!--                        app:layout_constraintStart_toStartOf="parent"-->
-<!--                        app:layout_constraintTop_toTopOf="parent">-->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_feed_detail_pic_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
 
-<!--                        <ImageView-->
-<!--                            android:id="@+id/iv_rv_item_feed_flood_today_pic_3_1"-->
-<!--                            android:layout_width="207dp"-->
-<!--                            android:layout_height="0dp"-->
-<!--                            android:background="@android:color/holo_red_light"-->
-<!--                            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                            app:layout_constraintStart_toStartOf="parent"-->
-<!--                            app:layout_constraintTop_toTopOf="parent" />-->
+                        <ImageView
+                            android:id="@+id/iv_feed_detail_pic_3_1"
+                            android:layout_width="207dp"
+                            android:layout_height="0dp"
+                            android:background="@android:color/holo_red_light"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-<!--                        <ImageView-->
-<!--                            android:id="@+id/iv_rv_item_feed_flood_today_pic_3_2"-->
-<!--                            android:layout_width="0dp"-->
-<!--                            android:layout_height="102dp"-->
-<!--                            android:layout_marginStart="2dp"-->
-<!--                            android:background="@color/colorMainBlue"-->
-<!--                            app:layout_constraintEnd_toEndOf="@+id/iv_rv_item_feed_flood_today_pic_3_3"-->
-<!--                            app:layout_constraintStart_toEndOf="@+id/iv_rv_item_feed_flood_today_pic_3_1"-->
-<!--                            app:layout_constraintTop_toTopOf="parent" />-->
+                        <ImageView
+                            android:id="@+id/iv_feed_detail_pic_3_2"
+                            android:layout_width="0dp"
+                            android:layout_height="102dp"
+                            android:layout_marginStart="2dp"
+                            android:background="@color/colorMainBlue"
+                            app:layout_constraintEnd_toEndOf="@+id/iv_feed_detail_pic_3_3"
+                            app:layout_constraintStart_toEndOf="@+id/iv_feed_detail_pic_3_1"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-<!--                        <ImageView-->
-<!--                            android:id="@+id/iv_rv_item_feed_flood_today_pic_3_3"-->
-<!--                            android:layout_width="0dp"-->
-<!--                            android:layout_height="0dp"-->
-<!--                            android:layout_marginStart="2dp"-->
-<!--                            android:layout_marginTop="2dp"-->
-<!--                            android:background="@android:color/holo_blue_light"-->
-<!--                            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                            app:layout_constraintEnd_toEndOf="parent"-->
-<!--                            app:layout_constraintStart_toEndOf="@+id/iv_rv_item_feed_flood_today_pic_3_1"-->
-<!--                            app:layout_constraintTop_toBottomOf="@+id/iv_rv_item_feed_flood_today_pic_3_2" />-->
+                        <ImageView
+                            android:id="@+id/iv_feed_detail_pic_3_3"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginStart="2dp"
+                            android:layout_marginTop="2dp"
+                            android:background="@android:color/holo_blue_light"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/iv_feed_detail_pic_3_1"
+                            app:layout_constraintTop_toBottomOf="@+id/iv_feed_detail_pic_3_2" />
 
-<!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
-<!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
-<!--            </androidx.cardview.widget.CardView>-->
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/cl_feed_detail_pic_3_3_black"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:background="#40000000"
+                            android:visibility="invisible"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="@+id/iv_feed_detail_pic_3_3"
+                            app:layout_constraintStart_toStartOf="@+id/iv_feed_detail_pic_3_3"
+                            app:layout_constraintTop_toBottomOf="@+id/iv_feed_detail_pic_3_2">
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <TextView
+                            android:id="@+id/tv_feed_detail_pic_3_3_etc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="+"
+                            android:textColor="@android:color/white"
+                            android:textSize="18sp"
+                            android:visibility="invisible"
+                            app:layout_constraintBottom_toBottomOf="@+id/iv_feed_detail_pic_3_3"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/iv_feed_detail_pic_3_3"
+                            app:layout_constraintTop_toTopOf="@+id/iv_feed_detail_pic_3_3" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -252,7 +279,7 @@
                 android:background="@drawable/rect_white_grayd1_12dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_feed_detail_user_contents">
+                app:layout_constraintTop_toBottomOf="@+id/cv_feed_detail_img">
 
                 <TextView
                     android:id="@+id/tv_feed_detail_news_title"

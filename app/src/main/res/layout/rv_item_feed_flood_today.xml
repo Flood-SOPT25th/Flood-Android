@@ -132,6 +132,7 @@
                     android:layout_marginStart="2dp"
                     android:layout_weight="1"
                     android:background="@color/colorMainBlue" />
+
             </LinearLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -172,6 +173,31 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/iv_rv_item_feed_flood_today_pic_3_1"
+                    app:layout_constraintTop_toBottomOf="@+id/iv_rv_item_feed_flood_today_pic_3_2" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_rv_item_feed_flood_today_pic_3_3_black"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="#40000000"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_rv_item_feed_flood_today_pic_3_3"
+                    app:layout_constraintEnd_toEndOf="@+id/iv_rv_item_feed_flood_today_pic_3_3"
+                    app:layout_constraintStart_toStartOf="@+id/iv_rv_item_feed_flood_today_pic_3_3"
+                    app:layout_constraintTop_toBottomOf="@+id/iv_rv_item_feed_flood_today_pic_3_2" />
+
+                <TextView
+                    android:id="@+id/tv_rv_item_feed_flood_todat_pic_3_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="+"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_rv_item_feed_flood_today_pic_3_3"
+                    app:layout_constraintEnd_toEndOf="@+id/iv_rv_item_feed_flood_today_pic_3_3"
+                    app:layout_constraintStart_toStartOf="@+id/iv_rv_item_feed_flood_today_pic_3_3"
                     app:layout_constraintTop_toBottomOf="@+id/iv_rv_item_feed_flood_today_pic_3_2" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

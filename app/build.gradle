@@ -63,4 +63,6 @@ dependencies {
     // Rounded bottom dialog O
     implementation 'com.github.Deishelon:RoundedBottomSheet:1.0.1'
 
+    //photo zoom-in
+    implementation 'com.github.chrisbanes:PhotoView:2.0.0'
 }
