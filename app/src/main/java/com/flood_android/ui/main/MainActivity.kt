@@ -41,18 +41,28 @@ class MainActivity : AppCompatActivity() {
         ApplicationController.networkServiceUser
     }
 
+    private val feedFragment = FeedFragment()
+    private val companyFragment = CompanyFragment()
+    private val alarmFragment = AlarmFragment()
+    private val mypageFragment = MypageFragment()
+    private var active: Fragment? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        addFragment(FeedFragment())
+        addFragment(feedFragment)
+        addFragment(companyFragment)
+        addFragment(alarmFragment)
+        addFragment(mypageFragment)
+        showFragment(feedFragment)
 
         iv_main_tab_feed.setOnClickListener(object : OnSingleClickListener(){
             override fun onSingleClick(v: View) {
                 iv_main_tab_feed.isSelected = true
                 iv_main_tab_mypage.isSelected = false
                 iv_main_tab_alarm.isSelected = false
-                replaceFragment(FeedFragment())
+                showFragment(feedFragment)
             }
         })
         iv_main_tab_company.setOnClickListener(object  : OnSingleClickListener(){
@@ -60,7 +70,7 @@ class MainActivity : AppCompatActivity() {
                 iv_main_tab_feed.isSelected = false
                 iv_main_tab_mypage.isSelected = false
                 iv_main_tab_alarm.isSelected = false
-                replaceFragment(CompanyFragment())
+                showFragment(companyFragment)
             }
         })
         iv_main_tab_write.setOnClickListener(object : OnSingleClickListener(){
@@ -77,7 +87,7 @@ class MainActivity : AppCompatActivity() {
                 iv_main_tab_feed.isSelected = false
                 iv_main_tab_mypage.isSelected = false
                 iv_main_tab_alarm.isSelected = true
-                replaceFragment(AlarmFragment())
+                showFragment(alarmFragment)
             }
         })
 
@@ -86,7 +96,7 @@ class MainActivity : AppCompatActivity() {
                 iv_main_tab_feed.isSelected = false
                 iv_main_tab_mypage.isSelected = true
                 iv_main_tab_alarm.isSelected = false
-                replaceFragment(MypageFragment())
+                showFragment(mypageFragment)
             }
         })
     }
@@ -95,16 +105,19 @@ class MainActivity : AppCompatActivity() {
         val fm : FragmentManager = supportFragmentManager
         val transaction = fm.beginTransaction()
         // 이 아이디 자리에, 어떤 프래그먼트를 넣어주겠다.
-        transaction.add(R.id.fl_main, fragment)
+        transaction.add(R.id.fl_main, fragment).hide(fragment)
         transaction.commit()
     }
 
-    fun replaceFragment(fragment: Fragment){
+    fun showFragment(fragment: Fragment){
+        if (active == null) active = fragment
+
         val fm : FragmentManager = supportFragmentManager
         val transaction = fm.beginTransaction()
         // 이 아이디 자리에, 어떤 프래그먼트를 넣어주겠다.
-        transaction.replace(R.id.fl_main, fragment)
+        transaction.hide(active!!).show( fragment)
         transaction.commit()
+        active = fragment
     }
 
     /**
