@@ -28,6 +28,7 @@ import com.orhanobut.dialogplus.Holder
 import com.orhanobut.dialogplus.ViewHolder
 import com.flood_android.ui.postnourl.PostNoUrlActivity
 import com.flood_android.util.OnSingleClickListener
+import com.flood_android.util.SharedPreferenceController
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.dialog_feed_save_flips.*
 
@@ -181,23 +182,21 @@ class MainActivity : AppCompatActivity() {
     /**
      *  북마크 취소 서버 통신
      */
-    var onBookmarkCancelSuccess: (PostBookmarkCancelData) -> Unit = {
-        Log.v("현주", "통신 성공")
-    }
-
     fun postBookmarkCancelRequest(token : String, post_id : String){
-        networkServiceFeed.postBookmarkCancelRequest(token, PostBookmarkCancelData(post_id)).safeEnqueue({}, onBookmarkCancelSuccess)
+        networkServiceFeed.postBookmarkCancelRequest(token, PostBookmarkCancelData(post_id)).safeEnqueue({},
+            onSuccess = {
+                Log.v("현주", "통신 성공")
+            })
     }
 
     /**
      *  북마크 리스트 받아오기
      */
-    val onGetBookmarkListSuccess : (GetPostBookmarkResponse) -> Unit = { response ->
-        setFlipCategoryRecyclerView(response.data.categorys)
-    }
-
     fun getBookmarkListResponse(token : String){
-        networkServiceUser.getPostBookmarkResponse(token).safeEnqueue ({}, onGetBookmarkListSuccess)
+        networkServiceUser.getPostBookmarkResponse(token).safeEnqueue ({},
+            onSuccess = { response->
+                setFlipCategoryRecyclerView(response.data.categorys)
+            })
     }
 
     /**
@@ -208,7 +207,6 @@ class MainActivity : AppCompatActivity() {
 
         val holder: Holder = ViewHolder(R.layout.dialog_feed_save_flips)
 
-        getBookmarkListResponse("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVoZGduczE3NjZAZ21haWwuY29tIiwibmFtZSI6IuydtOuPme2biCIsImlhdCI6MTU3NzQwNzg1NiwiZXhwIjoxNTc5OTk5ODU2LCJpc3MiOiJGbG9vZFNlcnZlciJ9.Zf_LNfQIEdFl84r-tPQpT1nLaxdotkFutOxwNQy-w58")
 
         dialog = DialogPlus.newDialog(this@MainActivity)
             .apply {
@@ -223,6 +221,8 @@ class MainActivity : AppCompatActivity() {
             }
             .create()
 
+        getBookmarkListResponse(SharedPreferenceController.getAuthorization(this@MainActivity)!!)
+
         dialog.show()
     }
 
@@ -234,13 +234,12 @@ class MainActivity : AppCompatActivity() {
      *  플립 카테고리 리사이클러뷰 설정
      */
     private fun setFlipCategoryRecyclerView(dataList: ArrayList<BookmarkData>) {
-        Log.v("현주", dataList.toString())
-        var feedSaveFlipsCategoryRVAdapter = FeedSaveFlipsCategoryRVAdapter(this@MainActivity, dataList)
+        val feedSaveFlipsCategoryRVAdapter = FeedSaveFlipsCategoryRVAdapter(this, dataList)
         rv_dialog_feed_save_flips_category.apply {
             adapter = feedSaveFlipsCategoryRVAdapter
             layoutManager =
                 LinearLayoutManager(context!!, LinearLayoutManager.HORIZONTAL, false)
         }
-        feedSaveFlipsCategoryRVAdapter.notifyDataSetChanged()
+        //feedSaveFlipsCategoryRVAdapter.notifyDataSetChanged()
     }
 }
