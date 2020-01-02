@@ -4,14 +4,20 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.viewpager.widget.ViewPager
 import com.flood_android.R
+import com.flood_android.network.ApplicationController
 import com.flood_android.ui.firstlogin.FirstLoginActivity
-import com.flood_android.ui.main.MainActivity
 import com.flood_android.ui.signup.adapter.SignupPageAdapter
 import com.flood_android.ui.signup.data.PostSignupRequest
+import com.flood_android.ui.signup.data.PostSignupResponse
+import com.flood_android.util.safeEnqueue
 import kotlinx.android.synthetic.main.activity_signup.*
+import kotlinx.android.synthetic.main.fragment_signup1.*
+import kotlinx.android.synthetic.main.fragment_signup2.*
+import kotlinx.android.synthetic.main.fragment_signup3.*
 
 class SignupActivity : AppCompatActivity() {
 
@@ -34,8 +40,8 @@ class SignupActivity : AppCompatActivity() {
 
     private val okListener = View.OnClickListener { okDialog.dismiss() }
 
+    var signupInfo = PostSignupRequest("", "", "", "", "", "")
 
-    lateinit var signupInfo: PostSignupRequest
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,8 +49,8 @@ class SignupActivity : AppCompatActivity() {
         setContentView(R.layout.activity_signup)
 
         signupPageAdapter = SignupPageAdapter(supportFragmentManager)
-        //signupPageAdapter.addFragment(SignupFragment_1())
-        //signupPageAdapter.addFragment(SignupFragment_2())
+        signupPageAdapter.addFragment(SignupFragment_1())
+        signupPageAdapter.addFragment(SignupFragment_2())
         signupPageAdapter.addFragment(SignupFragment_3())
         signupPageAdapter.addFragment(SignupFragment_4())
         signupPageAdapter.addFragment(SignupFragment_5())
@@ -56,23 +62,29 @@ class SignupActivity : AppCompatActivity() {
             if (btnFlag) {
                 if (position <= 4) {
                     vpager_signup.currentItem = (position++)
-                    /*when (position) {
-                        0 -> {
-                            email = this.edtxt_signup1_id.text.toString()
-                            password = this.edtxt_signup1_pw.text.toString()
-                        }
+                    when (position) {
                         1 -> {
-                            name = this.edtxt_signup2_name.text.toString()
-                            phone = this.edtxt_signup2_contact.text.toString()
+                            email = edtxt_signup1_id.text.toString()
+                            password = edtxt_signup1_pw.text.toString()
                         }
                         2 -> {
-                            question = this.edtxt_signup3_question.text.toString()
-                            answer = this.edtxt_signup3_answer.text.toString()
+                            name = edtxt_signup2_name.text.toString()
+                            phone = edtxt_signup2_contact.text.toString()
+                        }
+                        3 -> {
+                            question = tv_signup3_question_2.text.toString()
+                            Log.v("Jihee",question)
+                            answer = edtxt_signup3_answer_2.text.toString()
                         }
                         4->{
-                            signupInfo.copy(email,password,name,phone,question,answer)
+                            /*서버통신*/
+                            Log.v("Jihee","터지지마")
+                            signupInfo.copy(email, password, name, phone, question, answer)
+                            Log.v("Jihee","plz no")
+                            postSignupResponse(signupInfo)
+                            Log.v("Jihee","터짐")
                         }
-                    }*/
+                    }
                 } else {
                     btn_signup_next.setText("완료")
                     var intent = Intent(this, FirstLoginActivity::class.java)
@@ -114,4 +126,21 @@ class SignupActivity : AppCompatActivity() {
             btn_signup_next.setTextColor(Color.parseColor("#d1d1d1"))
         }
     }
+
+    var fail: (Throwable) -> Unit = {
+        Log.v("SignupActivity", "fail")
+        Log.v("SignupActivity", it.message.toString())
+        Log.v("SignupActivity", it.toString())
+    }
+    var temp: (PostSignupResponse) -> Unit = {
+        Log.v("SignupActivity", "temp")
+        Log.v("SignupActivity", it.message)
+        finish()
+    }
+
+    fun postSignupResponse(ps: PostSignupRequest) {
+        val postSignupResponse = ApplicationController.networkServiceUser.postSignupResponse(ps)
+        postSignupResponse.safeEnqueue(fail, temp)
+    }
+
 }

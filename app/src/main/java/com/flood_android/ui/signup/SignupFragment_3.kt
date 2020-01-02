@@ -29,15 +29,15 @@ class SignupFragment_3 : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         questionDialog = SignupQuestionDialog {
-            edtxt_signup3_question.text = it
+            tv_signup3_question_2.text = it
         }
 
-        edtxt_signup3_question.setOnClickListener {
+        tv_signup3_question_2.setOnClickListener {
             questionDialog.show(activity!!.supportFragmentManager, null)
         }
 
-        edtxt_signup3_question.addTextChangedListener(questionWatcher)
-        tv_signup3_answer_2.addTextChangedListener(answerWatcher)
+        tv_signup3_question_2.addTextChangedListener(questionWatcher)
+        edtxt_signup3_answer_2.addTextChangedListener(answerWatcher)
     }
 
     fun toSignal(flag: Boolean) {
