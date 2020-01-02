@@ -28,4 +28,11 @@ abstract class OnSingleClickListener : View.OnClickListener {
         private val MIN_CLICK_INTERVAL: Long = 600
     }
 
+    fun View.setOnClickDebounceListener(listener: (v: View) -> Unit) {
+        this.setOnClickListener(object : OnSingleClickListener(){
+            override fun onSingleClick(v: View) {
+                listener(this@setOnClickDebounceListener)
+            }
+        })
+    }
 }

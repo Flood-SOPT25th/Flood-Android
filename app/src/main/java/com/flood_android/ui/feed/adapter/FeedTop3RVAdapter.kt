@@ -2,11 +2,7 @@ package com.flood_android.ui.feed.adapter
 
 import android.content.Context
 import android.content.Intent
-import android.media.Image
 import android.net.Uri
-import android.opengl.Visibility
-import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,16 +13,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.flood_android.R
 import com.flood_android.ui.feed.FeedDetailActivity
-import com.flood_android.ui.feed.FeedFloodFragment
-import com.flood_android.ui.feed.FeedFragment
+import com.flood_android.ui.feed.FeedFlipsSaveDialog
 import com.flood_android.ui.feed.data.FeedTop3Data
 import com.flood_android.ui.main.MainActivity
+import com.flood_android.util.GlobalData
 import com.flood_android.util.OnSingleClickListener
+import com.flood_android.util.SharedPreferenceController
 
 class FeedTop3RVAdapter(val ctx: Context, var dataList: ArrayList<FeedTop3Data>) :
     RecyclerView.Adapter<FeedTop3RVAdapter.Holder>() {
-
-    var token : String = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVoZGduczE3NjZAZ21haWwuY29tIiwibmFtZSI6IuydtOuPme2biCIsImlhdCI6MTU3NzQwNzg1NiwiZXhwIjoxNTc5OTk5ODU2LCJpc3MiOiJGbG9vZFNlcnZlciJ9.Zf_LNfQIEdFl84r-tPQpT1nLaxdotkFutOxwNQy-w58"
+    var token : String = SharedPreferenceController.getAuthorization(ctx)!!
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedTop3RVAdapter.Holder {
         val view: View =
@@ -42,7 +38,6 @@ class FeedTop3RVAdapter(val ctx: Context, var dataList: ArrayList<FeedTop3Data>)
                 .load(item.news_img)
                 .centerCrop()
                 .into(holder.newsImg)
-            Log.v("현주", item._id)
 
             holder.newsGradation.visibility = View.VISIBLE
 
@@ -58,14 +53,10 @@ class FeedTop3RVAdapter(val ctx: Context, var dataList: ArrayList<FeedTop3Data>)
             holder.flipsNum.text = item.flips_num.toString()
             holder.commentsNum.text = item.comments_num.toString()
 
-            var idx : String = item._id
-            Log.v("현주", idx)
-
             // 피드 상세 페이지로 이동
             holder.btnComments.setOnClickListener(object: OnSingleClickListener(){
                 override fun onSingleClick(v: View) {
                     val intent = Intent(ctx, FeedDetailActivity::class.java)
-                    //var id : String = "" + item._id
                     intent.putExtra("feed_id", item._id)
                     ctx.startActivity(intent)
                 }
@@ -99,7 +90,10 @@ class FeedTop3RVAdapter(val ctx: Context, var dataList: ArrayList<FeedTop3Data>)
                         ctx.postBookmarkCancelRequest(token, item._id)
                 }
                     else{   // 북마크하기
-                        ctx.makeFlipDialog(holder.ivFlips)
+                        //ctx.makeFlipDialog(holder.ivFlips)
+                        val feedFlipsSaveDialog =   FeedFlipsSaveDialog(item._id, holder.ivFlips)
+                        GlobalData.bottomSheetDialogFragment = feedFlipsSaveDialog
+                        feedFlipsSaveDialog.show(ctx.supportFragmentManager, "")
                     }
                 }
             })

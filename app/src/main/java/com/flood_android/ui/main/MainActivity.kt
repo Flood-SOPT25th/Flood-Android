@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
+import android.view.View
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -15,25 +16,26 @@ import com.flood_android.network.ApplicationController
 import com.flood_android.network.NetworkServiceFeed
 import com.flood_android.network.NetworkServiceUser
 import com.flood_android.ui.alarm.AlarmFragment
+import com.flood_android.ui.company.CompanyDetailActivity
 import com.flood_android.ui.company.CompanyFragment
 import com.flood_android.ui.feed.FeedFragment
 import com.flood_android.ui.feed.adapter.FeedSaveFlipsCategoryRVAdapter
 import com.flood_android.ui.feed.data.BookmarkData
-import com.flood_android.ui.feed.data.FeedSaveFlipsCategoryData
 import com.flood_android.ui.feed.data.GetPostBookmarkResponse
+import com.flood_android.ui.feed.data.PostBookmarkAddData
 import com.flood_android.ui.feed.data.PostBookmarkCancelData
-import com.flood_android.ui.post.PostActivity
 import com.flood_android.util.safeEnqueue
 import com.orhanobut.dialogplus.DialogPlus
 import com.orhanobut.dialogplus.Holder
 import com.orhanobut.dialogplus.ViewHolder
 import com.flood_android.ui.postnourl.PostNoUrlActivity
+import com.flood_android.util.GlobalData
+import com.flood_android.util.OnSingleClickListener
 import com.flood_android.util.SharedPreferenceController
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.dialog_feed_save_flips.*
 
 class MainActivity : AppCompatActivity() {
-    lateinit var flipsCategoryDataList: ArrayList<BookmarkData>
     lateinit var dialog: DialogPlus
 
     val networkServiceFeed: NetworkServiceFeed by lazy {
@@ -43,44 +45,85 @@ class MainActivity : AppCompatActivity() {
         ApplicationController.networkServiceUser
     }
 
+    private val feedFragment = FeedFragment()
+    private val companyFragment = CompanyFragment()
+    private val alarmFragment = AlarmFragment()
+    private val mypageFragment = MypageFragment()
+    private var active: Fragment? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_main)
 
-        addFragment(FeedFragment())
+        addFragment(feedFragment)
+        addFragment(companyFragment)
+        addFragment(alarmFragment)
+        addFragment(mypageFragment)
+        showFragment(feedFragment)
 
-        iv_main_tab_feed.setOnClickListener{
-            replaceFragment(FeedFragment())
-        }
-        iv_main_tab_company.setOnClickListener{
-            replaceFragment(CompanyFragment())
-        }
-        iv_main_tab_write.setOnClickListener{
-            val intent = Intent(this@MainActivity, PostNoUrlActivity::class.java)
-            startActivity(intent)
-        }
-        iv_main_tab_alarm.setOnClickListener{
-            replaceFragment(AlarmFragment())
-        }
-        iv_main_tab_mypage.setOnClickListener{
-            replaceFragment(MypageFragment())
-        }
+        iv_main_tab_feed.isSelected = true
+
+        iv_main_tab_feed.setOnClickListener(object : OnSingleClickListener(){
+            override fun onSingleClick(v: View) {
+                iv_main_tab_feed.isSelected = true
+                iv_main_tab_company.isSelected = false
+                iv_main_tab_mypage.isSelected = false
+                iv_main_tab_alarm.isSelected = false
+                showFragment(feedFragment)
+            }
+        })
+        iv_main_tab_company.setOnClickListener(object  : OnSingleClickListener(){
+            override fun onSingleClick(v: View) {
+                iv_main_tab_feed.isSelected = false
+                iv_main_tab_company.isSelected = true
+                iv_main_tab_mypage.isSelected = false
+                iv_main_tab_alarm.isSelected = false
+                showFragment(companyFragment)
+            }
+        })
+        iv_main_tab_write.setOnClickListener(object : OnSingleClickListener(){
+            override fun onSingleClick(v: View) {
+                val intent = Intent(this@MainActivity, PostNoUrlActivity::class.java)
+                startActivity(intent)
+            }
+        })
+        iv_main_tab_alarm.setOnClickListener(object : OnSingleClickListener(){
+            override fun onSingleClick(v: View) {
+                iv_main_tab_feed.isSelected = false
+                iv_main_tab_company.isSelected = false
+                iv_main_tab_mypage.isSelected = false
+                iv_main_tab_alarm.isSelected = true
+                showFragment(alarmFragment)
+            }
+        })
+
+        iv_main_tab_mypage.setOnClickListener(object : OnSingleClickListener(){
+            override fun onSingleClick(v: View) {
+                iv_main_tab_feed.isSelected = false
+                iv_main_tab_company.isSelected = false
+                iv_main_tab_mypage.isSelected = true
+                iv_main_tab_alarm.isSelected = false
+                showFragment(mypageFragment)
+            }
+        })
     }
 
     fun addFragment(fragment: Fragment){
         val fm : FragmentManager = supportFragmentManager
         val transaction = fm.beginTransaction()
-        // 이 아이디 자리에, 어떤 프래그먼트를 넣어주겠다.
-        transaction.add(R.id.fl_main, fragment)
+        transaction.add(R.id.fl_main, fragment).hide(fragment)
         transaction.commit()
     }
 
-    fun replaceFragment(fragment: Fragment){
+    fun showFragment(fragment: Fragment){
+        if (active == null) active = fragment
+
         val fm : FragmentManager = supportFragmentManager
         val transaction = fm.beginTransaction()
-        // 이 아이디 자리에, 어떤 프래그먼트를 넣어주겠다.
-        transaction.replace(R.id.fl_main, fragment)
+        transaction.hide(active!!).show( fragment)
         transaction.commit()
+        active = fragment
     }
 
     /**
@@ -141,69 +184,99 @@ class MainActivity : AppCompatActivity() {
         }
 
     /**
-     *  북마크 취소 서버 통신
+     *  북마크 추가 서버 통신
      */
-    var onBookmarkCancelSuccess: (PostBookmarkCancelData) -> Unit = {
-        Log.v("현주", "통신 성공")
-    }
-
-    fun postBookmarkCancelRequest(token : String, post_id : String){
-        networkServiceFeed.postBookmarkCancelRequest(token, PostBookmarkCancelData(post_id)).safeEnqueue({}, onBookmarkCancelSuccess)
+    fun postBookmarkAddRequest(token: String, post_id: String, category_id:String, imageView: ImageView){
+        networkServiceFeed.postBookmarkAddRequest(token, PostBookmarkAddData(post_id, category_id)).safeEnqueue({},
+            onSuccess = {
+                imageView.isSelected = true
+                GlobalData.bottomSheetDialogFragment!!.dismiss()
+                GlobalData.bottomSheetDialogFragment = null
+                Log.v("MainActivity", "북마크 추가 통신 성공")
+            }
+        )
     }
 
     /**
-     *  북마크 리스트 받아오기
+     *  북마크 취소 서버 통신
      */
-    val onGetBookmarkListSuccess : (GetPostBookmarkResponse) -> Unit = { response ->
-        setFlipCategoryRecyclerView(response.data.categorys)
+    fun postBookmarkCancelRequest(token : String, post_id : String){
+        networkServiceFeed.postBookmarkCancelRequest(token, PostBookmarkCancelData(post_id)).safeEnqueue({},
+            onSuccess = {
+                Log.v("MainActivity", "북마크 취소 통신 성공")
+            })
     }
 
-    fun getBookmarkListResponse(token : String){
-        networkServiceUser.getPostBookmarkResponse(token).safeEnqueue ({}, onGetBookmarkListSuccess)
-    }
+//    /**
+//     *  북마크 리스트 받아오기
+//     */
+//    fun getBookmarkListResponse(token : String){
+//        networkServiceUser.getPostBookmarkResponse(token).safeEnqueue ({},
+//            onSuccess = { response->
+//                setFlipCategoryRecyclerView(response.data.categorys)
+//            })
+//    }
 
     /**
      *  플립에 저장하기 다이얼로그 띄우기
      */
-    fun makeFlipDialog(ivSelector: ImageView) {
-        ivSelector.isSelected = true
+//    fun makeFlipDialog(ivSelector: ImageView) {
+//        ivSelector.isSelected = true
+//
+//        val holder: Holder = ViewHolder(R.layout.dialog_feed_save_flips)
+//
+//
+//        dialog = DialogPlus.newDialog(this@MainActivity)
+//            .apply {
+//                setContentHolder(holder)
+//                setGravity(Gravity.BOTTOM)
+//            }
+//            .setOnCancelListener {
+//                ivSelector.isSelected = false
+//            }
+//            .setOnBackPressListener {
+//                ivSelector.isSelected = false
+//            }
+//            .create()
+//
+//        getBookmarkListResponse(SharedPreferenceController.getAuthorization(this@MainActivity)!!)
+//
+//        dialog.show()
+//    }
 
-        val holder: Holder = ViewHolder(R.layout.dialog_feed_save_flips)
+//    fun dismissFlipDialog() {
+//        dialog.dismiss()
+//    }
+//
+//    /**
+//     *  플립 카테고리 리사이클러뷰 설정
+//     */
+//    private fun setFlipCategoryRecyclerView(dataList: ArrayList<BookmarkData>) {
+//        val feedSaveFlipsCategoryRVAdapter = FeedSaveFlipsCategoryRVAdapter(this, dataList)
+//        rv_dialog_feed_save_flips_category.apply {
+//            adapter = feedSaveFlipsCategoryRVAdapter
+//            layoutManager =
+//                LinearLayoutManager(context!!, LinearLayoutManager.HORIZONTAL, false)
+//        }
+//        //feedSaveFlipsCategoryRVAdapter.notifyDataSetChanged()
+//    }
 
-        getBookmarkListResponse(SharedPreferenceController.getAuthorization(this@MainActivity).toString())
-        //setFlipCategoryRecyclerView(flipsCategoryDataList)
+//     /**
+//      *  플립 카테고리 리사이클러뷰 설정
+//      */
+//     private fun setFlipCategoryRecyclerView(dataList: ArrayList<BookmarkData>) {
+//         val feedSaveFlipsCategoryRVAdapter = FeedSaveFlipsCategoryRVAdapter(this, dataList)
+//         rv_dialog_feed_save_flips_category.apply {
+//             adapter = feedSaveFlipsCategoryRVAdapter
+//             layoutManager =
+//                 LinearLayoutManager(context!!, LinearLayoutManager.HORIZONTAL, false)
+//         }
+//         //feedSaveFlipsCategoryRVAdapter.notifyDataSetChanged()
+//     }
 
-        dialog = DialogPlus.newDialog(this@MainActivity)
-            .apply {
-                setContentHolder(holder)
-                setGravity(Gravity.BOTTOM)
-            }
-            .setOnCancelListener {
-                ivSelector.isSelected = false
-            }
-            .setOnBackPressListener {
-                ivSelector.isSelected = false
-            }
-            .create()
-
-        dialog.show()
-    }
-
-    fun dismissFlipDialog() {
-        dialog.dismiss()
-    }
-
-    /**
-     *  플립 카테고리 리사이클러뷰 설정
-     */
-    private fun setFlipCategoryRecyclerView(dataList: ArrayList<BookmarkData>) {
-        Log.v("현주", dataList.toString())
-        var feedSaveFlipsCategoryRVAdapter = FeedSaveFlipsCategoryRVAdapter(this@MainActivity, dataList)
-        rv_dialog_feed_save_flips_category.apply {
-            adapter = feedSaveFlipsCategoryRVAdapter
-            layoutManager =
-                LinearLayoutManager(context!!, LinearLayoutManager.HORIZONTAL, false)
-        }
-        feedSaveFlipsCategoryRVAdapter.notifyDataSetChanged()
+    fun detailset(code : String){
+        val intent = Intent(this, CompanyDetailActivity::class.java)
+        intent.putExtra("code", code)
+        startActivity(intent)
     }
 }

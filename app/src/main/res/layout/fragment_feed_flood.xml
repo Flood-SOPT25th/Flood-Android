@@ -34,7 +34,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="20dp"
+                    android:fontFamily="@font/gilroyextrabold"
+                    android:includeFontPadding="false"
                     android:text="2nd December"
+                    android:textColor="#d0d0d0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -43,6 +46,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
+                    android:fontFamily="@font/notosanscjkkrbold"
+                    android:includeFontPadding="false"
                     android:text="This Week"
                     android:textColor="@android:color/black"
                     android:textSize="34sp"
@@ -55,6 +60,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="9dp"
                     android:layout_marginBottom="7dp"
+                    android:fontFamily="@font/notosanscjkkrbold"
+                    android:includeFontPadding="false"
                     android:text="Top3"
                     android:textColor="@color/colorMainBlue"
                     android:textSize="18sp"
@@ -63,6 +70,7 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_feed_flood_top3"
+                    android:scrollbarFadeDuration="0"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
@@ -83,6 +91,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="34dp"
+                    android:fontFamily="@font/notosanscjkkrbold"
+                    android:includeFontPadding="false"
                     android:text="Today"
                     android:textColor="@android:color/black"
                     android:textSize="34sp"
@@ -94,7 +104,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="7dp"
-                    android:src="@drawable/ic_right_finger"
+                    android:layout_marginBottom="5dp"
+                    android:src="@drawable/ic_right_finger_feed"
                     app:layout_constraintBottom_toBottomOf="@+id/textView2"
                     app:layout_constraintStart_toEndOf="@+id/textView2" />
 
@@ -110,5 +121,16 @@
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_main_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/black">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

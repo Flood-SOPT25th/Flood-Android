@@ -85,6 +85,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView3"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout5"
@@ -111,22 +112,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="정뫄뫄"
+                android:fontFamily="@font/notosanscjkkrbold"
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_feed_detail_user_img"
                 app:layout_constraintStart_toEndOf="@+id/iv_feed_detail_user_img"
-                app:layout_constraintTop_toTopOf="@+id/iv_feed_detail_user_img" />
+                app:layout_constraintTop_toTopOf="@+id/iv_feed_detail_user_img"
+                tools:text="정뫄뫄" />
 
             <TextView
                 android:id="@+id/tv_feed_detail_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="뫄뫄 전"
+                android:fontFamily="@font/notosanscjkkrmedium"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_feed_detail_user_name"
                 app:layout_constraintStart_toEndOf="@+id/tv_feed_detail_user_name"
-                app:layout_constraintTop_toTopOf="@+id/tv_feed_detail_user_name" />
+                app:layout_constraintTop_toTopOf="@+id/tv_feed_detail_user_name"
+                tools:text="뫄뫄 전" />
 
             <TextView
                 android:id="@+id/tv_feed_detail_user_contents"
@@ -135,12 +138,140 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="27dp"
-                android:text="이 글의 목적은 당신이 UX 디자이너이든 아니든 직접 UX 리뷰를 할 수 있도록 돕는 데 있습니다. 지금부터 알 려드릴 프레임 워크는 프로덕트나 서비스, 혹은 잠재 클 라이언트를 위한 어떤 업무에서도 분석 툴로도 활용할 수 있습니다."
+                android:fontFamily="@font/notosanscjkkrregular"
+                android:paddingBottom="14dp"
                 android:textColor="@color/colorBlack28"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/iv_feed_detail_user_img" />
+                app:layout_constraintTop_toBottomOf="@+id/iv_feed_detail_user_img"
+                tools:text="블라블라" />
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_feed_detail_img"
+                android:layout_width="0dp"
+                android:layout_height="207dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                app:cardCornerRadius="13dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_feed_detail_user_contents">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_feed_detail_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/iv_feed_detail_pic_1"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/ll_feed_detail_pic_2"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:srcCompat="@tools:sample/avatars" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_feed_detail_pic_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:visibility="invisible"
+                        android:weightSum="2"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/iv_feed_detail_pic_2_1"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@color/colorGrayD1" />
+
+                        <ImageView
+                            android:id="@+id/iv_feed_detail_pic_2_2"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="2dp"
+                            android:layout_weight="1"
+                            android:background="@color/colorMainBlue" />
+                    </LinearLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_feed_detail_pic_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/iv_feed_detail_pic_3_1"
+                            android:layout_width="207dp"
+                            android:layout_height="0dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:background="@android:color/holo_red_light" />
+
+                        <ImageView
+                            android:id="@+id/iv_feed_detail_pic_3_2"
+                            android:layout_width="0dp"
+                            android:layout_height="102dp"
+                            android:layout_marginStart="2dp"
+                            app:layout_constraintEnd_toEndOf="@+id/iv_feed_detail_pic_3_3"
+                            app:layout_constraintStart_toEndOf="@+id/iv_feed_detail_pic_3_1"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:background="@color/colorMainBlue" />
+
+                        <ImageView
+                            android:id="@+id/iv_feed_detail_pic_3_3"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginStart="2dp"
+                            android:layout_marginTop="2dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/iv_feed_detail_pic_3_1"
+                            app:layout_constraintTop_toBottomOf="@+id/iv_feed_detail_pic_3_2"
+                            tools:background="@android:color/holo_blue_light" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/cl_feed_detail_pic_3_3_black"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:background="#40000000"
+                            android:visibility="invisible"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="@+id/iv_feed_detail_pic_3_3"
+                            app:layout_constraintStart_toStartOf="@+id/iv_feed_detail_pic_3_3"
+                            app:layout_constraintTop_toBottomOf="@+id/iv_feed_detail_pic_3_2">
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <TextView
+                            android:id="@+id/tv_feed_detail_pic_3_3_etc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="+"
+                            android:textColor="@android:color/white"
+                            android:textSize="18sp"
+                            android:visibility="invisible"
+                            app:layout_constraintBottom_toBottomOf="@+id/iv_feed_detail_pic_3_3"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/iv_feed_detail_pic_3_3"
+                            app:layout_constraintTop_toTopOf="@+id/iv_feed_detail_pic_3_3" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_feed_detail_news"
@@ -150,9 +281,10 @@
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="24dp"
                 android:background="@drawable/rect_white_grayd1_12dp"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_feed_detail_user_contents">
+                app:layout_constraintTop_toBottomOf="@+id/cv_feed_detail_img">
 
                 <TextView
                     android:id="@+id/tv_feed_detail_news_title"
@@ -162,29 +294,35 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="60dp"
                     android:ellipsize="end"
+                    android:fontFamily="@font/notosanscjkkrbold"
+                    android:includeFontPadding="false"
                     android:maxLines="2"
-                    android:text="누구나 사용할 수 있는 UX 리뷰 템플릿"
+                    android:paddingBottom="0dp"
                     android:textColor="@android:color/black"
                     android:textSize="22sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="누구나 사용할 수 있는 UX 리뷰 템플릿" />
 
                 <TextView
                     android:id="@+id/tv_feed_detail_news_contents"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="18dp"
-                    android:layout_marginTop="12dp"
                     android:layout_marginEnd="24dp"
                     android:ellipsize="end"
+                    android:fontFamily="@font/notosanscjkkrmedium"
+                    android:includeFontPadding="false"
                     android:maxLines="2"
-                    android:text="각 조직이 자신의 비즈니스 니즈보다 클라이언트의 요구 를 충족시키는 제품을 만드는 데 혈안이 되면서 UX에각 조직이 자신의 비즈니스 니즈보다 클라이언트의 요구 를 충족시키는 제품을 만드는 데 혈안이 되면서 UX에각 조직이 자신의 비즈니스 니즈보다 클라이언트의 요구 를 충족시키는 제품을 만드는 데 혈안이 되면서 UX에"
+                    android:paddingStart="0dp"
+                    android:paddingTop="12dp"
                     android:textColor="@color/colorBlack28"
                     android:textSize="12sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_feed_detail_news_title" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_feed_detail_news_title"
+                    tools:text="각 조직이 자신의 비즈니스 니즈보다 클라이언트의 요구 를 충족시키는 제품을 만드는 데 혈안이 되면서 UX에각 조직이 자신의 비즈니스 니즈보다 클라이언트의 요구 를 충족시키는 제품을 만드는 데 혈안이 되면서 UX에각 조직이 자신의 비즈니스 니즈보다 클라이언트의 요구 를 충족시키는 제품을 만드는 데 혈안이 되면서 UX에" />
 
                 <ImageView
                     android:id="@+id/iv_feed_detail_news_img"
@@ -218,6 +356,8 @@
                     android:layout_marginTop="1dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="2dp"
+                    android:fontFamily="@font/notosanscjkkrmedium"
+                    android:includeFontPadding="false"
                     android:text="카테고리"
                     android:textColor="@color/colorMainBlue"
                     android:textSize="12sp"
@@ -233,6 +373,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="11dp"
+                android:fontFamily="@font/gilroyextrabold"
+                android:includeFontPadding="false"
                 android:text="Flips "
                 android:textColor="@color/colorGrayD1"
                 android:textSize="12sp"
@@ -243,6 +385,8 @@
                 android:id="@+id/tv_feed_detail_flips_cnt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/gilroyextrabold"
+                android:includeFontPadding="false"
                 android:text="00"
                 android:textColor="@color/colorGrayD1"
                 android:textSize="12sp"
@@ -254,6 +398,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
+                android:fontFamily="@font/gilroyextrabold"
+                android:includeFontPadding="false"
                 android:text="Comments "
                 android:textColor="@color/colorGrayD1"
                 android:textSize="12sp"
@@ -264,6 +410,8 @@
                 android:id="@+id/tv_feed_detail_comments_cnt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/gilroyextrabold"
+                android:includeFontPadding="false"
                 android:text="00"
                 android:textColor="@color/colorGrayD1"
                 android:textSize="12sp"
@@ -341,11 +489,14 @@
                 android:layout_marginBottom="10dp"
                 android:background="@null"
                 android:ems="10"
+                android:fontFamily="@font/notosanscjkkrmedium"
                 android:hint="이 포스트에 댓글달기.."
+                android:includeFontPadding="false"
                 android:inputType="text"
                 android:textColor="@color/colorBlack28"
                 android:textColorHint="@color/colorGrayD1"
                 android:textSize="14sp"
+                android:imeOptions="actionGo"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -372,5 +523,61 @@
                 app:srcCompat="@drawable/selector_feed_detail_comment_upload_btn" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_feed_detail_recomment_flag"
+        android:layout_width="0dp"
+        android:layout_height="43dp"
+        android:background="#60000000"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/nestedScrollView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/tv_feed_detail_recomment_flag_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:fontFamily="@font/notosanscjkkrbold"
+            android:includeFontPadding="false"
+            android:text="유뫄뫄"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView19"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosanscjkkrmedium"
+            android:includeFontPadding="false"
+            android:text="님에게 답글 남기는 중"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_feed_detail_recomment_flag_user_name"
+            app:layout_constraintStart_toEndOf="@+id/tv_feed_detail_recomment_flag_user_name" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/btn_feed_detail_recomment_flag_x"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imageView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_left_arrow" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

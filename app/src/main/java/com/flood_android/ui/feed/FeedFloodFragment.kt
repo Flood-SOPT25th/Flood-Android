@@ -2,13 +2,10 @@ package com.flood_android.ui.feed
 
 import android.os.Bundle
 import android.util.Log
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.flood_android.R
 import com.flood_android.network.ApplicationController
@@ -19,10 +16,8 @@ import com.flood_android.ui.feed.data.FeedData
 import com.flood_android.ui.feed.data.FeedTop3Data
 import com.flood_android.ui.feed.data.GetAllFeedResponse
 import com.flood_android.ui.feed.data.GetFeedTop3Response
-import com.flood_android.ui.main.MainActivity
 import com.flood_android.util.safeEnqueue
 import kotlinx.android.synthetic.main.fragment_feed_flood.*
-import kotlinx.android.synthetic.main.toast_feed_save_flips_category.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -53,6 +48,7 @@ class FeedFloodFragment : Fragment() {
         setWeek()
         getTop3Response()
         getTodayResponse()
+
     }
 
     private fun setWeek(){
@@ -117,17 +113,18 @@ class FeedFloodFragment : Fragment() {
             layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL, false)
         }
         feedTop3RVAdapter.notifyDataSetChanged()
+        cl_main_main.visibility = View.GONE
+        rv_feed_flood_top3.scrollToPosition(2)
     }
 
     /**
      *  모든 게시물 조회
      */
-    private val onAllFeedSuccess : (GetAllFeedResponse) -> Unit = {
-        setTodayRecyclerView(it.data.pidArr)
-    }
-
     private fun getTodayResponse(){
-        networkService.getAllFeedResponse(token).safeEnqueue({}, onAllFeedSuccess)
+        networkService.getAllFeedResponse(token).safeEnqueue({},
+            onSuccess = {
+                setTodayRecyclerView(it.data.pidArr)
+            })
     }
 
     // Today 리사이클러뷰
@@ -138,7 +135,6 @@ class FeedFloodFragment : Fragment() {
             layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL, false)
         }
     }
-
 
     /**
      *  페이징 처리하기!!!!!!!!!!!!!!!!!!!

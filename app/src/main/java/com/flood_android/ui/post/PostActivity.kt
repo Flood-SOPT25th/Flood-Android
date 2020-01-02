@@ -13,8 +13,6 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.flood_android.R
@@ -65,11 +63,6 @@ class PostActivity : AppCompatActivity() {
         edt_post_url.setText(websiteUrl)
     }
 
-    override fun onUserLeaveHint() {
-        super.onUserLeaveHint()
-        connectWeb()
-
-    }
 
     override fun onBackPressed() {
         super.onBackPressed()
@@ -96,7 +89,7 @@ class PostActivity : AppCompatActivity() {
      */
     private fun getPostCategory() {
         val getPostResponse = ApplicationController.networkServiceFeed
-            .getPostResponse("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVoZGduczE3NjZAZ21haWwuY29tIiwibmFtZSI6IuydtOuPme2biCIsImlhdCI6MTU3NzQwNzg1NiwiZXhwIjoxNTc5OTk5ODU2LCJpc3MiOiJGbG9vZFNlcnZlciJ9.Zf_LNfQIEdFl84r-tPQpT1nLaxdotkFutOxwNQy-w58")
+            .getPostResponse(SharedPreferenceController.getAuthorization(this@PostActivity).toString())
         getPostResponse.safeEnqueue {
             if (it.message == "그룹 카테고리 조회 성공") {
                 GlobalData.categoryList = it.data.category

@@ -1,6 +1,7 @@
 package com.flood_android.util
 
 import android.util.Log
+import com.flood_android.ui.feed.data.PostBookmarkAddData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

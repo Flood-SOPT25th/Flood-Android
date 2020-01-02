@@ -2,6 +2,8 @@ package com.flood_android.network
 
 import com.c.loginflood.PostLoginRequest
 import com.c.loginflood.PostLoginResponse
+import com.flood_android.ui.bookmarkedit.post.PostFlipRequest
+import com.flood_android.ui.bookmarkedit.post.PostFlipResponse
 import com.flood_android.ui.feed.data.GetPostBookmarkResponse
 import com.flood_android.ui.mypage.data.GetMyPageResponse
 import com.flood_android.ui.signup.data.PostSignupRequest
@@ -43,4 +45,14 @@ interface NetworkServiceUser {
     fun getMyPageResponse(
         @Header("Authorization") authorization : String
     ) : Call<GetMyPageResponse>
+
+    /**
+     * 플립 편집
+     */
+    @POST("/post/bookmark")
+    fun postFlipResponse(
+        @Header("Content-Type") content_type: String,
+        @Header("Authorization") token: String,
+        @Body body: PostFlipRequest
+    ): Call<PostFlipResponse>
 }
