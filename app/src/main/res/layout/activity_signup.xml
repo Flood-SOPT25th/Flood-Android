@@ -22,7 +22,7 @@
             android:paddingStart="7dp"
             android:paddingRight="7dp"
             android:paddingBottom="5dp"
-            android:src="@mipmap/signup_left_arrow"
+            android:src="@mipmap/ic_left_arrow"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -36,7 +36,7 @@
             android:paddingStart="5dp"
             android:paddingEnd="5dp"
             android:paddingBottom="5dp"
-            android:src="@mipmap/signup_x_black"
+            android:src="@mipmap/ic_x_black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/cstlay_signup_act1"
             app:layout_constraintTop_toTopOf="parent" />

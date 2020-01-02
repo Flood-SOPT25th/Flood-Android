@@ -7,13 +7,23 @@ import android.os.Bundle
 import android.view.View
 import androidx.viewpager.widget.ViewPager
 import com.flood_android.R
+import com.flood_android.ui.firstlogin.FirstLoginActivity
 import com.flood_android.ui.main.MainActivity
-import com.flood_android.ui.signup.adapter.SignUpPageAdapter
+import com.flood_android.ui.signup.adapter.SignupPageAdapter
+import com.flood_android.ui.signup.data.PostSignupRequest
 import kotlinx.android.synthetic.main.activity_signup.*
 
 class SignupActivity : AppCompatActivity() {
 
-    lateinit var signUpPageAdapter: SignUpPageAdapter
+    lateinit var signupPageAdapter: SignupPageAdapter
+
+    lateinit var email: String
+    lateinit var password: String
+    lateinit var name: String
+    lateinit var phone: String
+    lateinit var question: String
+    lateinit var answer: String
+
 
     private var position = 0
     private var btnFlag = false
@@ -22,36 +32,50 @@ class SignupActivity : AppCompatActivity() {
         SignupAlertDialog(this, okListener)
     }
 
-    private val gokDialog: GroupcodeMismatchDialog by lazy {
-        GroupcodeMismatchDialog(this, gokListener)
-    }
-
     private val okListener = View.OnClickListener { okDialog.dismiss() }
 
-    private val gokListener = View.OnClickListener { gokDialog.dismiss() }
 
+    lateinit var signupInfo: PostSignupRequest
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //setTheme(android.R.style.Theme_NoTitleBar_Fullscreen)
         setContentView(R.layout.activity_signup)
 
-        signUpPageAdapter = SignUpPageAdapter(supportFragmentManager)
-        signUpPageAdapter.addFragment(SignupFragment_1())
-        //signUpPageAdapter.addFragment(SignupFragment_2())
-        //signUpPageAdapter.addFragment(SignupFragment_3())
-        signUpPageAdapter.addFragment(SignupFragment_4())
-        signUpPageAdapter.addFragment(SignupFragment_5())
+        signupPageAdapter = SignupPageAdapter(supportFragmentManager)
+        //signupPageAdapter.addFragment(SignupFragment_1())
+        //signupPageAdapter.addFragment(SignupFragment_2())
+        signupPageAdapter.addFragment(SignupFragment_3())
+        signupPageAdapter.addFragment(SignupFragment_4())
+        signupPageAdapter.addFragment(SignupFragment_5())
 
 
-        vpager_signup.adapter = signUpPageAdapter
-        vpager_signup.offscreenPageLimit=1
+        vpager_signup.adapter = signupPageAdapter
+        //vpager_signup.offscreenPageLimit = 1
         btn_signup_next.setOnClickListener {
             if (btnFlag) {
-                if (position <= 4)
+                if (position <= 4) {
                     vpager_signup.currentItem = (position++)
-                else {
-                    var intent = Intent(this, MainActivity::class.java)
+                    /*when (position) {
+                        0 -> {
+                            email = this.edtxt_signup1_id.text.toString()
+                            password = this.edtxt_signup1_pw.text.toString()
+                        }
+                        1 -> {
+                            name = this.edtxt_signup2_name.text.toString()
+                            phone = this.edtxt_signup2_contact.text.toString()
+                        }
+                        2 -> {
+                            question = this.edtxt_signup3_question.text.toString()
+                            answer = this.edtxt_signup3_answer.text.toString()
+                        }
+                        4->{
+                            signupInfo.copy(email,password,name,phone,question,answer)
+                        }
+                    }*/
+                } else {
+                    btn_signup_next.setText("완료")
+                    var intent = Intent(this, FirstLoginActivity::class.java)
                     startActivity(intent)
                 }
             } else {
@@ -73,7 +97,7 @@ class SignupActivity : AppCompatActivity() {
             }
         })
         dindicator_signup.createDotPanel(
-            6,
+            5,
             R.drawable.circle_grey_7dp,
             R.drawable.circle_blue_7dp,
             0
