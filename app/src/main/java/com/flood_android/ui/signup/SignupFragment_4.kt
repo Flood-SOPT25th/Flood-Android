@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.flood_android.R
+import kotlinx.android.synthetic.main.fragment_signup2.*
 import kotlinx.android.synthetic.main.fragment_signup4.*
 
 

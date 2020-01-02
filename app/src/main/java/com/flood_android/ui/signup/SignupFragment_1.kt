@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import com.flood_android.R
 import kotlinx.android.synthetic.main.activity_signup.*
 import kotlinx.android.synthetic.main.fragment_signup1.*
+import kotlinx.android.synthetic.main.fragment_signup2.*
 
 class SignupFragment_1 : Fragment(){
 
@@ -54,6 +55,7 @@ class SignupFragment_1 : Fragment(){
 
                 if(pwdFlag && pwdCheckFlag){
                     toSignal(true)
+                    toAct1()
                 }else{
                     toSignal(false)
                 }
@@ -76,6 +78,7 @@ class SignupFragment_1 : Fragment(){
                 pwdFlag = true
                 if(idFlag && pwdCheckFlag){
                     toSignal(true)
+                    toAct1()
                 }else{
                     toSignal(false)
                 }
@@ -99,6 +102,7 @@ class SignupFragment_1 : Fragment(){
                     lv_signup_frag_1_3_red.visibility=View.GONE
                     tv_signup_frag_nonmatch.visibility=View.GONE
                     toSignal(true)
+                    toAct1()
                 }else{toSignal(false) }
             }else{
                 lv_signup_frag_1_3_red.visibility=View.VISIBLE
@@ -108,6 +112,9 @@ class SignupFragment_1 : Fragment(){
             }
         }
     }
-
+    fun toAct1() {
+        (activity as SignupActivity).signupInfo.email = edtxt_signup1_id.text.toString()
+        (activity as SignupActivity).signupInfo.password = edtxt_signup1_pw.text.toString()
+    }
 
 }

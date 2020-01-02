@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.flood_android.R
+import kotlinx.android.synthetic.main.fragment_signup2.*
 import kotlinx.android.synthetic.main.fragment_signup3.*
 
 class SignupFragment_3 : Fragment() {
@@ -54,8 +55,10 @@ class SignupFragment_3 : Fragment() {
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             if ((s ?: "").isNotEmpty()) {
                 questionFlag = true
-                if (answerFlag)
+                if (answerFlag) {
                     toSignal(true)
+                    toAct3()
+                }
                 else
                     toSignal(false)
             } else {
@@ -74,8 +77,10 @@ class SignupFragment_3 : Fragment() {
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             if ((s ?: "").isNotEmpty()) {
                 answerFlag = true
-                if (questionFlag)
+                if (questionFlag) {
                     toSignal(true)
+                    toAct3()
+                }
                 else
                     toSignal(false)
             } else {
@@ -83,6 +88,11 @@ class SignupFragment_3 : Fragment() {
                 answerFlag = false
             }
         }
+    }
+
+    fun toAct3() {
+        (activity as SignupActivity).signupInfo.question = tv_signup3_question_2.text.toString()
+        (activity as SignupActivity).signupInfo.answer = edtxt_signup3_answer_2.text.toString()
     }
 }
 

@@ -21,4 +21,8 @@ object GlobalData {
 
     var recommentFlag : Boolean = false
     var commentId : String? = null
+
+   // lateinit var signupName : String
+   // lateinit var signupContact : String
+
 }
