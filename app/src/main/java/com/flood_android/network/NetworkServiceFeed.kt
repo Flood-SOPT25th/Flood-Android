@@ -58,6 +58,13 @@ interface NetworkServiceFeed {
         @Body body: PostBookmarkCancelData
     ) : Call<PostBookmarkCancelData>
 
+    // 댓글 / 대댓글 달기
+    @POST("/comment")
+    fun postCommentRequest(
+        @Header("Authorization") authorization: String,
+        @Body body : PostCommentData
+    ):Call<PostCommentData>
+
     /**
      * 게시물 등록 POST
      */
