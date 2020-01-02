@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,14 +9,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:descendantFocusability="blocksDescendants">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:src="@drawable/circle_grey_7dp"
                 android:id="@+id/iv_circular_mypage_profile"
                 android:layout_width="56dp"
                 android:layout_height="56dp"
@@ -32,38 +35,51 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="2dp"
                 android:fontFamily="@font/notosanscjkkrbold"
+                android:includeFontPadding="false"
                 android:lineSpacingExtra="9sp"
                 android:includeFontPadding="false"
                 android:textColor="#282828"
                 app:layout_constraintStart_toEndOf="@id/iv_circular_mypage_profile"
                 app:layout_constraintTop_toTopOf="@id/iv_circular_mypage_profile"
-                android:text="선지희" />
+                tools:text="선지희" />
 
             <TextView
                 android:id="@+id/tv_mypage_userinfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
                 android:layout_marginTop="2dp"
                 android:fontFamily="@font/notosanscjkkrregular"
+                android:includeFontPadding="false"
                 android:lineSpacingExtra="9sp"
                 android:textColor="#a3a3a3"
                 android:includeFontPadding="false"
                 app:layout_constraintStart_toStartOf="@id/tv_mypage_username"
                 app:layout_constraintTop_toBottomOf="@id/tv_mypage_username"
-                android:text="tv_mypage_userinfo" />
+                tools:text="tv_mypage_userinfo" />
 
-            <ImageButton
-                android:id="@+id/imgbtn_mypage_user_setting"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="-2dp"
-                android:layout_marginEnd="17dp"
-                android:background="#ffffff"
-                android:src="@mipmap/mypage_setting"
-                app:layout_constraintBottom_toBottomOf="@id/tv_mypage_username"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btn_mypage_user_setting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="2dp"
+                app:layout_constraintBottom_toTopOf="@+id/lv_mypage_1"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_mypage_username" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/iv_mypage_user_setting"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:src="@mipmap/mypage_setting"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <View
                 android:id="@+id/lv_mypage_1"
@@ -82,6 +98,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="25dp"
                 android:fontFamily="@font/notosanscjkkrbold"
+                android:includeFontPadding="false"
                 android:lineSpacingExtra="9sp"
                 android:text="My Post"
                 android:includeFontPadding="false"
@@ -98,37 +115,50 @@
                 android:layout_marginTop="5dp"
                 android:background="#ffffff"
                 android:src="@drawable/rect_black_11dp"
-                app:layout_constraintStart_toEndOf="@id/tv_mypage_mypost"
                 app:layout_constraintBottom_toBottomOf="@id/tv_mypage_mypost"
-                app:layout_constraintTop_toTopOf="@id/tv_mypage_mypost"
-                />
+                app:layout_constraintStart_toEndOf="@id/tv_mypage_mypost"
+                app:layout_constraintTop_toTopOf="@id/tv_mypage_mypost" />
 
             <TextView
                 android:id="@+id/tv_mypage_mypost_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/notosanscjkkrbold"
-                android:lineSpacingExtra="6sp"
-                android:textColor="#ffffff"
-                android:textSize="12sp"
                 android:includeFontPadding="false"
-                app:layout_constraintStart_toStartOf="@id/imgbtn_mypage_mypost"
-                app:layout_constraintEnd_toEndOf="@id/imgbtn_mypage_mypost"
-                app:layout_constraintTop_toTopOf="@id/imgbtn_mypage_mypost"
+                android:lineSpacingExtra="6sp"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@id/imgbtn_mypage_mypost"
-                android:text="15" />
+                android:includeFontPadding="false"
+                app:layout_constraintEnd_toEndOf="@id/imgbtn_mypage_mypost"
+                app:layout_constraintStart_toStartOf="@id/imgbtn_mypage_mypost"
+                app:layout_constraintTop_toTopOf="@id/imgbtn_mypage_mypost"
+                tools:text="15" />
 
-            <ImageButton
-                android:id="@+id/imgbtn_mypage_mypost_arrow"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="-2dp"
-                android:layout_marginEnd="17dp"
-                android:background="#ffffff"
-                android:src="@mipmap/mypage_setting"
-                app:layout_constraintBottom_toBottomOf="@id/tv_mypage_mypost"
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btn_mypage_mypost_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="2dp"
+                app:layout_constraintBottom_toTopOf="@+id/lv_mypage_2"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_mypage_mypost" />
+                app:layout_constraintTop_toBottomOf="@+id/lv_mypage_1">
+
+                <ImageView
+                    android:id="@+id/iv_mypage_mypost_arrow"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:src="@mipmap/mypage_right_arrow"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <View
                 android:id="@+id/lv_mypage_2"
@@ -147,6 +177,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="25dp"
                 android:fontFamily="@font/notosanscjkkrbold"
+                android:includeFontPadding="false"
                 android:lineSpacingExtra="9sp"
                 android:text="My Flip"
                 android:includeFontPadding="false"
@@ -155,32 +186,29 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/lv_mypage_2" />
 
-
-            <ImageButton
-                android:id="@+id/imgbtn_mypage_myflip_plus"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="-2dp"
-                android:layout_marginEnd="17dp"
-                android:background="#ffffff"
-                android:src="@mipmap/mypage_plus"
-                app:layout_constraintBottom_toBottomOf="@id/tv_mypage_myflip"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btn_mypage_myflips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="2dp"
+                app:layout_constraintBottom_toTopOf="@+id/rv_mypage_myflip"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_mypage_myflip" />
+                app:layout_constraintTop_toBottomOf="@+id/lv_mypage_2">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_mypage_myflip"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="25dp"
-                android:orientation="vertical"
-                android:paddingLeft="22dp"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_mypage_myflip"
-                app:spanCount="2" />
+                <ImageView
+                    android:id="@+id/iv_mypage_myflip_plus"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:src="@mipmap/mypage_plus"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/rvplaceholder_mypage_myflip"
@@ -197,6 +225,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/notosanscjkkrbold"
+                    android:includeFontPadding="false"
                     android:text="아니 이런!\n아직 플립이 없군요!\n플립을 추가해보세요"
                     android:includeFontPadding="false"
                     android:textAlignment="center"
@@ -214,6 +243,20 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_mypage_noflip" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_mypage_myflip"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="31dp"
+                android:background="@android:color/white"
+                android:orientation="vertical"
+                android:paddingLeft="22dp"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_mypage_myflip"
+                app:spanCount="2" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

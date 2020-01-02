@@ -14,8 +14,8 @@ import com.flood_android.ui.feed.adapter.FeedRVAdapter
 import com.flood_android.ui.feed.adapter.FeedTop3RVAdapter
 import com.flood_android.ui.feed.data.FeedData
 import com.flood_android.ui.feed.data.FeedTop3Data
-import com.flood_android.ui.feed.data.GetAllFeedResponse
 import com.flood_android.ui.feed.data.GetFeedTop3Response
+import com.flood_android.util.SharedPreferenceController
 import com.flood_android.util.safeEnqueue
 import kotlinx.android.synthetic.main.fragment_feed_flood.*
 import java.text.SimpleDateFormat
@@ -26,8 +26,8 @@ class FeedFloodFragment : Fragment() {
     val networkService: NetworkServiceFeed by lazy {
         ApplicationController.networkServiceFeed
     }
-    var token : String = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVoZGduczE3NjZAZ21haWwuY29tIiwibmFtZSI6IuydtOuPme2biCIsImlhdCI6MTU3NzQwNzg1NiwiZXhwIjoxNTc5OTk5ODU2LCJpc3MiOiJGbG9vZFNlcnZlciJ9.Zf_LNfQIEdFl84r-tPQpT1nLaxdotkFutOxwNQy-w58"
 
+    lateinit var token: String
     lateinit var feedRVAdapter : FeedRVAdapter
     lateinit var feedTop3RVAdapter: FeedTop3RVAdapter
 
@@ -45,10 +45,10 @@ class FeedFloodFragment : Fragment() {
     }
 
     private fun initView(){
+        token= SharedPreferenceController.getAuthorization(context!!)!!
         setWeek()
         getTop3Response()
         getTodayResponse()
-
     }
 
     private fun setWeek(){
@@ -100,7 +100,7 @@ class FeedFloodFragment : Fragment() {
         setTop3RecyclerView(it.data.topArr)
     }
     private val onTop3Failure : (Throwable) -> Unit = {
-        Log.v("Postygyg", it.toString())
+        Log.v("FeedFloodFragment", it.toString())
     }
     private fun getTop3Response(){
         networkService.getFeedTop3Response(token).safeEnqueue(onTop3Failure, onTop3Success)
@@ -113,12 +113,11 @@ class FeedFloodFragment : Fragment() {
             layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL, false)
         }
         feedTop3RVAdapter.notifyDataSetChanged()
-        cl_main_main.visibility = View.GONE
-        rv_feed_flood_top3.scrollToPosition(2)
+        cl_feed_flood_loading.visibility = View.GONE
     }
 
     /**
-     *  모든 게시물 조회
+     *  모든 게시물 조회  서버 통신
      */
     private fun getTodayResponse(){
         networkService.getAllFeedResponse(token).safeEnqueue({},

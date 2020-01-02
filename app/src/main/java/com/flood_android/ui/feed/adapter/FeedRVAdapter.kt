@@ -18,6 +18,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.flood_android.R
 import com.flood_android.ui.feed.FeedDetailActivity
 import com.flood_android.ui.feed.FeedFlipsSaveDialog
+import com.flood_android.ui.feed.PhotoZoomActivity
 import com.flood_android.ui.feed.data.FeedData
 import com.flood_android.ui.main.MainActivity
 import com.flood_android.util.GlobalData
@@ -28,6 +29,7 @@ class FeedRVAdapter(private val ctx: Context, var dataList: ArrayList<FeedData>)
     RecyclerView.Adapter<FeedRVAdapter.Holder>() {
 
     var token: String = SharedPreferenceController.getAuthorization(ctx)!!
+    var imgList = ArrayList<String>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view: View =
@@ -55,6 +57,7 @@ class FeedRVAdapter(private val ctx: Context, var dataList: ArrayList<FeedData>)
                 holder.contents.text = item.contents
             }
 
+            imgList = item.pic_list
             // 사진이 있을 때 사진 나타내기
             var pic_num: Int? = item.pic_list.size
             when (pic_num!!) {
@@ -125,9 +128,17 @@ class FeedRVAdapter(private val ctx: Context, var dataList: ArrayList<FeedData>)
                     holder.pic_etc_num.text = "+${etc_num}"
                     setVisible(holder.pic_etc)
                     setVisible(holder.pic_etc_num)
-
                 }
             }
+
+            // 사진 누르면  photoZoomActivity 열기
+            holder.container_img.setOnClickListener(object  : OnSingleClickListener(){
+                override fun onSingleClick(v: View) {
+                    val intent = Intent(ctx, PhotoZoomActivity::class.java)
+                    intent.putStringArrayListExtra("imageList", imgList)
+                    ctx.startActivity(intent)
+                }
+            })
 
             if (item.news_url == "")
                 setGone(holder.container_news)
@@ -232,6 +243,8 @@ class FeedRVAdapter(private val ctx: Context, var dataList: ArrayList<FeedData>)
             itemView.findViewById(R.id.tv_rv_item_feed_flood_today_flips_cnt) as TextView
         var comments_num =
             itemView.findViewById(R.id.tv_rv_item_feed_flood_today_comments_cnt) as TextView
+
+        var container_img = itemView.findViewById(R.id.cv_rv_item_feed_flood_today) as CardView
 
         // flips flag 있으면 넣기
         var btnFlips =
