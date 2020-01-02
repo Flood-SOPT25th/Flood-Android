@@ -18,4 +18,7 @@ object GlobalData {
     lateinit var editFolderName: String
     lateinit var categoryObejct: CategoryObejct
     var bottomSheetDialogFragment : BottomSheetDialogFragment? = null
+
+    var recommentFlag : Boolean = false
+    var commentId : String? = null
 }

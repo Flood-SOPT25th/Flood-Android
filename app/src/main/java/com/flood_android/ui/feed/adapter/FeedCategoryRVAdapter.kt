@@ -58,12 +58,10 @@ class FeedCategoryRVAdapter(
             if (selectedPosition == position){
                 categoryName.setTextColor(Color.WHITE)
                 categoryContainer.background = ctx.resources.getDrawable(R.drawable.rect_blue_21dp)
-                //holder.categoryName.typeface = ctx.resources.getFont(R.font.notosanscjkkrmedium)
             }
             else{
                 categoryName.setTextColor(ctx.resources.getColor(R.color.colorMainBlue))
                 categoryContainer.background = ctx.resources.getDrawable(R.drawable.rect_white_21dp)
-                //holder.category_name.typeface = ctx.resources.getFont(R.font.notosansbold)
             }
 
             itemView.setOnClickListener(object : OnSingleClickListener(){

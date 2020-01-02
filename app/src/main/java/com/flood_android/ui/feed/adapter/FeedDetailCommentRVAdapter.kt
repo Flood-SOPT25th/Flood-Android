@@ -16,6 +16,7 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.flood_android.R
 import com.flood_android.ui.feed.FeedDetailActivity
 import com.flood_android.ui.feed.data.CommentsData
+import com.flood_android.util.GlobalData
 import com.flood_android.util.OnSingleClickListener
 
 class FeedDetailCommentRVAdapter(
@@ -46,17 +47,16 @@ class FeedDetailCommentRVAdapter(
             holder.commentContents.text = item.comment_content
 
             // 댓글에서 답글달기 클릭했을 때 처리하기
-            holder.btnRecomment.setOnClickListener {
-                (object : OnSingleClickListener() {
-                    override fun onSingleClick(v: View) {
-                        (ctx as FeedDetailActivity).recomment(item.comment_user_name)
-                    }
-                })
-            }
+            holder.btnRecomment.setOnClickListener(object  : OnSingleClickListener(){
+                override fun onSingleClick(v: View) {
+                    (ctx as FeedDetailActivity).recomment(item.comment_user_name)
+                    GlobalData.commentId = item.comment_id
+                }
+            })
 
             if ( item.subComment!=null){
                 holder.recomments.apply {
-                    adapter = FeedDetailRecommentRVAdapter(context!!, item.subComment)
+                    adapter = FeedDetailRecommentRVAdapter(context!!, item.subComment, item.comment_id)
                     layoutManager =
                         LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL, false)
                 }

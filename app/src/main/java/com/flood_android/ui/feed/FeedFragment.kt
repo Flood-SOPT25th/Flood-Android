@@ -62,14 +62,12 @@ class FeedFragment : Fragment() {
 
     private fun initView() {
         adapter = FeedCategoryRVAdapter(context!!) { position ->
-            Log.d("신승민", "${(feedFragments[position] as? FeedCategoryFragment)?.categoryName}  $position")
             showFragment(feedFragments[position])
         }
         rv_feed_category_news.apply {
             adapter = this@FeedFragment.adapter
             layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.HORIZONTAL, false)
         }
-
         getCategoryResponse()
         setOnClickListener()
     }
@@ -102,7 +100,6 @@ class FeedFragment : Fragment() {
      */
     private var successGetCategory : (GetFeedCategoryResponse)  -> Unit  = { res ->
         feedFragments = listOf(floodFragment) + res.data.category.filterNot { it == "Flood" }.map { FeedCategoryFragment(it) }
-
         adapter.dataList = res.data.category
         adapter.notifyDataSetChanged()
     }
