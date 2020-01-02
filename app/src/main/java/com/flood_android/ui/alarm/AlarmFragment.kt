@@ -13,9 +13,6 @@ import com.flood_android.ui.alarm.data.AlarmRvItem
 import com.flood_android.ui.alarm.adapter.AlarmRVAdapter
 import kotlinx.android.synthetic.main.fragment_alarm.*
 
-/**
- * A simple [Fragment] subclass.
- */
 class AlarmFragment : Fragment() {
 
     private lateinit var alarmRVToday : RecyclerView
@@ -70,8 +67,8 @@ class AlarmFragment : Fragment() {
 
         alarmRVAdapterPrevious.data = listOf(
             AlarmRvItem(
-                profile_id = "선지희",
-                name = "",
+                profile_id = "",
+                name = "선지희",
                 action = 3,
                 comment = null,
                 time = "하루 전"

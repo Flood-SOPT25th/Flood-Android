@@ -1,10 +1,7 @@
 package com.flood_android.ui.signup
 
 
-import android.content.Context
-import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +9,11 @@ import android.widget.NumberPicker
 import com.deishelon.roundedbottomsheet.RoundedBottomSheetDialogFragment
 import com.flood_android.R
 import kotlinx.android.synthetic.main.dialog_signup_question_select.*
-import kotlinx.android.synthetic.main.fragment_signup3.*
 
-class SignupQuestionDialog(context : Context, private val okListener : View.OnClickListener?) : RoundedBottomSheetDialogFragment()  {
+
+class SignupQuestionDialog(
+    val listener: (String) -> Unit = {}
+) : RoundedBottomSheetDialogFragment()  {
 
     private val list = arrayOf(
         "아버지의 성함은?", "어머니의 성함은?",
@@ -33,30 +32,23 @@ class SignupQuestionDialog(context : Context, private val okListener : View.OnCl
         return inflater.inflate(R.layout.dialog_signup_question_select, container, false)
     }
 
-    override fun onStart() {
-        super.onStart()
-        if(okListener != null){
-            btn_signup_dialog_question.setOnClickListener(okListener)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val formatter = NumberPicker.Formatter { i -> i.toString() + " " + Character.toString(0x33A1.toChar())
         }
+
         numpick_signup_question_dialog.apply {
             minValue = 0
             maxValue = list.size - 1
             displayedValues = list
             wrapSelectorWheel = false
             descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
+            setFormatter(formatter)
         }
 
         btn_signup_dialog_question.setOnClickListener {
+            listener(list[numpick_signup_question_dialog.value])
             dismiss()
         }
-
-        numpick_signup_question_dialog.setOnValueChangedListener { _, _, _ ->
-            toFragment(SignupFragment_3(), numpick_signup_question_dialog.value.toString())
-            btn_signup_dialog_question.setTextColor(Color.parseColor("#0057ff"))
-        }
-    }
-
-    fun toFragment(fragment3: SignupFragment_3, s: String) {
-        fragment3.edtxt_signup3_question.setText(s)
     }
 }

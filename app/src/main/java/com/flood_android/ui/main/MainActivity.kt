@@ -21,12 +21,15 @@ import com.flood_android.ui.company.CompanyFragment
 import com.flood_android.ui.feed.FeedFragment
 import com.flood_android.ui.feed.adapter.FeedSaveFlipsCategoryRVAdapter
 import com.flood_android.ui.feed.data.BookmarkData
+import com.flood_android.ui.feed.data.GetPostBookmarkResponse
+import com.flood_android.ui.feed.data.PostBookmarkAddData
 import com.flood_android.ui.feed.data.PostBookmarkCancelData
 import com.flood_android.util.safeEnqueue
 import com.orhanobut.dialogplus.DialogPlus
 import com.orhanobut.dialogplus.Holder
 import com.orhanobut.dialogplus.ViewHolder
 import com.flood_android.ui.postnourl.PostNoUrlActivity
+import com.flood_android.util.GlobalData
 import com.flood_android.util.OnSingleClickListener
 import com.flood_android.util.SharedPreferenceController
 import kotlinx.android.synthetic.main.activity_main.*
@@ -180,68 +183,95 @@ class MainActivity : AppCompatActivity() {
         }
 
     /**
+     *  북마크 추가 서버 통신
+     */
+    fun postBookmarkAddRequest(token: String, post_id: String, category_id:String, imageView: ImageView){
+        networkServiceFeed.postBookmarkAddRequest(token, PostBookmarkAddData(post_id, category_id)).safeEnqueue({},
+            onSuccess = {
+                imageView.isSelected = true
+                GlobalData.bottomSheetDialogFragment!!.dismiss()
+                GlobalData.bottomSheetDialogFragment = null
+                Log.v("MainActivity", "북마크 추가 통신 성공")
+            }
+        )
+    }
+
+    /**
      *  북마크 취소 서버 통신
      */
     fun postBookmarkCancelRequest(token : String, post_id : String){
         networkServiceFeed.postBookmarkCancelRequest(token, PostBookmarkCancelData(post_id)).safeEnqueue({},
             onSuccess = {
-                Log.v("현주", "통신 성공")
+                Log.v("MainActivity", "북마크 취소 통신 성공")
             })
     }
 
-    /**
-     *  북마크 리스트 받아오기
-     */
-    fun getBookmarkListResponse(token : String){
-        networkServiceUser.getPostBookmarkResponse(token).safeEnqueue ({},
-            onSuccess = { response->
-                setFlipCategoryRecyclerView(response.data.categorys)
-            })
-    }
+//    /**
+//     *  북마크 리스트 받아오기
+//     */
+//    fun getBookmarkListResponse(token : String){
+//        networkServiceUser.getPostBookmarkResponse(token).safeEnqueue ({},
+//            onSuccess = { response->
+//                setFlipCategoryRecyclerView(response.data.categorys)
+//            })
+//    }
 
     /**
      *  플립에 저장하기 다이얼로그 띄우기
      */
-    fun makeFlipDialog(ivSelector: ImageView) {
-        ivSelector.isSelected = true
+//    fun makeFlipDialog(ivSelector: ImageView) {
+//        ivSelector.isSelected = true
+//
+//        val holder: Holder = ViewHolder(R.layout.dialog_feed_save_flips)
+//
+//
+//        dialog = DialogPlus.newDialog(this@MainActivity)
+//            .apply {
+//                setContentHolder(holder)
+//                setGravity(Gravity.BOTTOM)
+//            }
+//            .setOnCancelListener {
+//                ivSelector.isSelected = false
+//            }
+//            .setOnBackPressListener {
+//                ivSelector.isSelected = false
+//            }
+//            .create()
+//
+//        getBookmarkListResponse(SharedPreferenceController.getAuthorization(this@MainActivity)!!)
+//
+//        dialog.show()
+//    }
 
-        val holder: Holder = ViewHolder(R.layout.dialog_feed_save_flips)
+//    fun dismissFlipDialog() {
+//        dialog.dismiss()
+//    }
+//
+//    /**
+//     *  플립 카테고리 리사이클러뷰 설정
+//     */
+//    private fun setFlipCategoryRecyclerView(dataList: ArrayList<BookmarkData>) {
+//        val feedSaveFlipsCategoryRVAdapter = FeedSaveFlipsCategoryRVAdapter(this, dataList)
+//        rv_dialog_feed_save_flips_category.apply {
+//            adapter = feedSaveFlipsCategoryRVAdapter
+//            layoutManager =
+//                LinearLayoutManager(context!!, LinearLayoutManager.HORIZONTAL, false)
+//        }
+//        //feedSaveFlipsCategoryRVAdapter.notifyDataSetChanged()
+//    }
 
-
-        dialog = DialogPlus.newDialog(this@MainActivity)
-            .apply {
-                setContentHolder(holder)
-                setGravity(Gravity.BOTTOM)
-            }
-            .setOnCancelListener {
-                ivSelector.isSelected = false
-            }
-            .setOnBackPressListener {
-                ivSelector.isSelected = false
-            }
-            .create()
-
-        getBookmarkListResponse(SharedPreferenceController.getAuthorization(this@MainActivity)!!)
-
-        dialog.show()
-    }
-
-    fun dismissFlipDialog() {
-        dialog.dismiss()
-    }
-
-    /**
-     *  플립 카테고리 리사이클러뷰 설정
-     */
-    private fun setFlipCategoryRecyclerView(dataList: ArrayList<BookmarkData>) {
-        val feedSaveFlipsCategoryRVAdapter = FeedSaveFlipsCategoryRVAdapter(this, dataList)
-        rv_dialog_feed_save_flips_category.apply {
-            adapter = feedSaveFlipsCategoryRVAdapter
-            layoutManager =
-                LinearLayoutManager(context!!, LinearLayoutManager.HORIZONTAL, false)
-        }
-        //feedSaveFlipsCategoryRVAdapter.notifyDataSetChanged()
-    }
+//     /**
+//      *  플립 카테고리 리사이클러뷰 설정
+//      */
+//     private fun setFlipCategoryRecyclerView(dataList: ArrayList<BookmarkData>) {
+//         val feedSaveFlipsCategoryRVAdapter = FeedSaveFlipsCategoryRVAdapter(this, dataList)
+//         rv_dialog_feed_save_flips_category.apply {
+//             adapter = feedSaveFlipsCategoryRVAdapter
+//             layoutManager =
+//                 LinearLayoutManager(context!!, LinearLayoutManager.HORIZONTAL, false)
+//         }
+//         //feedSaveFlipsCategoryRVAdapter.notifyDataSetChanged()
+//     }
 
     fun detailset(code : String){
         val intent = Intent(this, CompanyDetailActivity::class.java)

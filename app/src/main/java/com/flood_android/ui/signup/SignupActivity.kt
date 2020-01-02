@@ -4,16 +4,32 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.viewpager.widget.ViewPager
 import com.flood_android.R
-import com.flood_android.ui.main.MainActivity
-import com.flood_android.ui.signup.adapter.SignUpPageAdapter
+import com.flood_android.network.ApplicationController
+import com.flood_android.ui.firstlogin.FirstLoginActivity
+import com.flood_android.ui.signup.adapter.SignupPageAdapter
+import com.flood_android.ui.signup.data.PostSignupRequest
+import com.flood_android.ui.signup.data.PostSignupResponse
+import com.flood_android.util.safeEnqueue
 import kotlinx.android.synthetic.main.activity_signup.*
+import kotlinx.android.synthetic.main.fragment_signup1.*
+import kotlinx.android.synthetic.main.fragment_signup2.*
+import kotlinx.android.synthetic.main.fragment_signup3.*
 
 class SignupActivity : AppCompatActivity() {
 
-    lateinit var signUpPageAdapter: SignUpPageAdapter
+    lateinit var signupPageAdapter: SignupPageAdapter
+
+    lateinit var email: String
+    lateinit var password: String
+    lateinit var name: String
+    lateinit var phone: String
+    lateinit var question: String
+    lateinit var answer: String
+
 
     private var position = 0
     private var btnFlag = false
@@ -22,13 +38,9 @@ class SignupActivity : AppCompatActivity() {
         SignupAlertDialog(this, okListener)
     }
 
-    private val gokDialog: GroupcodeMismatchDialog by lazy {
-        GroupcodeMismatchDialog(this, gokListener)
-    }
-
     private val okListener = View.OnClickListener { okDialog.dismiss() }
 
-    private val gokListener = View.OnClickListener { gokDialog.dismiss() }
+    var signupInfo = PostSignupRequest("", "", "", "", "", "")
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,22 +48,46 @@ class SignupActivity : AppCompatActivity() {
         //setTheme(android.R.style.Theme_NoTitleBar_Fullscreen)
         setContentView(R.layout.activity_signup)
 
-        signUpPageAdapter = SignUpPageAdapter(supportFragmentManager)
-        signUpPageAdapter.addFragment(SignupFragment_1())
-        //signUpPageAdapter.addFragment(SignupFragment_2())
-        //signUpPageAdapter.addFragment(SignupFragment_3())
-        signUpPageAdapter.addFragment(SignupFragment_4())
-        signUpPageAdapter.addFragment(SignupFragment_5())
+        signupPageAdapter = SignupPageAdapter(supportFragmentManager)
+        signupPageAdapter.addFragment(SignupFragment_1())
+        signupPageAdapter.addFragment(SignupFragment_2())
+        signupPageAdapter.addFragment(SignupFragment_3())
+        signupPageAdapter.addFragment(SignupFragment_4())
+        signupPageAdapter.addFragment(SignupFragment_5())
 
 
-        vpager_signup.adapter = signUpPageAdapter
-        vpager_signup.offscreenPageLimit=1
+        vpager_signup.adapter = signupPageAdapter
+        //vpager_signup.offscreenPageLimit = 1
         btn_signup_next.setOnClickListener {
             if (btnFlag) {
-                if (position <= 4)
+                if (position <= 4) {
                     vpager_signup.currentItem = (position++)
-                else {
-                    var intent = Intent(this, MainActivity::class.java)
+                    when (position) {
+                        1 -> {
+                            email = edtxt_signup1_id.text.toString()
+                            password = edtxt_signup1_pw.text.toString()
+                        }
+                        2 -> {
+                            name = edtxt_signup2_name.text.toString()
+                            phone = edtxt_signup2_contact.text.toString()
+                        }
+                        3 -> {
+                            question = tv_signup3_question_2.text.toString()
+                            Log.v("Jihee",question)
+                            answer = edtxt_signup3_answer_2.text.toString()
+                        }
+                        4->{
+                            /*서버통신*/
+                            Log.v("Jihee","터지지마")
+                            signupInfo.copy(email, password, name, phone, question, answer)
+                            Log.v("Jihee","plz no")
+                            postSignupResponse(signupInfo)
+                            Log.v("Jihee","터짐")
+                        }
+                    }
+                } else {
+                    btn_signup_next.setText("완료")
+                    var intent = Intent(this, FirstLoginActivity::class.java)
                     startActivity(intent)
                 }
             } else {
@@ -73,7 +109,7 @@ class SignupActivity : AppCompatActivity() {
             }
         })
         dindicator_signup.createDotPanel(
-            6,
+            5,
             R.drawable.circle_grey_7dp,
             R.drawable.circle_blue_7dp,
             0
@@ -90,4 +126,21 @@ class SignupActivity : AppCompatActivity() {
             btn_signup_next.setTextColor(Color.parseColor("#d1d1d1"))
         }
     }
+
+    var fail: (Throwable) -> Unit = {
+        Log.v("SignupActivity", "fail")
+        Log.v("SignupActivity", it.message.toString())
+        Log.v("SignupActivity", it.toString())
+    }
+    var temp: (PostSignupResponse) -> Unit = {
+        Log.v("SignupActivity", "temp")
+        Log.v("SignupActivity", it.message)
+        finish()
+    }
+
+    fun postSignupResponse(ps: PostSignupRequest) {
+        val postSignupResponse = ApplicationController.networkServiceUser.postSignupResponse(ps)
+        postSignupResponse.safeEnqueue(fail, temp)
+    }
+
 }
