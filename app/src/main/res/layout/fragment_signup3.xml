@@ -21,6 +21,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/notosanscjkkrbold"
             android:lineSpacingExtra="15sp"
+            android:includeFontPadding="false"
             android:text="질문을\n선택해주세요:)"
             android:textColor="#000000"
             android:textSize="30sp"
@@ -34,6 +35,7 @@
             android:layout_marginTop="16dp"
             android:fontFamily="@font/notosanscjkkrmedium"
             android:lineSpacingExtra="8sp"
+            android:includeFontPadding="false"
             android:text="보안을 위해 자신만 알 수 있도록\n답변해주세요."
             android:textColor="#a3a3a3"
             android:textSize="16sp"
@@ -63,16 +65,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/edtxt_signup3_question"
+        <TextView
+            android:id="@+id/tv_signup3_question_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="9dp"
+            android:includeFontPadding="false"
             android:background="@null"
             android:fontFamily="@font/gilroyextrabold"
+            android:windowSoftInputMode = "stateHidden|adjustPan"
             android:hint="질문 선택하기"
             android:lineSpacingExtra="4sp"
-            android:textColor="#ededed"
+            android:textColor="#707070"
+            android:textColorHint="#ededed"
             app:layout_constraintTop_toBottomOf="@id/tv_signup3_question" />
 
         <View
@@ -82,7 +87,7 @@
             android:layout_marginTop="9.7dp"
             android:background="#ededed"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edtxt_signup3_question" />
+            app:layout_constraintTop_toBottomOf="@id/tv_signup3_question_2" />
 
         <TextView
             android:id="@+id/tv_signup3_answer"
@@ -90,6 +95,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="21.3dp"
             android:lineSpacingExtra="6sp"
+            android:includeFontPadding="false"
             android:text="답변"
             android:textColor="#707070"
             android:textSize="14sp"
@@ -97,15 +103,17 @@
             app:layout_constraintTop_toBottomOf="@id/lv_signup_frag_3_1" />
 
         <EditText
-            android:id="@+id/edtxt_signup3_answer"
+            android:id="@+id/edtxt_signup3_answer_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="9dp"
             android:background="@null"
+            android:includeFontPadding="false"
             android:fontFamily="@font/gilroyextrabold"
             android:hint="답변을 입력해주세요"
             android:lineSpacingExtra="4sp"
-            android:textColor="#ededed"
+            android:textColor="#707070"
+            android:textColorHint="#ededed"
             android:textSize="18sp"
             app:layout_constraintTop_toBottomOf="@id/tv_signup3_answer" />
 
@@ -116,7 +124,7 @@
             android:layout_marginTop="9.7dp"
             android:background="#ededed"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edtxt_signup3_answer" />
+            app:layout_constraintTop_toBottomOf="@id/edtxt_signup3_answer_2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

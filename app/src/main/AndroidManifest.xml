@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.company.CompanyDetailActivity"></activity>
+        <activity android:name=".ui.companydetail.CompanyDetailActivity"/>
         <activity android:name=".ui.feed.PhotoZoomActivity" />
         <activity android:name=".ui.postnourl.PostNoUrlActivity" />
         <activity android:name=".ui.bookmarkedit.BookmarkEditActivity" />
@@ -30,21 +30,20 @@
 
                 <data android:mimeType="text/plain" />
             </intent-filter>
-        </activity> <!-- <intent-filter> -->
+        </activity>
+        <activity android:name=".ui.main.MainActivity" />
+       <!-- <intent-filter> -->
         <!-- <action android:name="android.intent.action.MAIN" /> -->
         <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
         <!-- </intent-filter> -->
-        <activity android:name=".ui.post.PostActivity">
-
-        </activity>
+        <activity android:name=".ui.post.PostActivity"/>
         <activity android:name=".ui.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".ui.main.MainActivity"></activity>
+      </activity>
     </application>
 
 </manifest>

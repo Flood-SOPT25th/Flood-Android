@@ -1,57 +1,43 @@
 package com.flood_android.ui.signup
 
-import android.app.Activity
-import android.app.Dialog
-import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
-import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.NumberPicker
-import androidx.core.widget.addTextChangedListener
-import androidx.fragment.app.FragmentManager
 
 import com.flood_android.R
-import com.orhanobut.dialogplus.DialogPlus
-import kotlinx.android.synthetic.main.activity_signup.*
-import kotlinx.android.synthetic.main.dialog_signup_question_select.*
-import kotlinx.android.synthetic.main.fragment_signup2.*
 import kotlinx.android.synthetic.main.fragment_signup3.*
-import kotlinx.android.synthetic.main.fragment_signup4.*
 
 class SignupFragment_3 : Fragment() {
 
     var questionFlag = false
     var answerFlag = false
 
-    private val qListener = View.OnClickListener { questionDialog.dismiss() }
-     private val questionDialog: SignupQuestionDialog by lazy {
-         SignupQuestionDialog(requireContext(), qListener) }
-
+    private lateinit var questionDialog: SignupQuestionDialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_signup3, container, false)
-        return view
+        return inflater.inflate(R.layout.fragment_signup3, container, false)
     }
 
-    override fun onStart() {
-        super.onStart()
-        // dialog에 listener 달아서 결과만 반환, post activity 참고할 것
-        edtxt_signup3_question.setOnClickListener(View.OnClickListener {
-            Log.e("Jihee","edittextclicked?")
-            SignupQuestionDialog(requireContext(),View.OnClickListener {  }).btn_signup_dialog_question.setTextColor(Color.parseColor("#d1d1d1"))
-            SignupQuestionDialog(requireContext(),View.OnClickListener {  }).show(getFragmentManager()!!, "fragment_dialog_test")
-        })
-        edtxt_signup3_question.addTextChangedListener(questionWatcher)
-        edtxt_signup3_answer.addTextChangedListener(answerWatcher)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        questionDialog = SignupQuestionDialog {
+            tv_signup3_question_2.text = it
+        }
+
+        tv_signup3_question_2.setOnClickListener {
+            questionDialog.show(activity!!.supportFragmentManager, null)
+        }
+
+        tv_signup3_question_2.addTextChangedListener(questionWatcher)
+        edtxt_signup3_answer_2.addTextChangedListener(answerWatcher)
     }
 
     fun toSignal(flag: Boolean) {

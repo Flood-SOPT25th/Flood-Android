@@ -16,7 +16,7 @@ import com.flood_android.network.ApplicationController
 import com.flood_android.network.NetworkServiceFeed
 import com.flood_android.network.NetworkServiceUser
 import com.flood_android.ui.alarm.AlarmFragment
-import com.flood_android.ui.company.CompanyDetailActivity
+import com.flood_android.ui.companydetail.CompanyDetailActivity
 import com.flood_android.ui.company.CompanyFragment
 import com.flood_android.ui.feed.FeedFragment
 import com.flood_android.ui.feed.adapter.FeedSaveFlipsCategoryRVAdapter
