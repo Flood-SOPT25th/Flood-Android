@@ -1,15 +1,15 @@
-package com.flood_android.ui.company
+package com.flood_android.ui.companydetail
 
-data class GetCompanyResponse(
-    val data: GetCompanyData,
+data class GetCompanyDetailResponse(
+    val data: GroupData,
     val message: String
 )
 
-data class GetCompanyData(
-    val groupArr: List<GroupArr>
+data class GroupData(
+    val groupInfo: GroupInfo
 )
 
-data class GroupArr(
+data class GroupInfo(
     val __v: Int,
     val _id: String,
     val category: List<String>,

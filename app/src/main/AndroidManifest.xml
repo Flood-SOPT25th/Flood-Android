@@ -15,12 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-
-        <activity android:name=".ui.firstlogin.GroupCreationActivity">
-        </activity>
-        <activity android:name=".ui.firstlogin.FirstLoginFragmentWithoutGroupcode1" />
-        <activity android:name=".ui.firstlogin.FirstLoginActivity" ></activity>
-        <activity android:name=".ui.company.CompanyDetailActivity"></activity>
+        <activity android:name=".ui.companydetail.CompanyDetailActivity"/>
         <activity android:name=".ui.feed.PhotoZoomActivity" />
         <activity android:name=".ui.postnourl.PostNoUrlActivity" />
         <activity android:name=".ui.bookmarkedit.BookmarkEditActivity" />
@@ -48,7 +43,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+      </activity>
     </application>
 
 </manifest>
