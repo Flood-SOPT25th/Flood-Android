@@ -1,0 +1,790 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_first_login_without_groupcode2_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="60dp"
+        android:fontFamily="@font/notosanscjkkrbold"
+        android:lineSpacingExtra="15sp"
+        android:text="조직생성하기"
+        android:includeFontPadding="false"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/lv_first_login_1"
+        android:background="#282828"
+        android:layout_width="30.5dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="92.5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_first_login_without_groupcode2_title"
+        />
+
+    <View
+        android:id="@+id/lv_first_login_2"
+        android:background="#282828"
+        android:visibility="gone"
+        android:layout_width="30.5dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="136.5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_first_login_without_groupcode2_title"
+        />
+
+    <View
+        android:id="@+id/lv_first_login_3"
+        android:background="#282828"
+        android:visibility="gone"
+        android:layout_width="30.5dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="180.5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_first_login_without_groupcode2_title"
+        />
+
+    <View
+        android:id="@+id/lv_first_login_4"
+        android:background="#282828"
+        android:visibility="gone"
+        android:layout_width="30.5dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="222.5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_first_login_without_groupcode2_title"
+        />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cstlay_first_login_withoutgroupcode_2_1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="80dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_first_login_without_groupcode2_title">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scroll_without_groupcode2_big"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <TextView
+                    android:id="@+id/tv_first_login_without_groupcode2_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/notosanscjkkrbold"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="14sp"
+                    android:text="디자인"
+                    android:textColor="#282828"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_first_login_without_groupcode2_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/notosanscjkkrmedium"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="14sp"
+                    android:text="마케팅"
+                    android:textColor="#d1d1d1"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_first_login_without_groupcode2_1" />
+
+                <TextView
+                    android:id="@+id/tv_first_login_without_groupcode2_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/notosanscjkkrmedium"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="14sp"
+                    android:text="비즈니스"
+                    android:textColor="#d1d1d1"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_first_login_without_groupcode2_2" />
+
+                <TextView
+                    android:id="@+id/tv_first_login_without_groupcode2_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/notosanscjkkrmedium"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="14sp"
+                    android:text="IT"
+                    android:textColor="#d1d1d1"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_first_login_without_groupcode2_3" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scroll_without_groupcode2_small_design"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="162dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+
+            >
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cstlay_first_login_without_groupcode_2_1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="visible">
+
+                <TextView
+                    android:id="@+id/cstlay_first_login_without_groupcode_2_1_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/notosanscjkkrmedium"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="14sp"
+                    android:text="웹디자인"
+                    android:textColor="#d1d1d1"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/cstlay_first_login_without_groupcode_2_1_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/notosanscjkkrmedium"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="14sp"
+                    android:text="UI/UX"
+                    android:textColor="#d1d1d1"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cstlay_first_login_without_groupcode_2_1_1" />
+
+                <TextView
+                    android:id="@+id/cstlay_first_login_without_groupcode_2_1_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/notosanscjkkrmedium"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="14sp"
+                    android:text="일러스트레이션"
+                    android:textColor="#d1d1d1"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cstlay_first_login_without_groupcode_2_1_2" />
+
+                <TextView
+                    android:id="@+id/cstlay_first_login_without_groupcode_2_1_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/notosanscjkkrmedium"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="14sp"
+                    android:text="인테리어"
+                    android:textColor="#d1d1d1"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cstlay_first_login_without_groupcode_2_1_3" />
+
+                <TextView
+                    android:id="@+id/cstlay_first_login_without_groupcode_2_1_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/notosanscjkkrmedium"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="14sp"
+                    android:text="디자인"
+                    android:textColor="#d1d1d1"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cstlay_first_login_without_groupcode_2_1_4" />
+
+                <TextView
+                    android:id="@+id/cstlay_first_login_without_groupcode_2_1_6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/notosanscjkkrmedium"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="14sp"
+                    android:text="그래픽디자인"
+                    android:textColor="#d1d1d1"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cstlay_first_login_without_groupcode_2_1_5" />
+
+                <TextView
+                    android:id="@+id/cstlay_first_login_without_groupcode_2_1_7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/notosanscjkkrmedium"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="14sp"
+                    android:text="건축물"
+                    android:textColor="#d1d1d1"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cstlay_first_login_without_groupcode_2_1_6" />
+
+                <TextView
+                    android:id="@+id/cstlay_first_login_without_groupcode_2_1_8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/notosanscjkkrmedium"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="14sp"
+                    android:text="산업디자인"
+                    android:textColor="#d1d1d1"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cstlay_first_login_without_groupcode_2_1_7" />
+
+                <TextView
+                    android:id="@+id/cstlay_first_login_without_groupcode_2_1_9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/notosanscjkkrmedium"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="14sp"
+                    android:text="빈티지"
+                    android:textColor="#d1d1d1"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cstlay_first_login_without_groupcode_2_1_8" />
+
+                <TextView
+                    android:id="@+id/cstlay_first_login_without_groupcode_2_1_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/notosanscjkkrmedium"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="14sp"
+                    android:text="로고"
+                    android:textColor="#d1d1d1"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cstlay_first_login_without_groupcode_2_1_9" />
+
+                <TextView
+                    android:id="@+id/cstlay_first_login_without_groupcode_2_1_11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/notosanscjkkrmedium"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="14sp"
+                    android:text="브랜딩"
+                    android:textColor="#d1d1d1"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cstlay_first_login_without_groupcode_2_1_10" />
+
+                <TextView
+                    android:id="@+id/cstlay_first_login_without_groupcode_2_1_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/notosanscjkkrmedium"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="14sp"
+                    android:text="포스터"
+                    android:textColor="#d1d1d1"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cstlay_first_login_without_groupcode_2_1_11" />
+
+                <TextView
+                    android:id="@+id/cstlay_first_login_without_groupcode_2_1_13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/notosanscjkkrmedium"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="14sp"
+                    android:text="디자인칼럼"
+                    android:textColor="#d1d1d1"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cstlay_first_login_without_groupcode_2_1_12" />
+
+                <TextView
+                    android:id="@+id/cstlay_first_login_without_groupcode_2_1_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/notosanscjkkrmedium"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="14sp"
+                    android:text="디자인툴"
+                    android:textColor="#d1d1d1"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cstlay_first_login_without_groupcode_2_1_13" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scroll_without_groupcode2_small_marketing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="162dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cstlay_first_login_without_groupcode_2_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/cstlay_first_login_without_groupcode_2_2_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/notosanscjkkrmedium"
+                    android:lineSpacingExtra="14sp"
+                    android:includeFontPadding="false"
+                    android:text="광고"
+                    android:textColor="#d1d1d1"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/cstlay_first_login_without_groupcode_2_2_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/notosanscjkkrmedium"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="14sp"
+                    android:text="CRM"
+                    android:textColor="#d1d1d1"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cstlay_first_login_without_groupcode_2_2_1" />
+
+                <TextView
+                    android:id="@+id/cstlay_first_login_without_groupcode_2_2_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:includeFontPadding="false"
+                    android:fontFamily="@font/notosanscjkkrmedium"
+                    android:lineSpacingExtra="14sp"
+                    android:text="분석"
+                    android:textColor="#d1d1d1"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cstlay_first_login_without_groupcode_2_2_2" />
+
+                <TextView
+                    android:id="@+id/cstlay_first_login_without_groupcode_2_2_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/notosanscjkkrmedium"
+                    android:lineSpacingExtra="14sp"
+                    android:includeFontPadding="false"
+                    android:text="시장분석"
+                    android:textColor="#d1d1d1"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cstlay_first_login_without_groupcode_2_2_3" />
+
+                <TextView
+                    android:id="@+id/cstlay_first_login_without_groupcode_2_2_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/notosanscjkkrmedium"
+                    android:lineSpacingExtra="14sp"
+                    android:text="브랜드"
+                    android:includeFontPadding="false"
+                    android:textColor="#d1d1d1"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cstlay_first_login_without_groupcode_2_2_4" />
+
+                <TextView
+                    android:id="@+id/cstlay_first_login_without_groupcode_2_2_6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/notosanscjkkrmedium"
+                    android:lineSpacingExtra="14sp"
+                    android:text="마케팅기술"
+                    android:includeFontPadding="false"
+                    android:textColor="#d1d1d1"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cstlay_first_login_without_groupcode_2_2_5" />
+
+                <TextView
+                    android:id="@+id/cstlay_first_login_without_groupcode_2_2_7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/notosanscjkkrmedium"
+                    android:lineSpacingExtra="14sp"
+                    android:text="소셜미디어"
+                    android:includeFontPadding="false"
+                    android:textColor="#d1d1d1"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cstlay_first_login_without_groupcode_2_2_6" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scroll_without_groupcode2_small_business"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="162dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cstlay_first_login_without_groupcode_2_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/cstlay_first_login_without_groupcode_2_3_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/notosanscjkkrmedium"
+                    android:lineSpacingExtra="14sp"
+                    android:text="시장분석"
+                    android:includeFontPadding="false"
+                    android:textColor="#d1d1d1"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/cstlay_first_login_without_groupcode_2_3_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/notosanscjkkrmedium"
+                    android:lineSpacingExtra="14sp"
+                    android:text="국제"
+                    android:includeFontPadding="false"
+                    android:textColor="#d1d1d1"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cstlay_first_login_without_groupcode_2_3_1" />
+
+                <TextView
+                    android:id="@+id/cstlay_first_login_without_groupcode_2_3_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/notosanscjkkrmedium"
+                    android:lineSpacingExtra="14sp"
+                    android:text="무역"
+                    android:includeFontPadding="false"
+                    android:textColor="#d1d1d1"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cstlay_first_login_without_groupcode_2_3_2" />
+
+                <TextView
+                    android:id="@+id/cstlay_first_login_without_groupcode_2_3_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/notosanscjkkrmedium"
+                    android:lineSpacingExtra="14sp"
+                    android:text="비즈니스기술"
+                    android:includeFontPadding="false"
+                    android:textColor="#d1d1d1"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cstlay_first_login_without_groupcode_2_3_3" />
+
+                <TextView
+                    android:id="@+id/cstlay_first_login_without_groupcode_2_3_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/notosanscjkkrmedium"
+                    android:lineSpacingExtra="14sp"
+                    android:text="인사"
+                    android:includeFontPadding="false"
+                    android:textColor="#d1d1d1"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cstlay_first_login_without_groupcode_2_3_4" />
+
+                <TextView
+                    android:id="@+id/cstlay_first_login_without_groupcode_2_3_6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/notosanscjkkrmedium"
+                    android:lineSpacingExtra="14sp"
+                    android:text="경영"
+                    android:includeFontPadding="false"
+                    android:textColor="#d1d1d1"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cstlay_first_login_without_groupcode_2_3_5" />
+
+                <TextView
+                    android:id="@+id/cstlay_first_login_without_groupcode_2_3_7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/notosanscjkkrmedium"
+                    android:lineSpacingExtra="14sp"
+                    android:text="트렌드"
+                    android:includeFontPadding="false"
+                    android:textColor="#d1d1d1"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cstlay_first_login_without_groupcode_2_3_6" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scroll_without_groupcode2_small_IT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="162dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cstlay_first_login_without_groupcode_2_4"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/cstlay_first_login_without_groupcode_2_4_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/notosanscjkkrmedium"
+                    android:lineSpacingExtra="14sp"
+                    android:text="보안"
+                    android:includeFontPadding="false"
+                    android:textColor="#d1d1d1"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/cstlay_first_login_without_groupcode_2_4_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/notosanscjkkrmedium"
+                    android:lineSpacingExtra="14sp"
+                    android:text="클라우드컴퓨팅"
+                    android:includeFontPadding="false"
+                    android:textColor="#d1d1d1"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cstlay_first_login_without_groupcode_2_4_1" />
+
+                <TextView
+                    android:id="@+id/cstlay_first_login_without_groupcode_2_4_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/notosanscjkkrmedium"
+                    android:lineSpacingExtra="14sp"
+                    android:text="인공지능"
+                    android:includeFontPadding="false"
+                    android:textColor="#d1d1d1"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cstlay_first_login_without_groupcode_2_4_2" />
+
+                <TextView
+                    android:id="@+id/cstlay_first_login_without_groupcode_2_4_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/notosanscjkkrmedium"
+                    android:lineSpacingExtra="14sp"
+                    android:text="딥러닝"
+                    android:includeFontPadding="false"
+                    android:textColor="#d1d1d1"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cstlay_first_login_without_groupcode_2_4_3"/>
+
+                <TextView
+                    android:id="@+id/cstlay_first_login_without_groupcode_2_4_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/notosanscjkkrmedium"
+                    android:lineSpacingExtra="14sp"
+                    android:text="컴퓨터과학"
+                    android:includeFontPadding="false"
+                    android:textColor="#d1d1d1"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cstlay_first_login_without_groupcode_2_4_4" />
+
+                <TextView
+                    android:id="@+id/cstlay_first_login_without_groupcode_2_4_6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/notosanscjkkrmedium"
+                    android:lineSpacingExtra="14sp"
+                    android:text="신기술"
+                    android:includeFontPadding="false"
+                    android:textColor="#d1d1d1"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cstlay_first_login_without_groupcode_2_4_5" />
+
+                <TextView
+                    android:id="@+id/cstlay_first_login_without_groupcode_2_4_7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/notosanscjkkrmedium"
+                    android:lineSpacingExtra="14sp"
+                    android:text="프로그래밍"
+                    android:includeFontPadding="false"
+                    android:textColor="#d1d1d1"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cstlay_first_login_without_groupcode_2_4_6" />
+
+                <TextView
+                    android:id="@+id/cstlay_first_login_without_groupcode_2_4_8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/notosanscjkkrmedium"
+                    android:lineSpacingExtra="14sp"
+                    android:text="소프트웨어"
+                    android:includeFontPadding="false"
+                    android:textColor="#d1d1d1"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cstlay_first_login_without_groupcode_2_4_7" />
+
+                <TextView
+                    android:id="@+id/cstlay_first_login_without_groupcode_2_4_9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/notosanscjkkrmedium"
+                    android:lineSpacingExtra="14sp"
+                    android:text="인터넷"
+                    android:includeFontPadding="false"
+                    android:textColor="#d1d1d1"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cstlay_first_login_without_groupcode_2_4_8" />
+
+                <TextView
+                    android:id="@+id/cstlay_first_login_without_groupcode_2_4_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/notosanscjkkrmedium"
+                    android:lineSpacingExtra="14sp"
+                    android:text="IOT"
+                    android:includeFontPadding="false"
+                    android:textColor="#d1d1d1"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cstlay_first_login_without_groupcode_2_4_9" />
+
+                <TextView
+                    android:id="@+id/cstlay_first_login_without_groupcode_2_4_11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/notosanscjkkrmedium"
+                    android:lineSpacingExtra="14sp"
+                    android:text="블록체인"
+                    android:includeFontPadding="false"
+                    android:textColor="#d1d1d1"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cstlay_first_login_without_groupcode_2_4_10" />
+
+                <TextView
+                    android:id="@+id/cstlay_first_login_without_groupcode_2_4_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/notosanscjkkrmedium"
+                    android:lineSpacingExtra="14sp"
+                    android:text="디지털트랜스포메이션"
+                    android:includeFontPadding="false"
+                    android:textColor="#d1d1d1"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cstlay_first_login_without_groupcode_2_4_11" />
+
+                <TextView
+                    android:id="@+id/cstlay_first_login_without_groupcode_2_4_13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/notosanscjkkrmedium"
+                    android:lineSpacingExtra="14sp"
+                    android:text="웹"
+                    android:includeFontPadding="false"
+                    android:textColor="#d1d1d1"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cstlay_first_login_without_groupcode_2_4_12" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

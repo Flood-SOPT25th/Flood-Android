@@ -5,6 +5,9 @@ import com.c.loginflood.PostLoginResponse
 import com.flood_android.ui.bookmarkedit.post.PostFlipRequest
 import com.flood_android.ui.bookmarkedit.post.PostFlipResponse
 import com.flood_android.ui.feed.data.GetPostBookmarkResponse
+import com.flood_android.ui.mypage.data.GetMyPageResponse
+import com.flood_android.ui.signup.data.PostSignupRequest
+import com.flood_android.ui.signup.data.PostSignupResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -26,6 +29,22 @@ interface NetworkServiceUser {
         @Header("Content-Type") content_type: String,
         @Body body: PostLoginRequest
     ): Call<PostLoginResponse>
+
+    /**
+     * 회원가입
+     */
+    @POST("/auth/signup")
+    fun postSignupResponse(
+        @Body body : PostSignupRequest
+    ): Call<PostSignupResponse>
+
+    /**
+     * 마이페이지
+     */
+    @GET("/mypage/main")
+    fun getMyPageResponse(
+        @Header("Authorization") authorization : String
+    ) : Call<GetMyPageResponse>
 
     /**
      * 플립 편집

@@ -15,7 +15,7 @@ class AlarmRVViewHolder(view : View) : RecyclerView.ViewHolder(view){
     private val tvAlarmUserName: TextView = view.findViewById(R.id.tv_rv_item_alarm_username)
     private val tvAlarmComment: TextView = view.findViewById(R.id.tv_rv_item_alarm_comment)
     private val tvAlarmTime: TextView = view.findViewById(R.id.tv_rv_item_alarm_time)
-    private val tvAlarmRecent : ImageView = view.findViewById(R.id.iv_rv_item_alarm_recent)
+    private val ivAlarmRecent : ImageView = view.findViewById(R.id.iv_rv_item_alarm_recent)
 
     fun bind(data : AlarmRvItem){
         Glide.with(ivAlarmUser.context).load(data.profile_id).into(ivAlarmUser)
@@ -31,7 +31,7 @@ class AlarmRVViewHolder(view : View) : RecyclerView.ViewHolder(view){
         }
 
         tvAlarmComment?.isVisible = true
-        if(tvAlarmTime.text == "방금 전") tvAlarmRecent.isVisible = true
+        if(tvAlarmTime.text == "방금 전") ivAlarmRecent.isVisible = true
 
         /*if(tvAlarmTime.text == "방금 전")
             tvAlarmRecent.setImageResource(R.drawable.circle_blue_4dp)*/
