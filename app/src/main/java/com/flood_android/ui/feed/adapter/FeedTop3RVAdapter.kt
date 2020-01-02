@@ -3,7 +3,6 @@ package com.flood_android.ui.feed.adapter
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,16 +16,13 @@ import com.flood_android.ui.feed.FeedDetailActivity
 import com.flood_android.ui.feed.FeedFlipsSaveDialog
 import com.flood_android.ui.feed.data.FeedTop3Data
 import com.flood_android.ui.main.MainActivity
+import com.flood_android.util.GlobalData
 import com.flood_android.util.OnSingleClickListener
 import com.flood_android.util.SharedPreferenceController
 
 class FeedTop3RVAdapter(val ctx: Context, var dataList: ArrayList<FeedTop3Data>) :
     RecyclerView.Adapter<FeedTop3RVAdapter.Holder>() {
     var token : String = SharedPreferenceController.getAuthorization(ctx)!!
-
-    private val flipsSaveDialog by lazy{
-        FeedFlipsSaveDialog()
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedTop3RVAdapter.Holder {
         val view: View =
@@ -89,14 +85,15 @@ class FeedTop3RVAdapter(val ctx: Context, var dataList: ArrayList<FeedTop3Data>)
 
             holder.btnFlips.setOnClickListener  (object : OnSingleClickListener(){
                 override fun onSingleClick(v: View) {
-                    Log.v("현주", "눌려졌자나")
                     if (holder.ivFlips.isSelected) {     //북마크 취소
                         holder.ivFlips.isSelected = false
                         ctx.postBookmarkCancelRequest(token, item._id)
                 }
                     else{   // 북마크하기
                         //ctx.makeFlipDialog(holder.ivFlips)
-                        flipsSaveDialog.show(ctx.supportFragmentManager, "")
+                        val feedFlipsSaveDialog =   FeedFlipsSaveDialog(item._id, holder.ivFlips)
+                        GlobalData.bottomSheetDialogFragment = feedFlipsSaveDialog
+                        feedFlipsSaveDialog.show(ctx.supportFragmentManager, "")
                     }
                 }
             })

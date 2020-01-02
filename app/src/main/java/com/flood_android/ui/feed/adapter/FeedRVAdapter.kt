@@ -3,7 +3,6 @@ package com.flood_android.ui.feed.adapter
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,27 +15,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.load.resource.bitmap.TransformationUtils.centerCrop
 import com.flood_android.R
 import com.flood_android.ui.feed.FeedDetailActivity
 import com.flood_android.ui.feed.FeedFlipsSaveDialog
-import com.flood_android.ui.feed.FeedFragment
-import com.flood_android.ui.feed.WebViewActivity
 import com.flood_android.ui.feed.data.FeedData
 import com.flood_android.ui.main.MainActivity
+import com.flood_android.util.GlobalData
 import com.flood_android.util.OnSingleClickListener
 import com.flood_android.util.SharedPreferenceController
 
 class FeedRVAdapter(private val ctx: Context, var dataList: ArrayList<FeedData>) :
     RecyclerView.Adapter<FeedRVAdapter.Holder>() {
 
-    private val flipsSaveDialog by lazy{
-        FeedFlipsSaveDialog()
-    }
-
     var token: String = SharedPreferenceController.getAuthorization(ctx)!!
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedRVAdapter.Holder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view: View =
             LayoutInflater.from(ctx).inflate(R.layout.rv_item_feed_flood_today, parent, false)
         return Holder(view)
@@ -186,7 +179,9 @@ class FeedRVAdapter(private val ctx: Context, var dataList: ArrayList<FeedData>)
                         (ctx).postBookmarkCancelRequest(token, item._id)
                     } else {   // 북마크하기
                         //ctx.makeFlipDialog(holder.ivFlips)
-                        flipsSaveDialog.show(ctx.supportFragmentManager, "")
+                        val feedFlipsSaveDialog =   FeedFlipsSaveDialog(item._id, holder.ivFlips)
+                        GlobalData.bottomSheetDialogFragment = feedFlipsSaveDialog
+                        feedFlipsSaveDialog.show(ctx.supportFragmentManager, "")
                     }
                 }
             })
