@@ -7,7 +7,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
@@ -23,20 +22,19 @@ import com.flood_android.network.ApplicationController
 import com.flood_android.network.NetworkServiceFeed
 import com.flood_android.ui.feed.adapter.FeedDetailCommentRVAdapter
 import com.flood_android.ui.feed.data.CommentsData
-import com.flood_android.ui.feed.data.FeedDetailCommentData
 import com.flood_android.ui.feed.data.GetFeedDetailResponse
-import com.flood_android.ui.main.MainActivity
+import com.flood_android.util.GlobalData
 import com.flood_android.util.OnSingleClickListener
+import com.flood_android.util.SharedPreferenceController
 import com.flood_android.util.safeEnqueue
 import kotlinx.android.synthetic.main.activity_feed_detail.*
 
 
 class FeedDetailActivity : AppCompatActivity() {
     var imgList = ArrayList<String>()
-
-    private val flipsSaveDialog by lazy{
-        FeedFlipsSaveDialog()
-    }
+//    private val flipsSaveDialog by lazy{
+//        FeedFlipsSaveDialog()
+//    }
 
     lateinit var feedDetailCommentRVAdapter: FeedDetailCommentRVAdapter
     private val networkServiceFeed: NetworkServiceFeed by lazy {
@@ -51,9 +49,9 @@ class FeedDetailActivity : AppCompatActivity() {
     }
 
     private fun initView() {
-        var feedIdx: String = intent.getStringExtra("feed_id")
+        val feedIdx: String = intent.getStringExtra("feed_id")
         getFeedDetailResponse(feedIdx)
-        setOnClickListener()
+        setOnClickListener(feedIdx)
         activateComment()
     }
 
@@ -185,11 +183,11 @@ class FeedDetailActivity : AppCompatActivity() {
     }
 
     private fun getFeedDetailResponse(feed_idx: String) {
-        var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVoZGduczE3NjZAZ21haWwuY29tIiwibmFtZSI6IuydtOuPme2biCIsImlhdCI6MTU3NzQwNzg1NiwiZXhwIjoxNTc5OTk5ODU2LCJpc3MiOiJGbG9vZFNlcnZlciJ9.Zf_LNfQIEdFl84r-tPQpT1nLaxdotkFutOxwNQy-w58"
+        var token = SharedPreferenceController.getAuthorization(this@FeedDetailActivity)!!
         networkServiceFeed.getFeedDetailResponse(token, feed_idx).safeEnqueue({}, onGetSuccess )
     }
 
-    private fun setOnClickListener() {
+    private fun setOnClickListener(feed_idx: String) {
         // 댓글 업로드 버튼이 활성화되어있을 때만 업로드하기
         btn_feed_detail_upload_comment.setOnClickListener {
             (object : OnSingleClickListener() {
@@ -236,7 +234,7 @@ class FeedDetailActivity : AppCompatActivity() {
 
         btn_feed_detail_flips.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(v: View) {
-                postComment()
+                setFlips(feed_idx)
             }
         })
 
@@ -268,8 +266,6 @@ class FeedDetailActivity : AppCompatActivity() {
         val intent = Intent(this@FeedDetailActivity, PhotoZoomActivity::class.java)
         intent.putStringArrayListExtra("imageList", imgList)
         this.startActivity(intent)
-
-
     }
 
     /**
@@ -319,18 +315,22 @@ class FeedDetailActivity : AppCompatActivity() {
 
     // 댓글 게시 서버 통신
     private fun postComment() {
-        val ivFlips = findViewById(R.id.iv_feed_detail_flips) as ImageView
+
+    }
+
+    /**
+     *  북마크 설정
+     */
+    private fun setFlips(feed_idx: String) {
+        val ivFlips = findViewById<ImageView>(R.id.iv_feed_detail_flips)
         if (ivFlips.isSelected)      //북마크 취소
             ivFlips.isSelected = false
         else {   // 북마크하기
             //(applicationContext as MainActivity).makeFlipDialog(ivFlips)
-            flipsSaveDialog.show(this@FeedDetailActivity.supportFragmentManager, "")
+            val feedFlipsSaveDialog =   FeedFlipsSaveDialog(feed_idx, iv_feed_detail_flips)
+            GlobalData.bottomSheetDialogFragment = feedFlipsSaveDialog
+            feedFlipsSaveDialog.show(this@FeedDetailActivity.supportFragmentManager, "")
         }
-    }
-
-    //
-    private fun setFlips() {
-
     }
 
     override fun onBackPressed() {

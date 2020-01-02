@@ -10,7 +10,7 @@ data class BookmarkListData(
 )
 
 data class BookmarkData(
-    var category_id : String?,
+    var category_id : String,
     var categoryName : String,
     var thumb : String,
     var count : Int
