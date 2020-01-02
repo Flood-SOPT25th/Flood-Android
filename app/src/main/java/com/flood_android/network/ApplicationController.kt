@@ -9,6 +9,8 @@ object ApplicationController {
 
     lateinit var networkServiceFeed: NetworkServiceFeed
     lateinit var networkServiceUser: NetworkServiceUser
+    lateinit var networkServiceCompany: NetworkServiceCompany
+
 
     init{
         buildNetwork()
@@ -22,5 +24,6 @@ object ApplicationController {
 
         networkServiceFeed = retrofit.create(NetworkServiceFeed::class.java)
         networkServiceUser = retrofit.create(NetworkServiceUser::class.java)
+        networkServiceCompany = retrofit.create(NetworkServiceCompany::class.java)
     }
 }
