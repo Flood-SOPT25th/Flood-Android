@@ -15,6 +15,7 @@ import com.flood_android.network.NetworkServiceFeed
 import com.flood_android.ui.feed.adapter.FeedRVAdapter
 import com.flood_android.ui.feed.data.FeedData
 import com.flood_android.ui.feed.data.GetCategoryFeedResponse
+import com.flood_android.util.SharedPreferenceController
 import com.flood_android.util.safeEnqueue
 import kotlinx.android.synthetic.main.fragment_feed.*
 
@@ -50,15 +51,11 @@ class FeedCategoryFragment(val categoryName: String = "") : Fragment() {
      *  카테고리별 피드  서버 통신
      */
     private val onGetFeedSuccess: (GetCategoryFeedResponse) -> Unit = { response ->
-        Log.v("현주", "통신 성공")
-        Log.v("현주", response.data.pidArr.toString())
-        Log.v("현주", response.data.toString())
         setFeedRecyclerView(response.data.pidArr)
     }
 
     fun getCategoryFeedResponse(category: String) {
-        val token =
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVoZGduczE3NjZAZ21haWwuY29tIiwibmFtZSI6IuydtOuPme2biCIsImlhdCI6MTU3NzQwNzg1NiwiZXhwIjoxNTc5OTk5ODU2LCJpc3MiOiJGbG9vZFNlcnZlciJ9.Zf_LNfQIEdFl84r-tPQpT1nLaxdotkFutOxwNQy-w58"
+        val token = SharedPreferenceController.getAuthorization(context!!)!!
         networkService.getCategoryFeedResponse(token, category).safeEnqueue({}, onGetFeedSuccess)
     }
 

@@ -48,6 +48,7 @@ class FeedFloodFragment : Fragment() {
         setWeek()
         getTop3Response()
         getTodayResponse()
+
     }
 
     private fun setWeek(){
@@ -112,17 +113,18 @@ class FeedFloodFragment : Fragment() {
             layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL, false)
         }
         feedTop3RVAdapter.notifyDataSetChanged()
+        cl_main_main.visibility = View.GONE
+        rv_feed_flood_top3.scrollToPosition(2)
     }
 
     /**
      *  모든 게시물 조회
      */
-    private val onAllFeedSuccess : (GetAllFeedResponse) -> Unit = {
-        setTodayRecyclerView(it.data.pidArr)
-    }
-
     private fun getTodayResponse(){
-        networkService.getAllFeedResponse(token).safeEnqueue({}, onAllFeedSuccess)
+        networkService.getAllFeedResponse(token).safeEnqueue({},
+            onSuccess = {
+                setTodayRecyclerView(it.data.pidArr)
+            })
     }
 
     // Today 리사이클러뷰
@@ -133,7 +135,6 @@ class FeedFloodFragment : Fragment() {
             layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL, false)
         }
     }
-
 
     /**
      *  페이징 처리하기!!!!!!!!!!!!!!!!!!!

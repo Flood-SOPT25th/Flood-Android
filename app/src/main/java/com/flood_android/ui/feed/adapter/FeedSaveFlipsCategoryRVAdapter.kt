@@ -13,14 +13,26 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.flood_android.R
-import com.flood_android.ui.feed.FeedFragment
+import com.flood_android.network.ApplicationController
+import com.flood_android.network.NetworkServiceFeed
 import com.flood_android.ui.feed.data.BookmarkData
-import com.flood_android.ui.main.MainActivity
+import com.flood_android.ui.feed.data.PostBookmarkAddData
+import com.flood_android.util.GlobalData
 import com.flood_android.util.OnSingleClickListener
+import com.flood_android.util.SharedPreferenceController
+import com.flood_android.util.safeEnqueue
 
 class FeedSaveFlipsCategoryRVAdapter(
-    private val ctx: Context, var dataList: ArrayList<BookmarkData>
+    private val ctx: Context,
+    var dataList: ArrayList<BookmarkData>,
+    private val postIdx: String,
+    private val ivFlip: ImageView
 ) : RecyclerView.Adapter<FeedSaveFlipsCategoryRVAdapter.Holder>() {
+
+    val networkServiceFeed: NetworkServiceFeed by lazy {
+        ApplicationController.networkServiceFeed
+    }
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -30,28 +42,31 @@ class FeedSaveFlipsCategoryRVAdapter(
         return Holder(view)
     }
 
-    override fun getItemCount(): Int = dataList.size
+    override fun getItemCount(): Int = dataList.size - 1
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-
-        dataList[position].let { item ->
+        dataList[position + 1].let { item ->
             Glide.with(ctx)
                 .load(item.thumb)
                 .transform(CenterCrop(), RoundedCorners(10))
                 .into(holder.categoryImg)
             holder.categoryName.text = item.categoryName
 
-            holder.categoryBtn.setOnClickListener {
-                (object : OnSingleClickListener() {
-                    override fun onSingleClick(v: View) {
-                        (ctx as MainActivity).dismissFlipDialog()   // dialog 끄기
-                        (ctx as FeedFragment).makeToast(item.thumb, item.categoryName)
-                        /**
-                         *  여기다가 북마크 추가했다는 서버 통신도 하긔
-                         */
-                    }
-                })
-            }
+            holder.categoryBtn.setOnClickListener(object : OnSingleClickListener() {
+                override fun onSingleClick(v: View) {
+                    val token = SharedPreferenceController.getAuthorization(ctx)!!
+                    networkServiceFeed.postBookmarkAddRequest(
+                        token,
+                        PostBookmarkAddData(postIdx, item.category_id)
+                    ).safeEnqueue({},
+                        onSuccess = {
+                            ivFlip.isSelected = true
+                            GlobalData.bottomSheetDialogFragment!!.dismiss()
+                            GlobalData.bottomSheetDialogFragment = null
+                            Log.v("FeedSaveFlipsCategoryRV", "북마크 추가 통신 성공")
+                        })
+                }
+            })
         }
     }
 

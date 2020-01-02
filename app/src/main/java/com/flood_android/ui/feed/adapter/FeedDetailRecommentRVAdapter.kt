@@ -15,11 +15,13 @@ import com.flood_android.R
 import com.flood_android.ui.feed.FeedDetailActivity
 import com.flood_android.ui.feed.data.FeedDetailRecommentData
 import com.flood_android.ui.feed.data.SubCommentData
+import com.flood_android.util.GlobalData
 import com.flood_android.util.OnSingleClickListener
 
 class FeedDetailRecommentRVAdapter(
     private val ctx: Context,
-    var dataList: ArrayList<SubCommentData>
+    var dataList: ArrayList<SubCommentData>,
+    private val commentIdx : String
 ) :
     RecyclerView.Adapter<FeedDetailRecommentRVAdapter.Holder>() {
     override fun onCreateViewHolder(
@@ -45,13 +47,12 @@ class FeedDetailRecommentRVAdapter(
             holder.contents.text = item.subcomment_content
 
             // 답글에서 답글달기 클릭했을 때 처리하기
-            holder.btnRecomment.setOnClickListener {
-                (object : OnSingleClickListener(){
-                    override fun onSingleClick(v: View) {
-                        (ctx as FeedDetailActivity).recomment(item.subcomment_user_name)
-                    }
-                })
-            }
+            holder.btnRecomment.setOnClickListener(object : OnSingleClickListener(){
+                override fun onSingleClick(v: View) {
+                    (ctx as FeedDetailActivity).recomment(item.subcomment_user_name)
+                    GlobalData.commentId = commentIdx
+                }
+            })
         }
     }
 

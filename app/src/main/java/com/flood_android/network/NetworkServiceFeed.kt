@@ -44,12 +44,26 @@ interface NetworkServiceFeed {
         @Path("idx") idx : String
     ) : Call<GetFeedDetailResponse>
 
+    // 북마크 추가
+    @POST("post/bookmark/add")
+    fun postBookmarkAddRequest(
+        @Header("Authorization") authorization: String,
+        @Body body : PostBookmarkAddData
+    ): Call<PostBookmarkAddData>
+
     // 북마크 취소
     @POST("/post/bookmark/cancel")
     fun postBookmarkCancelRequest(
         @Header("Authorization") authorization: String,
         @Body body: PostBookmarkCancelData
     ) : Call<PostBookmarkCancelData>
+
+    // 댓글 / 대댓글 달기
+    @POST("/comment")
+    fun postCommentRequest(
+        @Header("Authorization") authorization: String,
+        @Body body : PostCommentData
+    ):Call<PostCommentData>
 
     /**
      * 게시물 등록 POST

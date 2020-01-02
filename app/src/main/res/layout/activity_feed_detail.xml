@@ -85,6 +85,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView3"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout5"
@@ -214,20 +215,20 @@
                             android:id="@+id/iv_feed_detail_pic_3_1"
                             android:layout_width="207dp"
                             android:layout_height="0dp"
-                            tools:background="@android:color/holo_red_light"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:background="@android:color/holo_red_light" />
 
                         <ImageView
                             android:id="@+id/iv_feed_detail_pic_3_2"
                             android:layout_width="0dp"
                             android:layout_height="102dp"
                             android:layout_marginStart="2dp"
-                            tools:background="@color/colorMainBlue"
                             app:layout_constraintEnd_toEndOf="@+id/iv_feed_detail_pic_3_3"
                             app:layout_constraintStart_toEndOf="@+id/iv_feed_detail_pic_3_1"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:background="@color/colorMainBlue" />
 
                         <ImageView
                             android:id="@+id/iv_feed_detail_pic_3_3"
@@ -235,11 +236,11 @@
                             android:layout_height="0dp"
                             android:layout_marginStart="2dp"
                             android:layout_marginTop="2dp"
-                            tools:background="@android:color/holo_blue_light"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/iv_feed_detail_pic_3_1"
-                            app:layout_constraintTop_toBottomOf="@+id/iv_feed_detail_pic_3_2" />
+                            app:layout_constraintTop_toBottomOf="@+id/iv_feed_detail_pic_3_2"
+                            tools:background="@android:color/holo_blue_light" />
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/cl_feed_detail_pic_3_3_black"
@@ -495,6 +496,7 @@
                 android:textColor="@color/colorBlack28"
                 android:textColorHint="@color/colorGrayD1"
                 android:textSize="14sp"
+                android:imeOptions="actionGo"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -521,5 +523,61 @@
                 app:srcCompat="@drawable/selector_feed_detail_comment_upload_btn" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_feed_detail_recomment_flag"
+        android:layout_width="0dp"
+        android:layout_height="43dp"
+        android:background="#60000000"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/nestedScrollView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/tv_feed_detail_recomment_flag_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:fontFamily="@font/notosanscjkkrbold"
+            android:includeFontPadding="false"
+            android:text="유뫄뫄"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView19"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosanscjkkrmedium"
+            android:includeFontPadding="false"
+            android:text="님에게 답글 남기는 중"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_feed_detail_recomment_flag_user_name"
+            app:layout_constraintStart_toEndOf="@+id/tv_feed_detail_recomment_flag_user_name" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/btn_feed_detail_recomment_flag_x"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imageView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_left_arrow" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

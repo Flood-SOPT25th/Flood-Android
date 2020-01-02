@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_first_login_withgroupcode2_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="60dp"
+        android:textSize="30sp"
+        android:textColor="#000000"
+        android:includeFontPadding="false"
+        android:lineSpacingExtra="15sp"
+        android:fontFamily="@font/notosanscjkkrbold"
+        android:text="프로필 정보 입력"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="42dp"
+        android:layout_marginEnd="42dp"
+        android:layout_marginTop="79dp"
+        app:layout_constraintTop_toBottomOf="@id/tv_first_login_withgroupcode2_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <ImageView
+            android:id="@+id/iv_first_login_withgroupcode2_editpart"
+            android:layout_width="84dp"
+            android:layout_height="84dp"
+            android:background="@drawable/circle_white_84dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_first_login_withgroupcode2_photo_edit"
+            android:text="편집"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="23sp"
+            android:includeFontPadding="false"
+            android:textColor="#ffffff"
+            android:lineSpacingExtra="11sp"
+            app:layout_constraintStart_toStartOf="@id/iv_first_login_withgroupcode2_editpart"
+            app:layout_constraintEnd_toEndOf="@id/iv_first_login_withgroupcode2_editpart"
+            app:layout_constraintTop_toTopOf="@id/iv_first_login_withgroupcode2_editpart"
+            app:layout_constraintBottom_toBottomOf="@id/iv_first_login_withgroupcode2_editpart"
+            />
+
+        <TextView
+            android:id="@+id/tv_first_login_withgroupcode2_profile_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="45dp"
+            android:lineSpacingExtra="6sp"
+            android:fontFamily="@font/notosanscjkkrregular"
+            android:text="프로필 이름"
+            android:includeFontPadding="false"
+            android:textColor="#707070"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_first_login_withgroupcode2_editpart" />
+
+        <EditText
+            android:id="@+id/edtxt_first_login_withgroupcode2_profile_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:background="@null"
+            android:hint="이름을 입력해주세요"
+            android:includeFontPadding="false"
+            android:fontFamily="@font/gilroyextrabold"
+            android:lineSpacingExtra="4sp"
+            android:textColorHint="#ededed"
+            android:textColor="#282828"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_first_login_withgroupcode2_profile_name" />
+
+        <View
+            android:id="@+id/lv_first_login_withgroupcode2_1"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="#ededed"
+            android:layout_marginTop="9.7dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edtxt_first_login_withgroupcode2_profile_name"
+            />
+
+        <TextView
+            android:id="@+id/tv_first_login_withgroupcode2_profile_rank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="직급"
+            android:fontFamily="@font/notosanscjkkrregular"
+            android:layout_marginTop="21.3dp"
+            android:layout_marginStart="1dp"
+            android:lineSpacingExtra="6sp"
+            android:includeFontPadding="false"
+            android:textColor="#707070"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lv_first_login_withgroupcode2_1" />
+
+        <EditText
+            android:id="@+id/edtxt_first_login_withgroupcode2_profile_rank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:background="@null"
+            android:hint="직급을 입력해주세요"
+            android:fontFamily="@font/gilroyextrabold"
+            android:lineSpacingExtra="4sp"
+            android:textColorHint="#ededed"
+            android:textColor="#282828"
+            android:includeFontPadding="false"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_first_login_withgroupcode2_profile_rank" />
+
+        <View
+            android:id="@+id/lv_first_login_withgroupcode2_2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#ededed"
+            android:layout_marginTop="9.7dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edtxt_first_login_withgroupcode2_profile_rank"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

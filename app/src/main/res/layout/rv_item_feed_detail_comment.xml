@@ -60,6 +60,15 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_rv_item_feed_detail_comment_user_name"
         tools:text="좋은 글이네요^^ 이번 프로젝트에 꼭 필요한 것  같아요" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_rv_item_feed_detail_comment_recomment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_rv_item_feed_detail_comment_user_img"
+        app:layout_constraintTop_toBottomOf="@+id/btn_rv_item_feed_detail_comment_recomment" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/btn_rv_item_feed_detail_comment_recomment"
         android:layout_width="wrap_content"
@@ -87,12 +96,4 @@
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_rv_item_feed_detail_comment_recomment"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/iv_rv_item_feed_detail_comment_user_img"
-        app:layout_constraintTop_toBottomOf="@+id/btn_rv_item_feed_detail_comment_recomment" />
 </androidx.constraintlayout.widget.ConstraintLayout>
