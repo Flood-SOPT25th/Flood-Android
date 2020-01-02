@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:descendantFocusability="blocksDescendants">
 
-            <de.hdodenhof.circleimageview.CircleImageView
+            <ImageView
                 android:id="@+id/iv_circular_mypage_profile"
                 android:layout_width="56dp"
                 android:layout_height="56dp"
@@ -90,31 +90,33 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_mypage_userinfo" />
 
             <TextView
-                android:id="@+id/tv_mypage_mypost"
+                android:id="@+id/tv_mypage_mypost_cnt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="25dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="17dp"
                 android:fontFamily="@font/notosanscjkkrbold"
                 android:includeFontPadding="false"
                 android:lineSpacingExtra="9sp"
+                android:padding="8dp"
                 android:text="My Post"
                 android:textColor="#282828"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/lv_mypage_1" />
+                app:layout_constraintTop_toBottomOf="@+id/lv_mypage_1" />
 
             <ImageButton
                 android:id="@+id/imgbtn_mypage_mypost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
                 android:layout_marginTop="5dp"
                 android:background="#ffffff"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
                 android:src="@drawable/rect_black_11dp"
-                app:layout_constraintBottom_toBottomOf="@id/tv_mypage_mypost"
-                app:layout_constraintStart_toEndOf="@id/tv_mypage_mypost"
-                app:layout_constraintTop_toTopOf="@id/tv_mypage_mypost" />
+                app:layout_constraintBottom_toBottomOf="@id/tv_mypage_mypost_cnt"
+                app:layout_constraintStart_toEndOf="@id/tv_mypage_mypost_cnt"
+                app:layout_constraintTop_toTopOf="@id/tv_mypage_mypost_cnt" />
 
             <TextView
                 android:id="@+id/tv_mypage_mypost_num"
@@ -164,7 +166,7 @@
                 android:background="#ededed"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_mypage_mypost" />
+                app:layout_constraintTop_toBottomOf="@id/tv_mypage_mypost_cnt" />
 
             <TextView
                 android:id="@+id/tv_mypage_myflip"

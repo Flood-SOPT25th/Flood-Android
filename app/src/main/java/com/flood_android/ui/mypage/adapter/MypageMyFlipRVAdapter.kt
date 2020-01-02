@@ -40,6 +40,5 @@ class MypageMyFlipRVAdapter(private val ctx: Context, var dataList: ArrayList<Bo
         val ivThumb = itemView.findViewById(R.id.iv_rv_item_mypage_myflip) as ImageView
         val flipCnt = itemView.findViewById(R.id.tv_rv_item_mypage_flipnum) as TextView
         val flipCategory = itemView.findViewById(R.id.tv_rv_item_mypage_myflip_category) as TextView
-
     }
 }
