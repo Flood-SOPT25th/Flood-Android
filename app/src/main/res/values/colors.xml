@@ -6,6 +6,8 @@
     <color name="colorMainBlue">#0057FF</color>
     <color name="colorGrayD0">#d0d0d0</color>
     <color name="colorGrayD1">#d1d1d1</color>
+    <color name="colorGray70">#707070</color>
+    <color name="colorGraya3">#a3a3a3</color>
     <color name="colorBlack28">#282828</color>
     <color name="colorBlackOpacity">#40000000</color>
     <color name="colorLoadingGray">#ededed</color>

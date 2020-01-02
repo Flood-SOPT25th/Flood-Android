@@ -20,12 +20,15 @@
             android:layout_height="56dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            android:paddingBottom="4dp">
             <TextView
                 android:id="@+id/tv_post_select_category_dialog_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="카테고리 선택"
+                android:fontFamily="@font/notosanscjkkrbold"
+                android:includeFontPadding="false"
                 android:textColor="@color/colorBlack28"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -38,6 +41,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="24dp"
                 android:text="완료"
+                android:fontFamily="@font/notosanscjkkrbold"
+                android:includeFontPadding="false"
                 android:padding="8dp"
                 android:textColor="@color/colorGrayD1"
                 android:textSize="16sp"

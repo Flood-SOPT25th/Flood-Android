@@ -48,12 +48,10 @@ class PostActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_post)
 
-
-
         // 웹과 Flood 앱 연동
         //connectWeb()
         websiteUrl = intent.getStringExtra("websiteUrl")
-        Log.v ("url", websiteUrl.toString())
+        Log.v ("url", websiteUrl)
         // 서버에서 조직 카테고리 GET
         getPostCategory()
         // 버튼 클릭 함수
@@ -128,7 +126,6 @@ class PostActivity : AppCompatActivity() {
         // 게시물 올리기 버튼
             setPostBtn()
     }
-
 
     override fun onResume() {
         super.onResume()
@@ -239,7 +236,6 @@ class PostActivity : AppCompatActivity() {
         intent.setType("image/*")
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
         intent.setAction(Intent.ACTION_GET_CONTENT)
-        //TODO : 기기 스펙에 따라 나오는 것이 다른 문제가 생김. 해서 기기 스펙과 intent 간의 상관관계 확인 필요
 
         startActivityForResult(
             Intent.createChooser(intent, "리뷰에 업로드할 사진을 선택해주세요.!"),
@@ -283,7 +279,7 @@ class PostActivity : AppCompatActivity() {
                 } else {
                     Log.v("PostActivity", "통신성공")
                     val post_url =
-                        RequestBody.create(MediaType.parse("text/plain"), websiteUrl.toString())
+                        RequestBody.create(MediaType.parse("text/plain"), websiteUrl)
                     val post_content =
                         RequestBody.create(MediaType.parse("text/plain"), content.toString())
                     val post_category =
@@ -292,7 +288,7 @@ class PostActivity : AppCompatActivity() {
                     Log.e("cat", category.toString())
                     Log.e("con", content.toString())
                     postPost(
-                        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVoZGduczE3NjZAZ21haWwuY29tIiwibmFtZSI6IuydtOuPme2biCIsImlhdCI6MTU3NzQwNzg1NiwiZXhwIjoxNTc5OTk5ODU2LCJpc3MiOiJGbG9vZFNlcnZlciJ9.Zf_LNfQIEdFl84r-tPQpT1nLaxdotkFutOxwNQy-w58",
+                        SharedPreferenceController.getAuthorization(this@PostActivity)!!,
                         images, post_url, post_content, post_category
                     )
                 }
