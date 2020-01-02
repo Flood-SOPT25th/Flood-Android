@@ -31,10 +31,6 @@ import com.flood_android.util.SharedPreferenceController
 class CompanyFeedRVAdapter(private val ctx: Context, var dataList: ArrayList<FeedData>) :
     RecyclerView.Adapter<CompanyFeedRVAdapter.Holder>() {
 
-    private val flipsSaveDialog by lazy{
-        FeedFlipsSaveDialog()
-    }
-
     var token: String = SharedPreferenceController.getAuthorization(ctx)!!
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CompanyFeedRVAdapter.Holder {
