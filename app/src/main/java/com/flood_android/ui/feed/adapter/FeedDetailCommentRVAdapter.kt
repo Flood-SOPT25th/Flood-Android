@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -25,7 +26,7 @@ class FeedDetailCommentRVAdapter(
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): FeedDetailCommentRVAdapter.Holder {
+    ): Holder {
         val view: View =
             LayoutInflater.from(ctx).inflate(R.layout.rv_item_feed_detail_comment, parent, false)
         return Holder(view)
@@ -33,7 +34,7 @@ class FeedDetailCommentRVAdapter(
 
     override fun getItemCount(): Int = dataList.size
 
-    override fun onBindViewHolder(holder: FeedDetailCommentRVAdapter.Holder, position: Int) {
+    override fun onBindViewHolder(holder: Holder, position: Int) {
         dataList[position].let { item ->
             Glide.with(ctx)
                 .load(item.comment_user_img)
@@ -53,13 +54,13 @@ class FeedDetailCommentRVAdapter(
                 })
             }
 
-//            if (holder.recomments != null){
-//                holder.recomments.apply {
-//                    adapter = FeedDetailRecommentRVAdapter(context!!, item.subcomments)
-//                    layoutManager =
-//                        LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL, false)
-//                }
-//            }
+            if ( item.subComment!=null){
+                holder.recomments.apply {
+                    adapter = FeedDetailRecommentRVAdapter(context!!, item.subComment)
+                    layoutManager =
+                        LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL, false)
+                }
+            }
         }
     }
 
@@ -73,7 +74,7 @@ class FeedDetailCommentRVAdapter(
             itemView.findViewById(R.id.tv_rv_item_feed_detail_comment_contents) as TextView
         var btnRecomment =
             itemView.findViewById(R.id.btn_rv_item_feed_detail_comment_recomment) as ConstraintLayout
-//        var recomments =
-//            itemView.findViewById(R.id.rv_rv_item_feed_detail_comment_recomment) as RecyclerView
+        var recomments =
+            itemView.findViewById(R.id.rv_rv_item_feed_detail_comment_recomment) as RecyclerView
     }
 }

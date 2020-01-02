@@ -34,6 +34,10 @@ import kotlinx.android.synthetic.main.activity_feed_detail.*
 class FeedDetailActivity : AppCompatActivity() {
     var imgList = ArrayList<String>()
 
+    private val flipsSaveDialog by lazy{
+        FeedFlipsSaveDialog()
+    }
+
     lateinit var feedDetailCommentRVAdapter: FeedDetailCommentRVAdapter
     private val networkServiceFeed: NetworkServiceFeed by lazy {
         ApplicationController.networkServiceFeed
@@ -144,7 +148,6 @@ class FeedDetailActivity : AppCompatActivity() {
                 }
             }
 
-            Log.v("현주 url", it.news_url.toString())
             if (it.news_url == ""){
                 setGone(cl_feed_detail_news)
             }else{
@@ -320,7 +323,8 @@ class FeedDetailActivity : AppCompatActivity() {
         if (ivFlips.isSelected)      //북마크 취소
             ivFlips.isSelected = false
         else {   // 북마크하기
-            (applicationContext as MainActivity).makeFlipDialog(ivFlips)
+            //(applicationContext as MainActivity).makeFlipDialog(ivFlips)
+            flipsSaveDialog.show(this@FeedDetailActivity.supportFragmentManager, "")
         }
     }
 

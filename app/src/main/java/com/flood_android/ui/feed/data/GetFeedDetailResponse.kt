@@ -69,7 +69,7 @@ data class CommentsData(
     @SerializedName("profileImage")
     val comment_user_img : String,
 
-    val subcomments : ArrayList<SubCommentData>
+    val subComment : ArrayList<SubCommentData>?
 )
 
 data class SubCommentData(

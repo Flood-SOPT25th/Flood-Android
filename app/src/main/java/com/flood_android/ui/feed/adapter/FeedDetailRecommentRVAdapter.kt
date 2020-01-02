@@ -9,6 +9,8 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.flood_android.R
 import com.flood_android.ui.feed.FeedDetailActivity
 import com.flood_android.ui.feed.data.FeedDetailRecommentData
@@ -23,7 +25,7 @@ class FeedDetailRecommentRVAdapter(
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): FeedDetailRecommentRVAdapter.Holder {
+    ): Holder {
         val view: View =
             LayoutInflater.from(ctx).inflate(R.layout.rv_item_feed_detail_recomment, parent, false)
         return Holder(view)
@@ -31,12 +33,11 @@ class FeedDetailRecommentRVAdapter(
 
     override fun getItemCount(): Int  = dataList.size
 
-    override fun onBindViewHolder(holder: FeedDetailRecommentRVAdapter.Holder, position: Int) {
+    override fun onBindViewHolder(holder: Holder, position: Int) {
         dataList[position].let{ item->
             Glide.with(ctx)
                 .load(item.subcomment_user_img)
-                .circleCrop()
-                .centerCrop()
+                .transform(CircleCrop(), CenterCrop())
                 .into(holder.userImg)
 
             holder.userName.text = item.subcomment_user_name
@@ -57,7 +58,7 @@ class FeedDetailRecommentRVAdapter(
     inner class Holder(itemView : View) : RecyclerView.ViewHolder(itemView){
         var userImg = itemView.findViewById(R.id.iv_rv_item_feed_detail_recomment_user_img) as ImageView
         var userName = itemView.findViewById(R.id.tv_rv_item_feed_detail_recomment_user_name) as TextView
-        var time = itemView.findViewById(R.id.tv_rv_item_feed_detail_comment_time) as TextView
+        var time = itemView.findViewById(R.id.tv_rv_item_feed_detail_recomment_time) as TextView
         var contents = itemView.findViewById(R.id.tv_rv_item_feed_detail_recomment_contents) as TextView
         var btnRecomment = itemView.findViewById(R.id.btn_rv_item_feed_detail_recomment_recomment) as ConstraintLayout
     }
