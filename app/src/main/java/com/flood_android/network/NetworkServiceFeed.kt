@@ -1,5 +1,6 @@
 package com.flood_android.network
 
+import com.flood_android.ui.company.GetCompanyResponse
 import com.flood_android.ui.feed.data.*
 import com.flood_android.ui.post.PostPostResponse
 import com.flood_android.ui.post.get.GetPostResponse
@@ -77,4 +78,12 @@ interface NetworkServiceFeed {
     fun getPostResponse(
         @Header("Authorization") token: String
     ): Call<GetPostResponse>
+
+    /**
+     * 회사 피드 GET
+     */
+    @GET("/group/search")
+    fun getCompanyResponse(
+        @Header("Authorization") token: String
+    ): Call<GetCompanyResponse>
 }

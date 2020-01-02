@@ -16,6 +16,7 @@ import com.flood_android.network.ApplicationController
 import com.flood_android.network.NetworkServiceFeed
 import com.flood_android.network.NetworkServiceUser
 import com.flood_android.ui.alarm.AlarmFragment
+import com.flood_android.ui.company.CompanyDetailActivity
 import com.flood_android.ui.company.CompanyFragment
 import com.flood_android.ui.feed.FeedFragment
 import com.flood_android.ui.feed.adapter.FeedSaveFlipsCategoryRVAdapter
@@ -259,4 +260,23 @@ class MainActivity : AppCompatActivity() {
 //        }
 //        //feedSaveFlipsCategoryRVAdapter.notifyDataSetChanged()
 //    }
+
+//     /**
+//      *  플립 카테고리 리사이클러뷰 설정
+//      */
+//     private fun setFlipCategoryRecyclerView(dataList: ArrayList<BookmarkData>) {
+//         val feedSaveFlipsCategoryRVAdapter = FeedSaveFlipsCategoryRVAdapter(this, dataList)
+//         rv_dialog_feed_save_flips_category.apply {
+//             adapter = feedSaveFlipsCategoryRVAdapter
+//             layoutManager =
+//                 LinearLayoutManager(context!!, LinearLayoutManager.HORIZONTAL, false)
+//         }
+//         //feedSaveFlipsCategoryRVAdapter.notifyDataSetChanged()
+//     }
+
+    fun detailset(code : String){
+        val intent = Intent(this, CompanyDetailActivity::class.java)
+        intent.putExtra("code", code)
+        startActivity(intent)
+    }
 }
