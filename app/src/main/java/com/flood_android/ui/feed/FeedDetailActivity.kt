@@ -34,6 +34,10 @@ import kotlinx.android.synthetic.main.activity_feed_detail.*
 class FeedDetailActivity : AppCompatActivity() {
     var imgList = ArrayList<String>()
 
+    private val flipsSaveDialog by lazy{
+        FeedFlipsSaveDialog()
+    }
+
     lateinit var feedDetailCommentRVAdapter: FeedDetailCommentRVAdapter
     private val networkServiceFeed: NetworkServiceFeed by lazy {
         ApplicationController.networkServiceFeed
@@ -144,15 +148,22 @@ class FeedDetailActivity : AppCompatActivity() {
                 }
             }
 
+            if (it.news_url == ""){
+                setGone(cl_feed_detail_news)
+            }else{
+                Glide.with(this@FeedDetailActivity)
+                    .load(it.news_img)
+                    .transform(CenterCrop(), RoundedCorners(10))
+                    .into(iv_feed_detail_news_img)
+                tv_feed_detail_news_title.text = it.news_title
 
-            Glide.with(this@FeedDetailActivity)
-                .load(it.news_img)
-                .transform(CenterCrop(), RoundedCorners(10))
-                .into(iv_feed_detail_news_img)
-            tv_feed_detail_news_title.text = it.news_title
-            tv_feed_detail_news_contents.text = it.news_content
-            tv_feed_detail_user_name.text = it.writer
-
+                if (it.news_content == ""){
+                    setGone(tv_feed_detail_news_contents)
+                }else{
+                    tv_feed_detail_news_contents.text = it.news_content
+                }
+                tv_feed_detail_user_name.text = it.writer
+            }
 
             Glide.with(this@FeedDetailActivity)
                 .load(it.post_user_img)
@@ -312,7 +323,8 @@ class FeedDetailActivity : AppCompatActivity() {
         if (ivFlips.isSelected)      //북마크 취소
             ivFlips.isSelected = false
         else {   // 북마크하기
-            (applicationContext as MainActivity).makeFlipDialog(ivFlips)
+            //(applicationContext as MainActivity).makeFlipDialog(ivFlips)
+            flipsSaveDialog.show(this@FeedDetailActivity.supportFragmentManager, "")
         }
     }
 

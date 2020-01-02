@@ -14,19 +14,27 @@ import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.load.resource.bitmap.TransformationUtils.centerCrop
 import com.flood_android.R
 import com.flood_android.ui.feed.FeedDetailActivity
+import com.flood_android.ui.feed.FeedFlipsSaveDialog
 import com.flood_android.ui.feed.FeedFragment
 import com.flood_android.ui.feed.WebViewActivity
 import com.flood_android.ui.feed.data.FeedData
 import com.flood_android.ui.main.MainActivity
 import com.flood_android.util.OnSingleClickListener
+import com.flood_android.util.SharedPreferenceController
 
 class FeedRVAdapter(private val ctx: Context, var dataList: ArrayList<FeedData>) :
     RecyclerView.Adapter<FeedRVAdapter.Holder>() {
 
-    var token: String =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVoZGduczE3NjZAZ21haWwuY29tIiwibmFtZSI6IuydtOuPme2biCIsImlhdCI6MTU3NzQwNzg1NiwiZXhwIjoxNTc5OTk5ODU2LCJpc3MiOiJGbG9vZFNlcnZlciJ9.Zf_LNfQIEdFl84r-tPQpT1nLaxdotkFutOxwNQy-w58"
+    private val flipsSaveDialog by lazy{
+        FeedFlipsSaveDialog()
+    }
+
+    var token: String = SharedPreferenceController.getAuthorization(ctx)!!
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedRVAdapter.Holder {
         val view: View =
@@ -121,23 +129,25 @@ class FeedRVAdapter(private val ctx: Context, var dataList: ArrayList<FeedData>)
 
 
                     var etc_num = pic_num - 3
-                    holder.pic_etc_num.text = "+" + etc_num.toString()
+                    holder.pic_etc_num.text = "+${etc_num}"
                     setVisible(holder.pic_etc)
                     setVisible(holder.pic_etc_num)
 
                 }
             }
 
-            holder.container_news.setOnClickListener(object : OnSingleClickListener() {
-                override fun onSingleClick(v: View) {
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(item.news_url))
-                    ctx.startActivity(intent)
-                }
-            })
-
+            if (item.news_url == "")
+                setGone(holder.container_news)
+            else{
+                holder.container_news.setOnClickListener(object : OnSingleClickListener() {
+                    override fun onSingleClick(v: View) {
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(item.news_url))
+                        ctx.startActivity(intent)
+                    }
+                })
+            }
             holder.clFeed.setOnClickListener(object : OnSingleClickListener() {
                 override fun onSingleClick(v: View) {
-                    Log.v("현주", "클릭이 되었는데요?")
                     val intent = Intent(ctx, FeedDetailActivity::class.java)
                     item._id.let {
                         intent.putExtra("feed_id", item._id)
@@ -147,7 +157,21 @@ class FeedRVAdapter(private val ctx: Context, var dataList: ArrayList<FeedData>)
             })
 
             holder.news_title.text = item.news_title
-            holder.news_contents.text = item.news_contents
+
+            if (item.news_img == ""){
+                setGone(holder.news_img)
+            }else{
+                Glide.with(ctx)
+                    .load(item.news_img)
+                    .transform(CenterCrop(), RoundedCorners(21))
+                    .into(holder.news_img)
+            }
+
+            if (item.news_contents == ""){
+                setGone(holder.news_contents)
+            }else{
+                holder.news_contents.text = item.news_contents
+            }
 
             holder.flips_num.text = item.flips_num.toString()
             holder.comments_num.text = item.comments_num.toString()
@@ -159,9 +183,10 @@ class FeedRVAdapter(private val ctx: Context, var dataList: ArrayList<FeedData>)
                     if (holder.ivFlips.isSelected)  //북마크 취소
                     {
                         holder.ivFlips.isSelected = false
-                        //(ctx as MainActivity).postBookmarkCancelRequest(token, item._id)
+                        (ctx).postBookmarkCancelRequest(token, item._id)
                     } else {   // 북마크하기
-                        ctx.makeFlipDialog(holder.ivFlips)
+                        //ctx.makeFlipDialog(holder.ivFlips)
+                        flipsSaveDialog.show(ctx.supportFragmentManager, "")
                     }
                 }
             })
@@ -205,6 +230,8 @@ class FeedRVAdapter(private val ctx: Context, var dataList: ArrayList<FeedData>)
             itemView.findViewById(R.id.tv_rv_item_feed_flood_today_news_title) as TextView
         var news_contents =
             itemView.findViewById(R.id.tv_rv_item_feed_flood_today_news_contents) as TextView
+        var news_img =
+            itemView.findViewById(R.id.iv_tv_rv_item_feed_flood_today_news_img) as ImageView
 
         var flips_num =
             itemView.findViewById(R.id.tv_rv_item_feed_flood_today_flips_cnt) as TextView

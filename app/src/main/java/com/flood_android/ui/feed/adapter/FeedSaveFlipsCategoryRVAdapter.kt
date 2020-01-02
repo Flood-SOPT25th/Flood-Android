@@ -1,6 +1,7 @@
 package com.flood_android.ui.feed.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,7 +24,7 @@ class FeedSaveFlipsCategoryRVAdapter(
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): FeedSaveFlipsCategoryRVAdapter.Holder {
+    ): Holder {
         val view: View = LayoutInflater.from(ctx)
             .inflate(R.layout.rv_item_feed_save_flips_category, parent, false)
         return Holder(view)
@@ -31,9 +32,8 @@ class FeedSaveFlipsCategoryRVAdapter(
 
     override fun getItemCount(): Int = dataList.size
 
-    override fun onBindViewHolder(holder: FeedSaveFlipsCategoryRVAdapter.Holder, position: Int) {
+    override fun onBindViewHolder(holder: Holder, position: Int) {
 
-        
         dataList[position].let { item ->
             Glide.with(ctx)
                 .load(item.thumb)

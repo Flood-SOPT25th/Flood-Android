@@ -63,6 +63,6 @@ class PhotoZoomActivity : AppCompatActivity() {
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         window.statusBarColor = Color.BLACK
 
-        //window.decorView.systemUiVisibility = View.SYS
+        window.decorView.systemUiVisibility = 0
     }
 }
