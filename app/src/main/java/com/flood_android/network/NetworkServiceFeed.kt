@@ -93,4 +93,12 @@ interface NetworkServiceFeed {
     fun getCompanyResponse(
         @Header("Authorization") token: String
     ): Call<GetCompanyResponse>
+
+    /**
+     *  내가 쓴 글 조회
+     */
+    @GET("/post/me")
+    fun getMyPostResponse(
+        @Header("Authorization") authorization: String
+    ): Call<GetAllFeedResponse>
 }

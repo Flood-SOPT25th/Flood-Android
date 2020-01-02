@@ -6,7 +6,7 @@ import com.flood_android.ui.bookmarkedit.post.PostFlipRequest
 import com.flood_android.ui.bookmarkedit.post.PostFlipResponse
 import com.flood_android.ui.feed.data.GetPostBookmarkResponse
 import com.flood_android.ui.firstlogin.post.*
-import com.flood_android.ui.mypage.data.GetMyPageMainResponse
+import com.flood_android.ui.mypage.data.GetMyPageUserResponse
 import com.flood_android.ui.signup.data.PostSignupRequest
 import com.flood_android.ui.signup.data.PostSignupResponse
 import okhttp3.RequestBody
@@ -17,7 +17,7 @@ interface NetworkServiceUser {
     // 유저 북마크 리스트 조회
     @GET("/post/bookmark")
     fun getPostBookmarkResponse(
-        @Header("Authorization") authorization : String
+        @Header("Authorization") authorization: String
     ): Call<GetPostBookmarkResponse>
 
     /**
@@ -33,16 +33,16 @@ interface NetworkServiceUser {
      * 마이페이지 유저 정보
      */
     @GET("/mypage/main")
-    fun getMyPageMainInfo(
-        @Header("Authorization") authorization : String
-    ) : Call<GetMyPageMainResponse>
+    fun getMyPageUserInfo(
+        @Header("Authorization") authorization: String
+    ): Call<GetMyPageUserResponse>
 
     /**
      * 회원가입
      */
     @POST("/auth/signup")
     fun postSignupResponse(
-        @Body body : PostSignupRequest
+        @Body body: PostSignupRequest
     ): Call<PostSignupResponse>
 
     /**
@@ -52,7 +52,7 @@ interface NetworkServiceUser {
     fun postCreateOrganization(
         @Header("Context-Type") context_type: String,
         @Header("Authorization") authorization: String,
-        @Body body : PostCreateOrgReq
+        @Body body: PostCreateOrgReq
     ): Call<PostCreateOrgResponse>
 
     /**
@@ -60,9 +60,9 @@ interface NetworkServiceUser {
      */
     @POST("/auth/signin/organization")
     fun postSignInOrganization(
-        @Header("Context-type") context_type:String,
-        @Header("Authorization") authorization : String,
-        @Body body : PostSignInOrgReq
+        @Header("Context-type") context_type: String,
+        @Header("Authorization") authorization: String,
+        @Body body: PostSignInOrgReq
     ): Call<PostSignInOrgResponse>
 
     /**

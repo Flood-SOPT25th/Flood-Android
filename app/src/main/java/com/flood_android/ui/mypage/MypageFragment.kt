@@ -7,10 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.flood_android.network.ApplicationController
 import com.flood_android.network.NetworkServiceUser
 import com.flood_android.ui.bookmarkedit.BookmarkEditActivity
 import com.flood_android.ui.feed.data.BookmarkData
+import com.flood_android.ui.mypage.MypageMypostActivity
 import com.flood_android.ui.mypage.adapter.MypageMyFlipRVAdapter
 import com.flood_android.util.OnSingleClickListener
 import com.flood_android.util.SharedPreferenceController
@@ -37,7 +41,6 @@ class MypageFragment : Fragment() {
         //get data from server here 통신이 들어올 때마다 notify 될 것
         //서버에서 데이터 객체 받아와서 성공 시 extension 함수 이용해 호출하고 받은 데이터 객체를
         //ApplicationController.instance.networkServiceUser.enqueue(mypageMyflipdata)
-
         initView()
 
         btn_mypage_myflips.setOnClickListener(object : OnSingleClickListener() {
@@ -46,10 +49,30 @@ class MypageFragment : Fragment() {
                 startActivity(intent)
             }
         })
+
+        btn_mypage_mypost_arrow.setOnClickListener(object : OnSingleClickListener(){
+            override fun onSingleClick(v: View) {
+                var intent = Intent(context, MypageMypostActivity::class.java)
+                startActivity(intent)
+            }
+        })
+        imgbtn_mypage_mypost.setOnClickListener(object : OnSingleClickListener(){
+            override fun onSingleClick(v: View) {
+                var intent = Intent(context, MypageMypostActivity::class.java)
+                startActivity(intent)
+            }
+        })
+        tv_mypage_mypost_cnt.setOnClickListener(object : OnSingleClickListener(){
+            override fun onSingleClick(v: View) {
+                var intent = Intent(context, MypageMypostActivity::class.java)
+                startActivity(intent)
+            }
+        })
     }
 
     private fun initView(){
         getUserFlipResponse()
+        getUserInfoResponse()
     }
 
 
@@ -77,5 +100,27 @@ class MypageFragment : Fragment() {
             adapter = MypageMyFlipRVAdapter(context, dataList)
             layoutManager = GridLayoutManager(activity!!, 2)
         }
+    }
+
+
+    /**
+     *  유저 정보 서버 통신
+     */
+    private fun getUserInfoResponse(){
+        networkService.getMyPageUserInfo(SharedPreferenceController.getAuthorization(context!!)!!).safeEnqueue(
+            onSuccess = {res->
+                res.data.userInfo.let{
+                    tv_mypage_username.text = it.name
+                    val position = it.rank.plus("  ").plus(it.groupDepartment)
+                    tv_mypage_userinfo.text = position
+                    Glide.with(context!!)
+                        .load(it.profileImage)
+                        .transform(CenterCrop(), CircleCrop())
+                        .into(iv_circular_mypage_profile)
+
+                    tv_mypage_mypost_num.text = it.count.toString()
+                }
+            }
+        )
     }
 }
