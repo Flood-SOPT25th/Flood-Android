@@ -19,6 +19,7 @@ import com.flood_android.ui.post.PostActivity
 import com.flood_android.util.GlobalData
 import com.flood_android.util.SharedPreferenceController
 import com.flood_android.util.safeEnqueue
+import com.flood_android.util.toast
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
@@ -72,10 +73,15 @@ class LoginActivity : AppCompatActivity() {
             if ("text/plain".equals(type)) {
                 websiteUrl = intent.getStringExtra(Intent.EXTRA_TEXT)
                 //edt_post_url.setText(websiteUrl)
-                val intent = Intent(this@LoginActivity, PostActivity::class.java)
-                intent.putExtra("websiteUrl", websiteUrl)
-                startActivity(intent)
-                finish()
+                if (SharedPreferenceController.getAuthorization(this@LoginActivity).toString() == ""){
+                    toast("로그인을 해주세요~^~^")
+                }
+                else {
+                    val intent = Intent(this@LoginActivity, PostActivity::class.java)
+                    intent.putExtra("websiteUrl", websiteUrl)
+                    startActivity(intent)
+                    finish()
+                }
             }
         }
     }
