@@ -211,7 +211,6 @@ class PostNoUrlActivity : AppCompatActivity() {
         intent.setType("image/*")
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
         intent.setAction(Intent.ACTION_GET_CONTENT)
-        //TODO : 기기 스펙에 따라 나오는 것이 다른 문제가 생김. 해서 기기 스펙과 intent 간의 상관관계 확인 필요
 
         startActivityForResult(
             Intent.createChooser(intent, "리뷰에 업로드할 사진을 선택해주세요.!"),
@@ -259,7 +258,7 @@ class PostNoUrlActivity : AppCompatActivity() {
                     val post_category =
                         RequestBody.create(MediaType.parse("text/plain"), category.toString())
                     postPost(
-                        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVoZGduczE3NjZAZ21haWwuY29tIiwibmFtZSI6IuydtOuPme2biCIsImlhdCI6MTU3NzQwNzg1NiwiZXhwIjoxNTc5OTk5ODU2LCJpc3MiOiJGbG9vZFNlcnZlciJ9.Zf_LNfQIEdFl84r-tPQpT1nLaxdotkFutOxwNQy-w58",
+                        SharedPreferenceController.getAuthorization(this@PostNoUrlActivity)!!,
                         images, post_url, post_content, post_category
                     )
                 }
