@@ -66,7 +66,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/edtxt_signup3_question"
+            android:id="@+id/tv_signup3_question_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="9dp"
@@ -87,7 +87,7 @@
             android:layout_marginTop="9.7dp"
             android:background="#ededed"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edtxt_signup3_question" />
+            app:layout_constraintTop_toBottomOf="@id/tv_signup3_question_2" />
 
         <TextView
             android:id="@+id/tv_signup3_answer"
@@ -103,7 +103,7 @@
             app:layout_constraintTop_toBottomOf="@id/lv_signup_frag_3_1" />
 
         <EditText
-            android:id="@+id/tv_signup3_answer_2"
+            android:id="@+id/edtxt_signup3_answer_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="9dp"
@@ -124,7 +124,7 @@
             android:layout_marginTop="9.7dp"
             android:background="#ededed"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_signup3_answer_2" />
+            app:layout_constraintTop_toBottomOf="@id/edtxt_signup3_answer_2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

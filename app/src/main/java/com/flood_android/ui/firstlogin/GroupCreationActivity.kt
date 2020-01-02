@@ -11,9 +11,16 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import com.flood_android.R
+import com.flood_android.network.ApplicationController
+import com.flood_android.network.NetworkServiceFeed
+import com.flood_android.network.NetworkServiceUser
+import com.flood_android.ui.feed.FeedCategoryFragment
+import com.flood_android.ui.feed.data.GetFeedCategoryResponse
 import com.flood_android.ui.main.MainActivity
 import com.flood_android.ui.signup.SignupAlertDialog
 import com.flood_android.ui.signup.adapter.SignupPageAdapter
+import com.flood_android.util.safeEnqueue
+import kotlinx.android.synthetic.main.activity_first_login.*
 import kotlinx.android.synthetic.main.activity_group_creation.*
 import kotlinx.android.synthetic.main.fragment_first_login_withgroupcode2.*
 
@@ -22,7 +29,11 @@ class GroupCreationActivity : AppCompatActivity() {
     lateinit var firstGroupCreationPageAdapter: SignupPageAdapter
     private var position = 0
     private var btnFlag = false
-    private var dialogFlag = true
+
+    lateinit var getCategoryDataList: ArrayList<String>
+    val networkService: NetworkServiceUser by lazy {
+        ApplicationController.networkServiceUser
+    }
 
 
     private var fr1 = FirstLoginFragmentWithoutGroupcode1()
@@ -76,9 +87,20 @@ class GroupCreationActivity : AppCompatActivity() {
             R.drawable.circle_blue_7dp,
             0
         )
-
-
         if (position == 3) btn_group_creation_next.text = "완료"
+
+        btn_group_creation_next.setOnClickListener {
+            if (btnFlag) {
+                if (position <= 3)
+                        vpager_group_creation.currentItem = (position++)
+                else {
+                    var intent2 = Intent(this, MainActivity::class.java)
+                    startActivity(intent2)
+                }
+            } else {
+                okDialog.show()
+            }
+        }
     }
 
 
@@ -92,5 +114,6 @@ class GroupCreationActivity : AppCompatActivity() {
             btn_group_creation_next.setTextColor(Color.parseColor("#d1d1d1"))
         }
     }
+
 }
 
