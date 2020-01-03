@@ -14,6 +14,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
+import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -31,6 +32,7 @@ import com.flood_android.util.OnSingleClickListener
 import com.flood_android.util.SharedPreferenceController
 import com.flood_android.util.safeEnqueue
 import kotlinx.android.synthetic.main.activity_feed_detail.*
+import kotlinx.android.synthetic.main.fragment_feed_flood.*
 
 
 class FeedDetailActivity : AppCompatActivity() {
@@ -73,7 +75,7 @@ class FeedDetailActivity : AppCompatActivity() {
         response.data.pidArr.let {
             tv_feed_detail_flips_cnt.text = it.bookmark_cnt.toString()
             tv_feed_detail_comments_cnt.text = it.comment_cnt.toString()
-            tv_feed_detail_time.text = it.time
+            tv_feed_detail_time.text = calculateTime(it.time)
             tv_feed_detail_category.text = it.category
             tv_feed_detail_user_contents.text = it.post_content
 
@@ -210,7 +212,7 @@ class FeedDetailActivity : AppCompatActivity() {
                 if (btn_feed_detail_upload_comment.isSelected){
                     postComment(feed_idx, edt_feed_detail_comment_upload.text.toString())
                     edt_feed_detail_comment_upload.setText("")
-                    feedDetailCommentRVAdapter.notifyDataSetChanged()
+                    nsv_feed_detail.fullScroll(NestedScrollView.FOCUS_DOWN)
                 }
                 else
                     Toast.makeText(
@@ -283,7 +285,7 @@ class FeedDetailActivity : AppCompatActivity() {
     }
 
     /**
-     * 포토줌액티비티 열기
+     * 포토줌 액티비티 열기
      */
     private fun openPhotoZoomActivity() {
         val intent = Intent(this@FeedDetailActivity, PhotoZoomActivity::class.java)
@@ -366,6 +368,16 @@ class FeedDetailActivity : AppCompatActivity() {
               val imm : InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE)  as InputMethodManager
               imm.hideSoftInputFromWindow(edt_feed_detail_comment_upload.windowToken, 0)
 
+              networkServiceFeed.getFeedDetailResponse(SharedPreferenceController.getAuthorization(this@FeedDetailActivity)!!, feed_idx).safeEnqueue(
+                  {},
+                  {
+                      feedDetailCommentRVAdapter.dataList = it.data.pidArr.comments!!
+                      feedDetailCommentRVAdapter.notifyDataSetChanged()
+                      nsv_feed_detail.fullScroll(NestedScrollView.FOCUS_DOWN)
+                  }
+              )
+              //feedDetailCommentRVAdapter.notifyDataSetChanged()
+
               GlobalData.commentId = null
               GlobalData.recommentFlag = false
           }
@@ -389,6 +401,21 @@ class FeedDetailActivity : AppCompatActivity() {
             GlobalData.bottomSheetDialogFragment = feedFlipsSaveDialog
             feedFlipsSaveDialog.show(this@FeedDetailActivity.supportFragmentManager, "")
         }
+    }
+
+    /**
+     *  날짜 계산
+     */
+    fun calculateTime(postTimeDate: String): String {
+
+        var dateList: List<String> = postTimeDate.split("T")
+        var date: String = dateList[0]
+        var timeList: List<String> = dateList[1].split(".")
+        var time: String = timeList[0]
+
+        var formattedServerTime: String = date.plus(" ").plus(time)
+
+        return formattedServerTime
     }
 
     override fun onBackPressed() {

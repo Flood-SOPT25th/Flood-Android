@@ -13,9 +13,10 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginStart="24dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="6dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars[15]" />
 
@@ -24,10 +25,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
+        android:layout_marginTop="6dp"
         android:fontFamily="@font/notosanscjkkrbold"
+        android:includeFontPadding="false"
         android:lineSpacingExtra="6sp"
         android:text="선지희"
-        android:textColor="#282828"
+        android:textColor="@color/colorBlack28"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/ivcircular_rv_item_alarm_user"
         app:layout_constraintTop_toTopOf="parent"
@@ -38,10 +41,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="6dp"
         android:fontFamily="@font/notosanscjkkrregular"
+        android:includeFontPadding="false"
         android:lineSpacingExtra="6sp"
         android:text="님이 게시물에 댓글을 남겼습니다."
-        android:textColor="#282828"
+        android:textColor="@color/colorBlack28"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tv_rv_item_alarm_username"
         app:layout_constraintTop_toTopOf="parent"
@@ -51,22 +56,24 @@
         android:id="@+id/iv_rv_item_alarm_recent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/circle_blue_4dp"
         android:layout_marginEnd="24dp"
+        android:src="@drawable/circle_blue_4dp"
         android:visibility="gone"
-        app:layout_constraintTop_toTopOf="@id/tv_rv_item_alarm_action"
         app:layout_constraintBottom_toBottomOf="@id/tv_rv_item_alarm_action"
         app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="@id/tv_rv_item_alarm_action" />
 
     <TextView
         android:id="@+id/tv_rv_item_alarm_comment"
-        android:layout_width="280dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="40dp"
+        android:ellipsize="end"
         android:fontFamily="@font/notosanscjkkrregular"
+        android:includeFontPadding="false"
         android:lineSpacingExtra="6sp"
-        android:maxLines="2"
+        android:maxLines="1"
         android:text=": 울라불라우두후두어떠더떠피곤곤피룰루퍄퍄우룰라랄~
 우쟈챠야러안ㅇ러ㅏㅓ아ㅓ라어라너ㅏㅇ러ㅏㅇㄴ러ㅏㅇ러ㅏㅇ러아렁나ㅓdfsdfㄹ"
         android:textColor="#282828"
@@ -81,16 +88,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
+        android:layout_marginBottom="6dp"
         android:fontFamily="@font/notosanscjkkrregular"
+        android:includeFontPadding="false"
         android:lineSpacingExtra="6sp"
         android:text="3시간 전"
-        android:textColor="#282828"
+        android:textColor="@color/colorGrayD1"
         android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/tv_rv_item_alarm_username"
-        app:layout_constraintTop_toBottomOf="@+id/tv_rv_item_alarm_comment"
-
-        />
+        app:layout_constraintTop_toBottomOf="@+id/tv_rv_item_alarm_comment" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

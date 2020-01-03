@@ -3,6 +3,7 @@ package com.flood_android.ui.feed.adapter
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -135,7 +136,8 @@ class FeedRVAdapter(private val ctx: Context, var dataList: ArrayList<FeedData>)
             holder.container_img.setOnClickListener(object  : OnSingleClickListener(){
                 override fun onSingleClick(v: View) {
                     val intent = Intent(ctx, PhotoZoomActivity::class.java)
-                    intent.putStringArrayListExtra("imageList", imgList)
+                    intent.putStringArrayListExtra("imageList", item.pic_list)
+                    Log.v("**", imgList.toString())
                     ctx.startActivity(intent)
                 }
             })

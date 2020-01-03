@@ -47,7 +47,7 @@ class MypageMypostRVAdapter(private val ctx: Context, var dataList: ArrayList<Fe
 
             holder.userName.text = item.user_name
             holder.category.text = item.category
-            holder.time.text = item.time
+            holder.time.text = calculateTime(item.time)
 
             if (item.contents == "") {
                 setGone(holder.contents)
@@ -264,5 +264,20 @@ class MypageMypostRVAdapter(private val ctx: Context, var dataList: ArrayList<Fe
 
     private fun setInvisible(view: View) {
         view.visibility = View.INVISIBLE
+    }
+
+    /**
+     *  날짜 계산
+     */
+    fun calculateTime(postTimeDate: String): String {
+
+        var dateList: List<String> = postTimeDate.split("T")
+        var date: String = dateList[0]
+        var timeList: List<String> = dateList[1].split(".")
+        var time: String = timeList[0]
+
+        var formattedServerTime: String = date.plus(" ").plus(time)
+
+        return formattedServerTime
     }
 }

@@ -24,25 +24,27 @@ class PhotoZoomActivity : AppCompatActivity() {
     }
 
     private fun initView() {
-        setStatusBarBlack()
-        var dataList : ArrayList<String> = intent.getStringArrayListExtra("imageList")
+        try {
+            setStatusBarBlack()
+            var dataList: ArrayList<String> = intent.getStringArrayListExtra("imageList")
 
-        tv_photo_zoom_all_num.text = dataList.size.toString()
+            tv_photo_zoom_all_num.text = dataList.size.toString()
 
-        val adapter = PhotoZoomStatePagerAdapter(this@PhotoZoomActivity, dataList)
-        val vp: ViewPager = this.findViewById(com.flood_android.R.id.vp_photo_zoom)
-        vp.adapter = adapter
-        changeNum(vp.currentItem + 1)
+            val adapter = PhotoZoomStatePagerAdapter(this@PhotoZoomActivity, dataList)
+            val vp: ViewPager = this.findViewById(com.flood_android.R.id.vp_photo_zoom)
+            vp.adapter = adapter
+            changeNum(vp.currentItem + 1)
 
-        vp.setOnPageChangeListener(object : OnPageChangeListener {
-            override fun onPageScrollStateChanged(arg0: Int) {}
-            override fun onPageScrolled(arg0: Int, arg1: Float, arg2: Int) {}
-            override fun onPageSelected(currentPage: Int) {
-                changeNum(vp.currentItem + 1)
-            }
-        })
-
-        setOnClickListener()
+            vp.setOnPageChangeListener(object : OnPageChangeListener {
+                override fun onPageScrollStateChanged(arg0: Int) {}
+                override fun onPageScrolled(arg0: Int, arg1: Float, arg2: Int) {}
+                override fun onPageSelected(currentPage: Int) {
+                    changeNum(vp.currentItem + 1)
+                }
+            })
+            setOnClickListener()
+        } catch (e: Exception) {
+        }
     }
 
     private fun setOnClickListener() {
@@ -53,12 +55,12 @@ class PhotoZoomActivity : AppCompatActivity() {
         })
     }
 
-    fun changeNum(position : Int){
+    fun changeNum(position: Int) {
         tv_photo_zoom_cur_num.text = position.toString()
     }
 
-    private fun setStatusBarBlack(){
-        val window : Window = window
+    private fun setStatusBarBlack() {
+        val window: Window = window
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         window.statusBarColor = Color.BLACK

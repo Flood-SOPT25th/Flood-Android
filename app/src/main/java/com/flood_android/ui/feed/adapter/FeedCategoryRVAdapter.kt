@@ -67,7 +67,6 @@ class FeedCategoryRVAdapter(
             itemView.setOnClickListener(object : OnSingleClickListener(){
                 override fun onSingleClick(v: View) {
                     selectedPosition = position
-                    Log.v("현주", selectedPosition.toString())
                     notifyItemRangeChanged(0, itemCount)
                     listener(position)
                 }
