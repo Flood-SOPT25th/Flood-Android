@@ -13,6 +13,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import com.flood_android.R
+import kotlinx.android.synthetic.main.fragment_first_login_without_groupcode1.*
 import kotlinx.android.synthetic.main.fragment_first_login_without_groupcode2.*
 
 class FirstLoginFragmentWithoutGroupcode2 : Fragment() {
@@ -80,9 +81,6 @@ class FirstLoginFragmentWithoutGroupcode2 : Fragment() {
             lv_first_login_1, lv_first_login_2, lv_first_login_3, lv_first_login_4
         )
 
-        // 큰 카테고리 설정
-
-
         //작은 카테고리
         for (m in 0..13) {
             tvDesign.add(
@@ -91,8 +89,6 @@ class FirstLoginFragmentWithoutGroupcode2 : Fragment() {
                 )
             )
             tvDesign[m].setOnClickListener {
-                // initItem()
-                Log.v("전송", sendCategory.toString())
                 if (!designClicked[m]) {
                     tvDesign[m].setTextColor(Color.parseColor("#282828"))
                     tvDesign[m].typeface = Typeface.createFromAsset(
@@ -102,6 +98,7 @@ class FirstLoginFragmentWithoutGroupcode2 : Fragment() {
                     sendCategory.add(tvDesign[m].text.toString())
                     designClicked[m] = true
                     (activity as GroupCreationActivity).activateNextBtn(true)
+                    toGroupCrAct2()
                 } else {
                     tvDesign[m].setTextColor(Color.parseColor("#d1d1d1"))
                     tvDesign[m].typeface = Typeface.createFromAsset(
@@ -110,9 +107,9 @@ class FirstLoginFragmentWithoutGroupcode2 : Fragment() {
                     )
                     sendCategory.remove(tvDesign[m].text.toString())
                     designClicked[m] = false
-                    (activity as GroupCreationActivity).activateNextBtn(false)
+                    //(activity as GroupCreationActivity).activateNextBtn(false)
                 }
-                smallFlag = 0
+                Log.v("전송", sendCategory.toString())
             }
         }
 
@@ -124,7 +121,6 @@ class FirstLoginFragmentWithoutGroupcode2 : Fragment() {
             )
             tvMarketing[m].setOnClickListener {
                 //  initItem()
-                Log.v("전송", sendCategory.toString())
                 if (!marketingClicked[m]) {
                     tvMarketing[m].setTextColor(Color.parseColor("#282828"))
                     tvMarketing[m].typeface = Typeface.createFromAsset(
@@ -134,6 +130,7 @@ class FirstLoginFragmentWithoutGroupcode2 : Fragment() {
                     sendCategory.add(tvMarketing[m].text.toString())
                     marketingClicked[m] = true
                     (activity as GroupCreationActivity).activateNextBtn(true)
+                    toGroupCrAct2()
                 } else {
                     tvMarketing[m].setTextColor(Color.parseColor("#d1d1d1"))
                     tvMarketing[m].typeface = Typeface.createFromAsset(
@@ -142,8 +139,9 @@ class FirstLoginFragmentWithoutGroupcode2 : Fragment() {
                     )
                     sendCategory.remove(tvMarketing[m].text.toString())
                     marketingClicked[m] = false
-                    (activity as GroupCreationActivity).activateNextBtn(false)
+                    if(sendCategory==null) (activity as GroupCreationActivity).activateNextBtn(false)
                 }
+                Log.v("전송", sendCategory.toString())
             }
         }
 
@@ -164,6 +162,7 @@ class FirstLoginFragmentWithoutGroupcode2 : Fragment() {
                     sendCategory.add(tvBusiness[m].text.toString())
                     businessClicked[m] = true
                     (activity as GroupCreationActivity).activateNextBtn(true)
+                    toGroupCrAct2()
                 } else {
                     tvBusiness[m].setTextColor(Color.parseColor("#d1d1d1"))
                     tvBusiness[m].typeface = Typeface.createFromAsset(
@@ -172,7 +171,7 @@ class FirstLoginFragmentWithoutGroupcode2 : Fragment() {
                     )
                     sendCategory.remove(tvBusiness[m].text.toString())
                     businessClicked[m] = false
-                    (activity as GroupCreationActivity).activateNextBtn(false)
+                    if(sendCategory==null) (activity as GroupCreationActivity).activateNextBtn(false)
                 }
             }
         }
@@ -196,6 +195,7 @@ class FirstLoginFragmentWithoutGroupcode2 : Fragment() {
                     sendCategory.remove(tvIT[m].text.toString())
                     itClicked[m] = true
                     (activity as GroupCreationActivity).activateNextBtn(true)
+                    toGroupCrAct2()
                 } else {
                     tvIT[m].setTextColor(Color.parseColor("#d1d1d1"))
                     tvIT[m].typeface = Typeface.createFromAsset(
@@ -204,16 +204,18 @@ class FirstLoginFragmentWithoutGroupcode2 : Fragment() {
                     )
                     sendCategory.remove(tvIT[m].text.toString())
                     itClicked[m] = false
-                    (activity as GroupCreationActivity).activateNextBtn(false)
+                    if(sendCategory==null) (activity as GroupCreationActivity).activateNextBtn(false)
                 }
+                Log.v("전송", sendCategory.toString())
             }
         }
+
+        // 큰 카테고리
 
         for (i in 0..3) {
             tvBig[i].setOnClickListener {
                 Log.v("클릭", "클릭")
                 for (k in 0..3) {
-
                     cl[k].visibility = View.GONE
                     lv[k].visibility = View.GONE
                     tvBig[k].setTextColor(Color.parseColor("#d1d1d1"))
@@ -233,5 +235,9 @@ class FirstLoginFragmentWithoutGroupcode2 : Fragment() {
                 bigFlag = i
             }
         }
+    }
+
+    fun toGroupCrAct2() {
+        (activity as GroupCreationActivity).groupCRInfo.category = sendCategory
     }
 }

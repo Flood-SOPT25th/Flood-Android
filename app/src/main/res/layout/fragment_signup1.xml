@@ -59,8 +59,8 @@
             android:layout_marginTop="9dp"
             android:background="@null"
             android:fontFamily="@font/gilroyextrabold"
+            android:hint="이메일을 입력해주세요"
             android:includeFontPadding="false"
-            android:hint="flood"
             android:inputType="textPersonName"
             android:lineSpacingExtra="4sp"
             android:textColor="#282828"
@@ -77,6 +77,30 @@
             android:background="#707070"
             app:layout_constraintStart_toStartOf="@id/edtxt_signup1_id"
             app:layout_constraintTop_toBottomOf="@id/edtxt_signup1_id" />
+
+        <View
+            android:id="@+id/lv_signup_frag_1_4_red"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="9.7dp"
+            android:background="#ff4a4a"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@id/edtxt_signup1_id"
+            app:layout_constraintTop_toBottomOf="@id/edtxt_signup1_id" />
+
+        <TextView
+            android:id="@+id/tv_signup1_frag_emailformat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="5.3dp"
+            android:lineSpacingExtra="6sp"
+            android:text="이메일로 입력해주세요"
+            android:textColor="#ff4a4a"
+            android:textSize="12sp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lv_signup_frag_1_4_red" />
 
         <TextView
             android:id="@+id/tv_signup1_pw"
@@ -103,6 +127,7 @@
             android:hint="*******"
             android:inputType="textPassword"
             android:lineSpacingExtra="4sp"
+            android:includeFontPadding="false"
             android:textColor="#282828"
             android:textColorHint="#ededed"
             android:textSize="18sp"
@@ -140,6 +165,7 @@
             android:layout_marginTop="16dp"
             android:background="@null"
             android:fontFamily="@font/gilroyextrabold"
+            android:includeFontPadding="false"
             android:hint="*******"
             android:inputType="textPassword"
             android:lineSpacingExtra="4sp"
@@ -170,7 +196,7 @@
             app:layout_constraintTop_toBottomOf="@id/edtxt_signup1_pwconfirm" />
 
         <TextView
-            android:id="@+id/tv_signup_frag_nonmatch"
+            android:id="@+id/tv_signup1_frag_nonmatch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="1dp"

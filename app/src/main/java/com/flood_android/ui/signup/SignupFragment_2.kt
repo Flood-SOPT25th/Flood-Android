@@ -43,9 +43,10 @@ class SignupFragment_2 : Fragment() {
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             if ((s ?: "").isNotEmpty()) {
                 nameFlag = true
-                if (contactFlag)
+                if (contactFlag) {
                     toSignal(true)
-                else
+                    toAct2()
+                } else
                     toSignal(false)
             } else {
                 toSignal(false)
@@ -53,6 +54,7 @@ class SignupFragment_2 : Fragment() {
             }
         }
     }
+
     private val contactWatcher = object : TextWatcher {
         override fun afterTextChanged(s: Editable?) {
         }
@@ -63,14 +65,20 @@ class SignupFragment_2 : Fragment() {
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             if ((s ?: "").isNotEmpty()) {
                 contactFlag = true
-                if (nameFlag)
+                if (nameFlag) {
                     toSignal(true)
-                else
+                    toAct2()
+                } else
                     toSignal(false)
             } else {
                 toSignal(false)
                 contactFlag = false
             }
         }
+    }
+
+    fun toAct2() {
+        (activity as SignupActivity).signupInfo.name = edtxt_signup2_name.text.toString()
+        (activity as SignupActivity).signupInfo.phone = edtxt_signup2_contact.text.toString()
     }
 }

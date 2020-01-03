@@ -23,13 +23,15 @@ class SignupActivity : AppCompatActivity() {
 
     lateinit var signupPageAdapter: SignupPageAdapter
 
-    lateinit var email: String
-    lateinit var password: String
-    lateinit var name: String
-    lateinit var phone: String
-    lateinit var question: String
-    lateinit var answer: String
+    var email = ""
+    var password = ""
+    var name = ""
+    var phone = ""
+    var question = ""
+    var answer = ""
 
+
+    var signupInfo = PostSignupRequest(email,password,name,phone,question,answer)
 
     private var position = 0
     private var btnFlag = false
@@ -40,7 +42,6 @@ class SignupActivity : AppCompatActivity() {
 
     private val okListener = View.OnClickListener { okDialog.dismiss() }
 
-    var signupInfo = PostSignupRequest("", "", "", "", "", "")
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,30 +64,18 @@ class SignupActivity : AppCompatActivity() {
                 if (position <= 4) {
                     vpager_signup.currentItem = (position++)
                     when (position) {
-                        1 -> {
-                            email = edtxt_signup1_id.text.toString()
-                            password = edtxt_signup1_pw.text.toString()
-                        }
-                        2 -> {
-                            name = edtxt_signup2_name.text.toString()
-                            phone = edtxt_signup2_contact.text.toString()
-                        }
-                        3 -> {
-                            question = tv_signup3_question_2.text.toString()
-                            Log.v("Jihee",question)
-                            answer = edtxt_signup3_answer_2.text.toString()
-                        }
                         4->{
                             /*서버통신*/
-                            Log.v("Jihee","터지지마")
-                            signupInfo.copy(email, password, name, phone, question, answer)
-                            Log.v("Jihee","plz no")
+                            Log.v(email,password)
+                            Log.v(name,phone)
+                            Log.v(question, answer)
+                            //signupInfo.copy(email,password,name, phone, question, answer)
                             postSignupResponse(signupInfo)
-                            Log.v("Jihee","터짐")
                         }
                     }
                 } else {
                     btn_signup_next.setText("완료")
+                    btn_signup_next.setTextColor(Color.parseColor("#0057ff"))
                     var intent = Intent(this, FirstLoginActivity::class.java)
                     startActivity(intent)
                 }
@@ -142,5 +131,4 @@ class SignupActivity : AppCompatActivity() {
         val postSignupResponse = ApplicationController.networkServiceUser.postSignupResponse(ps)
         postSignupResponse.safeEnqueue(fail, temp)
     }
-
 }
