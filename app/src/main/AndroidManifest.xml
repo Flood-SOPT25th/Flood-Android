@@ -15,7 +15,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.mypage.MypageMypostActivity"></activity>
+        <activity android:name=".ui.myprofile.CenterActivity"></activity>
+        <activity android:name=".ui.myprofile.InviteActivity" />
+        <activity android:name=".ui.myprofile.AlarmSetActivity" />
+        <activity android:name=".ui.myprofile.PasswordSetActivity" />
+        <activity android:name=".ui.myprofile.MyProfileEditActivity" />
+        <activity android:name=".ui.mypage.MypageMypostActivity" />
         <activity android:name=".ui.companydetail.CompanyDetailActivity" />
         <activity android:name=".ui.feed.PhotoZoomActivity" />
         <activity android:name=".ui.postnourl.PostNoUrlActivity" />
