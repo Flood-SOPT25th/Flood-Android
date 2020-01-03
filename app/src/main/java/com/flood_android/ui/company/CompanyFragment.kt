@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.flood_android.R
 import com.flood_android.network.ApplicationController
+import com.flood_android.util.SharedPreferenceController
 import com.flood_android.util.safeEnqueue
 import kotlinx.android.synthetic.main.fragment_company.*
 
@@ -38,7 +39,7 @@ class CompanyFragment : Fragment() {
 
     private fun getCompany() {
         val getCompanyResponse = ApplicationController.networkServiceFeed
-            .getCompanyResponse("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVoZGduczE3NjZAZ21haWwuY29tIiwibmFtZSI6IuydtOuPme2biCIsImlhdCI6MTU3NzQwNzg1NiwiZXhwIjoxNTc5OTk5ODU2LCJpc3MiOiJGbG9vZFNlcnZlciJ9.Zf_LNfQIEdFl84r-tPQpT1nLaxdotkFutOxwNQy-w58")
+            .getCompanyResponse(SharedPreferenceController.getAuthorization(context!!)!!)
         getCompanyResponse.safeEnqueue {
             Log.v("postygyg", "postygyg1234")
             if (it.message == "그룹 리스트") {
