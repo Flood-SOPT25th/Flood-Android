@@ -55,7 +55,7 @@
 
 
         <com.flood_android.ui.signup.adapter.SignupViewPager
-            android:id="@+id/vpager_first_login"
+            android:id="@+id/vpager_signin_org"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintEnd_toEndOf="parent"

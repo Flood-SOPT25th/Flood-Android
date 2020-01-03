@@ -70,4 +70,6 @@ dependencies {
 
     //photo zoom-in
     implementation 'com.github.chrisbanes:PhotoView:2.0.0'
+    //numberpicker custom
+    implementation 'com.super_rabbit.wheel_picker:NumberPicker:1.0.1'
 }

@@ -33,7 +33,7 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.InputStream
 
-class FirstLoginFragmentWithoutGroupcode4 : Fragment() {
+class SigninOrgFragment2 : Fragment() {
     private var nameFlag = false
     private var rankFlag = false
     private var profileImage: MultipartBody.Part? = null
@@ -106,14 +106,14 @@ class FirstLoginFragmentWithoutGroupcode4 : Fragment() {
     }
 
     fun toSignal(flag: Boolean) {
-        (activity as GroupCreationActivity).activateNextBtn(flag)
+        (activity as SigninOrgActivity).activateNextBtn(flag)
     }
 
     fun toGroupCRAct() {
-        (activity as GroupCreationActivity).image = profileImage
-        (activity as GroupCreationActivity).profile_name = RequestBody.create(
+        (activity as SigninOrgActivity).image = profileImage
+        (activity as SigninOrgActivity).profile_name = RequestBody.create(
             MediaType.parse("text/plain"), edtxt_first_login_withgroupcode2_profile_name.text.toString())
-        (activity as GroupCreationActivity).profile_rank = RequestBody.create(
+        (activity as SigninOrgActivity).profile_rank = RequestBody.create(
             MediaType.parse("text/plain"), edtxt_first_login_withgroupcode2_profile_rank.text.toString())
     }
 

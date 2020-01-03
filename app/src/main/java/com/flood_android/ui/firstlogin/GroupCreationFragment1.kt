@@ -12,7 +12,7 @@ import com.flood_android.ui.signup.SignupActivity
 import kotlinx.android.synthetic.main.fragment_first_login_without_groupcode1.*
 import kotlinx.android.synthetic.main.fragment_signup1.*
 
-class FirstLoginFragmentWithoutGroupcode1 : Fragment() {
+class GroupCreationFragment1 : Fragment() {
 
     private lateinit var joblog: GroupCreationJobSelectDialog
     var nameFlag = false

@@ -11,16 +11,9 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.flood_android.R
-import com.flood_android.ui.firstlogin.post.PostCreateOrgReq
-import com.flood_android.ui.firstlogin.post.PostSignInOrgReq
-import com.flood_android.ui.signup.SignupActivity
-import kotlinx.android.synthetic.main.dialog_first_login_withgroupcode_inconsistency.*
 import kotlinx.android.synthetic.main.fragment_first_login_withgroupcode1.*
-import kotlinx.android.synthetic.main.fragment_first_login_without_groupcode1.*
-import kotlinx.android.synthetic.main.fragment_first_login_without_groupcode3.*
-import kotlinx.android.synthetic.main.fragment_signup1.*
 
-class FirstLoginFragmentWithGroupcode1 : Fragment() {
+class SigninOrgFragment1 : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,7 +33,7 @@ class FirstLoginFragmentWithGroupcode1 : Fragment() {
     }
 
     fun toSignal(flag : Boolean){
-        (activity as FirstLoginActivity).activateNextBtn(flag)
+        (activity as SigninOrgActivity).activateNextBtn(flag)
     }
 
     private val txtWatcher = object : TextWatcher {
@@ -59,6 +52,6 @@ class FirstLoginFragmentWithGroupcode1 : Fragment() {
     }
 
     fun toSignin1() {
-        (activity as FirstLoginActivity).groupcode = edtxt_first_login_withgroupcode.text.toString()
+        (activity as SigninOrgActivity).groupcode = edtxt_first_login_withgroupcode.text.toString()
     }
 }

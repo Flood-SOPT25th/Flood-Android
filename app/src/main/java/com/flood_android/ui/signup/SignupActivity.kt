@@ -9,15 +9,12 @@ import android.view.View
 import androidx.viewpager.widget.ViewPager
 import com.flood_android.R
 import com.flood_android.network.ApplicationController
-import com.flood_android.ui.firstlogin.FirstLoginActivity
+import com.flood_android.ui.firstlogin.SigninOrgActivity
 import com.flood_android.ui.signup.adapter.SignupPageAdapter
 import com.flood_android.ui.signup.data.PostSignupRequest
 import com.flood_android.ui.signup.data.PostSignupResponse
 import com.flood_android.util.safeEnqueue
 import kotlinx.android.synthetic.main.activity_signup.*
-import kotlinx.android.synthetic.main.fragment_signup1.*
-import kotlinx.android.synthetic.main.fragment_signup2.*
-import kotlinx.android.synthetic.main.fragment_signup3.*
 
 class SignupActivity : AppCompatActivity() {
 
@@ -76,7 +73,7 @@ class SignupActivity : AppCompatActivity() {
                 } else {
                     btn_signup_next.setText("완료")
                     btn_signup_next.setTextColor(Color.parseColor("#0057ff"))
-                    var intent = Intent(this, FirstLoginActivity::class.java)
+                    var intent = Intent(this, SigninOrgActivity::class.java)
                     startActivity(intent)
                 }
             } else {

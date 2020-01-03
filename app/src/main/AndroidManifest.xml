@@ -17,8 +17,9 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".ui.firstlogin.GroupCreationActivity">
         </activity>
-        <activity android:name=".ui.firstlogin.FirstLoginFragmentWithoutGroupcode1" />
-        <activity android:name=".ui.firstlogin.FirstLoginActivity" ></activity>
+        <activity android:name=".ui.firstlogin.GroupCreationFragment1" />
+        <activity android:name=".ui.firstlogin.SigninOrgActivity" >
+        </activity>
         <activity
             android:screenOrientation="portrait"
             android:name=".ui.myprofile.CenterActivity"/>
@@ -48,13 +49,6 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.login.LoginActivity"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.SEND" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-
-                <data android:mimeType="text/plain" />
-            </intent-filter>
         </activity>
         <activity android:name=".ui.myflip.MyFlipDetailActivity"></activity>
         <activity android:name=".ui.main.MainActivity"

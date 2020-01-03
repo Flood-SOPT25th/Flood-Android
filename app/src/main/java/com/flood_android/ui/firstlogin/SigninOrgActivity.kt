@@ -17,13 +17,14 @@ import com.flood_android.ui.main.MainActivity
 import com.flood_android.ui.signup.SignupAlertDialog
 import com.flood_android.ui.signup.adapter.SignupPageAdapter
 import com.flood_android.util.GlobalData
+import com.flood_android.util.SharedPreferenceController
 import com.flood_android.util.safeEnqueue
 import kotlinx.android.synthetic.main.activity_first_login.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
 
-class FirstLoginActivity : AppCompatActivity() {
+class SigninOrgActivity : AppCompatActivity() {
     lateinit var firstLoginPageAdapter: SignupPageAdapter
     private var position = 0
     private var btnFlag = false
@@ -53,43 +54,43 @@ class FirstLoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_first_login)
 
         firstLoginPageAdapter = SignupPageAdapter(supportFragmentManager)
-        firstLoginPageAdapter.addFragment(FirstLoginFragmentWithGroupcode1())
-        firstLoginPageAdapter.addFragment(FirstLoginFragmentWithGroupcode2())
+        firstLoginPageAdapter.addFragment(SigninOrgFragment1())
+        firstLoginPageAdapter.addFragment(SigninOrgFragment2())
 
-        vpager_first_login.adapter = firstLoginPageAdapter
+        vpager_signin_org.adapter = firstLoginPageAdapter
 
         btn_first_login_next.setOnClickListener {
             if (btnFlag) {
                 when(position){
                     1-> {
-                        authorization1="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inllb25naHVuMDMyN0BnbWFpbC5jb20iLCJuYW1lIjoi7LWc7JiB7ZuIIiwiaWF0IjoxNTc4MDQyMTQ1LCJleHAiOjE1ODA2MzQxNDUsImlzcyI6IkZsb29kU2VydmVyIn0.YA5cNL38T5tyyRAj1qvQBr-O3RDwufI0QwSo3Wwjyn4"
-                        //authorization1 = SharedPreferenceController.getAuthorization(this)!!
+                        //authorization1="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inllb25naHVuMDMyN0BnbWFpbC5jb20iLCJuYW1lIjoi7LWc7JiB7ZuIIiwiaWF0IjoxNTc4MDQyMTQ1LCJleHAiOjE1ODA2MzQxNDUsImlzcyI6IkZsb29kU2VydmVyIn0.YA5cNL38T5tyyRAj1qvQBr-O3RDwufI0QwSo3Wwjyn4"
+                        authorization1 = SharedPreferenceController.getAuthorization(this)!!
                         postSignInOrg(context_type_signin,authorization1,PostSignInOrgReq(groupcode))
                     }
                     2-> {
                         Log.v("Jihee","3")
-                        authorization2="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inllb25naHVuMDMyN0BnbWFpbC5jb20iLCJuYW1lIjoi7LWc7JiB7ZuIIiwiaWF0IjoxNTc4MDQyMTQ1LCJleHAiOjE1ODA2MzQxNDUsImlzcyI6IkZsb29kU2VydmVyIn0.YA5cNL38T5tyyRAj1qvQBr-O3RDwufI0QwSo3Wwjyn4\""
-                        //authorization2 = SharedPreferenceController.getAuthorization(this)!!
+                        //authorization2="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inllb25naHVuMDMyN0BnbWFpbC5jb20iLCJuYW1lIjoi7LWc7JiB7ZuIIiwiaWF0IjoxNTc4MDQyMTQ1LCJleHAiOjE1ODA2MzQxNDUsImlzcyI6IkZsb29kU2VydmVyIn0.YA5cNL38T5tyyRAj1qvQBr-O3RDwufI0QwSo3Wwjyn4\""
+                        authorization2 = SharedPreferenceController.getAuthorization(this)!!
                         //btn_first_login_next.text = "완료"
                         //var pname = RequestBody.create(
                         //    MediaType.parse("text/plain"),profile_name)
                         //var prank = RequestBody.create(
                          //   MediaType.parse("text/plain"),profile_rank)
                         Log.v("Jihee","들어와?")
-                        putProfSetRes(context_type_profile_set,authorization2,image,profile_name,profile_rank)
+                        postProfSetRes(context_type_profile_set,authorization2,image,profile_name,profile_rank)
                         Log.v("Jihee","서버통신")
 
                     }
                 }
 
-                vpager_first_login.currentItem = position++
+                vpager_signin_org.currentItem = position++
 
             } else {
                 okDialog.show()
             }
         }
 
-        vpager_first_login.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+        vpager_signin_org.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {}
             override fun onPageScrolled(
                 position: Int,
@@ -114,7 +115,7 @@ class FirstLoginActivity : AppCompatActivity() {
         btnFlag = flag
         if (flag) {
             //다음 버튼 활성화 --> 버튼 색깔 바꾸기(파랑으로 바꾸기)
-            if(vpager_first_login.currentItem == 1)
+            if(vpager_signin_org.currentItem == 1)
                 btn_first_login_next.text = "완료"
             btn_first_login_next.setTextColor(Color.parseColor("#0057ff"))
         } else {
@@ -135,8 +136,6 @@ class FirstLoginActivity : AppCompatActivity() {
 
     lateinit var profile_name : RequestBody
     lateinit var profile_rank: RequestBody
-
-   // var signinOrgInfo = PostSignInOrgReq(groupcode)
 
 
     var fail1: (Throwable) -> Unit = {
@@ -189,16 +188,16 @@ class FirstLoginActivity : AppCompatActivity() {
         postSignInOrgReq.safeEnqueue(fail1,temp1)
     }
 
-    fun putProfSetRes(
+    fun postProfSetRes(
         context_type: String,
         authorization: String,
         image: MultipartBody.Part?,
         profile_name : RequestBody,
         profile_rank: RequestBody
     ){
-        val putProfileSetResponse = ApplicationController.networkServiceUser.postProfileSetting(
+        var postProfileSetResponse = ApplicationController.networkServiceUser.postProfileSetting(
             context_type,authorization,image,profile_name,profile_rank
         )
-        putProfileSetResponse.safeEnqueue(fail2,temp2)
+        postProfileSetResponse.safeEnqueue(fail2,temp2)
     }
 }

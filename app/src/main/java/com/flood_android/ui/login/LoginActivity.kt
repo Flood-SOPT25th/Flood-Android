@@ -14,7 +14,6 @@ import com.c.loginflood.PostLoginRequest
 import com.c.loginflood.PostLoginResponse
 import com.flood_android.R
 import com.flood_android.network.ApplicationController
-import com.flood_android.ui.firstlogin.FirstLoginActivity
 import com.flood_android.ui.main.MainActivity
 import com.flood_android.ui.post.PostActivity
 import com.flood_android.ui.signup.SignupActivity
