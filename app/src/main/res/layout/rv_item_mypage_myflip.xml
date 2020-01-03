@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:id="@+id/cl_rv_item_mypage_myflip"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
 
@@ -10,9 +11,12 @@
         android:id="@+id/iv_rv_item_mypage_myflip"
         android:layout_width="145dp"
         android:layout_height="0dp"
+        android:layout_marginStart="11dp"
         android:layout_marginTop="6dp"
+        android:layout_marginEnd="11dp"
         android:scaleType="centerCrop"
         app:layout_constraintDimensionRatio="1"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@mipmap/mypage_myflip_ar" />

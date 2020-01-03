@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import com.flood_android.R
@@ -38,26 +39,24 @@ class AlarmFragment : Fragment() {
         alarmRVPrevious = rv_alarm_previous
         alarmRVAdapterToday = AlarmRVAdapter(requireContext())
         alarmRVAdapterPrevious = AlarmRVAdapter(requireContext())
-        alarmRVToday.adapter = alarmRVAdapterToday
-        alarmRVPrevious.adapter = alarmRVAdapterPrevious
 
         alarmRVAdapterToday.data = listOf(
             AlarmRvItem(
-                profile_id = "",
+                profile_id = R.drawable.img_kjj,
                 name = "김정재",
                 action = 0,
-                comment = "좋네요",
+                comment = null,
                 time = "방금 전"
             ),
             AlarmRvItem(
-                profile_id = "",
+                profile_id = R.drawable.img_bear,
                 name = "이현주",
                 action = 1,
-                comment = null,
+                comment = "좋은 정보 공유 감사합니다 ^^",
                 time = "10분 전"
             ),
             AlarmRvItem(
-                profile_id = "",
+                profile_id = R.drawable.img_jdb,
                 name = "정다비",
                 action = 3,
                 comment = null,
@@ -65,29 +64,60 @@ class AlarmFragment : Fragment() {
             )
         )
 
+        alarmRVToday.apply{
+            adapter = alarmRVAdapterToday
+          layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL, false)
+        }
+
         alarmRVAdapterPrevious.data = listOf(
             AlarmRvItem(
-                profile_id = "",
-                name = "선지희",
-                action = 3,
+                profile_id =R.drawable.img_kjj,
+                name = "이동훈",
+                action = 2,
                 comment = null,
-                time = "하루 전"
+                time = "1일 전"
             ),
             AlarmRvItem(
-                profile_id = "이동훈",
-                name = "",
-                action = 2,
+                profile_id = R.drawable.img_kjj,
+                name = "정서현",
+                action = 1,
                 comment = null,
                 time = "3일 전"
             ),
             AlarmRvItem(
-                profile_id = "정서현",
-                name = "",
-                action = 0,
+                profile_id = R.drawable.img_bear,
+                name = "이현주",
+                action = 1,
+                comment = "우리 프로젝트에 사용하면 좋을 정보들이네요~",
+                time = "1주 전"
+            ),
+            AlarmRvItem(
+                profile_id = R.drawable.img_lje,
+                name = "선지희",
+                action = 3,
                 comment = null,
-                time = "일주일 전"
+                time = "2주 전"
+            ),
+            AlarmRvItem(
+                profile_id = R.drawable.img_kjj,
+                name = "김정재",
+                action = 2,
+                comment = null,
+                time = "4주 전"
+            ),
+            AlarmRvItem(
+                profile_id = R.drawable.img_ksk,
+                name = "김성곤",
+                action = 1,
+                comment = "헉 저도 이 기사 봤었는데!! 대박이지 않나요?",
+                time = "5주 전"
             )
         )
+
+        alarmRVPrevious.apply{
+            adapter = alarmRVAdapterPrevious
+            layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL, false)
+        }
     }
 
 //    private fun setData(item : List<AlarmRvItem>) {

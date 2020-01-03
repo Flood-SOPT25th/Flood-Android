@@ -16,6 +16,7 @@ import com.flood_android.ui.bookmarkedit.BookmarkEditActivity
 import com.flood_android.ui.feed.data.BookmarkData
 import com.flood_android.ui.mypage.MypageMypostActivity
 import com.flood_android.ui.mypage.adapter.MypageMyFlipRVAdapter
+import com.flood_android.ui.myprofile.MyProfileEditActivity
 import com.flood_android.util.OnSingleClickListener
 import com.flood_android.util.SharedPreferenceController
 import com.flood_android.util.safeEnqueue
@@ -62,6 +63,13 @@ class MypageFragment : Fragment() {
         tv_mypage_mypost_cnt.setOnClickListener(object : OnSingleClickListener(){
             override fun onSingleClick(v: View) {
                 startMypostActivity()
+            }
+        })
+
+        btn_mypage_user_setting.setOnClickListener(object : OnSingleClickListener(){
+            override fun onSingleClick(v: View) {
+                val intent = Intent(context, MyProfileEditActivity::class.java)
+                startActivity(intent)
             }
         })
     }
