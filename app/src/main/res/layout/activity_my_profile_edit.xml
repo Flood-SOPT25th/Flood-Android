@@ -83,23 +83,36 @@
             android:id="@+id/iv_myprofile_edit_image"
             android:layout_width="67dp"
             android:layout_height="67dp"
-            android:src="@drawable/img_jeongjae"
+            android:src="@drawable/img_user"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginLeft="24dp"
             android:layout_marginTop="24dp"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="24dp"
+            android:src="@drawable/circle_gray_67dp"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_myprofile_edit_image"
+            app:layout_constraintEnd_toEndOf="@+id/iv_myprofile_edit_image"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/tv_myprofile_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="67sp"
+            android:layout_height="67sp"
+            android:fontFamily="@font/notosanscjkkrbold"
+            android:gravity="center"
             android:text="편집"
             android:textColor="@android:color/white"
             android:textSize="18sp"
-            android:fontFamily="@font/notosanscjkkrbold"
-            app:layout_constraintTop_toTopOf="@+id/iv_myprofile_edit_image"
             app:layout_constraintBottom_toBottomOf="@+id/iv_myprofile_edit_image"
+            app:layout_constraintEnd_toEndOf="@+id/iv_myprofile_edit_image"
             app:layout_constraintStart_toStartOf="@+id/iv_myprofile_edit_image"
-            app:layout_constraintEnd_toEndOf="@+id/iv_myprofile_edit_image"/>
+            app:layout_constraintTop_toTopOf="@+id/iv_myprofile_edit_image" />
 
         <TextView
             android:id="@+id/txt_profile_info"
