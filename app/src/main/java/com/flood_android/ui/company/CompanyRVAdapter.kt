@@ -51,9 +51,10 @@ class CompanyRVAdapter(
 
         holder.companyName.text = dataList[position].name.trim()
         Log.v("postygyg", dataList[position].category.toString())
+
         holder.category1.text = dataList[position].category[1]
         holder.category2.text = dataList[position].category[2].trim()
-        holder.category3.text = dataList[position].category[3].trim()
+        //holder.category3.text = dataList[position].category[3].trim()
 
         holder.companyImage.setOnClickListener {
             (ctx as MainActivity).detailset(dataList[position].groupCode)
