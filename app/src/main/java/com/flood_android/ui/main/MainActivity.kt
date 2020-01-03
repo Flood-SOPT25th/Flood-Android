@@ -3,11 +3,17 @@ package com.flood_android.ui.main
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.flood_android.MypageFragment
 import com.flood_android.R
 import com.flood_android.network.ApplicationController
@@ -27,6 +33,8 @@ import com.flood_android.util.SharedPreferenceController
 import com.flood_android.util.safeEnqueue
 import com.orhanobut.dialogplus.DialogPlus
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_feed_flood.*
+import kotlinx.android.synthetic.main.toast_feed_save_flips_category.*
 
 class MainActivity : AppCompatActivity() {
     lateinit var dialog: DialogPlus
@@ -189,6 +197,7 @@ class MainActivity : AppCompatActivity() {
 //            }
 //        }
         }
+
 
     /**
      *  북마크 추가 서버 통신

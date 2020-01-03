@@ -60,7 +60,7 @@ class FeedCategoryRVAdapter(
                 categoryContainer.background = ctx.resources.getDrawable(R.drawable.rect_blue_21dp)
             }
             else{
-                categoryName.setTextColor(ctx.resources.getColor(R.color.colorMainBlue))
+                categoryName.setTextColor(ctx.resources.getColor(R.color.colorGrayD0))
                 categoryContainer.background = ctx.resources.getDrawable(R.drawable.rect_white_21dp)
             }
 

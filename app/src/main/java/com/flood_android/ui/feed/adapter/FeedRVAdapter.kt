@@ -212,7 +212,6 @@ class FeedRVAdapter(private val ctx: Context, var dataList: ArrayList<FeedData>)
         var contents =
             itemView.findViewById(R.id.tv_rv_item_feed_flood_today_user_contents) as TextView
 
-        ///////////////////사진이 있을 때 없을 때, 뉴스가 있을 때 없을 때 구분하기
         var cvImage = itemView.findViewById(R.id.cv_rv_item_feed_flood_today) as CardView
 
         var pic1 = itemView.findViewById(R.id.iv_rv_item_feed_flood_today_pic_1) as ImageView

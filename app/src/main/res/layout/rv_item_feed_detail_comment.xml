@@ -15,7 +15,7 @@
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        android:src="@drawable/img_user"/>
 
     <TextView
         android:id="@+id/tv_rv_item_feed_detail_comment_user_name"
