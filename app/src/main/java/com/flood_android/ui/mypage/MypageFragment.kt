@@ -72,6 +72,12 @@ class MypageFragment : Fragment() {
                 startActivity(intent)
             }
         })
+      
+        iv_mypage_user_setting.setOnClickListener {
+            val intent = Intent(context, MyProfileEditActivity::class.java)
+            intent.putExtra("cnt", mypostCnt)
+            startActivity(intent)
+        }
     }
 
     private fun initView(){

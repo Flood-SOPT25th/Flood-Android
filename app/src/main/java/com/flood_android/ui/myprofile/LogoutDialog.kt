@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.flood_android.R
 import com.flood_android.ui.login.LoginActivity
+import com.flood_android.ui.main.MainActivity
 import com.flood_android.util.GlobalData
 import com.flood_android.util.SharedPreferenceController
 import kotlinx.android.synthetic.main.fragment_login_alert_dialog.*
@@ -30,13 +31,12 @@ class LogoutDialog : DialogFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        tv_logout_dialog_ok.setOnClickListener {
+        /*tv_logout_dialog_ok.setOnClickListener {
             SharedPreferenceController.clearSPC(context!!)
-            val intent = Intent(context!!, LoginActivity::class.java)
-            startActivity(intent)
+            dismiss()
             // 로그아웃
             // 토큰 파괴 -> LoginActivity로
-        }
+        }*/
 
         tv_logout_dialog_no.setOnClickListener {
             dismiss()

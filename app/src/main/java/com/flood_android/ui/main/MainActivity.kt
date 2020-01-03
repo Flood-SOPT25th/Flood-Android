@@ -24,6 +24,7 @@ import com.flood_android.ui.feed.data.BookmarkData
 import com.flood_android.ui.feed.data.GetPostBookmarkResponse
 import com.flood_android.ui.feed.data.PostBookmarkAddData
 import com.flood_android.ui.feed.data.PostBookmarkCancelData
+import com.flood_android.ui.login.LoginActivity
 import com.flood_android.util.safeEnqueue
 import com.orhanobut.dialogplus.DialogPlus
 import com.orhanobut.dialogplus.Holder

@@ -4,9 +4,12 @@ import com.c.loginflood.PostLoginRequest
 import com.c.loginflood.PostLoginResponse
 import com.flood_android.ui.bookmarkedit.post.PostFlipRequest
 import com.flood_android.ui.bookmarkedit.post.PostFlipResponse
+import com.flood_android.ui.feed.data.GetAllFeedResponse
 import com.flood_android.ui.feed.data.GetPostBookmarkResponse
 import com.flood_android.ui.firstlogin.post.*
+import com.flood_android.ui.myflip.GetMyFlipDetailResponse
 import com.flood_android.ui.mypage.data.GetMyPageUserResponse
+import com.flood_android.ui.myprofile.get.GetMyProfileEditResponse
 import com.flood_android.ui.signup.data.PostSignupRequest
 import com.flood_android.ui.signup.data.PostSignupResponse
 import okhttp3.RequestBody
@@ -86,4 +89,21 @@ interface NetworkServiceUser {
         @Header("Authorization") token: String,
         @Body body: PostFlipRequest
     ): Call<PostFlipResponse>
+
+    /**
+     * 마이 프로필 편집
+     */
+    @GET("/mypage/setting")
+    fun getMyProfileEditResponse(
+        @Header("Authorization") authorization: String
+    ): Call<GetMyProfileEditResponse>
+
+    /**
+     * 플립 상세뷰
+     */
+    @GET("/post/bookmark/detail")
+    fun getMyFlipDetailResponse(
+        @Header("Authorization") authorization: String,
+        @Query("category") flip: String
+    ): Call<GetMyFlipDetailResponse>
 }
