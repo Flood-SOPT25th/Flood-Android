@@ -91,11 +91,11 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
-        if (it.message == "로그인 완료. 그룹코드 없음"){
+        if (it.message == "그룹코드 없음."){
             SharedPreferenceController.clearSPC(this@LoginActivity)
             SharedPreferenceController.setAuthorization(this@LoginActivity, it.data?.token)
-            val intent = Intent(this@LoginActivity, FirstLoginActivity::class.java)
-            startActivity(intent)
+            /*val intent = Intent(this@LoginActivity, FirstLoginActivity::class.java)
+            startActivity(intent)*/
             finish()
         }
         if (it.message == "비밀번호가 다릅니다."){

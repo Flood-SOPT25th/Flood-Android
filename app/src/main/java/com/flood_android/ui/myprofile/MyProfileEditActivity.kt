@@ -3,7 +3,17 @@ package com.flood_android.ui.myprofile
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.View
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.flood_android.R
+import com.flood_android.network.ApplicationController
+import com.flood_android.ui.main.MainActivity
+import com.flood_android.ui.myprofile.get.User
+import com.flood_android.util.SharedPreferenceController
+import com.flood_android.util.safeEnqueue
 import kotlinx.android.synthetic.main.activity_my_profile_edit.*
 
 class MyProfileEditActivity : AppCompatActivity() {
@@ -13,9 +23,36 @@ class MyProfileEditActivity : AppCompatActivity() {
         setContentView(R.layout.activity_my_profile_edit)
 
         // 서버에서 계정 정보 가져오기
-
+        getMyProfile()
         // 버튼
         setBtn()
+    }
+
+    private fun getMyProfile() {
+        val getMyProfileEditResponse = ApplicationController.networkServiceUser
+            .getMyProfileEditResponse(SharedPreferenceController.getAuthorization(this@MyProfileEditActivity)!!)
+        getMyProfileEditResponse.safeEnqueue {
+                Log.v("postygyg", "postygyg12342344")
+                setView(it.data.user, it.data.group.name)
+        }
+    }
+
+    private fun setView(userData: User, groupName: String) {
+        Glide.with(this)
+            .load(userData.profileImage)
+            .transform(CenterCrop(), CircleCrop())
+            .into(iv_myprofile_edit_image)
+
+        tv_myprofile_edit_name.text = userData.name
+        tv_myprofile_edit_position.text = groupName
+        tv_myprofile_edit_department.text = userData.rank
+        tv_myprofile_edit_email.text = userData.email
+        tv_myprofile_edit_tel.text = userData.phone
+
+        if (userData.admin){
+            txt_org_set.visibility = View.VISIBLE
+            iv_myprofile_edit_org_set.visibility = View.VISIBLE
+        }
     }
 
     private fun setBtn() {
@@ -45,4 +82,11 @@ class MyProfileEditActivity : AppCompatActivity() {
             LogoutDialog().show(supportFragmentManager, "Logout Dialog")
         }
     }
+
+    /*override fun onResume() {
+        super.onResume()
+        if (SharedPreferenceController.getAuthorization(this@MyProfileEditActivity).toString() == ""){
+            finish()
+        }
+    }*/
 }
