@@ -66,7 +66,7 @@ class FeedSaveFlipsCategoryRVAdapter(
                             GlobalData.bottomSheetDialogFragment!!.dismiss()
                             GlobalData.bottomSheetDialogFragment = null
                             Log.v("FeedSaveFlipsCategoryRV", "북마크 추가 통신 성공")
-                            (ctx as FeedFragment).makeToast(ctx, item.categoryName, item.thumb)
+                            //(ctx as FeedFragment).makeToast(ctx, item.categoryName, item.thumb)
                         })
                 }
             })
