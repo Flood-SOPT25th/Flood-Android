@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="12dp"
+    android:background="@android:color/transparent"
+    tools:context=".ui.myprofile.MyProfileEditActivity">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:orientation="horizontal"
+            android:layout_marginBottom="38dp"
+            android:gravity="center_vertical"
+            app:layout_constraintBottom_toTopOf="@+id/tv_logout_dialog_ok"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv_login_alert_dialog_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lineHeight="27sp"
+                android:text="로그아웃 하실건가요?"
+                android:fontFamily="@font/notosanscjkkrmedium"
+                android:includeFontPadding="false"
+                android:textColor="@color/colorBlack28"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_wonder"
+                android:layout_marginLeft="5dp"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_logout_dialog_no"
+            android:layout_width="130dp"
+            android:layout_height="47dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/rect_gray_24dp"
+            android:fontFamily="@font/notosanscjkkrbold"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="아니요"
+            android:textColor="@color/colorGraya3"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tv_logout_dialog_ok"/>
+        <TextView
+            android:id="@+id/tv_logout_dialog_ok"
+            android:layout_width="130dp"
+            android:layout_height="47dp"
+            android:layout_marginRight="18dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/rect_blue_24dp"
+            android:fontFamily="@font/notosanscjkkrbold"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="안녕히계세요"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
