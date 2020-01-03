@@ -30,7 +30,7 @@ data class FeedData (
     var pic_list : ArrayList<String>,
 
     @SerializedName("url")
-    var news_url : String,
+    var news_url : String?,
 
     @SerializedName("image")
     var news_img : String,

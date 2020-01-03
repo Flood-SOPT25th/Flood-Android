@@ -62,6 +62,7 @@ class FeedFragment : Fragment() {
 
     private fun initView() {
         token = SharedPreferenceController.getAuthorization(context!!)!!
+        Log.v("**현주", token)
         adapter = FeedCategoryRVAdapter(context!!) { position ->
             showFragment(feedFragments[position])
         }
@@ -100,7 +101,8 @@ class FeedFragment : Fragment() {
      *  피드 카테고리 서버 통신
      */
     private var successGetCategory : (GetFeedCategoryResponse)  -> Unit  = { res ->
-        feedFragments = listOf(floodFragment) + res.data.category.filterNot { it == "Flood" }.map { FeedCategoryFragment(it) }
+        feedFragments = listOf(floodFragment) + res.data.category.filterNot { it == "Flood" || it == "flood"}.map { FeedCategoryFragment(it) }
+
         adapter.dataList = res.data.category
         adapter.notifyDataSetChanged()
     }
@@ -142,7 +144,6 @@ class FeedFragment : Fragment() {
     fun addFragment(fragment: Fragment){
         activity?.supportFragmentManager?.let { fm ->
             val transaction = fm.beginTransaction()
-            // 이 아이디 자리에, 어떤 프래그먼트를 넣어주겠다.
             transaction.add(R.id.fl_feed_fragment_frag, fragment).hide(fragment)
             transaction.commit()
         }
@@ -153,7 +154,6 @@ class FeedFragment : Fragment() {
             if (active == null) active = fragment
 
             val transaction = fm.beginTransaction()
-            // 이 아이디 자리에, 어떤 프래그먼트를 넣어주겠다.
             transaction.hide(active!!).show( fragment)
             transaction.commit()
             active = fragment

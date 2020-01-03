@@ -24,8 +24,6 @@ import com.flood_android.util.OnSingleClickListener
 class MypageMypostRVAdapter(private val ctx: Context, var dataList: ArrayList<FeedData>) :
     RecyclerView.Adapter<MypageMypostRVAdapter.Holder>() {
 
-    var imgList = ArrayList<String>()
-
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -55,7 +53,6 @@ class MypageMypostRVAdapter(private val ctx: Context, var dataList: ArrayList<Fe
                 holder.contents.text = item.contents
             }
 
-            imgList = item.pic_list
             // 사진이 있을 때 사진 나타내기
             var pic_num: Int? = item.pic_list.size
             when (pic_num!!) {
@@ -133,12 +130,12 @@ class MypageMypostRVAdapter(private val ctx: Context, var dataList: ArrayList<Fe
             holder.container_img.setOnClickListener(object : OnSingleClickListener() {
                 override fun onSingleClick(v: View) {
                     val intent = Intent(ctx, PhotoZoomActivity::class.java)
-                    intent.putStringArrayListExtra("imageList", imgList)
+                    intent.putStringArrayListExtra("imageList", item.pic_list)
                     ctx.startActivity(intent)
                 }
             })
 
-            if (item.news_url == "")
+            if (item.news_url == null)
                 setGone(holder.container_news)
             else {
                 holder.container_news.setOnClickListener(object : OnSingleClickListener() {
@@ -209,7 +206,6 @@ class MypageMypostRVAdapter(private val ctx: Context, var dataList: ArrayList<Fe
         var contents =
             itemView.findViewById(R.id.tv_rv_item_feed_flood_today_user_contents) as TextView
 
-        ///////////////////사진이 있을 때 없을 때, 뉴스가 있을 때 없을 때 구분하기
         var cvImage = itemView.findViewById(R.id.cv_rv_item_feed_flood_today) as CardView
 
         var pic1 = itemView.findViewById(R.id.iv_rv_item_feed_flood_today_pic_1) as ImageView

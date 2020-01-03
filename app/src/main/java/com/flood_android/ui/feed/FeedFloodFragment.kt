@@ -2,6 +2,7 @@ package com.flood_android.ui.feed
 
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.flood_android.R
 import com.flood_android.network.ApplicationController
 import com.flood_android.network.NetworkServiceFeed
@@ -18,6 +20,7 @@ import com.flood_android.ui.feed.adapter.FeedTop3RVAdapter
 import com.flood_android.ui.feed.data.FeedData
 import com.flood_android.ui.feed.data.FeedTop3Data
 import com.flood_android.ui.feed.data.GetFeedTop3Response
+import com.flood_android.util.GifDrawableImageViewTarget
 import com.flood_android.util.SharedPreferenceController
 import com.flood_android.util.safeEnqueue
 import kotlinx.android.synthetic.main.fragment_feed_flood.*
@@ -65,13 +68,13 @@ class FeedFloodFragment : Fragment() {
      *  몇째 주, 몇월인지  구하기
      */
     private fun getWeekOfMonth(date: String): String {
-        var calendar: Calendar = Calendar.getInstance()
-        var dates: List<String> = date.split("-")
-        var year: Int = Integer.parseInt(dates[0])
-        var monthNum: Int = Integer.parseInt(dates[1])
-        var day: Int = Integer.parseInt(dates[2])
+        val calendar: Calendar = Calendar.getInstance()
+        val dates: List<String> = date.split("-")
+        val year: Int = Integer.parseInt(dates[0])
+        val monthNum: Int = Integer.parseInt(dates[1])
+        val day: Int = Integer.parseInt(dates[2])
         calendar.set(year, monthNum - 1, day)
-        var weekNum: Int = calendar.get(Calendar.WEEK_OF_MONTH)
+        val weekNum: Int = calendar.get(Calendar.WEEK_OF_MONTH)
         var week = ""
         when (weekNum) {
             1 -> week = "1st"
@@ -154,17 +157,25 @@ class FeedFloodFragment : Fragment() {
         nsv_feed_flood.setOnScrollChangeListener(object : View.OnScrollChangeListener {
             override fun onScrollChange(p0: View?, p1: Int, p2: Int, p3: Int, p4: Int) {
                 if (!nsv_feed_flood.canScrollVertically(1)) {
+                    iv_feed_flood_loading.visibility = View.VISIBLE
+                    Glide.with(context!!).load(R.drawable.loading_blue).into(
+                        GifDrawableImageViewTarget(iv_feed_flood_loading,1)
+                    )
+
                     val itemTotalCount: Int = rv_feed_flood_today.adapter!!.itemCount
-                    networkService.getAllFeedResponse(token, 0, itemTotalCount + 5).safeEnqueue({},
+                    networkService.getAllFeedResponse(token, 0, itemTotalCount + 10).safeEnqueue({},
                         onSuccess = {
-                            Log.v("현주", "페이징 통신 성공")
                             feedRVAdapter.dataList = it.data.pidArr
                             feedRVAdapter.notifyDataSetChanged()
                             nsv_feed_flood.fullScroll(NestedScrollView.FOCUS_DOWN)
+
+                            val handler = Handler()
+                            handler.postDelayed(Runnable {
+                                iv_feed_flood_loading.visibility = View.GONE
+                            }, 2000)
                         })
                 }
             }
         })
     }
-
 }

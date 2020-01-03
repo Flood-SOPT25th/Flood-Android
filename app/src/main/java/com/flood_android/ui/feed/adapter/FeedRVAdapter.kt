@@ -142,7 +142,7 @@ class FeedRVAdapter(private val ctx: Context, var dataList: ArrayList<FeedData>)
                 }
             })
 
-            if (item.news_url == "")
+            if (item.news_url == null)
                 setGone(holder.container_news)
             else{
                 holder.container_news.setOnClickListener(object : OnSingleClickListener() {
