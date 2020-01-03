@@ -69,15 +69,10 @@ class MypageFragment : Fragment() {
         btn_mypage_user_setting.setOnClickListener(object : OnSingleClickListener(){
             override fun onSingleClick(v: View) {
                 val intent = Intent(context, MyProfileEditActivity::class.java)
+                intent.putExtra("cnt", mypostCnt)
                 startActivity(intent)
             }
         })
-      
-        iv_mypage_user_setting.setOnClickListener {
-            val intent = Intent(context, MyProfileEditActivity::class.java)
-            intent.putExtra("cnt", mypostCnt)
-            startActivity(intent)
-        }
     }
 
     private fun initView(){
