@@ -15,7 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.myprofile.CenterActivity"></activity>
+        <activity android:name=".ui.myflip.MyFlipDetailActivity"></activity>
+        <activity android:name=".ui.myprofile.CenterActivity" />
         <activity android:name=".ui.myprofile.InviteActivity" />
         <activity android:name=".ui.myprofile.AlarmSetActivity" />
         <activity android:name=".ui.myprofile.PasswordSetActivity" />
