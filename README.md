@@ -153,8 +153,20 @@ fun <T> Call<T>.safeEnqueue(
 onFail과 OnSuccess로 나누었고, 함수를 변수로 만들어 넘겨주어 통신의 Response에 대한
 함수가 작동하도록 하였다.
 
-2. 
+2. ContextExt.kt
+fun Fragment.toast(msg: String) {
+    Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+}
 
+fun Context.toast(msg: String) {
+    Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+}
+
+
+
+## Constraint Layout 사용 예
+모든 뷰에 Constraint Layout을 사용하였다. 각 뷰의 특성에 따라 Constraint Layout 안에 Constraint Layout을 만들어 주었다.
+Constraint Layout의 특성인 TopOfTop, TopOfBottom 등의 속성을 사용해 각 View들을 관계를 생각하여 View를 짰다.
 
 ## :question: 문제점
 
