@@ -158,7 +158,7 @@ class FeedDetailActivity : AppCompatActivity() {
                 }
             }
 
-            if (it.news_url == "") {
+            if (it.news_url == "" || it.news_url == null) {
                 setGone(cl_feed_detail_news)
             } else {
                 Glide.with(this@FeedDetailActivity)

@@ -299,7 +299,7 @@ class PostActivity : AppCompatActivity() {
                         Log.e("con", content.toString())
                         postPost(
                             SharedPreferenceController.getAuthorization(this@PostActivity)!!,
-                            images, post_url, post_content, post_category
+                            images, post_url, post_category, post_content
                         )
                     }
                 }
@@ -339,6 +339,7 @@ class PostActivity : AppCompatActivity() {
     var temp: (PostPostResponse) -> Unit = {
         Log.v("PostActivity", it.message)
         startActivity(Intent(this, MainActivity::class.java))
+        finish()
     }
     private fun postPost(
         token: String,

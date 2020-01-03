@@ -45,7 +45,7 @@ data class FeedDetailData(
     val post_content : String,
 
     @SerializedName("url")
-    val news_url : String,
+    val news_url : String?,
 
     val bookmarked : Boolean,
 

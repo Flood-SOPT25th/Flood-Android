@@ -248,5 +248,4 @@ class MyProfileEditActivity : AppCompatActivity() {
     fun closeActivity() {
         finish()
     }
-
 }
