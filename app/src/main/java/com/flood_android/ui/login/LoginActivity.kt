@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.View
 import android.widget.EditText
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.c.loginflood.PostLoginRequest
@@ -15,10 +16,8 @@ import com.flood_android.R
 import com.flood_android.network.ApplicationController
 import com.flood_android.ui.main.MainActivity
 import com.flood_android.ui.post.PostActivity
-import com.flood_android.util.GlobalData
-import com.flood_android.util.SharedPreferenceController
-import com.flood_android.util.safeEnqueue
-import com.flood_android.util.toast
+import com.flood_android.ui.signup.SignupActivity
+import com.flood_android.util.*
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
@@ -43,14 +42,24 @@ class LoginActivity : AppCompatActivity() {
         edtPostToBlue(edt_login_pw)
 
         // 로그인 클릭 시
-        clLogin.setOnClickListener {
-            var user_email = edt_login_id.text.toString()
-            var user_pw: String = edt_login_pw.text.toString()
-            // 유효성 검사 후 로그인 통신
-            if (isValid(user_email, user_pw)) {
-                postLogin(user_email, user_pw)
+        clLogin.setOnClickListener(object : OnSingleClickListener() {
+            override fun onSingleClick(v: View) {
+                var user_email = edt_login_id.text.toString()
+                var user_pw: String = edt_login_pw.text.toString()
+                // 유효성 검사 후 로그인 통신
+                if (isValid(user_email, user_pw)) {
+                    postLogin(user_email, user_pw)
+                }
             }
-        }
+        })
+
+        // 회원가입 클릭 시
+        tv_login_signup.setOnClickListener(object : OnSingleClickListener() {
+            override fun onSingleClick(v: View) {
+                startActivity(Intent(this@LoginActivity, SignupActivity::class.java))
+
+            }
+        })
 
         // 웹에서 공유하기 누른 경우
         connectWeb()

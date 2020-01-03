@@ -1,31 +1,18 @@
 package com.flood_android.ui.companydetail
 
-import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
-import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
-import android.widget.TextView
-import android.view.View
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.flood_android.R
 import com.flood_android.network.ApplicationController
-import com.flood_android.network.NetworkServiceCompany
-import com.flood_android.network.NetworkServiceUser
-import com.flood_android.ui.company.CompanyRVAdapter
-import com.flood_android.ui.company.GroupArr
-import com.flood_android.ui.feed.FeedCategoryFragment
-import com.flood_android.ui.feed.adapter.FeedCategoryRVAdapter
 import com.flood_android.util.SharedPreferenceController
 import com.flood_android.util.safeEnqueue
 import kotlinx.android.synthetic.main.activity_company_detail.*
-import kotlinx.android.synthetic.main.fragment_feed.*
-
 
 class CompanyDetailActivity : AppCompatActivity() {
 
@@ -59,7 +46,6 @@ class CompanyDetailActivity : AppCompatActivity() {
     }
 
     private fun initView(dataList: List<String>) {
-
         companyDetailCategoryRVAdapter = CompanyDetailCategoryRVAdapter(this@CompanyDetailActivity, dataList) { position ->
             showFragment(feedFragments[position])
         }
@@ -76,10 +62,7 @@ class CompanyDetailActivity : AppCompatActivity() {
             .getCompanyDetailResponse(SharedPreferenceController.getAuthorization(this@CompanyDetailActivity).toString(),
                 groupCode)
         getCompanyDetailResponse.safeEnqueue {
-            Log.v("postygyg", "postygyg1234")
             if (it.message == "그룹에 대한 정보") {
-                Log.v("postygyg", "postygyg12342344")
-
                 // 기업 아이콘과 기업명 뷰
                 setTopView(it.data.groupInfo)
                 // 카테고리 리싸이클러뷰
@@ -90,18 +73,21 @@ class CompanyDetailActivity : AppCompatActivity() {
         }
     }
 
-    // 기업 아이콘과 기업명 뷰
+    /**
+      기업 아이콘과 기업명 뷰
+     */
     private fun setTopView(data: GroupInfo) {
         Glide.with(this)
-            .load(data.groupImage)
+            .load(data.groupIcon)
             .transform(CenterCrop(), CircleCrop())
             .into(iv_company_detail_company_logo)
         tv_company_detail_company_name.text = data.name
     }
 
-    // 카테고리 리싸이클러뷰
+    /**
+     카테고리 리싸이클러뷰
+     */
     private fun setCategoryRecyclerView(dataList: List<String>) {
-        Log.v("청하123", dataList.toString())
         companyDetailCategoryRVAdapter = CompanyDetailCategoryRVAdapter(this@CompanyDetailActivity, dataList)
         rv_company_detail_category_list.adapter = companyDetailCategoryRVAdapter
         rv_company_detail_category_list.layoutManager = LinearLayoutManager(this@CompanyDetailActivity, LinearLayoutManager.HORIZONTAL, false)
@@ -111,9 +97,7 @@ class CompanyDetailActivity : AppCompatActivity() {
      *  피드 카테고리 서버 통신
      */
     private fun successGetCategory(groupCode: String, data: GroupInfo){
-        Log.v("청하", groupCode.toString())
         feedFragments = data.category.filterNot { it == "Flood" }.map { CompanyDetailCategoryFragment(groupCode, it) }
-
         companyDetailCategoryRVAdapter.dataList = data.category
         companyDetailCategoryRVAdapter.notifyDataSetChanged()
     }
@@ -121,7 +105,6 @@ class CompanyDetailActivity : AppCompatActivity() {
     fun addFragment(fragment: Fragment){
         supportFragmentManager?.let { fm ->
             val transaction = fm.beginTransaction()
-            // 이 아이디 자리에, 어떤 프래그먼트를 넣어주겠다.
             transaction.add(R.id.fl_company_detail_frag, fragment).hide(fragment)
             transaction.commit()
         }

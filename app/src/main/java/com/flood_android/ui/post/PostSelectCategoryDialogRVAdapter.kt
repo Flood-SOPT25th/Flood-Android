@@ -2,18 +2,13 @@ package com.flood_android.ui.post
 
 import android.content.Context
 import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.flood_android.R
-import com.flood_android.ui.post.get.PostSelectCategoryRVData
 import com.flood_android.util.GlobalData.selectedCategory
-import kotlinx.android.synthetic.main.fragment_post_category_dialog.*
-
-
 
 class PostSelectCategoryDialogRVAdapter(var ctx: Context, var data: List<String>, var flag: List<Boolean>) :
     RecyclerView.Adapter<PostSelectCategoryDialogRVAdapter.Holder>() {
@@ -42,23 +37,25 @@ class PostSelectCategoryDialogRVAdapter(var ctx: Context, var data: List<String>
         flag = newFlag
     }
     override fun onBindViewHolder(holder: Holder, position: Int) {
+        if (position == 0){
+            holder.categoryName.visibility = View.GONE
+        }else{
+            if(itemClick != null)
+            {
+                holder.itemView?.setOnClickListener { v ->
+                    itemClick?.onClick(v, position)
+                    selectedCategory = holder.categoryName.text.toString()
+                }
+            }
+            holder.categoryName.text = data[position]
 
-        if(itemClick != null)
-        {
-            holder.itemView?.setOnClickListener { v ->
-                itemClick?.onClick(v, position)
-                selectedCategory = holder.categoryName.text.toString()
+            if(flag[position]) {
+                holder.categoryName.setTextColor(Color.parseColor("#282828"))
+            }
+            else {
+                holder.categoryName.setTextColor(Color.parseColor("#d1d1d1"))
             }
         }
-        holder.categoryName.text = data[position]
-
-        if(flag[position]) {
-            holder.categoryName.setTextColor(Color.parseColor("#282828"))
-        }
-        else {
-            holder.categoryName.setTextColor(Color.parseColor("#d1d1d1"))
-        }
-
     }
 
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {

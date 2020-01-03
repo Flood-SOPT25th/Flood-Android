@@ -1,40 +1,32 @@
 package com.flood_android.ui.main
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.Gravity
 import android.view.View
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.flood_android.MypageFragment
 import com.flood_android.R
 import com.flood_android.network.ApplicationController
 import com.flood_android.network.NetworkServiceFeed
 import com.flood_android.network.NetworkServiceUser
 import com.flood_android.ui.alarm.AlarmFragment
-import com.flood_android.ui.companydetail.CompanyDetailActivity
 import com.flood_android.ui.company.CompanyFragment
+import com.flood_android.ui.companydetail.CompanyDetailActivity
 import com.flood_android.ui.feed.FeedFragment
-import com.flood_android.ui.feed.adapter.FeedSaveFlipsCategoryRVAdapter
-import com.flood_android.ui.feed.data.BookmarkData
-import com.flood_android.ui.feed.data.GetPostBookmarkResponse
 import com.flood_android.ui.feed.data.PostBookmarkAddData
 import com.flood_android.ui.feed.data.PostBookmarkCancelData
 import com.flood_android.ui.login.LoginActivity
-import com.flood_android.util.safeEnqueue
-import com.orhanobut.dialogplus.DialogPlus
-import com.orhanobut.dialogplus.Holder
-import com.orhanobut.dialogplus.ViewHolder
 import com.flood_android.ui.postnourl.PostNoUrlActivity
 import com.flood_android.util.GlobalData
 import com.flood_android.util.OnSingleClickListener
 import com.flood_android.util.SharedPreferenceController
+import com.flood_android.util.safeEnqueue
+import com.orhanobut.dialogplus.DialogPlus
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.dialog_feed_save_flips.*
 
 class MainActivity : AppCompatActivity() {
     lateinit var dialog: DialogPlus
@@ -54,6 +46,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        if (SharedPreferenceController.getAuthorization(this@MainActivity)!! == ""){
+            startActivity(Intent(this@MainActivity, LoginActivity::class.java))
+            finish()
+        }
 
         setContentView(R.layout.activity_main)
 
@@ -108,6 +105,15 @@ class MainActivity : AppCompatActivity() {
                 showFragment(mypageFragment)
             }
         })
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+
+        if (SharedPreferenceController.getAuthorization(this@MainActivity)!! == ""){
+            startActivity(Intent(this@MainActivity, LoginActivity::class.java))
+            finish()
+        }
     }
 
     fun addFragment(fragment: Fragment){

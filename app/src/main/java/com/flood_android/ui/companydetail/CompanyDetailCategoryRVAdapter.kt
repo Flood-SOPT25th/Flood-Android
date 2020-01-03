@@ -35,7 +35,6 @@ class CompanyDetailCategoryRVAdapter(
             holder.categoryName.text = ("#").plus(item)
         }
 
-
         if (selectedPosition == position) {
             holder.categoryName.setTextColor(Color.WHITE)
             holder.categoryContainer.background = ctx.resources.getDrawable(R.drawable.rect_blue_21dp)
@@ -47,7 +46,6 @@ class CompanyDetailCategoryRVAdapter(
         holder.itemView.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(v: View) {
                 selectedPosition = position
-                Log.v("현주", selectedPosition.toString())
                 notifyItemRangeChanged(0, itemCount)
                 listener(position)
             }

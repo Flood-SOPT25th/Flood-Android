@@ -28,16 +28,23 @@ class PostCategoryDialog : RoundedBottomSheetDialogFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         // 카테고리 리싸이클러뷰
-        categoryRecyclerView(GlobalData.categoryList)
-        setBtnClickListner()
+
+        var check = arrayListOf<Boolean>()
+        for (i in 0..GlobalData.categoryList.size){
+            check.add(false)
+        }
+        categoryRecyclerView(GlobalData.categoryList, check)
+        setBtnClickListner(check)
+
+
+
     }
 
     /**
      * 카테고리 리싸이클러 뷰
      */
-    var check = arrayListOf(false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false)
 
-    private fun categoryRecyclerView(categoryList: List<String>) {
+    private fun categoryRecyclerView(categoryList: List<String>, check: ArrayList<Boolean>) {
         adapter = PostSelectCategoryDialogRVAdapter(context!!, categoryList, check)
         adapter.itemClick = object: PostSelectCategoryDialogRVAdapter.ItemClick {
             override fun onClick(view: View, position: Int) {
@@ -61,7 +68,7 @@ class PostCategoryDialog : RoundedBottomSheetDialogFragment() {
     /**
      * 버튼 클릭 함수
      */
-    private fun setBtnClickListner() {
+    private fun setBtnClickListner(check: ArrayList<Boolean>) {
         tv_post_select_category_dialog_done.setOnClickListener {
             if(check.contains(true)){
                 var category : String? = GlobalData.selectedCategory

@@ -32,7 +32,6 @@ class MyProfileEditActivity : AppCompatActivity() {
         val getMyProfileEditResponse = ApplicationController.networkServiceUser
             .getMyProfileEditResponse(SharedPreferenceController.getAuthorization(this@MyProfileEditActivity)!!)
         getMyProfileEditResponse.safeEnqueue {
-                Log.v("postygyg", "postygyg12342344")
                 setView(it.data.user, it.data.group.name)
         }
     }
@@ -44,8 +43,8 @@ class MyProfileEditActivity : AppCompatActivity() {
             .into(iv_myprofile_edit_image)
 
         tv_myprofile_edit_name.text = userData.name
-        tv_myprofile_edit_position.text = groupName
-        tv_myprofile_edit_department.text = userData.rank
+        tv_myprofile_edit_position.text = userData.rank
+        tv_myprofile_edit_department.text = groupName
         tv_myprofile_edit_email.text = userData.email
         tv_myprofile_edit_tel.text = userData.phone
 
@@ -83,10 +82,8 @@ class MyProfileEditActivity : AppCompatActivity() {
         }
     }
 
-    /*override fun onResume() {
-        super.onResume()
-        if (SharedPreferenceController.getAuthorization(this@MyProfileEditActivity).toString() == ""){
-            finish()
-        }
-    }*/
+    fun closeActivity(){
+        finish()
+    }
+
 }

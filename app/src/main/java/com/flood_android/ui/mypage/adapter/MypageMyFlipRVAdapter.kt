@@ -15,6 +15,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.flood_android.R
 import com.flood_android.ui.feed.data.BookmarkData
+import com.flood_android.ui.myflip.MyFlipDetailActivity
 import com.flood_android.util.OnSingleClickListener
 
 class MypageMyFlipRVAdapter(private val ctx: Context, var dataList: ArrayList<BookmarkData>) :
@@ -38,8 +39,13 @@ class MypageMyFlipRVAdapter(private val ctx: Context, var dataList: ArrayList<Bo
 
             holder.clCategory.setOnClickListener(object : OnSingleClickListener(){
                 override fun onSingleClick(v: View) {
-//                    val intent = Intent(ctx, MyFlipDetailActivity::class.java)
-//                    ctx.startActivity(intent)
+                    val intent = Intent(ctx, MyFlipDetailActivity::class.java)
+                    if (position == 0){
+                        intent.putExtra("categoryIdx", "all")
+                    }else{
+                        intent.putExtra("categoryIdx", item.category_id)
+                    }
+                    ctx.startActivity(intent)
                 }
             })
         }
