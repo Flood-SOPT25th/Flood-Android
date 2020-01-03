@@ -17,10 +17,17 @@ import com.flood_android.ui.main.MainActivity
 import com.flood_android.ui.signup.SignupAlertDialog
 import com.flood_android.ui.signup.adapter.SignupPageAdapter
 import com.flood_android.util.GlobalData
+import com.flood_android.util.GlobalData.gCode
+import com.flood_android.util.GlobalData.pName
+import com.flood_android.util.GlobalData.pRank
+import com.flood_android.util.GlobalData.pfImage
+import com.flood_android.util.SharedPreferenceController
 import com.flood_android.util.safeEnqueue
 import kotlinx.android.synthetic.main.activity_group_creation.*
+import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import java.io.ByteArrayOutputStream
 
 
 class GroupCreationActivity : AppCompatActivity() {
@@ -64,9 +71,9 @@ class GroupCreationActivity : AppCompatActivity() {
 
         firstGroupCreationPageAdapter = SignupPageAdapter(supportFragmentManager)
 
-        //firstGroupCreationPageAdapter.addFragment(GroupCreationFragment1())
-        //firstGroupCreationPageAdapter.addFragment(GroupCreationFragment2())
-        //firstGroupCreationPageAdapter.addFragment(GroupCreationFragment3())
+        firstGroupCreationPageAdapter.addFragment(GroupCreationFragment1())
+        firstGroupCreationPageAdapter.addFragment(GroupCreationFragment2())
+        firstGroupCreationPageAdapter.addFragment(GroupCreationFragment3())
         firstGroupCreationPageAdapter.addFragment(GroupCreationFragment4())
 
         vpager_group_creation.adapter = firstGroupCreationPageAdapter
@@ -79,26 +86,31 @@ class GroupCreationActivity : AppCompatActivity() {
                 when(position){
                     2 -> {
                         serverFlag = false
-                        authorization1 = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imtha2FvNUBnbWFpbC5jb20iLCJuYW1lIjoi7Lm07Lm07JikNSIsImlhdCI6MTU3ODA1NjE3MCwiZXhwIjoxNTgwNjQ4MTcwLCJpc3MiOiJGbG9vZFNlcnZlciJ9.OIMTqJtYjpsz3xM5EItunHCqTmncW0ac9xilPnkdVc0"
-                        //authorization1 = SharedPreferenceController.getAuthorization(this!!)!!
+                        //authorization1 = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inllb25naHVuMDMyN0BnbWFpbC5jb20iLCJuYW1lIjoi7LWc7JiB7ZuIIiwiaWF0IjoxNTc4MDQyMTQ1LCJleHAiOjE1ODA2MzQxNDUsImlzcyI6IkZsb29kU2VydmVyIn0.YA5cNL38T5tyyRAj1qvQBr-O3RDwufI0QwSo3Wwjyn4"
+                        authorization1 = SharedPreferenceController.getAuthorization(this!!)!!
                         postCrOrg(context_type_general,authorization1,groupCRInfo)
                         Log.v("Jihee1",context_type_general)
                         Log.v("Jihee1",authorization1)
                         Log.v("Jihee1",groupCRInfo.toString())
-
                     }
                     3->{
                         Log.v("Jihee2",serverFlag.toString())
                         serverFlag = true
                     }
                     4 -> {
+                        Log.v("4","start")
                         serverFlag = false
-                        authorization2="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imtha2FvNUBnbWFpbC5jb20iLCJuYW1lIjoi7Lm07Lm07JikNSIsImlhdCI6MTU3ODA1NjE3MCwiZXhwIjoxNTgwNjQ4MTcwLCJpc3MiOiJGbG9vZFNlcnZlciJ9.OIMTqJtYjpsz3xM5EItunHCqTmncW0ac9xilPnkdVc0"
-                        //authorization2 = SharedPreferenceController.getAuthorization(this!!)!!
-                        Log.v("ㅁㅁㅁㅁ", profile_name.toString())
-                        Log.v("ㅁㅁㅁㅁ", profile_rank.toString())
-                        postProfSetRes(context_type_profile_set,authorization2,image,profile_name,profile_rank)
-                        //intent.putExtra("groupcode", bundleOf(("jihee";groupcode))
+                        //authorization2="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inllb25naHVuMDMyN0BnbWFpbC5jb20iLCJuYW1lIjoi7LWc7JiB7ZuIIiwiaWF0IjoxNTc4MDQyMTQ1LCJleHAiOjE1ODA2MzQxNDUsImlzcyI6IkZsb29kU2VydmVyIn0.YA5cNL38T5tyyRAj1qvQBr-O3RDwufI0QwSo3Wwjyn4"
+                        authorization2 = SharedPreferenceController.getAuthorization(this!!)!!
+                        Log.v("4","before call")
+                        Log.v("4-1", pfImage.toString())
+                        Log.v("4-2", pName.toString())
+                        Log.v("4-3", pRank.toString())
+                        postProfSetRes(context_type_profile_set,authorization2,pfImage,
+                            pName, pRank)
+                        Log.v("44", pfImage.toString())
+                        Log.v("45", pName.toString())
+                        Log.v("46", pRank.toString())
                     }
                 }
               if(serverFlag)
@@ -127,7 +139,6 @@ class GroupCreationActivity : AppCompatActivity() {
             R.drawable.circle_blue_7dp,
             0
         )
-
     }
 
 
@@ -163,18 +174,14 @@ class GroupCreationActivity : AppCompatActivity() {
             Log.v(groupcode,"groupcode")
             serverFlag = true
             //findViewById<TextView>(R.id.edtxt_first_login_withoutgroupcode3_copycode).text=groupcode
-            Log.v("Jihee1","bundle")
             var bundle = Bundle()
             bundle.putString("GCODE",groupcode)
-            Log.v("GCODE",groupcode)
             supportFragmentManager.findFragmentById(R.id.cl_firstlogin_3rd)?.arguments = bundle
-            Log.v("bundle",bundle.toString())
             //fr3.arguments=bundle
             //Log.v("Jihee1",fr3.arguments.toString())
-            //vpager_group_creation.currentItem = (position++)
+            vpager_group_creation.currentItem = (position++)
         }
         if (it.message == "모든 정보를 입력해주세요."){
-            Log.v("jihee","no info")
             exceptionHandlingAlertDialog.show(supportFragmentManager, "Info Alert Dialog")
             GlobalData.loginDialogMessage = "모든 정보를 입력해주세요."
             serverFlag = false
@@ -190,7 +197,6 @@ class GroupCreationActivity : AppCompatActivity() {
         }
     }
 
-
     fun postCrOrg(
         context_type : String, authorization : String, pcr: PostCreateOrgReq) {
         val postCreateOrgResponse
@@ -201,15 +207,14 @@ class GroupCreationActivity : AppCompatActivity() {
     // FirstLogin Activity와 동일한 프로세스 : 개인 프로필 설정
 
     var image: MultipartBody.Part? = null
-    lateinit var profile_name : RequestBody
-    lateinit var profile_rank: RequestBody
+    //lateinit var profile_name : RequestBody
+    //lateinit var profile_rank: RequestBody
 
 
     var fail2: (Throwable) -> Unit = {
         Log.v("GroupCreationActivity", it.toString())
     }
     var temp2: (PostProfileSetResponse) -> Unit = {
-        Log.v("GroupcreationActivity", it.message)
         if(it.message == "그룹 가입 성공") {
             var intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
@@ -220,6 +225,8 @@ class GroupCreationActivity : AppCompatActivity() {
                 "invalid group code"
             )
             GlobalData.loginDialogMessage = "유효하지 않는 그룹 코드입니다."
+            var intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
         }
         else if(it.message == "server error"){
             exceptionHandlingAlertDialog.show(
@@ -227,6 +234,8 @@ class GroupCreationActivity : AppCompatActivity() {
                 "Server Error Dialog"
             )
             GlobalData.loginDialogMessage = "서버 에러입니다."
+            var intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
         }
     }
 

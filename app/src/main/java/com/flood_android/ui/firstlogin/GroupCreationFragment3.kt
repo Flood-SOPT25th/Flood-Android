@@ -60,8 +60,13 @@ class GroupCreationFragment3 : Fragment() {
             R.layout.toast_groupcode_copy,
             view!!.findViewById(R.id.cstlay_groupcode_toast)
         )
+        /*val toastDesign = inflater.inflate(
+            R.layout.toast_groupcode_copy,
+            view!!.findViewById(R.id.cstlay_groupcode_toast)
+        )*/
         var toast = Toast(context)
-        toast.setGravity(Gravity.BOTTOM, 0, 120)  //center를 기준으로 0 0 위치에 메시지 출력
+        // toast.setGravity(Gravity.FILL_HORIZONTAL, 0, 110)  //center를 기준으로 0 0 위치에 메시지 출력
+        toast.setGravity(Gravity.BOTTOM, 0, 70)
         toast.duration = Toast.LENGTH_SHORT
         toast.view = toastDesign
 

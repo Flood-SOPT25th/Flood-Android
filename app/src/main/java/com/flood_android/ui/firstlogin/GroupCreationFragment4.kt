@@ -13,6 +13,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +25,9 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.flood_android.R
+import com.flood_android.util.GlobalData.pName
+import com.flood_android.util.GlobalData.pRank
+import com.flood_android.util.GlobalData.pfImage
 import kotlinx.android.synthetic.main.fragment_first_login_withgroupcode2.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -36,7 +40,7 @@ class GroupCreationFragment4 : Fragment() {
     private var nameFlag = false
     private var rankFlag = false
 
-    private var profileImage: MultipartBody.Part? = null
+    //private var profileImage: MultipartBody.Part? = null
 
     private val MY_READ_STORAGE_REQUEST_CODE by lazy {
         1004
@@ -61,7 +65,9 @@ class GroupCreationFragment4 : Fragment() {
         edtxt_first_login_withgroupcode2_profile_name.addTextChangedListener(nameWatcher)
         edtxt_first_login_withgroupcode2_profile_rank.addTextChangedListener(rankWatcher)
         iv_first_login_withgroupcode2_editpart.setOnClickListener {
+            Log.v("Jihee","1")
             requestReadExternalStoragePermission()
+            Log.v("Jihee","2")
         }
     }
 
@@ -77,7 +83,9 @@ class GroupCreationFragment4 : Fragment() {
                 nameFlag = true
                 if (rankFlag) {
                     toSignal(true)
+                    Log.v("Jihee","3")
                     toSignin2()
+                    Log.v("Jihee","4")
                 }
                 else
                     toSignal(false)
@@ -100,7 +108,9 @@ class GroupCreationFragment4 : Fragment() {
                 rankFlag = true
                 if (nameFlag) {
                     toSignal(true)
+                    Log.v("55","5")
                     toSignin2()
+                    Log.v("66","6")
                 }
                 else
                     toSignal(false)
@@ -113,14 +123,23 @@ class GroupCreationFragment4 : Fragment() {
 
     fun toSignal(flag: Boolean) {
         (activity as GroupCreationActivity).activateNextBtn(flag)
+        Log.v("Jihee","7")
     }
 
     fun toSignin2() {
-        (activity as GroupCreationActivity).image = profileImage
-        (activity as GroupCreationActivity).profile_name = RequestBody.create(
-            MediaType.parse("text/plain"),edtxt_first_login_withgroupcode2_profile_name.text.toString())
-        (activity as GroupCreationActivity).profile_rank = RequestBody.create(
-            MediaType.parse("text/plain"),edtxt_first_login_withgroupcode2_profile_rank.text.toString())
+
+        //(activity as GroupCreationActivity).image = profileImage
+        //(activity as GroupCreationActivity).profile_name = RequestBody.create(
+         //   MediaType.parse("text/plain"),edtxt_first_login_withgroupcode2_profile_name.text.toString())
+        pName = RequestBody.create(MediaType.parse("text/plain"),edtxt_first_login_withgroupcode2_profile_name.text.toString())
+        Log.v("Jihee",edtxt_first_login_withgroupcode2_profile_name.text.toString())
+        Log.v("Jihee",pName.toString())
+        pRank = RequestBody.create(MediaType.parse("text/plain"),edtxt_first_login_withgroupcode2_profile_rank.text.toString())
+        Log.v("Jihee",edtxt_first_login_withgroupcode2_profile_rank.text.toString())
+        Log.v("Jihee",pName.toString())
+        Log.v("Jihee",pRank.toString())
+       // (activity as GroupCreationActivity).profile_rank = RequestBody.create(
+         //   MediaType.parse("text/plain"),edtxt_first_login_withgroupcode2_profile_rank.text.toString())
         //(activity as FirstLoginActivity).profile_name =  edtxt_first_login_withgroupcode2_profile_name.text.toString()
         //(activity as FirstLoginActivity).profile_rank = edtxt_first_login_withgroupcode2_profile_rank.text.toString()
     }
@@ -155,9 +174,13 @@ class GroupCreationFragment4 : Fragment() {
     ) {
         if (requestCode == MY_READ_STORAGE_REQUEST_CODE) {
             if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Log.v("Jihee","7")
                 showAlbum()
+                Log.v("Jihee","8")
             } else {
+                Log.v("Jihee","9")
                 activity?.finish()
+                Log.v("Jihee","10")
             }
         }
     }
@@ -175,31 +198,39 @@ class GroupCreationFragment4 : Fragment() {
             if (resultCode == Activity.RESULT_OK) {
                 data?.let {
                     val selectedImageUri: Uri = it.data!!
+                    Log.v("Uri",it.data.toString())
                     val options = BitmapFactory.Options()
                     val inputStream: InputStream? = activity?.contentResolver!!.openInputStream(selectedImageUri)
+                    Log.v("content resolver","Error?")
                     val bitmap = BitmapFactory.decodeStream(inputStream, null, options)
                     val byteArrayOutputStream = ByteArrayOutputStream()
                     bitmap!!.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream)
                     imageURI = getRealPathFromURI(selectedImageUri)
+                    Log.v(imageURI,"jihee")
                     val image =
                         RequestBody.create(MediaType.parse("image/jpg"), byteArrayOutputStream.toByteArray())
-                    profileImage = MultipartBody.Part.createFormData(
+                    Log.v("jihee","image")
+                    pfImage = MultipartBody.Part.createFormData(
                         "images",
                         File(selectedImageUri.toString()).name,
                         image
                     )
+                    Log.v("pfImage", pfImage.toString())
+                    Log.v("plz",File(selectedImageUri.toString()).name.toString())
 
                     Glide.with(this)
                         .load(selectedImageUri)
                         .thumbnail(0.1f)
                         .transform(CenterCrop(), CircleCrop())
                         .into(iv_first_login_withgroupcode2_editpart)
+                    Log.v("glide","haha")
                 }
             }
         }
     }
 
     private fun getRealPathFromURI(content: Uri): String {
+        Log.v("start","get real path from uri")
         val proj = arrayOf(MediaStore.Images.Media.DATA)
         val loader: CursorLoader = CursorLoader(requireContext(), content, proj, null, null, null)
         val cursor: Cursor = loader.loadInBackground()!!

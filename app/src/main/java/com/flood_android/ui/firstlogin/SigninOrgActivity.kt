@@ -17,6 +17,7 @@ import com.flood_android.ui.main.MainActivity
 import com.flood_android.ui.signup.SignupAlertDialog
 import com.flood_android.ui.signup.adapter.SignupPageAdapter
 import com.flood_android.util.GlobalData
+import com.flood_android.util.SharedPreferenceController
 import com.flood_android.util.safeEnqueue
 import kotlinx.android.synthetic.main.activity_first_login.*
 import okhttp3.MultipartBody
@@ -62,14 +63,14 @@ class SigninOrgActivity : AppCompatActivity() {
             if (btnFlag) {
                 when(position){
                     1-> {
-                        authorization1="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inllb25naHVuMDMyN0BnbWFpbC5jb20iLCJuYW1lIjoi7LWc7JiB7ZuIIiwiaWF0IjoxNTc4MDQyMTQ1LCJleHAiOjE1ODA2MzQxNDUsImlzcyI6IkZsb29kU2VydmVyIn0.YA5cNL38T5tyyRAj1qvQBr-O3RDwufI0QwSo3Wwjyn4"
-                        //authorization1 = SharedPreferenceController.getAuthorization(this)!!
+                        //authorization1="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inllb25naHVuMDMyN0BnbWFpbC5jb20iLCJuYW1lIjoi7LWc7JiB7ZuIIiwiaWF0IjoxNTc4MDQyMTQ1LCJleHAiOjE1ODA2MzQxNDUsImlzcyI6IkZsb29kU2VydmVyIn0.YA5cNL38T5tyyRAj1qvQBr-O3RDwufI0QwSo3Wwjyn4"
+                        authorization1 = SharedPreferenceController.getAuthorization(this)!!
                         postSignInOrg(context_type_signin,authorization1,PostSignInOrgReq(groupcode))
                     }
                     2-> {
                         Log.v("Jihee","3")
-                        authorization2="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inllb25naHVuMDMyN0BnbWFpbC5jb20iLCJuYW1lIjoi7LWc7JiB7ZuIIiwiaWF0IjoxNTc4MDQyMTQ1LCJleHAiOjE1ODA2MzQxNDUsImlzcyI6IkZsb29kU2VydmVyIn0.YA5cNL38T5tyyRAj1qvQBr-O3RDwufI0QwSo3Wwjyn4\""
-                        //authorization2 = SharedPreferenceController.getAuthorization(this)!!
+                        //authorization2="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inllb25naHVuMDMyN0BnbWFpbC5jb20iLCJuYW1lIjoi7LWc7JiB7ZuIIiwiaWF0IjoxNTc4MDQyMTQ1LCJleHAiOjE1ODA2MzQxNDUsImlzcyI6IkZsb29kU2VydmVyIn0.YA5cNL38T5tyyRAj1qvQBr-O3RDwufI0QwSo3Wwjyn4\""
+                        authorization2 = SharedPreferenceController.getAuthorization(this)!!
                         //btn_first_login_next.text = "완료"
                         //var pname = RequestBody.create(
                         //    MediaType.parse("text/plain"),profile_name)

@@ -124,6 +124,7 @@
         android:layout_marginBottom="23dp"
         android:background="@drawable/rect_white_31dp"
         android:elevation="5dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
