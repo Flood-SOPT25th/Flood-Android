@@ -8,7 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.flood_android.R
+import com.flood_android.ui.signup.SignupActivity
 import kotlinx.android.synthetic.main.fragment_first_login_without_groupcode1.*
+import kotlinx.android.synthetic.main.fragment_signup1.*
 
 class FirstLoginFragmentWithoutGroupcode1 : Fragment() {
 
@@ -62,6 +64,7 @@ class FirstLoginFragmentWithoutGroupcode1 : Fragment() {
 
                 if (contactFlag && jobFlag) {
                     toSignal(true)
+                    toGroupCrAct1()
                 } else {
                     toSignal(false)
                 }
@@ -85,6 +88,7 @@ class FirstLoginFragmentWithoutGroupcode1 : Fragment() {
 
                 if (nameFlag && jobFlag) {
                     toSignal(true)
+                    toGroupCrAct1()
                 } else {
                     toSignal(false)
                 }
@@ -94,7 +98,6 @@ class FirstLoginFragmentWithoutGroupcode1 : Fragment() {
             }
         }
     }
-
 
     private val jobWatcher = object : TextWatcher {
         override fun afterTextChanged(s: Editable?) {
@@ -109,6 +112,7 @@ class FirstLoginFragmentWithoutGroupcode1 : Fragment() {
 
                 if (nameFlag && contactFlag) {
                     toSignal(true)
+                    toGroupCrAct1()
                 } else {
                     toSignal(false)
                 }
@@ -117,5 +121,11 @@ class FirstLoginFragmentWithoutGroupcode1 : Fragment() {
                 jobFlag = false
             }
         }
+    }
+
+    fun toGroupCrAct1() {
+        (activity as GroupCreationActivity).groupCRInfo.name = edtxt_first_login_withoutgroupcode1_group_name.text.toString()
+        (activity as GroupCreationActivity).groupCRInfo.phone = edtxt_first_login_withoutgroupcode1_group_contact.text.toString()
+        (activity as GroupCreationActivity).groupCRInfo.department = tv_first_login_withoutgroupcode1_job_2.text.toString()
     }
 }

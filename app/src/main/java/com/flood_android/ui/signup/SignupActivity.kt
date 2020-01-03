@@ -69,14 +69,13 @@ class SignupActivity : AppCompatActivity() {
                             Log.v(email,password)
                             Log.v(name,phone)
                             Log.v(question, answer)
-                            signupInfo.copy(email,password,name, phone, question, answer)
-                            //signupInfo.copy(email, password, name, phone, question, answer)
-                            Log.v(signupInfo.toString(),"제발")
+                            //signupInfo.copy(email,password,name, phone, question, answer)
                             postSignupResponse(signupInfo)
                         }
                     }
                 } else {
                     btn_signup_next.setText("완료")
+                    btn_signup_next.setTextColor(Color.parseColor("#0057ff"))
                     var intent = Intent(this, FirstLoginActivity::class.java)
                     startActivity(intent)
                 }
@@ -132,5 +131,4 @@ class SignupActivity : AppCompatActivity() {
         val postSignupResponse = ApplicationController.networkServiceUser.postSignupResponse(ps)
         postSignupResponse.safeEnqueue(fail, temp)
     }
-
 }

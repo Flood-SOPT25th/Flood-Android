@@ -9,6 +9,7 @@ import com.flood_android.ui.firstlogin.post.*
 import com.flood_android.ui.mypage.data.GetMyPageMainResponse
 import com.flood_android.ui.signup.data.PostSignupRequest
 import com.flood_android.ui.signup.data.PostSignupResponse
+import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
@@ -66,15 +67,16 @@ interface NetworkServiceUser {
     ): Call<PostSignInOrgResponse>
 
     /**
-     * 조직가입 후 개인 프로필 설정
+     * 조직가입 후 개인 프로필 설정 //TODO 확인
      */
-    @PUT("/auth/profile")
-    fun putProfileSetting(
+    @POST("/auth/profile")
+    fun postProfileSetting(
         @Header("Context-Type") context_type: String,
         @Header("Authorization") authorization: String,
-        @Part("image") image: RequestBody,
-        @Part("profileName") profile_name: String
-    ): Call<PutProfileSetResponse>
+        @Part("image") image: MultipartBody.Part?,
+        @Part("profileName") profile_name: RequestBody,
+        @Part("rank") profile_rank : RequestBody
+    ): Call<PostProfileSetResponse>
 
 
     /**
