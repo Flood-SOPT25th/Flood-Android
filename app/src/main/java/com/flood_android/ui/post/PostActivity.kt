@@ -100,29 +100,37 @@ class PostActivity : AppCompatActivity() {
      */
     private fun setBtnClickListner() {
         // 닫기 버튼
-        iv_post_close.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
-        }
-        // 카테고리 변경 버튼
-        iv_post_add_category.setOnClickListener {
-            categoryDialog.show(supportFragmentManager, "category dialog")
-            GlobalData.categoryDialogFalg = "0"
-        }
-        // 변경된 카테고리 버튼
-        tv_post_selected_category.setOnClickListener {
-            categoryDialog.show(supportFragmentManager, "category dialog")
-            GlobalData.categoryDialogFalg = "0"
-        }
-        // 사진 앨범 버튼
-        iv_post_image_add.setOnClickListener {
-            try {
-                // 접근 권한 허용 여부
-                getPermission()
-                setImageRecyclerView()
-            } catch (e: Exception) {
-                Log.e("사진앨범", "문제가 있습니다")
+        iv_post_close.setOnClickListener(object : OnSingleClickListener() {
+            override fun onSingleClick(v: View) {
+                startActivity(Intent(this@PostActivity, MainActivity::class.java))
             }
-        }
+        })
+        // 카테고리 변경 버튼
+        iv_post_add_category.setOnClickListener(object : OnSingleClickListener() {
+            override fun onSingleClick(v: View) {
+                categoryDialog.show(supportFragmentManager, "category dialog")
+                GlobalData.categoryDialogFalg = "0"
+            }
+        })
+        // 변경된 카테고리 버튼
+        tv_post_selected_category.setOnClickListener(object : OnSingleClickListener() {
+            override fun onSingleClick(v: View) {
+                categoryDialog.show(supportFragmentManager, "category dialog")
+                GlobalData.categoryDialogFalg = "0"
+            }
+        })
+        // 사진 앨범 버튼
+        iv_post_image_add.setOnClickListener(object : OnSingleClickListener() {
+            override fun onSingleClick(v: View) {
+                try {
+                    // 접근 권한 허용 여부
+                    getPermission()
+                    setImageRecyclerView()
+                } catch (e: Exception) {
+                    Log.e("사진앨범", "문제가 있습니다")
+                }
+            }
+        })
         // 게시물 올리기 버튼
             setPostBtn()
     }
@@ -265,36 +273,38 @@ class PostActivity : AppCompatActivity() {
         edtPostToBlue(edt_post_url)
         edtPostToBlue(edt_post_content)
 
+
         // 게시물 등록 버튼
-        tv_post_post.setOnClickListener {
-            var category = tv_post_selected_category.text
-            Log.e("PostActivity", "게시 버튼 클릭됨")
-            if (websiteUrl.length == 0 && content.length == 0) {
-                Log.e("PostActivity", "url과 content가 없음")
-            } else {
-                Log.e("PostActivity", "url이나 content 둘 중의 하나 있음")
-                if (websiteUrl.length > 0 && category.length == 0) {
-                    Log.e("PostActivity", "url은 있지만, category가 없음")
-                    postSetCategoryDialog.show(supportFragmentManager, "postSetCategoryDialog")
+        tv_post_post.setOnClickListener(object : OnSingleClickListener() {
+            override fun onSingleClick(v: View) {
+                var category = tv_post_selected_category.text
+                Log.e("PostActivity", "게시 버튼 클릭됨")
+                if (websiteUrl.length == 0 && content.length == 0) {
+                    Log.e("PostActivity", "url과 content가 없음")
                 } else {
-                    Log.v("PostActivity", "통신성공")
-                    val post_url =
-                        RequestBody.create(MediaType.parse("text/plain"), websiteUrl)
-                    val post_content =
-                        RequestBody.create(MediaType.parse("text/plain"), content.toString())
-                    val post_category =
-                        RequestBody.create(MediaType.parse("text/plain"), category.toString())
-                    Log.e("url", url.toString())
-                    Log.e("cat", category.toString())
-                    Log.e("con", content.toString())
-                    postPost(
-                        SharedPreferenceController.getAuthorization(this@PostActivity)!!,
-                        images, post_url, post_content, post_category
-                    )
+                    Log.e("PostActivity", "url이나 content 둘 중의 하나 있음")
+                    if (websiteUrl.length > 0 && category.length == 0) {
+                        Log.e("PostActivity", "url은 있지만, category가 없음")
+                        postSetCategoryDialog.show(supportFragmentManager, "postSetCategoryDialog")
+                    } else {
+                        Log.v("PostActivity", "통신성공")
+                        val post_url =
+                            RequestBody.create(MediaType.parse("text/plain"), websiteUrl)
+                        val post_content =
+                            RequestBody.create(MediaType.parse("text/plain"), content.toString())
+                        val post_category =
+                            RequestBody.create(MediaType.parse("text/plain"), category.toString())
+                        Log.e("url", url.toString())
+                        Log.e("cat", category.toString())
+                        Log.e("con", content.toString())
+                        postPost(
+                            SharedPreferenceController.getAuthorization(this@PostActivity)!!,
+                            images, post_url, post_content, post_category
+                        )
+                    }
                 }
             }
-        }
-
+        })
     }
 
     /**

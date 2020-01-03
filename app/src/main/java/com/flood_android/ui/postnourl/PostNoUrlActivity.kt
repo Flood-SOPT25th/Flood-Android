@@ -241,7 +241,8 @@ class PostNoUrlActivity : AppCompatActivity() {
 
         // 게시물 등록 버튼
         tv_post_no_url_post.setOnClickListener {
-            var category = tv_post_no_url_select_category.text
+
+            var category = tv_post_no_url_select_category.text.split("#")[1]
             Log.e("PostNoUrlActivity", "게시 버튼 클릭됨")
             if (content.length == 0) {
                 Log.e("PostNoUrlActivity", "content가 없음")
@@ -259,7 +260,7 @@ class PostNoUrlActivity : AppCompatActivity() {
                         RequestBody.create(MediaType.parse("text/plain"), category.toString())
                     postPost(
                         SharedPreferenceController.getAuthorization(this@PostNoUrlActivity)!!,
-                        images, post_url, post_content, post_category
+                        images, post_url, post_category, post_content
                     )
                 }
             }

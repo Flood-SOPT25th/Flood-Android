@@ -52,7 +52,7 @@ class CompanyRVAdapter(
         holder.companyName.text = dataList[position].name.trim()
         Log.v("postygyg", dataList[position].category.toString())
 
-        holder.category1.text = dataList[position].category[1]
+        holder.category1.text = dataList[position].category[1].trim()
         holder.category2.text = dataList[position].category[2].trim()
         //holder.category3.text = dataList[position].category[3].trim()
 
@@ -63,7 +63,6 @@ class CompanyRVAdapter(
     }
 
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val companyContainer: ConstraintLayout = itemView.findViewById(R.id.cl_company)
         val companyLogo: ImageView = itemView.findViewById(R.id.iv_rv_item_company_logo)
         val companyImage: ImageView = itemView.findViewById(R.id.iv_rv_item_company_img)
         val companyName: TextView = itemView.findViewById(R.id.tv_rv_item_company_name)
