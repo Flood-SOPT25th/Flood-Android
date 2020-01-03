@@ -101,6 +101,8 @@ interface NetworkServiceFeed {
      */
     @GET("/post/me")
     fun getMyPostResponse(
-        @Header("Authorization") authorization: String
+        @Header("Authorization") authorization: String,
+        @Query("page") page : Int,
+        @Query("limit") limit : Int
     ): Call<GetAllFeedResponse>
 }
