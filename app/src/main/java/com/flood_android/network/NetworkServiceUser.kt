@@ -10,6 +10,7 @@ import com.flood_android.ui.firstlogin.post.*
 import com.flood_android.ui.myflip.GetMyFlipDetailResponse
 import com.flood_android.ui.mypage.data.GetMyPageUserResponse
 import com.flood_android.ui.myprofile.get.GetMyProfileEditResponse
+import com.flood_android.ui.myprofile.post.PostMyProfileEditResponse
 import com.flood_android.ui.signup.data.PostSignupRequest
 import com.flood_android.ui.signup.data.PostSignupResponse
 import okhttp3.MultipartBody
@@ -108,4 +109,17 @@ interface NetworkServiceUser {
         @Header("Authorization") authorization: String,
         @Query("category") flip: String
     ): Call<GetMyFlipDetailResponse>
+
+    /**
+     * 프로필 설정 POST
+     */
+    @Multipart
+    @POST("/mypage/setting")
+    fun postMyProfileEditResponse(
+        @Header("Authorization") token: String,
+        @Part image: MultipartBody.Part?,
+        @Part("name") name: RequestBody,
+        @Part("rank") rank: RequestBody,
+        @Part("phone") phone: RequestBody
+    ): Call<PostMyProfileEditResponse>
 }

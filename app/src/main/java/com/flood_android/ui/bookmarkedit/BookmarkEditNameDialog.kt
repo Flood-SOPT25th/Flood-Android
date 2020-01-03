@@ -38,7 +38,7 @@ class BookmarkEditNameDialog : DialogFragment() {
             dismiss()
         }
         btn_bookmark_name_dialog_ok.setOnClickListener {
-            if (edt_bookmark_name_dialog.text.toString() == ""){
+            if (edt_bookmark_name_dialog.text.length == 0){
                 toast("카테고리 명이 입력되지 않았습니다")
             } else{
                 GlobalData.updateFlipName = edt_bookmark_name_dialog.text.toString()

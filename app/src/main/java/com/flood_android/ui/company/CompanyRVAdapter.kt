@@ -49,12 +49,24 @@ class CompanyRVAdapter(
             .apply(options)
             .into(holder.companyLogo)
 
-        holder.companyName.text = dataList[position].name.trim()
-        Log.v("postygyg", dataList[position].category.toString())
+        holder.companyName.text = dataList[position].name
+        Log.v("청하청하", dataList[position].name)
 
-        holder.category1.text = dataList[position].category[1].trim()
-        holder.category2.text = dataList[position].category[2].trim()
-        //holder.category3.text = dataList[position].category[3].trim()
+        if (dataList[position].category.size == 2){
+            holder.category1.text = dataList[position].category[1].trim()
+            holder.category2.visibility = View.GONE
+            holder.category3.visibility = View.GONE
+        }
+        else if (dataList[position].category.size == 3){
+            holder.category1.text = dataList[position].category[1].trim()
+            holder.category2.text = dataList[position].category[2].trim()
+            holder.category3.visibility = View.GONE
+        }
+        else if (dataList[position].category.size > 3){
+            holder.category1.text = dataList[position].category[1].trim()
+            holder.category2.text = dataList[position].category[2].trim()
+            holder.category3.text = dataList[position].category[3].trim()
+        }
 
         holder.companyImage.setOnClickListener {
             (ctx as MainActivity).detailset(dataList[position].groupCode)

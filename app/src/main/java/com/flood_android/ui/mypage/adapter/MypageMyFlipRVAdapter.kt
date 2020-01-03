@@ -32,7 +32,7 @@ class MypageMyFlipRVAdapter(private val ctx: Context, var dataList: ArrayList<Bo
         dataList[position].let{item ->
             Glide.with(ctx)
                 .load(item.thumb)
-                .transform(CenterCrop(), RoundedCorners(40))
+                .transform(CenterCrop(), RoundedCorners(30))
                 .into(holder.ivThumb)
             holder.flipCategory.text = item.categoryName
             holder.flipCnt.text = "${item.count} flips"

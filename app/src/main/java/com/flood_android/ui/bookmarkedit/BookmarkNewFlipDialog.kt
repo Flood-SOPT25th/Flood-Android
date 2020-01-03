@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.flood_android.R
 import com.flood_android.util.GlobalData
+import com.flood_android.util.toast
 import kotlinx.android.synthetic.main.dialog_bookmark_edit_name.*
 
 class BookmarkNewFlipDialog : DialogFragment() {
@@ -31,13 +32,14 @@ class BookmarkNewFlipDialog : DialogFragment() {
             dismiss()
         }
         btn_bookmark_edit_name_dialog_ok.setOnClickListener {
-            // 이름 값을 넘겨줌.
-
-            val edtBookmarkName = edt_bookmark_edit_name_dialog.text.toString()
-            (context as BookmarkEditActivity).addItem(edtBookmarkName)
-            GlobalData.addFlip.add(edtBookmarkName)
-            dismiss()
-
+            if (edt_bookmark_edit_name_dialog.text.length == 0){
+                toast("카테고리 명이 입력되지 않았습니다")
+            } else{
+                val edtBookmarkName = edt_bookmark_edit_name_dialog.text.toString()
+                (context as BookmarkEditActivity).addItem(edtBookmarkName)
+                GlobalData.addFlip.add(edtBookmarkName)
+                dismiss()
+            }
         }
     }
 
