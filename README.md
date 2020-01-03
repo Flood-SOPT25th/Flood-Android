@@ -162,6 +162,19 @@ fun Context.toast(msg: String) {
     Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
 }
 
+toast 확장함수 사용예
+if ("text/plain".equals(type)) {
+                websiteUrl = intent.getStringExtra(Intent.EXTRA_TEXT)
+                if (SharedPreferenceController.getAuthorization(this@LoginActivity).toString() == ""){
+                    toast("로그인을 해주세요")
+                }
+                else {
+                    val intent = Intent(this@LoginActivity, PostActivity::class.java)
+                    intent.putExtra("websiteUrl", websiteUrl)
+                    startActivity(intent)
+                    finish()
+                }
+            }
 
 
 ## Constraint Layout 사용 예
