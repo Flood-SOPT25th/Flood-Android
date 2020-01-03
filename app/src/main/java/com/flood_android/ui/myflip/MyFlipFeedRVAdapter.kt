@@ -1,4 +1,4 @@
-package com.flood_android.ui.companydetail
+package com.flood_android.ui.myflip
 
 import android.content.Context
 import android.content.Intent
@@ -28,12 +28,12 @@ import com.flood_android.ui.main.MainActivity
 import com.flood_android.util.OnSingleClickListener
 import com.flood_android.util.SharedPreferenceController
 
-class CompanyFeedRVAdapter(private val ctx: Context, var dataList: ArrayList<FeedData>) :
-    RecyclerView.Adapter<CompanyFeedRVAdapter.Holder>() {
+class MyFlipFeedRVAdapter(private val ctx: Context, var dataList: ArrayList<FeedData>) :
+    RecyclerView.Adapter<MyFlipFeedRVAdapter.Holder>() {
 
     var token: String = SharedPreferenceController.getAuthorization(ctx)!!
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CompanyFeedRVAdapter.Holder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view: View =
             LayoutInflater.from(ctx).inflate(R.layout.rv_item_feed_flood_today, parent, false)
         return Holder(view)
@@ -51,7 +51,7 @@ class CompanyFeedRVAdapter(private val ctx: Context, var dataList: ArrayList<Fee
 
             holder.userName.text = item.user_name
             holder.category.text = item.category
-            holder.time.text = (ctx as CompanyDetailActivity).calculateTime(item.time)
+            //holder.time.text = (ctx as CompanyDetailActivity).calculateTime(item.time)
 
             if (item.contents == "") {
                 setGone(holder.contents)
