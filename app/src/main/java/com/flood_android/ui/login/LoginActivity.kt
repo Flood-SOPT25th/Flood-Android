@@ -13,6 +13,7 @@ import com.c.loginflood.PostLoginRequest
 import com.c.loginflood.PostLoginResponse
 import com.flood_android.R
 import com.flood_android.network.ApplicationController
+import com.flood_android.ui.firstlogin.FirstLoginActivity
 import com.flood_android.ui.main.MainActivity
 import com.flood_android.ui.post.PostActivity
 import com.flood_android.util.GlobalData
@@ -90,6 +91,13 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+        if (it.message == "로그인 완료. 그룹코드 없음"){
+            SharedPreferenceController.clearSPC(this@LoginActivity)
+            SharedPreferenceController.setAuthorization(this@LoginActivity, it.data?.token)
+            val intent = Intent(this@LoginActivity, FirstLoginActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
         if (it.message == "비밀번호가 다릅니다."){
             loginAlertDialog.show(supportFragmentManager, "login Alert Dialog")
             GlobalData.loginDialogMessage = "비밀번호가 일치하지 않습니다"
@@ -98,6 +106,8 @@ class LoginActivity : AppCompatActivity() {
             loginAlertDialog.show(supportFragmentManager, "login Alert Dialog")
             GlobalData.loginDialogMessage = "존재하지 않는 계정 입니다"
         }
+
+
 
 
     }
