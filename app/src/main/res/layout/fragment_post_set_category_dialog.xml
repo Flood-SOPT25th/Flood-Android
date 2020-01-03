@@ -29,7 +29,9 @@
                 android:layout_height="wrap_content"
                 android:lineHeight="27sp"
                 android:text="카테고리를 선택해 주세요"
-                android:textColor="#282828"
+                android:fontFamily="@font/notosanscjkkrmedium"
+                android:includeFontPadding="false"
+                android:textColor="@color/colorBlack28"
                 android:textSize="18sp" />
 
             <ImageView
@@ -44,10 +46,12 @@
             android:layout_width="277dp"
             android:layout_height="47dp"
             android:text="알겠습니다"
-            android:textColor="#ffffff"
+            android:textColor="@android:color/white"
             android:textSize="14sp"
             android:gravity="center"
             android:background="@drawable/rect_blue_24dp"
+            android:fontFamily="@font/notosanscjkkrbold"
+            android:includeFontPadding="false"
             android:layout_marginHorizontal="18dp"
             android:layout_marginBottom="19dp"
             app:layout_constraintBottom_toBottomOf="parent"

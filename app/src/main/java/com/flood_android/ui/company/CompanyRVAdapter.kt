@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.flood_android.R
@@ -36,17 +37,24 @@ class CompanyRVAdapter(
     override fun onBindViewHolder(holder: Holder, position: Int) {
         var options: RequestOptions = RequestOptions().transform(CenterCrop(), RoundedCorners(50))
 
-
         Log.v("postygyg", "postygyg")
         Glide.with(ctx)
             .load(dataList[position].groupImage)
             .apply(options)
             .into(holder.companyImage)
+
+        Glide.with(ctx)
+            .load(dataList[position].groupIcon)
+            .transform(CenterCrop(), CircleCrop())
+            .apply(options)
+            .into(holder.companyLogo)
+
         holder.companyName.text = dataList[position].name.trim()
         Log.v("postygyg", dataList[position].category.toString())
+
         holder.category1.text = dataList[position].category[1]
         holder.category2.text = dataList[position].category[2].trim()
-        holder.category3.text = dataList[position].category[3].trim()
+        //holder.category3.text = dataList[position].category[3].trim()
 
         holder.companyImage.setOnClickListener {
             (ctx as MainActivity).detailset(dataList[position].groupCode)
@@ -56,6 +64,7 @@ class CompanyRVAdapter(
 
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val companyContainer: ConstraintLayout = itemView.findViewById(R.id.cl_company)
+        val companyLogo: ImageView = itemView.findViewById(R.id.iv_rv_item_company_logo)
         val companyImage: ImageView = itemView.findViewById(R.id.iv_rv_item_company_img)
         val companyName: TextView = itemView.findViewById(R.id.tv_rv_item_company_name)
         val category1: TextView = itemView.findViewById(R.id.tv_rv_item_company_category1)

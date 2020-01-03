@@ -9,6 +9,8 @@
         android:layout_height="wrap_content"
         android:text="IT"
         android:textColor="@color/colorGrayD1"
+        android:fontFamily="@font/notosanscjkkrregular"
+        android:includeFontPadding="false"
         android:textSize="18sp"
         android:paddingRight="8dp"
         android:lineHeight="27sp"

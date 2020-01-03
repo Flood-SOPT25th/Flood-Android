@@ -1,7 +1,7 @@
 package com.c.loginflood
 
 data class PostLoginResponse(
-    val `data`: PostLoginData,
+    val data: PostLoginData,
     val message: String
 )
 

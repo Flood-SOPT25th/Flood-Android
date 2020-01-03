@@ -3,7 +3,6 @@ package com.flood_android.ui.splash
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
@@ -18,6 +17,7 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
         super.onCreate(savedInstanceState)
+        setTheme(android.R.style.Theme_NoTitleBar_Fullscreen)
         setContentView(R.layout.activity_splash)
 
         Glide.with(this).load(R.drawable.and_splash).into(GifDrawableImageViewTarget(splash_image,1))

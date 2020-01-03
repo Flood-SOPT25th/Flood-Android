@@ -8,12 +8,12 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.widget.EditText
-import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.c.loginflood.PostLoginRequest
 import com.c.loginflood.PostLoginResponse
 import com.flood_android.R
 import com.flood_android.network.ApplicationController
+import com.flood_android.ui.firstlogin.FirstLoginActivity
 import com.flood_android.ui.main.MainActivity
 import com.flood_android.ui.post.PostActivity
 import com.flood_android.util.GlobalData
@@ -36,14 +36,9 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        setTheme(android.R.style.Theme_NoTitleBar_Fullscreen)
 
-        val edtLoginId: EditText = findViewById(R.id.edt_login_id)
-        val edtLoginPw: EditText = findViewById(R.id.edt_login_pw)
-        val tvFind: TextView = findViewById(R.id.tv_login_find_idpw)
-        val tvLogin: TextView = findViewById(R.id.tv_login_login)
         val clLogin: ConstraintLayout = findViewById(R.id.cl_login_login)
-        val clSignup: ConstraintLayout = findViewById(R.id.cl_login_signup)
-
 
         edtIdToBlue(edt_login_id)
         edtPostToBlue(edt_login_pw)
@@ -56,10 +51,9 @@ class LoginActivity : AppCompatActivity() {
             if (isValid(user_email, user_pw)) {
                 postLogin(user_email, user_pw)
             }
-            /*val intent = Intent(this@MainActivity, MainActivity::class.java)
-            startActivity(intent)*/
         }
 
+        // 웹에서 공유하기 누른 경우
         connectWeb()
 
     }
@@ -72,9 +66,8 @@ class LoginActivity : AppCompatActivity() {
         if (Intent.ACTION_SEND.equals(action) && type != null) {
             if ("text/plain".equals(type)) {
                 websiteUrl = intent.getStringExtra(Intent.EXTRA_TEXT)
-                //edt_post_url.setText(websiteUrl)
                 if (SharedPreferenceController.getAuthorization(this@LoginActivity).toString() == ""){
-                    toast("로그인을 해주세요~^~^")
+                    toast("로그인을 해주세요")
                 }
                 else {
                     val intent = Intent(this@LoginActivity, PostActivity::class.java)
@@ -87,19 +80,22 @@ class LoginActivity : AppCompatActivity() {
     }
 
     var fail: (Throwable) -> Unit = {
-        Log.v("LoginActivity", "fail")
         Log.v("LoginActivity", it.message.toString())
-        Log.v("LoginActivity", it.toString())
     }
     var temp: (PostLoginResponse) -> Unit = {
-        Log.v("LoginActivity", "temp")
         Log.v("LoginActivity", it.message)
         if (it.message == "로그인 완료"){
             SharedPreferenceController.clearSPC(this@LoginActivity)
             SharedPreferenceController.setAuthorization(this@LoginActivity, it.data?.token)
-            Log.v("청하", it.data?.token.toString())
             val intent = Intent(this@LoginActivity, MainActivity::class.java)
             startActivity(intent)
+            finish()
+        }
+        if (it.message == "그룹코드 없음."){
+            SharedPreferenceController.clearSPC(this@LoginActivity)
+            SharedPreferenceController.setAuthorization(this@LoginActivity, it.data?.token)
+            /*val intent = Intent(this@LoginActivity, FirstLoginActivity::class.java)
+            startActivity(intent)*/
             finish()
         }
         if (it.message == "비밀번호가 다릅니다."){
@@ -110,6 +106,8 @@ class LoginActivity : AppCompatActivity() {
             loginAlertDialog.show(supportFragmentManager, "login Alert Dialog")
             GlobalData.loginDialogMessage = "존재하지 않는 계정 입니다"
         }
+
+
 
 
     }

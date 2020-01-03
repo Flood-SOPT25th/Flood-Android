@@ -1,9 +1,13 @@
 package com.flood_android.ui.mypage.data
 
 
-data class GetMyPageMainResponse (
+data class GetMyPageUserResponse (
     val message : String,
-    val data : UserInfo
+    val data : MypageUserData
+)
+
+data class MypageUserData(
+        val userInfo : UserInfo
 )
 
 data class UserInfo(

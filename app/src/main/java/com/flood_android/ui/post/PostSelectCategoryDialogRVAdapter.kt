@@ -18,7 +18,6 @@ import kotlinx.android.synthetic.main.fragment_post_category_dialog.*
 class PostSelectCategoryDialogRVAdapter(var ctx: Context, var data: List<String>, var flag: List<Boolean>) :
     RecyclerView.Adapter<PostSelectCategoryDialogRVAdapter.Holder>() {
 
-    // 세은세은
     interface ItemClick
     {
         fun onClick(view: View, position: Int)
@@ -26,7 +25,6 @@ class PostSelectCategoryDialogRVAdapter(var ctx: Context, var data: List<String>
     var itemClick: ItemClick? = null
 
     var name: String? = null
-    //
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -39,13 +37,12 @@ class PostSelectCategoryDialogRVAdapter(var ctx: Context, var data: List<String>
     }
 
     override fun getItemCount(): Int = data.size
-    //세은세은
+
     fun changeflagData(newFlag: List<Boolean>) {
         flag = newFlag
     }
     override fun onBindViewHolder(holder: Holder, position: Int) {
 
-        // 세은세은
         if(itemClick != null)
         {
             holder.itemView?.setOnClickListener { v ->
@@ -53,10 +50,8 @@ class PostSelectCategoryDialogRVAdapter(var ctx: Context, var data: List<String>
                 selectedCategory = holder.categoryName.text.toString()
             }
         }
-        //
         holder.categoryName.text = data[position]
 
-        //세으으은
         if(flag[position]) {
             holder.categoryName.setTextColor(Color.parseColor("#282828"))
         }
@@ -64,14 +59,6 @@ class PostSelectCategoryDialogRVAdapter(var ctx: Context, var data: List<String>
             holder.categoryName.setTextColor(Color.parseColor("#d1d1d1"))
         }
 
-       /* holder.categoryName.setOnClickListener {
-            selectedCategory = holder.categoryName.text.toString()
-            Log.e("청하", position.toString())
-            Log.e("청하", selectedCategory)
-
-            holder.categoryName.setTextColor(Color.parseColor("#282828"))
-
-        }*/
     }
 
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {

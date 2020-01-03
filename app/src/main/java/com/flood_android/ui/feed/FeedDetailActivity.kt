@@ -14,6 +14,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
+import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -31,10 +32,12 @@ import com.flood_android.util.OnSingleClickListener
 import com.flood_android.util.SharedPreferenceController
 import com.flood_android.util.safeEnqueue
 import kotlinx.android.synthetic.main.activity_feed_detail.*
+import kotlinx.android.synthetic.main.fragment_feed_flood.*
 
 
 class FeedDetailActivity : AppCompatActivity() {
 
+    var feed_idx : String = ""
     var commentListSize : Int = -1
 
     lateinit var commentDataList : ArrayList<CommentsData>
@@ -58,20 +61,21 @@ class FeedDetailActivity : AppCompatActivity() {
 
     private fun initView() {
         val feedIdx: String = intent.getStringExtra("feed_id")
+        feed_idx = feedIdx
         getFeedDetailResponse(feedIdx)
         setOnClickListener(feedIdx)
         activateComment()
     }
 
     /**
-     * 게시물 조회 서버 통신
+     * 게시물 조회 서버 통신 성공 함수
      */
     private val onGetSuccess: (GetFeedDetailResponse) -> Unit = { response ->
 
         response.data.pidArr.let {
             tv_feed_detail_flips_cnt.text = it.bookmark_cnt.toString()
             tv_feed_detail_comments_cnt.text = it.comment_cnt.toString()
-            tv_feed_detail_time.text = it.time
+            tv_feed_detail_time.text = calculateTime(it.time)
             tv_feed_detail_category.text = it.category
             tv_feed_detail_user_contents.text = it.post_content
 
@@ -192,6 +196,9 @@ class FeedDetailActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * 게시물 상세 서버 통신
+     */
     private fun getFeedDetailResponse(feed_idx: String) {
         var token = SharedPreferenceController.getAuthorization(this@FeedDetailActivity)!!
         networkServiceFeed.getFeedDetailResponse(token, feed_idx).safeEnqueue({}, onGetSuccess)
@@ -205,6 +212,7 @@ class FeedDetailActivity : AppCompatActivity() {
                 if (btn_feed_detail_upload_comment.isSelected){
                     postComment(feed_idx, edt_feed_detail_comment_upload.text.toString())
                     edt_feed_detail_comment_upload.setText("")
+                    nsv_feed_detail.fullScroll(NestedScrollView.FOCUS_DOWN)
                 }
                 else
                     Toast.makeText(
@@ -277,7 +285,7 @@ class FeedDetailActivity : AppCompatActivity() {
     }
 
     /**
-     * 포토줌액티비티 열기
+     * 포토줌 액티비티 열기
      */
     private fun openPhotoZoomActivity() {
         val intent = Intent(this@FeedDetailActivity, PhotoZoomActivity::class.java)
@@ -299,6 +307,7 @@ class FeedDetailActivity : AppCompatActivity() {
             layoutManager =
                 LinearLayoutManager(this@FeedDetailActivity, LinearLayoutManager.VERTICAL, false)
         }
+        feedDetailCommentRVAdapter.notifyDataSetChanged()
     }
 
     /**
@@ -328,10 +337,7 @@ class FeedDetailActivity : AppCompatActivity() {
      */
     fun recomment(username: String) {
         var tagUser: String = ("@").plus(username).plus(" ")
-        edt_feed_detail_comment_upload.setTypeface(null, Typeface.BOLD)    //tagUser만 진하게 하려고
-        //edt_feed_detail_comment_upload.typeface = applicationContext.resources.getFont(R.font.notosanscjkkrbold)
         edt_feed_detail_comment_upload.setText(tagUser)
-        edt_feed_detail_comment_upload.setTypeface(null, Typeface.NORMAL)
         edt_feed_detail_comment_upload.setSelection(edt_feed_detail_comment_upload.length())
 
         // 키보드 올리기
@@ -362,10 +368,25 @@ class FeedDetailActivity : AppCompatActivity() {
               val imm : InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE)  as InputMethodManager
               imm.hideSoftInputFromWindow(edt_feed_detail_comment_upload.windowToken, 0)
 
+              networkServiceFeed.getFeedDetailResponse(SharedPreferenceController.getAuthorization(this@FeedDetailActivity)!!, feed_idx).safeEnqueue(
+                  {},
+                  {
+                      feedDetailCommentRVAdapter.dataList = it.data.pidArr.comments!!
+                      feedDetailCommentRVAdapter.notifyDataSetChanged()
+                      nsv_feed_detail.fullScroll(NestedScrollView.FOCUS_DOWN)
+                  }
+              )
+              //feedDetailCommentRVAdapter.notifyDataSetChanged()
+
               GlobalData.commentId = null
               GlobalData.recommentFlag = false
           }
         )
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getFeedDetailResponse(feed_idx)
     }
 
     /**
@@ -376,11 +397,25 @@ class FeedDetailActivity : AppCompatActivity() {
         if (ivFlips.isSelected)      //북마크 취소
             ivFlips.isSelected = false
         else {   // 북마크하기
-            //(applicationContext as MainActivity).makeFlipDialog(ivFlips)
             val feedFlipsSaveDialog = FeedFlipsSaveDialog(feed_idx, iv_feed_detail_flips)
             GlobalData.bottomSheetDialogFragment = feedFlipsSaveDialog
             feedFlipsSaveDialog.show(this@FeedDetailActivity.supportFragmentManager, "")
         }
+    }
+
+    /**
+     *  날짜 계산
+     */
+    fun calculateTime(postTimeDate: String): String {
+
+        var dateList: List<String> = postTimeDate.split("T")
+        var date: String = dateList[0]
+        var timeList: List<String> = dateList[1].split(".")
+        var time: String = timeList[0]
+
+        var formattedServerTime: String = date.plus(" ").plus(time)
+
+        return formattedServerTime
     }
 
     override fun onBackPressed() {

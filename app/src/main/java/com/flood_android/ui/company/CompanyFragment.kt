@@ -42,7 +42,6 @@ class CompanyFragment : Fragment() {
         getCompanyResponse.safeEnqueue {
             Log.v("postygyg", "postygyg1234")
             if (it.message == "그룹 리스트") {
-                Log.v("postygyg", it.message.toString())
                 Log.v("postygyg", "postygyg12342344")
                 setRecyclerView(it.data.groupArr)
             }
@@ -52,6 +51,7 @@ class CompanyFragment : Fragment() {
 
     private fun setRecyclerView(dataList: List<GroupArr>) {
         Log.v("postygyg", "setRecyclerview")
+
         companyRVAdapter = CompanyRVAdapter(context!!, dataList)
         rv_company_list.adapter = companyRVAdapter
         rv_company_list.layoutManager = LinearLayoutManager(context!!)

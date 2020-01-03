@@ -18,19 +18,26 @@ class AlarmRVViewHolder(view : View) : RecyclerView.ViewHolder(view){
     private val ivAlarmRecent : ImageView = view.findViewById(R.id.iv_rv_item_alarm_recent)
 
     fun bind(data : AlarmRvItem){
-        Glide.with(ivAlarmUser.context).load(data.profile_id).into(ivAlarmUser)
+       // Glide.with(ivAlarmUser.context).load(data.profile_id).into(ivAlarmUser)
+
+        ivAlarmUser.setImageResource(data.profile_id)
         tvAlarmUserName.text = data.name
         tvAlarmTime.text = data.time
         tvAlarmComment.text = ": "+data?.comment
 
         when(data.action){
-            0 -> tvAlarmAction.setText("님이 게시물에 댓글을 남겼습니다.")
+            0 -> {
+                tvAlarmAction.setText("님이 게시물에 댓글을 남겼습니다.")
+            }
             1 -> tvAlarmAction.setText("님이 회원님의 포스트를 좋아합니다.")
             2 -> tvAlarmAction.setText("님이 새로운 멤버로 들어왔습니다.")
             3 -> tvAlarmAction.setText("님이 게시물에 회원님을 태그했습니다.")
         }
 
-        tvAlarmComment?.isVisible = true
+        if (data.comment != null){
+            tvAlarmComment?.isVisible = true
+            tvAlarmComment.text  = ": ${data.comment}"
+        }
         if(tvAlarmTime.text == "방금 전") ivAlarmRecent.isVisible = true
 
         /*if(tvAlarmTime.text == "방금 전")

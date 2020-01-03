@@ -85,7 +85,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/nestedScrollView3"
+        android:id="@+id/nsv_feed_detail"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout5"
@@ -527,19 +527,30 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_feed_detail_recomment_flag"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="43dp"
-        android:background="#60000000"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/rect_white_gray_18dp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/nestedScrollView3"
+        app:layout_constraintBottom_toBottomOf="@+id/nsv_feed_detail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView19"
+            app:layout_constraintStart_toEndOf="@+id/textView19"
+            app:layout_constraintTop_toTopOf="@+id/textView19"
+            app:srcCompat="@drawable/pencil_recomment" />
 
         <TextView
             android:id="@+id/tv_feed_detail_recomment_flag_user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
+            android:layout_marginStart="28dp"
             android:fontFamily="@font/notosanscjkkrbold"
             android:includeFontPadding="false"
             android:text="유뫄뫄"
@@ -553,7 +564,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/notosanscjkkrmedium"
             android:includeFontPadding="false"
-            android:text="님에게 답글 남기는 중"
+            android:text="님에게 답글 작성 중입니다"
             app:layout_constraintBottom_toBottomOf="@+id/tv_feed_detail_recomment_flag_user_name"
             app:layout_constraintStart_toEndOf="@+id/tv_feed_detail_recomment_flag_user_name" />
 
@@ -561,8 +572,10 @@
             android:id="@+id/btn_feed_detail_recomment_flag_x"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView19"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
@@ -571,13 +584,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="15dp"
-                android:layout_marginEnd="15dp"
+                android:layout_marginEnd="6dp"
                 android:layout_marginBottom="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_left_arrow" />
+                app:srcCompat="@drawable/ic_x_black_small" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

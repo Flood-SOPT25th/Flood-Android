@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.myprofile.MyProfileEditActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_constraint1"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_myprofile_edit_back"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginVertical="14dp"
+            android:src="@drawable/ic_left_arrow"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/txt_profile_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:fontFamily="@font/notosanscjkkrmedium"
+            android:includeFontPadding="false"
+            android:text="프로필 설정"
+            android:textSize="18sp"
+            android:textColor="@color/colorBlack28"/>
+
+        <TextView
+            android:id="@+id/tv_myprofile_edit_done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
+            android:text="완료"
+            android:textColor="@color/colorMainBlue"
+            android:textSize="18sp"
+            android:fontFamily="@font/notosanscjkkrmedium"
+            android:includeFontPadding="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <View
+            android:id="@+id/line2"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="29dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_profile_setting"
+            android:background="#E9E6E6"/>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_constraint2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layout_constraint1">
+
+        <ImageView
+            android:id="@+id/iv_myprofile_edit_image"
+            android:layout_width="67dp"
+            android:layout_height="67dp"
+            android:src="@drawable/img_jeongjae"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="24dp"/>
+        <TextView
+            android:id="@+id/tv_myprofile_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="편집"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:fontFamily="@font/notosanscjkkrbold"
+            app:layout_constraintTop_toTopOf="@+id/iv_myprofile_edit_image"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_myprofile_edit_image"
+            app:layout_constraintStart_toStartOf="@+id/iv_myprofile_edit_image"
+            app:layout_constraintEnd_toEndOf="@+id/iv_myprofile_edit_image"/>
+
+        <TextView
+            android:id="@+id/txt_profile_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="21dp"
+            android:text="계정정보"
+            android:fontFamily="@font/notosanscjkkrbold"
+            android:includeFontPadding="false"
+            android:textSize="22sp"
+            android:textColor="@color/colorBlack28"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_myprofile_edit_image" />
+
+        <TextView
+            android:id="@+id/txt_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="이름"
+            android:layout_marginTop="21dp"
+            android:layout_marginStart="34dp"
+            android:layout_marginLeft="34dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_profile_info"
+            android:textSize="12sp"
+            android:fontFamily="@font/notosanscjkkrregular"
+            android:includeFontPadding="false"
+            android:textColor="@color/colorGray70"
+            />
+
+        <TextView
+            android:id="@+id/tv_myprofile_edit_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="34dp"
+            android:text="김정재"
+            android:background="@android:color/transparent"
+            android:textSize="14sp"
+            android:textAlignment="viewEnd"
+            android:hint="이름을 입력하세요"
+            android:textColorHint="#ededed"
+            android:fontFamily="@font/notosanscjkkrmedium"
+            android:includeFontPadding="false"
+            android:textColor="@color/colorBlack28"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/txt_name"
+            app:layout_constraintBottom_toBottomOf="@id/txt_name"/>
+
+        <TextView
+            android:id="@+id/txt_position"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="직책"
+            android:layout_marginTop="14dp"
+            android:layout_marginStart="34dp"
+            android:layout_marginLeft="34dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_name"
+            android:textSize="12sp"
+            android:fontFamily="@font/notosanscjkkrregular"
+            android:includeFontPadding="false"
+            android:textColor="@color/colorGray70"
+            />
+        <TextView
+            android:id="@+id/tv_myprofile_edit_position"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="사원"
+            android:layout_marginRight="34dp"
+            android:layout_marginEnd="34dp"
+            android:fontFamily="@font/notosanscjkkrmedium"
+            android:includeFontPadding="false"
+            android:textColor="@color/colorBlack28"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/txt_position"
+            app:layout_constraintBottom_toBottomOf="@id/txt_position"
+            android:textSize="14sp"
+            />
+        <TextView
+            android:id="@+id/txt_group_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="조직명"
+            android:layout_marginTop="14dp"
+            android:layout_marginStart="34dp"
+            android:layout_marginLeft="34dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_position"
+            android:textSize="12sp"
+            android:fontFamily="@font/notosanscjkkrregular"
+            android:includeFontPadding="false"
+            android:textColor="@color/colorGray70"
+            />
+        <TextView
+            android:id="@+id/tv_myprofile_edit_department"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Digital 정책지원 부서"
+            android:layout_marginRight="34dp"
+            android:layout_marginEnd="34dp"
+            android:fontFamily="@font/notosanscjkkrmedium"
+            android:includeFontPadding="false"
+            android:textColor="@color/colorGraya3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/txt_group_name"
+            app:layout_constraintBottom_toBottomOf="@id/txt_group_name"
+            android:textSize="14sp"
+            />
+        <TextView
+            android:id="@+id/txt_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="이메일"
+            android:layout_marginTop="14dp"
+            android:layout_marginStart="34dp"
+            android:layout_marginLeft="34dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_group_name"
+            android:textSize="12sp"
+            android:fontFamily="@font/notosanscjkkrregular"
+            android:includeFontPadding="false"
+            android:textColor="@color/colorGray70"
+            />
+        <TextView
+            android:id="@+id/tv_myprofile_edit_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="rchmas@gmail.com"
+            android:layout_marginRight="34dp"
+            android:layout_marginEnd="34dp"
+            android:fontFamily="@font/notosanscjkkrbold"
+            android:includeFontPadding="false"
+            android:textColor="@color/colorGraya3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/txt_email"
+            app:layout_constraintBottom_toBottomOf="@id/txt_email"
+            android:textSize="14sp"
+            />
+        <TextView
+            android:id="@+id/txt_tel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="전화번호"
+            android:layout_marginTop="14dp"
+            android:layout_marginStart="34dp"
+            android:layout_marginLeft="34dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_email"
+            android:textSize="12sp"
+            android:fontFamily="@font/notosanscjkkrregular"
+            android:includeFontPadding="false"
+            android:textColor="@color/colorGray70"
+            />
+
+        <TextView
+            android:id="@+id/tv_myprofile_edit_tel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+82 10 5737 6333"
+            android:layout_marginRight="34dp"
+            android:layout_marginEnd="34dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/txt_tel"
+            app:layout_constraintBottom_toBottomOf="@id/txt_tel"
+            android:fontFamily="@font/notosanscjkkrbold"
+            android:includeFontPadding="false"
+            android:textColor="@color/colorBlack28"
+            android:textSize="14sp"
+            />
+
+        <TextView
+            android:id="@+id/txt_password_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="비밀번호 설정"
+            android:layout_marginTop="14dp"
+            android:layout_marginStart="34dp"
+            android:layout_marginLeft="34dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_tel"
+            android:textSize="12sp"
+            android:fontFamily="@font/notosanscjkkrregular"
+            android:includeFontPadding="false"
+            android:textColor="@color/colorGray70"
+            />
+
+        <ImageView
+            android:id="@+id/iv_myprofile_edit_password_set"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginEnd="25dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/ic_right_arrow_small"
+            app:layout_constraintTop_toTopOf="@id/txt_password_setting"
+            app:layout_constraintBottom_toBottomOf="@id/txt_password_setting"/>
+
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="29dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_password_setting"
+            android:background="#E9E6E6"/>
+
+
+        <TextView
+            android:id="@+id/txt_service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="29dp"
+            android:text="서비스 관리"
+            android:fontFamily="@font/notosanscjkkrbold"
+            android:includeFontPadding="false"
+            android:textColor="@color/colorBlack28"
+            android:textSize="22sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/line"
+            />
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginRight="25dp"
+            android:layout_marginEnd="25dp"
+            android:src="@drawable/ic_launcher_foreground"
+            app:layout_constraintTop_toTopOf="@id/txt_alarm"
+            app:layout_constraintBottom_toBottomOf="@id/txt_alarm"/>
+
+
+
+        <TextView
+            android:id="@+id/txt_alarm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="알림"
+            android:layout_marginTop="21dp"
+            android:layout_marginStart="34dp"
+            android:layout_marginLeft="34dp"
+            android:fontFamily="@font/notosanscjkkrregular"
+            android:includeFontPadding="false"
+            android:textColor="@color/colorGray70"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_service"
+            android:textSize="12sp"
+            />
+        <ImageView
+            android:id="@+id/iv_myprofile_edit_alarm_set"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginRight="25dp"
+            android:layout_marginEnd="25dp"
+            android:src="@drawable/ic_right_arrow_small"
+            app:layout_constraintTop_toTopOf="@id/txt_alarm"
+            app:layout_constraintBottom_toBottomOf="@id/txt_alarm"/>
+
+        <TextView
+            android:id="@+id/txt_invite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="직원초대"
+            android:textSize="12sp"
+            android:layout_marginTop="14dp"
+            android:layout_marginStart="34dp"
+            android:layout_marginLeft="34dp"
+            android:fontFamily="@font/notosanscjkkrregular"
+            android:includeFontPadding="false"
+            android:textColor="@color/colorGray70"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_alarm"/>
+
+        <ImageView
+            android:id="@+id/iv_myprofile_edit_invite_set"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginRight="25dp"
+            android:layout_marginEnd="25dp"
+            android:src="@drawable/ic_right_arrow_small"
+            app:layout_constraintTop_toTopOf="@id/txt_invite"
+            app:layout_constraintBottom_toBottomOf="@id/txt_invite"/>
+
+        <TextView
+            android:id="@+id/txt_org_set"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="조직 설정"
+            android:textSize="12sp"
+            android:visibility="gone"
+            android:layout_marginTop="14dp"
+            android:layout_marginStart="34dp"
+            android:layout_marginLeft="34dp"
+            android:fontFamily="@font/notosanscjkkrregular"
+            android:includeFontPadding="false"
+            android:textColor="@color/colorGray70"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_invite"/>
+
+        <ImageView
+            android:id="@+id/iv_myprofile_edit_org_set"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginRight="25dp"
+            android:layout_marginEnd="25dp"
+            android:src="@drawable/ic_right_arrow_small"
+            app:layout_constraintTop_toTopOf="@id/txt_org_set"
+            app:layout_constraintBottom_toBottomOf="@id/txt_org_set"/>
+
+        <TextView
+            android:id="@+id/txt_center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="지원센터"
+            android:textSize="12sp"
+            android:layout_marginTop="14dp"
+            android:layout_marginStart="34dp"
+            android:layout_marginLeft="34dp"
+            android:fontFamily="@font/notosanscjkkrregular"
+            android:includeFontPadding="false"
+            android:textColor="@color/colorGray70"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_org_set"/>
+
+        <ImageView
+            android:id="@+id/iv_myprofile_edit_center"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginRight="25dp"
+            android:layout_marginEnd="25dp"
+            android:src="@drawable/ic_right_arrow_small"
+            app:layout_constraintTop_toTopOf="@id/txt_center"
+            app:layout_constraintBottom_toBottomOf="@id/txt_center"/>
+
+        <TextView
+            android:id="@+id/txt_logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="로그아웃"
+            android:textSize="12sp"
+            android:layout_marginTop="14dp"
+            android:layout_marginStart="34dp"
+            android:layout_marginLeft="34dp"
+            android:fontFamily="@font/notosanscjkkrregular"
+            android:includeFontPadding="false"
+            android:textColor="@color/colorGray70"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_center"/>
+
+        <ImageView
+            android:id="@+id/iv_myprofile_edit_logout"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginRight="25dp"
+            android:layout_marginEnd="25dp"
+            android:src="@drawable/ic_right_arrow_small"
+            app:layout_constraintTop_toTopOf="@id/txt_logout"
+            app:layout_constraintBottom_toBottomOf="@id/txt_logout"/>
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

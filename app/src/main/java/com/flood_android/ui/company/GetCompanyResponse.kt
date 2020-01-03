@@ -14,6 +14,7 @@ data class GroupArr(
     val _id: String,
     val category: List<String>,
     val department: String,
+    val groupIcon: String,
     val groupCode: String,
     val groupImage: String,
     val name: String,

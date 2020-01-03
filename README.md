@@ -2,7 +2,13 @@
 
 __SOPT 25기 겨울 앱잼 : 안드로이드__
 
-<br/><br/>
+정보를 공유하는 가장 쉬운 방법<br/>
+기업에서 어떤 정보들을 공유하는지 알고 싶지 않나요? <br/>
+플러드는 기업에서 어떤 정보들을 공유하는지 시각화된 자료로 여러분께 보여드립니다.
+
+<img src="https://user-images.githubusercontent.com/37169252/71724662-668fb700-2e74-11ea-8db1-a4276f9997cb.png" width= "800">
+
+<br/>
 
 
 ## :building_construction: 프로그램 구조
@@ -67,9 +73,12 @@ __SOPT 25기 겨울 앱잼 : 안드로이드__
 
 #### :one: OnSingleClickListener
 
-* util package > RetrotiExt.kt <br/>
+* util package > OnSingleClickListener.kt <br/>
 
-> ddddddddddddddddddddddddd
+> `
+Debounce 
+`는 이벤트를 그룹화하여 특정시간이 지난 후 하나의 이벤트만 발생하도록 하는 기술이다. 즉, 순차적 호출을 하나의 그룹으로 "그룹화"할 수 있다.<br/>
+여러번 클릭되면 이벤트가 여러번 호출되는 것을 방지하기 위해 중복 클릭 방지 시간(0.6초)을 설정한 후, 중복클릭인 경우 아무 이벤트를 발생하지 않게 하고, 중복 클릭이 아니라면 이벤트를 발생시키도록 했다.
 
 
 #### :two: Kotlin Extension function
@@ -119,20 +128,29 @@ void Activity.onUserLeaveHint ()
 > Adapter에 itemClick이라는 interface를 만들어주고, 이 interface를 Dialog에서 호출해서 초기화해준다. <br/>
 통신에서 받는 list와 별개로 check라는 arrayList를 따로 판다. itemClick을 통해 선택한 selectIdx을 받은 후, 그 idx가 아닌 경우에 회색으로 만들어주고, 선택 된 itemView만 검은 색으로 바꾸어 준다.
 
+#### :point_right: Swipe and Refresh에 관한 문제점
+
+* 현 상황
+> 뷰를 위에서 아래로 스와이프(pull down)했을 때, 디자이너가 만든 gif로 로딩이미지를 처리해야 한다.
+
+* 문제점
+> 특정 이미지로 리프레시 로딩 이미지를 커스텀하기 어렵다
+
+
 <br/><br/>
 ## :family_man_woman_girl_boy: 팀원 소개
 
-:surfing_woman: **선지희**<br>
+:surfing_woman: **[선지희](https://github.com/JiheeSeon)**<br>
 
 > 이번 앱잼을 통해 안드로이드의 전반적인 함수 사용 및 뷰 구현 등을 익혔다면, <br/>앞으로는 좀 더 시간적인 여유를 가지고 공부하여 컴팩트하고 깨끗한, 코틀린스러운 코드를 작성하고 싶습니다. <br/>그리고 플러드 안드 너무 고생 많았구 사...랑...ㅎ...♥ <br/>+ 다시는 없을 좋은 멤버들과 함께 해서 영광이었고, 하드캐리해준 현주랑 청하 다시 한번 너무 고마워! 밥사야지 룰루
 
-:surfing_woman: **성청하**<br>
+:surfing_woman: **[성청하](https://github.com/cheongha)**<br>
 
 > SOPT 안드로이드 파트 25기 OB 파트원입니다.<br>
 두 번째 앱잼을 플러드와 함께 할 수 있어서 너무 좋아씁니다우~!<br>
 플러드 기획, 디자인, 안드, iOS, 서버 팀원들 다 잘 맞고 열심히 해서 좋아요 ><
 
-:surfing_woman: **이현주**<br>
+:surfing_woman: **[이현주](https://github.com/bokdoll)**<br>
 
 > SOPT25기 안드로이드 OB파트원이자 안드로이드 리드 개발자로 개발에 참여하게 되었습니다. <br/>
 > 플러드라는 좋은 기획으로 좋은 팀원들 만나 좋은 결과물 낼 수 있어서 행복했습니다 :) <br/>
