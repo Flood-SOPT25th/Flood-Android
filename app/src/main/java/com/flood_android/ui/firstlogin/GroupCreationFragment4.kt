@@ -1,7 +1,7 @@
 package com.flood_android.ui.firstlogin
 
 
-import android.Manifest
+import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -13,17 +13,16 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.loader.content.CursorLoader
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
-
 import com.flood_android.R
 import kotlinx.android.synthetic.main.fragment_first_login_withgroupcode2.*
 import okhttp3.MediaType
@@ -33,13 +32,19 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.InputStream
 
-class FirstLoginFragmentWithoutGroupcode4 : Fragment() {
+class GroupCreationFragment4 : Fragment() {
     private var nameFlag = false
     private var rankFlag = false
+
     private var profileImage: MultipartBody.Part? = null
 
-    private val MY_READ_STORAGE_REQUEST_CODE by lazy { 1004 }
-    private val REQ_CODE_SELECT_IMAGE by lazy { 100 }
+    private val MY_READ_STORAGE_REQUEST_CODE by lazy {
+        1004
+    }
+    private val REQ_CODE_SELECT_IMAGE by lazy {
+        100
+    }
+
     lateinit var imageURI : String
 
     override fun onCreateView(
@@ -49,6 +54,7 @@ class FirstLoginFragmentWithoutGroupcode4 : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_first_login_withgroupcode2, container, false)
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -71,7 +77,7 @@ class FirstLoginFragmentWithoutGroupcode4 : Fragment() {
                 nameFlag = true
                 if (rankFlag) {
                     toSignal(true)
-                    toGroupCRAct()
+                    toSignin2()
                 }
                 else
                     toSignal(false)
@@ -94,7 +100,7 @@ class FirstLoginFragmentWithoutGroupcode4 : Fragment() {
                 rankFlag = true
                 if (nameFlag) {
                     toSignal(true)
-                    toGroupCRAct()
+                    toSignin2()
                 }
                 else
                     toSignal(false)
@@ -109,29 +115,31 @@ class FirstLoginFragmentWithoutGroupcode4 : Fragment() {
         (activity as GroupCreationActivity).activateNextBtn(flag)
     }
 
-    fun toGroupCRAct() {
+    fun toSignin2() {
         (activity as GroupCreationActivity).image = profileImage
         (activity as GroupCreationActivity).profile_name = RequestBody.create(
-            MediaType.parse("text/plain"), edtxt_first_login_withgroupcode2_profile_name.text.toString())
+            MediaType.parse("text/plain"),edtxt_first_login_withgroupcode2_profile_name.text.toString())
         (activity as GroupCreationActivity).profile_rank = RequestBody.create(
-            MediaType.parse("text/plain"), edtxt_first_login_withgroupcode2_profile_rank.text.toString())
+            MediaType.parse("text/plain"),edtxt_first_login_withgroupcode2_profile_rank.text.toString())
+        //(activity as FirstLoginActivity).profile_name =  edtxt_first_login_withgroupcode2_profile_name.text.toString()
+        //(activity as FirstLoginActivity).profile_rank = edtxt_first_login_withgroupcode2_profile_rank.text.toString()
     }
 
     private fun requestReadExternalStoragePermission() {
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
-                Manifest.permission.READ_EXTERNAL_STORAGE
+                READ_EXTERNAL_STORAGE
             ) != PackageManager.PERMISSION_GRANTED
         ) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(
                     requireActivity(),
-                    Manifest.permission.READ_EXTERNAL_STORAGE
+                    READ_EXTERNAL_STORAGE
                 )
             ) {
             } else {
                 ActivityCompat.requestPermissions(
                     requireActivity(),
-                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                    arrayOf(READ_EXTERNAL_STORAGE),
                     MY_READ_STORAGE_REQUEST_CODE
                 )
             }
@@ -183,8 +191,8 @@ class FirstLoginFragmentWithoutGroupcode4 : Fragment() {
 
                     Glide.with(this)
                         .load(selectedImageUri)
-                        .transform(CenterCrop(), CircleCrop())
                         .thumbnail(0.1f)
+                        .transform(CenterCrop(), CircleCrop())
                         .into(iv_first_login_withgroupcode2_editpart)
                 }
             }
@@ -201,4 +209,5 @@ class FirstLoginFragmentWithoutGroupcode4 : Fragment() {
         cursor.close()
         return result
     }
+
 }

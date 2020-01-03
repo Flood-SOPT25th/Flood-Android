@@ -17,15 +17,9 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".ui.firstlogin.GroupCreationActivity">
         </activity>
-        <activity android:name=".ui.firstlogin.FirstLoginFragmentWithoutGroupcode1" />
-        <activity android:name=".ui.firstlogin.FirstLoginActivity" ></activity>
-        <activity android:name=".ui.company.CompanyDetailActivity"></activity>
-        <activity android:name=".ui.feed.PhotoZoomActivity" />
-        <activity android:name=".ui.postnourl.PostNoUrlActivity" />
-        <activity android:name=".ui.bookmarkedit.BookmarkEditActivity" />
-        <activity android:name=".ui.feed.WebViewActivity" />
-        <activity android:name=".ui.feed.FeedDetailActivity" />
-        <activity android:name=".ui.login.LoginActivity">
+        <activity android:name=".ui.firstlogin.GroupCreationFragment1" />
+        <activity android:name=".ui.firstlogin.SigninOrgActivity" >
+        </activity>
         <activity
             android:screenOrientation="portrait"
             android:name=".ui.myprofile.CenterActivity"/>
@@ -55,21 +49,7 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.login.LoginActivity"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.SEND" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-
-                <data android:mimeType="text/plain" />
-            </intent-filter>
         </activity>
-        <activity android:name=".ui.main.MainActivity" />
-       <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.MAIN" /> -->
-        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-        <!-- </intent-filter> -->
-        <activity android:name=".ui.post.PostActivity"/>
-        <activity android:name=".ui.splash.SplashActivity">
         <activity android:name=".ui.myflip.MyFlipDetailActivity"></activity>
         <activity android:name=".ui.main.MainActivity"
             android:screenOrientation="portrait"/>

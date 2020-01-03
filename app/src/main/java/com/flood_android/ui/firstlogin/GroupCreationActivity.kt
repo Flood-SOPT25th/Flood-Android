@@ -5,7 +5,6 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import com.flood_android.R
@@ -18,7 +17,6 @@ import com.flood_android.ui.main.MainActivity
 import com.flood_android.ui.signup.SignupAlertDialog
 import com.flood_android.ui.signup.adapter.SignupPageAdapter
 import com.flood_android.util.GlobalData
-import com.flood_android.util.SharedPreferenceController
 import com.flood_android.util.safeEnqueue
 import kotlinx.android.synthetic.main.activity_group_creation.*
 import okhttp3.MultipartBody
@@ -46,10 +44,6 @@ class GroupCreationActivity : AppCompatActivity() {
         LoginAlertDialog()
     }
 
-    //private var fr1 = FirstLoginFragmentWithoutGroupcode1()
-    //private var fr2 = FirstLoginFragmentWithoutGroupcode2()
-    //private var fr3 = FirstLoginFragmentWithoutGroupcode3()
-    //private var fr4 = FirstLoginFragmentWithoutGroupcode4()
 
     private val groupcodeMismatchDialog: GroupcodeMismatchDialog by lazy {
         GroupcodeMismatchDialog(this, groupcodeMismatchListener)
@@ -70,10 +64,10 @@ class GroupCreationActivity : AppCompatActivity() {
 
         firstGroupCreationPageAdapter = SignupPageAdapter(supportFragmentManager)
 
-        //firstGroupCreationPageAdapter.addFragment(FirstLoginFragmentWithoutGroupcode1())
-        //firstGroupCreationPageAdapter.addFragment(FirstLoginFragmentWithoutGroupcode2())
-        //firstGroupCreationPageAdapter.addFragment(FirstLoginFragmentWithoutGroupcode3())
-        firstGroupCreationPageAdapter.addFragment(FirstLoginFragmentWithoutGroupcode4())
+        //firstGroupCreationPageAdapter.addFragment(GroupCreationFragment1())
+        //firstGroupCreationPageAdapter.addFragment(GroupCreationFragment2())
+        //firstGroupCreationPageAdapter.addFragment(GroupCreationFragment3())
+        firstGroupCreationPageAdapter.addFragment(GroupCreationFragment4())
 
         vpager_group_creation.adapter = firstGroupCreationPageAdapter
 
@@ -95,7 +89,7 @@ class GroupCreationActivity : AppCompatActivity() {
                     }
                     3->{
                         Log.v("Jihee2",serverFlag.toString())
-                        //serverFlag = true
+                        serverFlag = true
                     }
                     4 -> {
                         serverFlag = false
@@ -107,9 +101,8 @@ class GroupCreationActivity : AppCompatActivity() {
                         //intent.putExtra("groupcode", bundleOf(("jihee";groupcode))
                     }
                 }
-
-              //  if(serverFlag)
-                    vpager_group_creation.currentItem = (position)++
+              if(serverFlag)
+                    vpager_group_creation.currentItem = (position++)
             } else {
                 okDialog.show()
             }
@@ -152,7 +145,6 @@ class GroupCreationActivity : AppCompatActivity() {
     }
 
 
-
     // 조직 생성코드 받기 위해 앞 2페이지에서 수집한 데이터 서버에게 보냄
 
     var fail1: (Throwable) -> Unit = {
@@ -167,16 +159,19 @@ class GroupCreationActivity : AppCompatActivity() {
         if (it.message == "조직 생성 완료"){
             Log.v("Jihee","finish!")
             groupcode = it.code
+            GlobalData.gCode = it.code
             Log.v(groupcode,"groupcode")
             serverFlag = true
-            findViewById<TextView>(R.id.edtxt_first_login_withoutgroupcode3_copycode).text=groupcode
+            //findViewById<TextView>(R.id.edtxt_first_login_withoutgroupcode3_copycode).text=groupcode
             Log.v("Jihee1","bundle")
-            //var bundle = Bundle()
-            //bundle.putString("GCODE",groupcode)
-            //Log.v("GCODE",groupcode)
+            var bundle = Bundle()
+            bundle.putString("GCODE",groupcode)
+            Log.v("GCODE",groupcode)
+            supportFragmentManager.findFragmentById(R.id.cl_firstlogin_3rd)?.arguments = bundle
+            Log.v("bundle",bundle.toString())
             //fr3.arguments=bundle
             //Log.v("Jihee1",fr3.arguments.toString())
-            vpager_group_creation.currentItem = (position++)
+            //vpager_group_creation.currentItem = (position++)
         }
         if (it.message == "모든 정보를 입력해주세요."){
             Log.v("jihee","no info")
@@ -189,9 +184,9 @@ class GroupCreationActivity : AppCompatActivity() {
             exceptionHandlingAlertDialog.show(supportFragmentManager, "existed org Alert Dialog")
             GlobalData.loginDialogMessage = "이미 존재하는 조직입니다. 그룹코드를 조회해주세요."
             serverFlag = false
-            val intent = Intent(this@GroupCreationActivity, FirstLoginActivity::class.java)
-            startActivity(intent)
-            finish()
+            //val intent = Intent(this@GroupCreationActivity, SigninOrgActivity::class.java)
+            //startActivity(intent)
+            //finish()
         }
     }
 

@@ -16,7 +16,7 @@ import com.flood_android.R
 import kotlinx.android.synthetic.main.fragment_first_login_without_groupcode1.*
 import kotlinx.android.synthetic.main.fragment_first_login_without_groupcode2.*
 
-class FirstLoginFragmentWithoutGroupcode2 : Fragment() {
+class GroupCreationFragment2 : Fragment() {
 
     private var btnFlag = false
     private var bigFlag = 0
