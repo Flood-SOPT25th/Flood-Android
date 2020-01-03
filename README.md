@@ -99,6 +99,63 @@ Debounce
 |<center> 마이페이지 </center> |<center> 2순위 </center> |<center> 지희 </center>|
 
 <br/><br/>
+## lambda와 extension function의 사용례
+1. RetrotiExt
+
+fun <T> Call<T>.safeEnqueue(
+    onFailure: (Throwable) -> Unit = {},
+    onSuccess: (T) -> Unit = {}
+) {
+    this.enqueue(object : Callback<T> {
+        override fun onFailure(call: Call<T>, t: Throwable) {
+            onFailure(t)
+        }
+
+        override fun onResponse(call: Call<T>, response: Response<T>) {
+            Log.v("Postygyg", response.message().toString())
+            Log.v("Postygyg", response.toString())
+
+            if (response.isSuccessful) {
+                response.body()?.let {
+                    onSuccess(it)
+                } ?: Log.e("retrofitExt", "error")
+            } else{
+                Log.v("Postygyg", "fail")
+            }
+        }
+    })
+}
+
+    /**
+     * 게시물 올리기 POST 통신
+     */
+    var fail: (Throwable) -> Unit = {
+        Log.v("PostActivity", it.toString())
+    }
+    var temp: (PostPostResponse) -> Unit = {
+        Log.v("PostActivity", it.message)
+        startActivity(Intent(this, MainActivity::class.java))
+    }
+    private fun postPost(
+        token: String,
+        images: ArrayList<MultipartBody.Part>?,
+        url: RequestBody,
+        category: RequestBody,
+        content: RequestBody
+    ) {
+
+        val postPostResponse = ApplicationController.networkServiceFeed
+            .postPostResponse(token, images, url, category, content)
+        postPostResponse.safeEnqueue(fail, temp)
+    }
+
+- 위의 RetrotiExt의 길었던 함수를 확장함수도 만들어서 통신 할 때마다 사용했다.
+onFail과 OnSuccess로 나누었고, 함수를 변수로 만들어 넘겨주어 통신의 Response에 대한
+함수가 작동하도록 하였다.
+
+2. 
+
+
 ## :question: 문제점
 
 #### :point_right: 홈 키 관련 문제점
