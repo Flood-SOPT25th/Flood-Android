@@ -151,16 +151,14 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/txt_profile_info" />
 
-            <TextView
+            <EditText
                 android:id="@+id/tv_myprofile_edit_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="34dp"
-                android:background="@android:color/transparent"
                 android:fontFamily="@font/notosanscjkkrmedium"
-                android:hint="이름을 입력하세요"
                 android:includeFontPadding="false"
-                android:text="김정재"
+                tools:text="김정재"
                 android:textAlignment="viewEnd"
                 android:textColor="@color/colorBlack28"
                 android:textColorHint="#ededed"
@@ -178,13 +176,13 @@
                 android:layout_marginTop="14dp"
                 android:fontFamily="@font/notosanscjkkrregular"
                 android:includeFontPadding="false"
-                android:text="직책"
+                tools:text="직책"
                 android:textColor="@color/colorGray70"
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/txt_name" />
 
-            <TextView
+            <EditText
                 android:id="@+id/tv_myprofile_edit_position"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -222,7 +220,7 @@
                 android:layout_marginRight="34dp"
                 android:fontFamily="@font/notosanscjkkrmedium"
                 android:includeFontPadding="false"
-                android:text="Digital 정책지원 부서"
+                tools:text="Digital 정책지원 부서"
                 android:textColor="@color/colorGraya3"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="@id/txt_group_name"
@@ -252,7 +250,7 @@
                 android:layout_marginRight="34dp"
                 android:fontFamily="@font/notosanscjkkrbold"
                 android:includeFontPadding="false"
-                android:text="rchmas@gmail.com"
+                tools:text="rchmas@gmail.com"
                 android:textColor="@color/colorGraya3"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="@id/txt_email"
@@ -274,7 +272,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/txt_email" />
 
-            <TextView
+            <EditText
                 android:id="@+id/tv_myprofile_edit_tel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -282,7 +280,7 @@
                 android:layout_marginRight="34dp"
                 android:fontFamily="@font/notosanscjkkrbold"
                 android:includeFontPadding="false"
-                android:text="+82 10 5737 6333"
+                tools:text="+82 10 5737 6333"
                 android:textColor="@color/colorBlack28"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="@id/txt_tel"

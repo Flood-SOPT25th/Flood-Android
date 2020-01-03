@@ -17,17 +17,17 @@
             android:orientation="horizontal"
             android:layout_marginBottom="38dp"
             android:gravity="center_vertical"
-            app:layout_constraintBottom_toTopOf="@+id/tv_login_alert_dialog_ok"
+            app:layout_constraintBottom_toTopOf="@+id/tv_myprofile_edit_alert_dialog_ok"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/tv_login_alert_dialog_message"
+                android:id="@+id/tv_myprofile_edit_alert_dialog_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:lineHeight="27sp"
-                android:text="message"
+                android:text="모든 칸을 채워 주세요"
                 android:fontFamily="@font/notosanscjkkrmedium"
                 android:includeFontPadding="false"
                 android:textColor="@color/colorBlack28"
@@ -42,7 +42,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/tv_login_alert_dialog_ok"
+            android:id="@+id/tv_myprofile_edit_alert_dialog_ok"
             android:layout_width="277dp"
             android:layout_height="47dp"
             android:layout_marginHorizontal="18dp"

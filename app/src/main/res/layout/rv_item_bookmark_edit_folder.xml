@@ -46,7 +46,7 @@
         android:layout_height="146dp"
         app:layout_constraintStart_toStartOf="@id/iv_rv_item_bookmark_edit_folder_image"
         app:layout_constraintTop_toTopOf="@id/iv_rv_item_bookmark_edit_folder_image"
-        app:srcCompat="@color/colorBlackOpacity" />
+        android:src="@drawable/rect_gray_10dp"/>
 
     <ImageView
         android:id="@+id/iv_rv_item_bookmark_edit_folder_add"

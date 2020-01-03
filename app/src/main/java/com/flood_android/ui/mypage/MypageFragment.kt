@@ -75,6 +75,12 @@ class MypageFragment : Fragment() {
         })
     }
 
+    override fun onResume() {
+        super.onResume()
+        getUserFlipResponse()
+        getUserInfoResponse()
+    }
+
     private fun initView(){
         getUserFlipResponse()
         getUserInfoResponse()

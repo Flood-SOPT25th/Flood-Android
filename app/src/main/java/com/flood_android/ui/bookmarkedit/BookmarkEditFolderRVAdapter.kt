@@ -36,7 +36,7 @@ class BookmarkEditFolderRVAdapter(
 
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        var options: RequestOptions = RequestOptions().transform(CenterCrop(), RoundedCorners(10))
+        var options: RequestOptions = RequestOptions().transform(CenterCrop(), RoundedCorners(30))
         Log.e("123", dataList[position].toString())
         Log.e("123", dataList.toString())
 
@@ -54,9 +54,6 @@ class BookmarkEditFolderRVAdapter(
             }
             // 다른 리싸이클러뷰
         } else {
-            var folderNameList = arrayListOf("")
-
-
             dataList[position].let { item ->
                 Glide.with(ctx)
                     .load(item.thumb)
@@ -91,8 +88,6 @@ class BookmarkEditFolderRVAdapter(
                     }
                 }
             }
-
-
         }
     }
 

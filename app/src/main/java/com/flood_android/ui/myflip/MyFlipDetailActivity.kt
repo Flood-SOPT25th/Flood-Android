@@ -1,14 +1,13 @@
 package com.flood_android.ui.myflip
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.flood_android.R
 import com.flood_android.network.ApplicationController
 import com.flood_android.network.NetworkServiceUser
-import com.flood_android.ui.companydetail.GetCompanyDetailFeedResponse
 import com.flood_android.ui.feed.data.FeedData
 import com.flood_android.util.OnSingleClickListener
 import com.flood_android.util.SharedPreferenceController
@@ -21,16 +20,18 @@ class MyFlipDetailActivity : AppCompatActivity() {
         ApplicationController.networkServiceUser
     }
 
+    var flipIdx = ""
+
     lateinit var myFlipFeedRVAdapter: MyFlipFeedRVAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_flip_detail)
 
-        val flipIdx = intent.getStringExtra("categoryIdx")
+        flipIdx = intent.getStringExtra("categoryIdx")
         getMyflipDetail(flipIdx)
 
-        iv_myflip_detail_back.setOnClickListener(object : OnSingleClickListener(){
+        iv_myflip_detail_back.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(v: View) {
                 finish()
             }
@@ -44,7 +45,8 @@ class MyFlipDetailActivity : AppCompatActivity() {
 
     private fun getMyflipDetail(filp: String) {
         networkService.getMyFlipDetailResponse(
-            SharedPreferenceController.getAuthorization(this@MyFlipDetailActivity)!!, filp).safeEnqueue({}, onGetFlipFeedSuccess)
+            SharedPreferenceController.getAuthorization(this@MyFlipDetailActivity)!!, filp
+        ).safeEnqueue({}, onGetFlipFeedSuccess)
 
     }
 
@@ -55,6 +57,4 @@ class MyFlipDetailActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.VERTICAL, false)
         }
     }
-
-
 }

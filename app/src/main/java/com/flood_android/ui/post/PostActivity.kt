@@ -347,7 +347,6 @@ class PostActivity : AppCompatActivity() {
         category: RequestBody,
         content: RequestBody
     ) {
-
         val postPostResponse = ApplicationController.networkServiceFeed
             .postPostResponse(token, images, url, category, content)
         postPostResponse.safeEnqueue(fail, temp)
