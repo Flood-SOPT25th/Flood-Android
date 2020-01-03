@@ -1,12 +1,15 @@
 package com.flood_android.ui.feed
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.flood_android.R
 import com.flood_android.network.ApplicationController
 import com.flood_android.network.NetworkServiceFeed
@@ -23,6 +26,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class FeedFloodFragment : Fragment() {
+
     val networkService: NetworkServiceFeed by lazy {
         ApplicationController.networkServiceFeed
     }
@@ -46,9 +50,12 @@ class FeedFloodFragment : Fragment() {
 
     private fun initView(){
         token= SharedPreferenceController.getAuthorization(context!!)!!
+        Log.v("현주", token)
         setWeek()
         getTop3Response()
-        getTodayResponse()
+        getTodayResponse(0, 5)
+        //pagination()
+        setOnScrollChange()
     }
 
     private fun setWeek(){
@@ -106,6 +113,10 @@ class FeedFloodFragment : Fragment() {
         networkService.getFeedTop3Response(token).safeEnqueue(onTop3Failure, onTop3Success)
     }
 
+    /**
+     * Top3  리사이클러뷰 설정
+     */
+
     private fun setTop3RecyclerView(top3DataList : ArrayList<FeedTop3Data>) {
         feedTop3RVAdapter = FeedTop3RVAdapter(context!!, top3DataList)
         rv_feed_flood_top3.apply {
@@ -119,14 +130,16 @@ class FeedFloodFragment : Fragment() {
     /**
      *  모든 게시물 조회  서버 통신
      */
-    private fun getTodayResponse(){
-        networkService.getAllFeedResponse(token).safeEnqueue({},
+    private fun getTodayResponse(page : Int, limit: Int){
+        networkService.getAllFeedResponse(token, page, limit).safeEnqueue({},
             onSuccess = {
                 setTodayRecyclerView(it.data.pidArr)
             })
     }
 
-    // Today 리사이클러뷰
+    /**
+     * Today 리사이클러뷰 설정
+     */
     private fun setTodayRecyclerView(dataList : ArrayList<FeedData>){
         feedRVAdapter =  FeedRVAdapter(context!!, dataList)
         rv_feed_flood_today.apply {
@@ -136,8 +149,46 @@ class FeedFloodFragment : Fragment() {
     }
 
     /**
-     *  페이징 처리하기!!!!!!!!!!!!!!!!!!!
+     *  Today 리사이클러뷰 페이징 처리하기
      */
+    private fun pagination(){
+        rv_feed_flood_today.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+            }
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val lastVisibleItemPosition = ((rv_feed_flood_today.layoutManager) as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+                val itemTotalCount = rv_feed_flood_today.adapter!!.itemCount
+
+                Log.v("현주 총", itemTotalCount.toString())
+                Log.v("현주 지금", lastVisibleItemPosition.toString())
+                if (lastVisibleItemPosition == itemTotalCount - 1){
+
+                }
+            }
+        })
+    }
+
+    private fun setOnScrollChange(){
+            nsv_feed_flood.setOnScrollChangeListener(object : View.OnScrollChangeListener{
+                override fun onScrollChange(p0: View?, p1: Int, p2: Int, p3: Int, p4: Int) {
+                    if (!nsv_feed_flood.canScrollVertically(1)){
+                        val itemTotalCount : Int = rv_feed_flood_today.adapter!!.itemCount
+                        Log.v("현주 총", itemTotalCount.toString())
+                        networkService.getAllFeedResponse(token, 0, itemTotalCount+5).safeEnqueue({},
+                            onSuccess = {
+                                Log.v("현주", "페이징 통신 성공")
+                                feedRVAdapter.dataList = it.data.pidArr
+                                feedRVAdapter.notifyDataSetChanged()
+                                nsv_feed_flood.fullScroll(NestedScrollView.FOCUS_DOWN)
+                            })
+                    }
+                }
+            })
+    }
 
 
 }

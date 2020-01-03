@@ -25,9 +25,12 @@ class MypageMypostActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mypage_mypost)
-        initview()
+        initView()
     }
-    private fun initview(){
+
+    private fun initView(){
+        tv_mypage_mypost_cnt.text = intent.getStringExtra("cnt")
+
         btn_mypage_mypost_back.setOnClickListener(object : OnSingleClickListener(){
             override fun onSingleClick(v: View) {
                 finish()
@@ -54,7 +57,6 @@ class MypageMypostActivity : AppCompatActivity() {
         networkService.getMyPostResponse(SharedPreferenceController.getAuthorization(this@MypageMypostActivity)!!).safeEnqueue(
             onSuccess = {
                 setMypostRecyclerView(it.data.pidArr)
-                tv_mypage_mypost_cnt.text = it.data.pidArr.size.toString()
             }
         )
     }
