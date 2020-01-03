@@ -35,6 +35,7 @@ import kotlinx.android.synthetic.main.activity_feed_detail.*
 
 class FeedDetailActivity : AppCompatActivity() {
 
+    var feed_idx : String = ""
     var commentListSize : Int = -1
 
     lateinit var commentDataList : ArrayList<CommentsData>
@@ -58,13 +59,14 @@ class FeedDetailActivity : AppCompatActivity() {
 
     private fun initView() {
         val feedIdx: String = intent.getStringExtra("feed_id")
+        feed_idx = feedIdx
         getFeedDetailResponse(feedIdx)
         setOnClickListener(feedIdx)
         activateComment()
     }
 
     /**
-     * 게시물 조회 서버 통신
+     * 게시물 조회 서버 통신 성공 함수
      */
     private val onGetSuccess: (GetFeedDetailResponse) -> Unit = { response ->
 
@@ -192,6 +194,9 @@ class FeedDetailActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * 게시물 상세 서버 통신
+     */
     private fun getFeedDetailResponse(feed_idx: String) {
         var token = SharedPreferenceController.getAuthorization(this@FeedDetailActivity)!!
         networkServiceFeed.getFeedDetailResponse(token, feed_idx).safeEnqueue({}, onGetSuccess)
@@ -205,6 +210,7 @@ class FeedDetailActivity : AppCompatActivity() {
                 if (btn_feed_detail_upload_comment.isSelected){
                     postComment(feed_idx, edt_feed_detail_comment_upload.text.toString())
                     edt_feed_detail_comment_upload.setText("")
+                    feedDetailCommentRVAdapter.notifyDataSetChanged()
                 }
                 else
                     Toast.makeText(
@@ -299,6 +305,7 @@ class FeedDetailActivity : AppCompatActivity() {
             layoutManager =
                 LinearLayoutManager(this@FeedDetailActivity, LinearLayoutManager.VERTICAL, false)
         }
+        feedDetailCommentRVAdapter.notifyDataSetChanged()
     }
 
     /**
@@ -328,10 +335,7 @@ class FeedDetailActivity : AppCompatActivity() {
      */
     fun recomment(username: String) {
         var tagUser: String = ("@").plus(username).plus(" ")
-        edt_feed_detail_comment_upload.setTypeface(null, Typeface.BOLD)    //tagUser만 진하게 하려고
-        //edt_feed_detail_comment_upload.typeface = applicationContext.resources.getFont(R.font.notosanscjkkrbold)
         edt_feed_detail_comment_upload.setText(tagUser)
-        edt_feed_detail_comment_upload.setTypeface(null, Typeface.NORMAL)
         edt_feed_detail_comment_upload.setSelection(edt_feed_detail_comment_upload.length())
 
         // 키보드 올리기
@@ -368,6 +372,11 @@ class FeedDetailActivity : AppCompatActivity() {
         )
     }
 
+    override fun onResume() {
+        super.onResume()
+        getFeedDetailResponse(feed_idx)
+    }
+
     /**
      *  북마크 설정
      */
@@ -376,7 +385,6 @@ class FeedDetailActivity : AppCompatActivity() {
         if (ivFlips.isSelected)      //북마크 취소
             ivFlips.isSelected = false
         else {   // 북마크하기
-            //(applicationContext as MainActivity).makeFlipDialog(ivFlips)
             val feedFlipsSaveDialog = FeedFlipsSaveDialog(feed_idx, iv_feed_detail_flips)
             GlobalData.bottomSheetDialogFragment = feedFlipsSaveDialog
             feedFlipsSaveDialog.show(this@FeedDetailActivity.supportFragmentManager, "")

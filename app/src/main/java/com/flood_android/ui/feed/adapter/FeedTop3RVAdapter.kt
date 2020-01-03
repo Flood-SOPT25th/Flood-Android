@@ -90,7 +90,6 @@ class FeedTop3RVAdapter(val ctx: Context, var dataList: ArrayList<FeedTop3Data>)
                         ctx.postBookmarkCancelRequest(token, item._id)
                 }
                     else{   // 북마크하기
-                        //ctx.makeFlipDialog(holder.ivFlips)
                         val feedFlipsSaveDialog =   FeedFlipsSaveDialog(item._id, holder.ivFlips)
                         GlobalData.bottomSheetDialogFragment = feedFlipsSaveDialog
                         feedFlipsSaveDialog.show(ctx.supportFragmentManager, "")

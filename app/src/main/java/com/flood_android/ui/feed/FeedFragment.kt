@@ -23,6 +23,7 @@ import com.flood_android.ui.feed.data.GetFeedCategoryResponse
 import com.flood_android.ui.main.MainActivity
 import com.flood_android.ui.post.PostActivity
 import com.flood_android.util.OnSingleClickListener
+import com.flood_android.util.SharedPreferenceController
 import com.flood_android.util.safeEnqueue
 import kotlinx.android.synthetic.main.activity_feed_detail.*
 import kotlinx.android.synthetic.main.fragment_feed.*
@@ -37,9 +38,8 @@ class FeedFragment : Fragment() {
     val networkService: NetworkServiceFeed by lazy {
         ApplicationController.networkServiceFeed
     }
-
+    var token = ""
     var postTime: Long? = null
-    var token : String = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVoZGduczE3NjZAZ21haWwuY29tIiwibmFtZSI6IuydtOuPme2biCIsImlhdCI6MTU3NzQwNzg1NiwiZXhwIjoxNTc5OTk5ODU2LCJpc3MiOiJGbG9vZFNlcnZlciJ9.Zf_LNfQIEdFl84r-tPQpT1nLaxdotkFutOxwNQy-w58"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,6 +61,7 @@ class FeedFragment : Fragment() {
     }
 
     private fun initView() {
+        token = SharedPreferenceController.getAuthorization(context!!)!!
         adapter = FeedCategoryRVAdapter(context!!) { position ->
             showFragment(feedFragments[position])
         }

@@ -1,6 +1,7 @@
 package com.flood_android.ui.feed.adapter
 
 import android.content.Context
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,7 +45,16 @@ class FeedDetailRecommentRVAdapter(
 
             holder.userName.text = item.subcomment_user_name
             holder.time.text = item.time
-            holder.contents.text = item.subcomment_content
+
+            if(item.subcomment_content.indexOf("@")  == 0){
+                val tag :String = item.subcomment_content.split(" ")[0]
+                val content : String = item.subcomment_content.split(" ")[1]
+                val subcomment : String = "<b>" + tag + "</b> " + content
+                holder.contents.setText(Html.fromHtml(subcomment))
+            }
+            else{
+                holder.contents.text = item.subcomment_content
+            }
 
             // 답글에서 답글달기 클릭했을 때 처리하기
             holder.btnRecomment.setOnClickListener(object : OnSingleClickListener(){

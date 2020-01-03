@@ -24,6 +24,8 @@ import kotlinx.android.synthetic.main.fragment_mypage.*
 
 class MypageFragment : Fragment() {
 
+    var mypostCnt : String = " "
+
     val networkService: NetworkServiceUser by lazy {
         ApplicationController.networkServiceUser
     }
@@ -38,9 +40,6 @@ class MypageFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //get data from server here 통신이 들어올 때마다 notify 될 것
-        //서버에서 데이터 객체 받아와서 성공 시 extension 함수 이용해 호출하고 받은 데이터 객체를
-        //ApplicationController.instance.networkServiceUser.enqueue(mypageMyflipdata)
         initView()
 
         btn_mypage_myflips.setOnClickListener(object : OnSingleClickListener() {
@@ -52,20 +51,17 @@ class MypageFragment : Fragment() {
 
         btn_mypage_mypost_arrow.setOnClickListener(object : OnSingleClickListener(){
             override fun onSingleClick(v: View) {
-                var intent = Intent(context, MypageMypostActivity::class.java)
-                startActivity(intent)
+                startMypostActivity()
             }
         })
         imgbtn_mypage_mypost.setOnClickListener(object : OnSingleClickListener(){
             override fun onSingleClick(v: View) {
-                var intent = Intent(context, MypageMypostActivity::class.java)
-                startActivity(intent)
+                startMypostActivity()
             }
         })
         tv_mypage_mypost_cnt.setOnClickListener(object : OnSingleClickListener(){
             override fun onSingleClick(v: View) {
-                var intent = Intent(context, MypageMypostActivity::class.java)
-                startActivity(intent)
+                startMypostActivity()
             }
         })
     }
@@ -75,6 +71,11 @@ class MypageFragment : Fragment() {
         getUserInfoResponse()
     }
 
+    private fun startMypostActivity(){
+        val intent = Intent(context, MypageMypostActivity::class.java)
+        intent.putExtra("cnt", mypostCnt)
+        startActivity(intent)
+    }
 
     /**
      *  유저 북마크 서버 통신
@@ -111,14 +112,15 @@ class MypageFragment : Fragment() {
             onSuccess = {res->
                 res.data.userInfo.let{
                     tv_mypage_username.text = it.name
-                    val position = it.rank.plus("  ").plus(it.groupDepartment)
+                    val position = it.rank.plus(" ").plus(it.groupDepartment)
                     tv_mypage_userinfo.text = position
                     Glide.with(context!!)
                         .load(it.profileImage)
                         .transform(CenterCrop(), CircleCrop())
                         .into(iv_circular_mypage_profile)
 
-                    tv_mypage_mypost_num.text = it.count.toString()
+                    mypostCnt = it.count.toString()
+                    tv_mypage_mypost_num.text = mypostCnt
                 }
             }
         )
