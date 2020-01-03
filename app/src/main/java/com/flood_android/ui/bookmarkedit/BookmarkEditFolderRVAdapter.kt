@@ -12,9 +12,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
-import java.lang.IndexOutOfBoundsException
-import android.widget.Toast
-import android.view.View.OnFocusChangeListener
 import com.flood_android.R
 import com.flood_android.ui.feed.data.BookmarkData
 import com.flood_android.util.GlobalData
@@ -66,53 +63,28 @@ class BookmarkEditFolderRVAdapter(
                     .apply(options)
                     .into(holder.image)
                 holder.folderName.setText(item.categoryName)
-                //mStatusUpdateRunnable.run()
-                /*holder.folderName.addTextChangedListener(object: TextWatcher{
-                    override fun afterTextChanged(p0: Editable?) {
-
-                    }
-                    override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                        folderNameList.add(p0.toString())
-                        Log.e("청하", folderNameList.toString())
-                    }
-
-                    override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-                    }
-                })*/
 
                 holder.image.setOnClickListener{
                     GlobalData.editFolderName = holder.folderName.text.toString()
-                    GlobalData.updateFlipId = dataList[position].category_id.toString()
+                    GlobalData.updateFlipId = dataList[position].category_id
 
                     (ctx as BookmarkEditActivity).editDialog(position)
-
                 }
 
                 holder.delete.setOnClickListener {
                     try {
-                        Log.e("deleteFlip", dataList[position].category_id + "flip")
-
-
                         if (dataList[position].category_id == "") {
-                            // addList에서 삭제
-                            Log.e("deleteFlip123", dataList[position].toString())
-
                             GlobalData.addFlip.remove(holder.folderName.text.toString())
 
-                            Log.e("deleteFlip123456", GlobalData.addFlip.toString())
                         } else {
                             // deleteList에 추가
-                            GlobalData.deleteFlip.add(dataList[position].category_id.toString())
+                            GlobalData.deleteFlip.add(dataList[position].category_id)
                             Log.e("deleteFlipList", GlobalData.deleteFlip.toString())
-
                         }
-
 
                         dataList.removeAt(position)
                         notifyItemRemoved(position)
                         notifyItemRangeChanged(position, dataList.size)
-
 
                     } catch (e: IndexOutOfBoundsException) {
                         Log.e("Index error", e.toString())
@@ -122,10 +94,6 @@ class BookmarkEditFolderRVAdapter(
 
 
         }
-    }
-
-    fun changeFlipsName(changedName : String) {
-        dataList
     }
 
     fun setOnItemClickListener(l: View.OnClickListener) {

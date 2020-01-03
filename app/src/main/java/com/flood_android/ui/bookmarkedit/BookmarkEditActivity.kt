@@ -1,15 +1,10 @@
 package com.flood_android.ui.bookmarkedit
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.EditText
 import android.widget.ImageView
-import android.widget.Toast
-import androidx.core.view.get
-import androidx.core.view.size
 import androidx.recyclerview.widget.GridLayoutManager
 import com.flood_android.R
 import com.flood_android.network.ApplicationController
@@ -22,8 +17,6 @@ import com.flood_android.util.OnSingleClickListener
 import com.flood_android.util.SharedPreferenceController
 import com.flood_android.util.safeEnqueue
 import kotlinx.android.synthetic.main.activity_bookmark_edit.*
-import kotlinx.android.synthetic.main.dialog_bookmark_edit_name.*
-import okhttp3.RequestBody
 
 class BookmarkEditActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -47,9 +40,6 @@ class BookmarkEditActivity : AppCompatActivity(), View.OnClickListener {
     lateinit var updateList: ArrayList<BookmarkEditFolderData>
     lateinit var originList: ArrayList<BookmarkEditFolderData>
 
-    lateinit var postList: ArrayList<BookmarkEditFolderUpdateData>
-    // 이런 ㄹㅇ 서버한테 줄 배열. 일단 임시로 만들어 놓음.
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bookmark_edit)
@@ -64,40 +54,12 @@ class BookmarkEditActivity : AppCompatActivity(), View.OnClickListener {
         })
 
         tv_bookmark_edit_done.setOnClickListener {
-            // 플립 보내기
             GlobalData.categoryObejct =
                 CategoryObejct(GlobalData.addFlip, GlobalData.deleteFlip, GlobalData.updateFlips)
-
             postFlip(
                 SharedPreferenceController.getAuthorization(this@BookmarkEditActivity)!!,
                 GlobalData.categoryObejct
             )
-
-
-            //
-            Log.e("flipadd", GlobalData.addFlip.toString())
-
-            //origin과 update
-            for (i in 0 until rv_bookmark_edit_list.size) {
-                //내가 수정을 하면 아이디는 그대로이고 이름이 바뀜
-                val edit =
-                    rv_bookmark_edit_list[i].findViewById<EditText>(R.id.edt_rv_item_bookmark_edit_folder_name)
-
-                //updateList[i].folderName = edit.text.toString()
-                //바뀐 이름이 족족 들어감.
-                //동시에 아이디 - 이미지 - 이름 쌍이 완성
-                //이제 이거랑 origin 비교
-
-            }
-
-            //origin, update가 다름.
-
-            //origin, update사이즈 비교
-            //origin이 더 크다고 치
-
-            val realUpdated = updateList.filter { !originList.contains(it) }
-
-
         }
 
         getPostBookmarkResponse()
@@ -160,7 +122,6 @@ class BookmarkEditActivity : AppCompatActivity(), View.OnClickListener {
 
     fun addItem(folderName: String) {
         if (true) {
-            val position = bookmarkEditFolderRVAdapter.itemCount
             bookmarkEditFolderRVAdapter.dataList.add(1, BookmarkData("", folderName, "", 0))
             bookmarkEditFolderRVAdapter.notifyItemInserted(1)
         }
