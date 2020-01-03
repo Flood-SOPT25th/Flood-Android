@@ -57,7 +57,7 @@ class BookmarkEditActivity : AppCompatActivity(), View.OnClickListener {
         updateList = ArrayList()
         originList = ArrayList()
 
-        iv_bookmark_edit_back.setOnClickListener(object : OnSingleClickListener(){
+        iv_bookmark_edit_back.setOnClickListener(object : OnSingleClickListener() {
             override fun onSingleClick(v: View) {
                 finish()
             }
@@ -128,8 +128,7 @@ class BookmarkEditActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun getPostBookmarkResponse() {
         val getPostBookmarkResponse = ApplicationController.networkServiceUser
-            .getPostBookmarkResponse("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVoZGduczE3NjZAZ21haWwuY29tIiwibmFtZSI6IuydtOuPme2biCIsImlhdCI6MTU3NzQwNzg1NiwiZXhwIjoxNTc5OTk5ODU2LCJpc3MiOiJGbG9vZFNlcnZlciJ9.Zf_LNfQIEdFl84r-tPQpT1nLaxdotkFutOxwNQy-w58")
-        //.getPostBookmarkResponse(SharedPreferenceController.getAuthorization(this@BookmarkEditActivity).toString())
+            .getPostBookmarkResponse(SharedPreferenceController.getAuthorization(this@BookmarkEditActivity).toString())
         getPostBookmarkResponse.safeEnqueue {
             if (it.message == "북마크 조회 완료") {
                 var dataList: ArrayList<BookmarkData> = it.data.categorys

@@ -40,7 +40,11 @@ class MypageMyFlipRVAdapter(private val ctx: Context, var dataList: ArrayList<Bo
             holder.clCategory.setOnClickListener(object : OnSingleClickListener(){
                 override fun onSingleClick(v: View) {
                     val intent = Intent(ctx, MyFlipDetailActivity::class.java)
-//                    intent.putExtra("i", item)
+                    if (position == 0){
+                        intent.putExtra("categoryIdx", "all")
+                    }else{
+                        intent.putExtra("categoryIdx", item.category_id)
+                    }
                     ctx.startActivity(intent)
                 }
             })

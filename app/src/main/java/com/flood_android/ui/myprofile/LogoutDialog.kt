@@ -31,12 +31,10 @@ class LogoutDialog : DialogFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        /*tv_logout_dialog_ok.setOnClickListener {
+        tv_logout_dialog_ok.setOnClickListener {
             SharedPreferenceController.clearSPC(context!!)
             dismiss()
-            // 로그아웃
-            // 토큰 파괴 -> LoginActivity로
-        }*/
+        }
 
         tv_logout_dialog_no.setOnClickListener {
             dismiss()

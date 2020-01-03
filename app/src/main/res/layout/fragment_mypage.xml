@@ -243,12 +243,11 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_mypage_myflip"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="31dp"
                 android:background="@android:color/white"
                 android:orientation="vertical"
-                android:paddingLeft="22dp"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
