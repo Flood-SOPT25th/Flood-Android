@@ -1,13 +1,11 @@
 package com.flood_android.ui.feed
 
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -27,6 +25,7 @@ import com.flood_android.util.SharedPreferenceController
 import com.flood_android.util.safeEnqueue
 import kotlinx.android.synthetic.main.activity_feed_detail.*
 import kotlinx.android.synthetic.main.fragment_feed.*
+import kotlinx.android.synthetic.main.fragment_feed_flood.*
 import kotlinx.android.synthetic.main.toast_feed_save_flips_category.*
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -112,24 +111,28 @@ class FeedFragment : Fragment() {
     }
 
     /**
-     *  플립에 저장 완료 시 토스트 띄우기
+     * 북마크 추가 성공 토스트 띄우기
      */
-    fun makeToast(img_url: String, category: String) {
-        val toastDesign = layoutInflater.inflate(
+
+    fun makeToast(ctx : Context, category_name: String, category_img : String) {
+        val inflater: LayoutInflater = layoutInflater
+        val toastDesign = inflater.inflate(
             R.layout.toast_feed_save_flips_category,
-            (R.id.cl_feed_save_flips_category) as ViewGroup
+            view!!.findViewById(R.id.cl_feed_save_flips_category)
         )
 
-        Glide.with(context!!)
-            .load(img_url)
-            .transform(CenterCrop(), RoundedCorners(10))
+        tv_feed_save_flips_category.text = category_name
+        Glide.with(ctx)
+            .load(category_img)
+            .transform(CenterCrop(), RoundedCorners(40))
             .into(iv_feed_save_flips_category)
-        tv_feed_save_flips_category.text = category
 
-        val toast = Toast(context)
-        toast.setGravity(Gravity.CENTER, 0, 0)  //center를 기준으로 0 0 위치에 메시지 출력
+
+        val toast = Toast(ctx)
+        toast.setGravity(Gravity.BOTTOM, 0, 120)  //center를 기준으로 0 0 위치에 메시지 출력
         toast.duration = Toast.LENGTH_SHORT
         toast.view = toastDesign
+
         toast.show()
     }
 

@@ -19,10 +19,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.bitmap.TransformationUtils.centerCrop
 import com.flood_android.R
 import com.flood_android.ui.companydetail.CompanyDetailActivity
-import com.flood_android.ui.feed.FeedDetailActivity
-import com.flood_android.ui.feed.FeedFlipsSaveDialog
-import com.flood_android.ui.feed.FeedFragment
-import com.flood_android.ui.feed.WebViewActivity
+import com.flood_android.ui.feed.*
 import com.flood_android.ui.feed.data.FeedData
 import com.flood_android.ui.main.MainActivity
 import com.flood_android.util.OnSingleClickListener
@@ -133,7 +130,17 @@ class CompanyFeedRVAdapter(private val ctx: Context, var dataList: ArrayList<Fee
                 }
             }
 
-            if (item.news_url == null)
+            // 사진 누르면  photoZoomActivity 열기
+            holder.cvImage.setOnClickListener(object  : OnSingleClickListener(){
+                override fun onSingleClick(v: View) {
+                    val intent = Intent(ctx, PhotoZoomActivity::class.java)
+                    intent.putStringArrayListExtra("imageList", item.pic_list)
+                    ctx.startActivity(intent)
+                }
+            })
+
+            // url이 없으면 container를 띄우지 않고, 있으면 웹 뷰 띄우기
+            if (item.news_url == null || item.news_url == "")
                 setGone(holder.container_news)
             else{
                 holder.container_news.setOnClickListener(object : OnSingleClickListener() {
@@ -143,6 +150,7 @@ class CompanyFeedRVAdapter(private val ctx: Context, var dataList: ArrayList<Fee
                     }
                 })
             }
+
             holder.clFeed.setOnClickListener(object : OnSingleClickListener() {
                 override fun onSingleClick(v: View) {
                     val intent = Intent(ctx, FeedDetailActivity::class.java)
@@ -164,7 +172,7 @@ class CompanyFeedRVAdapter(private val ctx: Context, var dataList: ArrayList<Fee
                     .into(holder.news_img)
             }
 
-            if (item.news_contents == ""){
+            if (item.news_contents == "" || item.news_contents == null){
                 setGone(holder.news_contents)
             }else{
                 holder.news_contents.text = item.news_contents

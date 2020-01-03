@@ -19,10 +19,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.bitmap.TransformationUtils.centerCrop
 import com.flood_android.R
 import com.flood_android.ui.companydetail.CompanyDetailActivity
-import com.flood_android.ui.feed.FeedDetailActivity
-import com.flood_android.ui.feed.FeedFlipsSaveDialog
-import com.flood_android.ui.feed.FeedFragment
-import com.flood_android.ui.feed.WebViewActivity
+import com.flood_android.ui.feed.*
 import com.flood_android.ui.feed.data.FeedData
 import com.flood_android.ui.main.MainActivity
 import com.flood_android.util.OnSingleClickListener
@@ -51,7 +48,7 @@ class MyFlipFeedRVAdapter(private val ctx: Context, var dataList: ArrayList<Feed
 
             holder.userName.text = item.user_name
             holder.category.text = item.category
-            //holder.time.text = (ctx as CompanyDetailActivity).calculateTime(item.time)
+            holder.time.text = calculateTime(item.time)
 
             if (item.contents == "") {
                 setGone(holder.contents)
@@ -133,6 +130,16 @@ class MyFlipFeedRVAdapter(private val ctx: Context, var dataList: ArrayList<Feed
                 }
             }
 
+            // 사진 누르면  photoZoomActivity 열기
+            holder.cvImage.setOnClickListener(object  : OnSingleClickListener(){
+                override fun onSingleClick(v: View) {
+                    val intent = Intent(ctx, PhotoZoomActivity::class.java)
+                    intent.putStringArrayListExtra("imageList", item.pic_list)
+                    ctx.startActivity(intent)
+                }
+            })
+
+
             if (item.news_url == null)
                 setGone(holder.container_news)
             else{
@@ -203,7 +210,6 @@ class MyFlipFeedRVAdapter(private val ctx: Context, var dataList: ArrayList<Feed
         var contents =
             itemView.findViewById(R.id.tv_rv_item_feed_flood_today_user_contents) as TextView
 
-        ///////////////////사진이 있을 때 없을 때, 뉴스가 있을 때 없을 때 구분하기
         var cvImage = itemView.findViewById(R.id.cv_rv_item_feed_flood_today) as CardView
 
         var pic1 = itemView.findViewById(R.id.iv_rv_item_feed_flood_today_pic_1) as ImageView
@@ -254,5 +260,20 @@ class MyFlipFeedRVAdapter(private val ctx: Context, var dataList: ArrayList<Feed
 
     private fun setInvisible(view: View) {
         view.visibility = View.INVISIBLE
+    }
+
+    /**
+     *  날짜 계산
+     */
+    fun calculateTime(postTimeDate: String): String {
+
+        var dateList: List<String> = postTimeDate.split("T")
+        var date: String = dateList[0]
+        var timeList: List<String> = dateList[1].split(".")
+        var time: String = timeList[0]
+
+        var formattedServerTime: String = date.plus(" ").plus(time)
+
+        return formattedServerTime
     }
 }

@@ -15,7 +15,8 @@
         android:layout_marginTop="12dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-        tools:srcCompat="@tools:sample/avatars" />
+        android:src="@drawable/img_user"
+        />
 
     <TextView
         android:id="@+id/tv_rv_item_feed_flood_today_user_name"
@@ -154,7 +155,7 @@
                     android:id="@+id/iv_rv_item_feed_flood_today_pic_3_1"
                     android:layout_width="207dp"
                     android:layout_height="0dp"
-                    android:background="@android:color/holo_red_light"
+                    tools:background="@android:color/holo_red_light"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -164,7 +165,7 @@
                     android:layout_width="0dp"
                     android:layout_height="102dp"
                     android:layout_marginStart="2dp"
-                    android:background="@color/colorMainBlue"
+                    tools:background="@color/colorMainBlue"
                     app:layout_constraintEnd_toEndOf="@+id/iv_rv_item_feed_flood_today_pic_3_3"
                     app:layout_constraintStart_toEndOf="@+id/iv_rv_item_feed_flood_today_pic_3_1"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -345,7 +346,7 @@
         android:layout_width="wrap_content"
         android:layout_height="1dp"
         android:layout_marginTop="32dp"
-        android:background="@color/colorGrayD1"
+        android:background="@color/colorGrayD0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

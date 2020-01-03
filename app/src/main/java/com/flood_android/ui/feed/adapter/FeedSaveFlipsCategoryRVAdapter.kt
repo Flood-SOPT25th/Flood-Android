@@ -15,8 +15,10 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.flood_android.R
 import com.flood_android.network.ApplicationController
 import com.flood_android.network.NetworkServiceFeed
+import com.flood_android.ui.feed.FeedFragment
 import com.flood_android.ui.feed.data.BookmarkData
 import com.flood_android.ui.feed.data.PostBookmarkAddData
+import com.flood_android.ui.main.MainActivity
 import com.flood_android.util.GlobalData
 import com.flood_android.util.OnSingleClickListener
 import com.flood_android.util.SharedPreferenceController
@@ -64,6 +66,7 @@ class FeedSaveFlipsCategoryRVAdapter(
                             GlobalData.bottomSheetDialogFragment!!.dismiss()
                             GlobalData.bottomSheetDialogFragment = null
                             Log.v("FeedSaveFlipsCategoryRV", "북마크 추가 통신 성공")
+                            (ctx as FeedFragment).makeToast(ctx, item.categoryName, item.thumb)
                         })
                 }
             })

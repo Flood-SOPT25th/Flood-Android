@@ -193,7 +193,7 @@
             android:layout_marginStart="24dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/avatars" />
+            android:src="@drawable/img_user"/>
 
         <TextView
             android:id="@+id/tv_rv_item_feed_flood_top3_user_name"

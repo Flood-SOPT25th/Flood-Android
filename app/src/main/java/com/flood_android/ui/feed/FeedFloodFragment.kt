@@ -178,4 +178,9 @@ class FeedFloodFragment : Fragment() {
             }
         })
     }
+
+    override fun onResume() {
+        super.onResume()
+        getTodayResponse(0, 10)
+    }
 }
