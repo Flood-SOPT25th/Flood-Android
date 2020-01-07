@@ -102,19 +102,16 @@ Debounce
 ## lambda와 extension function의 사용례
 1. RetrotiExt
 
-fun <T> Call<T>.safeEnqueue(
-    onFailure: (Throwable) -> Unit = {},
-    onSuccess: (T) -> Unit = {}
-) {
-    this.enqueue(object : Callback<T> {
-        override fun onFailure(call: Call<T>, t: Throwable) {
-            onFailure(t)
-        }
+       fun <T> Call<T>.safeEnqueue(
+           onFailure: (Throwable) -> Unit = {},
+           onSuccess: (T) -> Unit = {}
+       ) {
+           this.enqueue(object : Callback<T> {
+               override fun onFailure(call: Call<T>, t: Throwable) {
+                   onFailure(t)
+               }
 
         override fun onResponse(call: Call<T>, response: Response<T>) {
-            Log.v("Postygyg", response.message().toString())
-            Log.v("Postygyg", response.toString())
-
             if (response.isSuccessful) {
                 response.body()?.let {
                     onSuccess(it)
@@ -124,7 +121,9 @@ fun <T> Call<T>.safeEnqueue(
             }
         }
     })
-}
+    }
+
+<br/>
 
     /**
      * 게시물 올리기 POST 통신
@@ -154,27 +153,29 @@ onFail과 OnSuccess로 나누었고, 함수를 변수로 만들어 넘겨주어 
 함수가 작동하도록 하였다.
 
 2. ContextExt.kt
-fun Fragment.toast(msg: String) {
-    Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
-}
 
-fun Context.toast(msg: String) {
-    Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
-}
+        fun Fragment.toast(msg: String) {
+            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+        }
 
-toast 확장함수 사용예
-if ("text/plain".equals(type)) {
-                websiteUrl = intent.getStringExtra(Intent.EXTRA_TEXT)
-                if (SharedPreferenceController.getAuthorization(this@LoginActivity).toString() == ""){
-                    toast("로그인을 해주세요")
-                }
-                else {
-                    val intent = Intent(this@LoginActivity, PostActivity::class.java)
-                    intent.putExtra("websiteUrl", websiteUrl)
-                    startActivity(intent)
-                    finish()
-                }
-            }
+        fun Context.toast(msg: String) {
+            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+        }
+
+* toast 확장함수 사용예
+
+       if ("text/plain".equals(type)) {
+                       websiteUrl = intent.getStringExtra(Intent.EXTRA_TEXT)
+                       if (SharedPreferenceController.getAuthorization(this@LoginActivity).toString() == ""){
+                           toast("로그인을 해주세요")
+                       }
+                       else {
+                           val intent = Intent(this@LoginActivity, PostActivity::class.java)
+                           intent.putExtra("websiteUrl", websiteUrl)
+                           startActivity(intent)
+                           finish()
+                       }
+                   }
 
 
 ## Constraint Layout 사용 예
